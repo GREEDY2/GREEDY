@@ -17,7 +17,7 @@ namespace GREEDY
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void nothing_button(object sender, EventArgs e)
         {
 
         }

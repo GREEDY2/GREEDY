@@ -39,7 +39,7 @@
             this.nothing_button.TabIndex = 0;
             this.nothing_button.Text = "does nothing";
             this.nothing_button.UseVisualStyleBackColor = true;
-            this.nothing_button.Click += new System.EventHandler(this.button1_Click);
+            this.nothing_button.Click += new System.EventHandler(this.nothing_button);
             // 
             // Form1
             // 
