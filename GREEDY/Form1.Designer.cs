@@ -35,11 +35,11 @@
             // 
             this.nothing_button.Location = new System.Drawing.Point(103, 157);
             this.nothing_button.Name = "nothing_button";
-            this.nothing_button.Size = new System.Drawing.Size(75, 23);
+            this.nothing_button.Size = new System.Drawing.Size(139, 54);
             this.nothing_button.TabIndex = 0;
             this.nothing_button.Text = "does nothing";
             this.nothing_button.UseVisualStyleBackColor = true;
-            this.nothing_button.Click += new System.EventHandler(this.nothing_button);
+            this.nothing_button.Click += new System.EventHandler(this.Nothing_button);
             // 
             // Form1
             // 
