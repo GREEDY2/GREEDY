@@ -28,12 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.nothing_button = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // nothing_button
+            // 
+            this.nothing_button.Location = new System.Drawing.Point(103, 157);
+            this.nothing_button.Name = "nothing_button";
+            this.nothing_button.Size = new System.Drawing.Size(75, 23);
+            this.nothing_button.TabIndex = 0;
+            this.nothing_button.Text = "does nothing";
+            this.nothing_button.UseVisualStyleBackColor = true;
+            this.nothing_button.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.Controls.Add(this.nothing_button);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button nothing_button;
     }
 }
 
