@@ -10,14 +10,19 @@ using System.Windows.Forms;
 
 namespace GREEDY
 {
-    public partial class Form1 : Form
+    public partial class Greedy : Form
     {
-        public Form1()
+        public Greedy()
         {
             InitializeComponent();
         }
 
         private void Nothing_button(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }

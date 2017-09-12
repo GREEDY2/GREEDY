@@ -1,6 +1,6 @@
 ﻿namespace GREEDY
 {
-    partial class Form1
+    partial class Greedy
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             // 
             // nothing_button
             // 
-            this.nothing_button.Location = new System.Drawing.Point(103, 157);
+            this.nothing_button.Location = new System.Drawing.Point(361, 309);
             this.nothing_button.Name = "nothing_button";
             this.nothing_button.Size = new System.Drawing.Size(139, 54);
             this.nothing_button.TabIndex = 0;
@@ -41,14 +41,15 @@
             this.nothing_button.UseVisualStyleBackColor = true;
             this.nothing_button.Click += new System.EventHandler(this.Nothing_button);
             // 
-            // Form1
+            // Greedy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(877, 483);
             this.Controls.Add(this.nothing_button);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Greedy";
+            this.Text = "GREEDY";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
