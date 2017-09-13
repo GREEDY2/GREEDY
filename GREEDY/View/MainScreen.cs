@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tesseract;
+using GREEDY.Extensions;
+
 
 namespace GREEDY
 {
@@ -31,7 +33,15 @@ namespace GREEDY
                 var receipt = new Models.Receipt();
                 var ocr = new OCRController(receipt, new Bitmap(imageForOCR.FileName));
                 ocr.UseOCR();
-                textResult.Text = receipt.rawText;
+                textResult.Text = string.Empty;
+                foreach (var line in receipt.LinesOfText)
+                {
+                    textResult.Text += line;
+                }
+                
+                //textResult.Text = receipt.LinesOfText;
+                //textResult.Text = receipt.RawText;
+                new WritingToFileController(receipt, "../../../Data/receipts/receipt.txt").WriteToFile();
             }
             GC.Collect();
         }

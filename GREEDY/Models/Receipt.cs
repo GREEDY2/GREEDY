@@ -8,6 +8,7 @@ namespace GREEDY.Models
 {
     public class Receipt
     {
-        public String rawText { get; set; }
+        //public string RawText { get; set; }
+        public List<string> LinesOfText { get; set; }
     }
 }
