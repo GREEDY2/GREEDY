@@ -34,9 +34,9 @@
             // nothing_button
             // 
             this.nothing_button.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.nothing_button.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.nothing_button.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nothing_button.Location = new System.Drawing.Point(217, 75);
-            this.nothing_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nothing_button.Margin = new System.Windows.Forms.Padding(2);
             this.nothing_button.Name = "nothing_button";
             this.nothing_button.Size = new System.Drawing.Size(104, 44);
             this.nothing_button.TabIndex = 0;
@@ -51,7 +51,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(658, 392);
             this.Controls.Add(this.nothing_button);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Greedy";
             this.Text = "GREEDY";
             this.Load += new System.EventHandler(this.Form1_Load);
