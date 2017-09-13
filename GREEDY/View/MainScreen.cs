@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GREEDY.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,13 +28,12 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                var img = new Bitmap(imageForOCR.FileName);
-                var ocr = new TesseractEngine("../../../Data/tessdata", "eng", EngineMode.TesseractAndCube);
-                var page = ocr.Process(img);
-                textResult.Text = page.GetText();
-                GC.Collect();
-
+                var receipt = new Models.Receipt();
+                var ocr = new OCRController(receipt, new Bitmap(imageForOCR.FileName));
+                ocr.UseOCR();
+                textResult.Text = receipt.rawText;
             }
+            GC.Collect();
         }
 
         private void textResult_TextChanged(object sender, EventArgs e)
