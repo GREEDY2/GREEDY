@@ -11,10 +11,11 @@ namespace GREEDY.Extensions
         public static bool IsAlmostEqual(this string str2, string str, float percentageToMatch)
         {
             var distance = LevenshteinDistance.Compute(str, str2);
-            if (distance == 0) return true;                                 //Strings are completely equal
-            float percentageMismatched = distance / Math.Max(str.Length, str.Length);
-            if (1 - percentageMismatched >= percentageToMatch) return true; //Strings are almost equal
-            else return false;                                              //Strings aren't equal enough
+            if (distance == 0) return true;                                                                  //Strings are completely equal
+            if (Math.Max(str.Length, str.Length) == 0) return false;
+            float percentageMismatched = (float)((double)distance / Math.Max(str.Length, str.Length) * 100); //Added double cast because float loses small values
+            if (100 - percentageMismatched >= percentageToMatch * 100) return true;                          //Strings are almost equal
+            else return false;                                                                               //Strings aren't equal enough
         }
     }
 }

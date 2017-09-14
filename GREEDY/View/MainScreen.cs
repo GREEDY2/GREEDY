@@ -38,7 +38,7 @@ namespace GREEDY
                 {
                     textResult.Text += line;
                 }
-                
+
                 //textResult.Text = receipt.LinesOfText;
                 //textResult.Text = receipt.RawText;
                 new WritingToFileController(receipt, "../../../Data/receipts/receipt.txt").WriteToFile();
