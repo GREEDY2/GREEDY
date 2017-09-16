@@ -1,5 +1,6 @@
 ﻿using GREEDY.Controllers;
 using System;
+using GREEDY.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,9 +39,11 @@ namespace GREEDY
                 {
                     textResult.Text += line;
                 }
-                
+
                 //textResult.Text = receipt.LinesOfText;
                 //textResult.Text = receipt.RawText;
+
+                new CreateAPathforDataController("../../../Data/receipts").CreateAFolder();
                 new WritingToFileController(receipt, "../../../Data/receipts/receipt.txt").WriteToFile();
             }
             GC.Collect();
