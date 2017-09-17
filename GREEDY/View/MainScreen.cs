@@ -43,7 +43,7 @@ namespace GREEDY
                 //textResult.Text = receipt.LinesOfText;
                 //textResult.Text = receipt.RawText;
 
-                new CreateAPathforDataController("../../../Data/receipts").CreateAFolder();
+                new CreatePathForDataController("../../../Data/receipts").CreateAFolder();
                 new WritingToFileController(receipt, "../../../Data/receipts/receipt.txt").WriteToFile();
             }
             GC.Collect();
