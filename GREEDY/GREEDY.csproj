@@ -48,10 +48,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CreateAPathforDataController.cs" />
     <Compile Include="Controllers\OCRController.cs" />
     <Compile Include="Controllers\WritingToFileController.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Extensions\LevenshteinDistance.cs" />
+    <Compile Include="Interfaces\IReceipt.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="View\MainScreen.cs">
       <SubType>Form</SubType>
