@@ -12,7 +12,7 @@ namespace GREEDY.Controllers
     {
         private string FilePath;
 
-        public CreateAPathforDataController(string FilePath)
+        public CreatePathForDataController(string FilePath)
         {
             this.FilePath = FilePath;
         }
