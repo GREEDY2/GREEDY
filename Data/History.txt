@@ -1,5 +1,9 @@
 Update your working status:
 
+[09/13/2017, Brigita] 
+
+Testing receipts. Working on how to format/handdle scanned text 
+-----------------------------------------------------
 [09/16/2017, Valentinas] 
 
 Trying to create interfaces for the program
