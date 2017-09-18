@@ -49,8 +49,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OCRController.UnitTest.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="OCRControllerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,27 +12,24 @@ using GREEDY.Extensions;
 namespace GREEDY.UnitTests
 {
     [TestClass]
-    class OCRController
+    public class OCRControllerUnitTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void UseOCRTest()
         {
             //arrange
             Receipt receipt = new Receipt();
-            var img = new Bitmap("../TestData/Receipt/test1/original.jpg");
+            var img = new Bitmap("../../TestData/Receipt/test1/original.jpg");
             var ocr = new Controllers.OCRController(receipt, img);
-            var receiptText = File.ReadAllLines("../TestData/Receipt/test1/originalData.txt").ToList();
+            var receiptText = File.ReadAllLines("../../TestData/Receipt/test1/originalData.txt").ToList();
 
             //act
             ocr.UseOCR();
 
-            /*foreach (var line in receipt.LinesOfText)
-            {
-                textResult.Text += line;
-            }*/
-
             //assert
             Assert.IsTrue(receipt.LinesOfText.IsAlmostEqual(receiptText, receipt.PercentageMatched));
+            Assert.IsFalse(receipt.LinesOfText.IsAlmostEqual(receiptText, (float)1.01));
+            Assert.IsFalse(receipt.LinesOfText.IsAlmostEqual("", (float)0.1));
         }
     }
 }
