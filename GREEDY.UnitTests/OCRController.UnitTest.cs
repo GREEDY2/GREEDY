@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using GREEDY.Extensions;
 
 namespace GREEDY.UnitTests
 {
@@ -17,15 +19,12 @@ namespace GREEDY.UnitTests
         {
             //arrange
             Receipt receipt = new Receipt();
-            //var ocr = new OCRController(receipt, new Bitmap("../TestData/Receipt/test1/original.jpg"));
-
-
-            //Failed to write a Unit test because of error (I think reference errors)
-            //Need to consult with someone who knows how to write Unit Tests.
-
+            var img = new Bitmap("../TestData/Receipt/test1/original.jpg");
+            var ocr = new Controllers.OCRController(receipt, img);
+            var receiptText = File.ReadAllLines("../TestData/Receipt/test1/originalData.txt").ToList();
 
             //act
-            //ocr.UseOCR();
+            ocr.UseOCR();
 
             /*foreach (var line in receipt.LinesOfText)
             {
@@ -33,7 +32,7 @@ namespace GREEDY.UnitTests
             }*/
 
             //assert
-            //Assert.AreEqual(inside, outside);
+            Assert.IsTrue(receipt.LinesOfText.IsAlmostEqual(receiptText, receipt.PercentageMatched));
         }
     }
 }

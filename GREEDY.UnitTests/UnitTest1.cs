@@ -1,3 +1,4 @@
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GREEDY.UnitTests
@@ -8,14 +9,6 @@ namespace GREEDY.UnitTests
         [TestMethod]
         public void TestMethod1()
         {
-            //arrange
-            //var inside = something;
-
-            //act
-            //var outside = SomeClass.SomeMethod(SomeParams);
-
-            //assert
-            //Assert.AreEqual(inside, outside);
         }
     }
 }
