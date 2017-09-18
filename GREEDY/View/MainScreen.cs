@@ -41,11 +41,18 @@ namespace GREEDY
                 }
                 new CreatePathForDataController("../../../Data/receipts").CreateAFolder();
                 new WritingToFileController(receipt, "../../../Data/receipts/receipt.txt").WriteToFile();
+                DataFormatController dataFormatController = new DataFormatController(receipt);
+                ItemsList.DataSource = dataFormatController.GetDataTable();
             }
             GC.Collect();
         }
 
         private void textResult_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ItemsList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
