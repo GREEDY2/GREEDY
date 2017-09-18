@@ -24,8 +24,7 @@ namespace GREEDY.Controllers
         {
             var ocr = new TesseractEngine("../../../Data/tessdata", "eng", EngineMode.TesseractAndCube);
             var page = ocr.Process(Image);
-            //Console.WriteLine(page.GetMeanConfidence());
-            //Receipt.RawText = page.GetText();
+            Receipt.PercentageMatched = page.GetMeanConfidence();
             Receipt.LinesOfText = page.GetText().Split('\n').ToList();
         }
     }
