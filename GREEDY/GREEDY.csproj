@@ -48,8 +48,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CreateAPathforDataController.cs" />
+    <Compile Include="Controllers\CreatePathForDataController.cs" />
     <Compile Include="Controllers\OCRController.cs" />
+    <Compile Include="Controllers\TesseractOCR.cs" />
     <Compile Include="Controllers\WritingToFileController.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Extensions\LevenshteinDistance.cs" />
