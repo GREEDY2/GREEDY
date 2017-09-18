@@ -1,5 +1,10 @@
 Update your working status:
 
+[09/17/2017, Lukas] 
+
+Working with google api. If it fails will work on categorizing items.
+-----------------------------------------------------
+
 [09/17/2017, Brigita] 
 
 Testing receipts. Working on how to format/handdle scanned text 
