@@ -43,6 +43,8 @@ namespace GREEDY
                 new CreatePathForDataController("../../../Data/receipts").CreateAFolder();
                 new WritingToFileController(receipt1, "../../../Data/receipts/receipt1.txt").WriteToFile();
                 new WritingToFileController(receipt2, "../../../Data/receipts/receipt2.txt").WriteToFile();
+                DataFormatController dataFormatController = new DataFormatController(receipt1);
+                ItemsList.DataSource = dataFormatController.GetDataTable();
 
             }
             GC.Collect();
@@ -51,6 +53,11 @@ namespace GREEDY
         private void textResult_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ItemList_CellContentClick()
+        {
+            
         }
     }
 }

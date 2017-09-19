@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\EmguOCR.cs" />
+    <Compile Include="Controllers\DataFormatController.cs" />
     <Compile Include="Controllers\CreatePathForDataController.cs" />
     <Compile Include="Controllers\OCRController.cs" />
     <Compile Include="Controllers\TesseractOCR.cs" />
