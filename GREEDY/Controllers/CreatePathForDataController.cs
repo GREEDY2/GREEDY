@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GREEDY.Controllers
 {
-    class CreateAPathforDataController
+    public class CreatePathForDataController
     {
         private string FilePath;
 

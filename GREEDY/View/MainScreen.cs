@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tesseract;
 using GREEDY.Extensions;
-
+using Emgu.CV;
+using Emgu.CV.Structure;
 
 namespace GREEDY
 {
@@ -31,14 +32,18 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                var receipt = new OCRController().UseOCR(new Bitmap(imageForOCR.FileName));
+                var receipt1 = new OCRController().UseOCR(new Bitmap(imageForOCR.FileName));
+                Image<Bgr, byte> img = new Image<Bgr, byte>(imageForOCR.FileName);
+                var receipt2 = new OCRController().UseOCR(img);
                 textResult.Text = string.Empty;
-                foreach (var line in receipt.LinesOfText)
+                foreach (var line in receipt1.LinesOfText)
                 {
                     textResult.Text += line;
                 }
                 new CreatePathForDataController("../../../Data/receipts").CreateAFolder();
-                new WritingToFileController(receipt, "../../../Data/receipts/receipt.txt").WriteToFile();
+                new WritingToFileController(receipt1, "../../../Data/receipts/receipt1.txt").WriteToFile();
+                new WritingToFileController(receipt2, "../../../Data/receipts/receipt2.txt").WriteToFile();
+
             }
             GC.Collect();
         }

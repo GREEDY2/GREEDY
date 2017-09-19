@@ -26,11 +26,8 @@ namespace GREEDY.UnitTests
             //arrange
             Receipt receipt = new Receipt();
             var img = new Bitmap("../../TestData/Receipt/test1/original.jpg");
-            var ocr = new Controllers.OCRController(receipt, img);
+            var ocr = new Controllers.OCRController();
             var receiptText = File.ReadAllLines("../../TestData/Receipt/test1/originalData.txt").ToList();
-
-
-
             //act
             receipt = new Controllers.OCRController().UseOCR(img);
             //assert
@@ -38,6 +35,7 @@ namespace GREEDY.UnitTests
             Assert.IsFalse(receipt.LinesOfText.IsAlmostEqual(receiptText, (float)1.01));
             Assert.IsFalse(receipt.LinesOfText.IsAlmostEqual("", (float)0.1));
         }
+            
     }
     [TestClass]
     public class OCRControllerUnitTestEmgu
@@ -47,12 +45,12 @@ namespace GREEDY.UnitTests
         {
             //arrange
             Receipt receipt = new Receipt();
+            var receiptText = File.ReadAllLines("../../TestData/Receipt/test1/originalData.txt").ToList();
             Image<Bgr, byte> img = new Image<Bgr, byte>("../../TestData/Receipt/test1/original.jpg");
             //act
             receipt = new Controllers.OCRController().UseOCR(img);
             //assert
-            System.IO.File.WriteAllText("../../TestData/Receipt/test1/originalText.txt", receipt.LinesOfText.ToString());
-
+            Assert.IsTrue(receipt.LinesOfText.IsAlmostEqual(receiptText, (float)0.8));
         }
     }
 }
