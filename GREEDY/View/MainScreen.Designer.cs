@@ -64,7 +64,7 @@
             this.ItemsList.RowTemplate.Height = 28;
             this.ItemsList.Size = new System.Drawing.Size(470, 485);
             this.ItemsList.TabIndex = 2;
-            this.ItemsList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ItemsList_CellContentClick);
+            //this.ItemsList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ItemsList_CellContentClick);
             // 
             // Greedy
             // 
