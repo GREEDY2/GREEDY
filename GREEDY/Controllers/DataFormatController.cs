@@ -20,8 +20,6 @@ namespace GREEDY.Controllers
                 _data += (line + Environment.NewLine);
                 
             }
-                
-                
         }
 
         public DataTable GetDataTable()
