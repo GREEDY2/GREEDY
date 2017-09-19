@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using GREEDY.Models;
 using System.Drawing;
 using Tesseract;
+using Emgu;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.CV.OCR;
 
 namespace GREEDY.Controllers
 {
@@ -17,11 +21,10 @@ namespace GREEDY.Controllers
             return receipt;
         }
 
-        //Lukui
-        /*public Receipt UseOCR(kazkoksTipas image)
+        public Receipt UseOCR(Image<Bgr, byte> image)
         {
-            //Luko kodas
+            Receipt receipt = new EmguOCR().UseOCR(image);
             return receipt;
-        }*/
+        }
     }
 }

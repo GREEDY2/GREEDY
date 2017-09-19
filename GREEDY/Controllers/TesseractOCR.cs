@@ -11,10 +11,10 @@ namespace GREEDY.Controllers
         public Receipt UseOCR(Bitmap image)
         {
             Receipt receipt = new Receipt();
-            var ocr = new Tesseract.TesseractEngine("../../../Data/tessdata", "eng", EngineMode.TesseractAndCube);
+           /* var ocr = new Tesseract.TesseractEngine("../../../Data/tessdata", "eng", EngineMode.TesseractAndCube);
             var page = ocr.Process(image);
             receipt.PercentageMatched = page.GetMeanConfidence();
-            receipt.LinesOfText = page.GetText().Split('\n').ToList();
+            receipt.LinesOfText = page.GetText().Split('\n').ToList();*/
             return receipt;
         }
     }
