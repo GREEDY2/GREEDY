@@ -16,7 +16,10 @@ namespace GREEDY.Controllers
         public DataFormatController(Receipt receipt)
         {
             foreach (String line in receipt.LinesOfText)
-                _data += line;
+            {
+                _data += (line + Environment.NewLine);
+                
+            }
         }
 
         public DataTable GetDataTable()
