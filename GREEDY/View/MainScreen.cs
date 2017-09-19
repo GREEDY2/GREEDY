@@ -31,9 +31,7 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                var receipt = new Models.Receipt();
-                var ocr = new OCRController(receipt, new Bitmap(imageForOCR.FileName));
-                ocr.UseOCR();
+                var receipt = new OCRController().UseOCR(new Bitmap(imageForOCR.FileName));
                 textResult.Text = string.Empty;
                 foreach (var line in receipt.LinesOfText)
                 {

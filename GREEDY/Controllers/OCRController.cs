@@ -11,21 +11,17 @@ namespace GREEDY.Controllers
 {
     public class OCRController
     {
-        private Receipt Receipt;
-        private Bitmap Image;
-
-        public OCRController (Receipt model, Bitmap image)
+        public Receipt UseOCR(Bitmap image)
         {
-            this.Receipt = model;
-            this.Image = image;
+            Receipt receipt = new TesseractOCR().UseOCR(image);
+            return receipt;
         }
 
-        public void UseOCR()
+        //Lukui
+        /*public Receipt UseOCR(kazkoksTipas image)
         {
-            var ocr = new TesseractEngine("../../../Data/tessdata", "eng", EngineMode.TesseractAndCube);
-            var page = ocr.Process(Image);
-            Receipt.PercentageMatched = page.GetMeanConfidence();
-            Receipt.LinesOfText = page.GetText().Split('\n').ToList();
-        }
+            //Luko kodas
+            return receipt;
+        }*/
     }
 }
