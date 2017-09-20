@@ -33,7 +33,6 @@ namespace GREEDY
                 new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
                 DataFormatController dataFormatController = new DataFormatController(receipt);
                 ItemsList.DataSource = dataFormatController.GetDataTable();
-
             }
             GC.Collect();
         }

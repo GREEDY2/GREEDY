@@ -4,7 +4,7 @@ using System.IO;
 
 namespace GREEDY.Controllers
 {
-    class WritingToFileController
+    public class WritingToFileController
     {
         public void WriteToFile (string filePath, Receipt receipt)
         {

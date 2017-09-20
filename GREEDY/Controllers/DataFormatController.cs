@@ -9,7 +9,7 @@ using GREEDY.Models;
 
 namespace GREEDY.Controllers
 {
-    class DataFormatController
+    public class DataFormatController
     {
         private readonly string _data;
 
