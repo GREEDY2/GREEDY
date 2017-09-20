@@ -1,18 +1,7 @@
 ﻿using GREEDY.Controllers;
 using System;
-using GREEDY.Interfaces;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tesseract;
-using GREEDY.Extensions;
-using Emgu.CV;
-using Emgu.CV.Structure;
+using System.Configuration;
 
 namespace GREEDY
 {
@@ -32,14 +21,16 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
+                string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
+                string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
                 var receipt = new OCRController().UseOCR(imageForOCR.FileName);
                 textResult.Text = string.Empty;
                 foreach (var line in receipt.LinesOfText)
                 {
                     textResult.Text += line;
                 }
-                new CreatePathForDataController().CreateAFolder("../../../Data/receipts");
-                new WritingToFileController().WriteToFile("../../../Data/receipts/receipt2.txt", receipt);
+                new CreatePathForDataController().CreateAFolder(receiptsFolder);
+                new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
                 DataFormatController dataFormatController = new DataFormatController(receipt);
                 ItemsList.DataSource = dataFormatController.GetDataTable();
 
