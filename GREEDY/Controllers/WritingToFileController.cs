@@ -24,9 +24,10 @@ namespace GREEDY.Controllers
             using (TextWriter tw = new StreamWriter(FilePath))
             {
                 foreach (String line in Receipt.LinesOfText)
+                {
                     tw.WriteLine(line);
+                }
             }
-            //System.IO.File.WriteAllText(FilePath, Receipt.RawText);
         }
     }
 }
