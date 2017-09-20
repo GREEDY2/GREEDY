@@ -69,8 +69,8 @@
     <Reference Include="Tesseract, Version=3.0.2.0, Culture=neutral, PublicKeyToken=ebeb3d86bef60cbe, processorArchitecture=MSIL">
       <HintPath>..\packages\Tesseract.3.0.2.0\lib\net451\Tesseract.dll</HintPath>
     </Reference>
-    <Reference Include="ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZedGraph.5.1.5\lib\ZedGraph.dll</HintPath>
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -104,7 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -116,7 +118,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -131,6 +135,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="License-LGPL.txt" />
     <Content Include="x64\liblept172.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
