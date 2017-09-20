@@ -82,6 +82,7 @@
     <Compile Include="Controllers\WritingToFileController.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Extensions\LevenshteinDistance.cs" />
+    <Compile Include="Interfaces\iOCR.cs" />
     <Compile Include="Interfaces\IReceipt.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="View\MainScreen.cs">
@@ -135,7 +136,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License-LGPL.txt" />
     <Content Include="x64\liblept172.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

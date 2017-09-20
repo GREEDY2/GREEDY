@@ -13,16 +13,15 @@ using Emgu.CV.OCR;
 
 namespace GREEDY.Controllers
 {
-    class EmguOCR 
+    public class EmguOCR : iOCR
     {
         private static Emgu.CV.OCR.Tesseract tess1 = new Emgu.CV.OCR.Tesseract("", "eng", OcrEngineMode.Default); 
         // this looks weird because the keyword Tesseract is used in another nuget package
 
-
         // example of Image initialization
-        // Image<Bgr, byte> img = new Image<Bgr, byte>("f:\\receipt.jpg");
-        public Receipt UseOCR(Image<Bgr, byte> img)
+        public Receipt UseOCR(string url)
         {
+            Image<Bgr, byte> img = new Image<Bgr, byte>(url);
             Receipt receipt = new Receipt();
             tess1.SetImage(img);
             tess1.Recognize();

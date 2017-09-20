@@ -1,29 +1,16 @@
 ﻿using GREEDY.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GREEDY.Controllers
 {
     class WritingToFileController
     {
-        private Receipt Receipt;
-        private string FilePath;
-
-        public WritingToFileController (Receipt model, string filePath)
+        public void WriteToFile (string filePath, Receipt receipt)
         {
-            this.Receipt = model;
-            this.FilePath = filePath;
-        }
-
-        public void WriteToFile ()
-        {
-            using (TextWriter tw = new StreamWriter(FilePath))
+            using (TextWriter tw = new StreamWriter(filePath))
             {
-                foreach (String line in Receipt.LinesOfText)
+                foreach (String line in receipt.LinesOfText)
                 {
                     tw.WriteLine(line);
                 }

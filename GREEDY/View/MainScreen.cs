@@ -32,18 +32,15 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                var receipt1 = new OCRController().UseOCR(new Bitmap(imageForOCR.FileName));
-                Image<Bgr, byte> img = new Image<Bgr, byte>(imageForOCR.FileName);
-                var receipt2 = new OCRController().UseOCR(img);
+                var receipt = new OCRController().UseOCR(imageForOCR.FileName);
                 textResult.Text = string.Empty;
-                foreach (var line in receipt1.LinesOfText)
+                foreach (var line in receipt.LinesOfText)
                 {
                     textResult.Text += line;
                 }
-                new CreatePathForDataController("../../../Data/receipts").CreateAFolder();
-                new WritingToFileController(receipt1, "../../../Data/receipts/receipt1.txt").WriteToFile();
-                new WritingToFileController(receipt2, "../../../Data/receipts/receipt2.txt").WriteToFile();
-                DataFormatController dataFormatController = new DataFormatController(receipt1);
+                new CreatePathForDataController().CreateAFolder("../../../Data/receipts");
+                new WritingToFileController().WriteToFile("../../../Data/receipts/receipt2.txt", receipt);
+                DataFormatController dataFormatController = new DataFormatController(receipt);
                 ItemsList.DataSource = dataFormatController.GetDataTable();
 
             }
