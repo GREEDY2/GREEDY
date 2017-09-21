@@ -11,7 +11,7 @@ namespace GREEDY.Controllers
     public class EmguOCR : iOCR
     {
         private static Emgu.CV.OCR.Tesseract tess1 = new Emgu.CV.OCR.Tesseract(
-            "", ConfigurationManager.AppSettings["languageOCR"], OcrEngineMode.Default); 
+            ConfigurationManager.AppSettings["tessData"], ConfigurationManager.AppSettings["languageOCR"], OcrEngineMode.Default); 
         // this looks weird because the keyword Tesseract is used in another nuget package
 
         public Receipt UseOCR(string url)
