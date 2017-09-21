@@ -1,29 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GREEDY.Models;
-using System.Drawing;
-using Tesseract;
-using Emgu;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using Emgu.CV.OCR;
+﻿using GREEDY.Models;
+using GREEDY.Interfaces;
 
 namespace GREEDY.Controllers
 {
-    public class OCRController
+    public class OCRController : iOCR
     {
-        public Receipt UseOCR(Bitmap image)
+        public Receipt UseOCR(string imageForOcrUrl)
         {
-            Receipt receipt = new TesseractOCR().UseOCR(image);
-            return receipt;
-        }
-
-        public Receipt UseOCR(Image<Bgr, byte> image)
-        {
-            Receipt receipt = new EmguOCR().UseOCR(image);
+            Receipt receipt = new EmguOCR().UseOCR(imageForOcrUrl);
             return receipt;
         }
     }
