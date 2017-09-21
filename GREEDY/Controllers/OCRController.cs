@@ -5,9 +5,9 @@ namespace GREEDY.Controllers
 {
     public class OCRController : iOCR
     {
-        public Receipt UseOCR(string url)
+        public Receipt UseOCR(string imageForOcrUrl)
         {
-            Receipt receipt = new EmguOCR().UseOCR(url);
+            Receipt receipt = new EmguOCR().UseOCR(imageForOcrUrl);
             return receipt;
         }
     }
