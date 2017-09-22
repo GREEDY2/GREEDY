@@ -17,22 +17,36 @@ namespace GREEDY
 
         }
 
-        private void btnOCR_Click(object sender, EventArgs e)
+        private async void btnOCR_Click(object sender, EventArgs e)
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
-                string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
-                var receipt = new OCRController().UseOCR(imageForOCR.FileName);
-                textResult.Text = string.Empty;
-                foreach (var line in receipt.LinesOfText)
+                try
                 {
-                    textResult.Text += line;
+                    Application.UseWaitCursor = true;
+                    btnOCR.Enabled = false;
+                    string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
+                    string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
+                    var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
+                    textResult.Text = string.Empty;
+                    foreach (var line in receipt.LinesOfText)
+                    {
+                        textResult.Text += line;
+                    }
+                    new CreatePathForDataController().CreateAFolder(receiptsFolder);
+                    new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
+                    DataFormatController dataFormatController = new DataFormatController(receipt);
+                    ItemsList.DataSource = dataFormatController.GetDataTable();
                 }
-                new CreatePathForDataController().CreateAFolder(receiptsFolder);
-                new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
-                DataFormatController dataFormatController = new DataFormatController(receipt);
-                ItemsList.DataSource = dataFormatController.GetDataTable();
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                }
+                finally
+                {
+                    Application.UseWaitCursor = false;
+                    btnOCR.Enabled = true;
+                }
             }
             GC.Collect();
         }
