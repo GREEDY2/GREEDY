@@ -18,7 +18,6 @@ namespace GREEDY.Controllers
             foreach (String line in receipt.LinesOfText)
             {
                 _data += (line + Environment.NewLine);
-                
             }
         }
 
@@ -28,30 +27,30 @@ namespace GREEDY.Controllers
             dt.Columns.Add("Item");
             dt.Columns.Add("Price");
 
-            string pattern; //a pattern for regex to match
-            string input;   //a string to compare for regex
+            string pattern; 
+            string input;  
 
-            pattern = @"([*]+)\n(.+)\n([*]+)";//the pattern reads the stars and the text between
+            pattern = @"([*]+)\n(.+)\n([*]+)";
             input = _data;
-            input = Regex.Replace(input, @"\r", ""); //removing the "\r" so it does not disturb the regex
+            input = Regex.Replace(input, @"\r", ""); 
 
             Match match = Regex.Match(input, pattern, RegexOptions.Singleline);
             if (match.Success)
             {
-                //match.Groups[2].Value string contains only items and their prices
                 input = match.Groups[2].Value;
-                pattern = @"([^..]*)([.]+)( \d+,\d\d)"; //the pattern reads the item name, the dots and the price
-
-                //going throug all mathes of items
+                pattern = @"([^..]*)([.]+)( \d+,\d\d)"; 
+                
                 MatchCollection matches = Regex.Matches(input, pattern, RegexOptions.Singleline);
                 foreach (Match m in matches)
                 {
                     DataRow dr = dt.NewRow();
-                    dr[0] = m.Groups[1].Value; //item name
-                    dr[1] = m.Groups[3].Value; //item price
+                    dr[0] = m.Groups[1].Value; 
+                    dr[1] = m.Groups[3].Value; 
                     dt.Rows.Add(dr);
+                    dt.TableName = "ItemPriceList";
                 }
             }
+            
             return dt;
         }
     }

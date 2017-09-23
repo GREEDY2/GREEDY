@@ -31,8 +31,16 @@ namespace GREEDY
                 }
                 new CreatePathForDataController().CreateAFolder(receiptsFolder);
                 new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
+
                 DataFormatController dataFormatController = new DataFormatController(receipt);
                 ItemsList.DataSource = dataFormatController.GetDataTable();
+
+                string itemsListsFolder = ConfigurationManager.AppSettings["itemsListsFolder"];
+                string singleItemsListPath = ConfigurationManager.AppSettings["singleItemsListPath"];
+                new CreatePathForDataController().CreateAFolder(itemsListsFolder);
+                DataTableXmlController dataTableXmlController = new DataTableXmlController();
+                dataTableXmlController.DataTableToXml(dataFormatController.GetDataTable(), singleItemsListPath);
+                
             }
             GC.Collect();
         }
