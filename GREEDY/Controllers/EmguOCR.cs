@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using GREEDY.Interfaces;
 using GREEDY.Models;
-
-using Emgu;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.OCR;
+using System.Configuration;
 
 namespace GREEDY.Controllers
 {
-    class EmguOCR 
+    public class EmguOCR : iOCR
     {
-        private static Emgu.CV.OCR.Tesseract tess1 = new Emgu.CV.OCR.Tesseract("", "eng", OcrEngineMode.Default); 
+        private static Emgu.CV.OCR.Tesseract tess1 = new Emgu.CV.OCR.Tesseract(
+            ConfigurationManager.AppSettings["tessData"], ConfigurationManager.AppSettings["languageOCR"], OcrEngineMode.Default); 
         // this looks weird because the keyword Tesseract is used in another nuget package
 
-
-        // example of Image initialization
-        // Image<Bgr, byte> img = new Image<Bgr, byte>("f:\\receipt.jpg");
-        public Receipt UseOCR(Image<Bgr, byte> img)
+        public Receipt UseOCR(string url)
         {
+            Image<Bgr, byte> img = new Image<Bgr, byte>(url);
             Receipt receipt = new Receipt();
             tess1.SetImage(img);
             tess1.Recognize();

@@ -9,14 +9,17 @@ using GREEDY.Models;
 
 namespace GREEDY.Controllers
 {
-    class DataFormatController
+    public class DataFormatController
     {
         private readonly string _data;
 
         public DataFormatController(Receipt receipt)
         {
             foreach (String line in receipt.LinesOfText)
-                _data += line;
+            {
+                _data += (line + Environment.NewLine);
+                
+            }
         }
 
         public DataTable GetDataTable()

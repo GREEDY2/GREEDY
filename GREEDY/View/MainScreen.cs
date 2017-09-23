@@ -1,18 +1,7 @@
 ﻿using GREEDY.Controllers;
 using System;
-using GREEDY.Interfaces;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tesseract;
-using GREEDY.Extensions;
-using Emgu.CV;
-using Emgu.CV.Structure;
+using System.Configuration;
 
 namespace GREEDY
 {
@@ -32,18 +21,18 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                var receipt1 = new OCRController().UseOCR(new Bitmap(imageForOCR.FileName));
-                Image<Bgr, byte> img = new Image<Bgr, byte>(imageForOCR.FileName);
-                var receipt2 = new OCRController().UseOCR(img);
+                string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
+                string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
+                var receipt = new OCRController().UseOCR(imageForOCR.FileName);
                 textResult.Text = string.Empty;
-                foreach (var line in receipt1.LinesOfText)
+                foreach (var line in receipt.LinesOfText)
                 {
                     textResult.Text += line;
                 }
-                new CreatePathForDataController("../../../Data/receipts").CreateAFolder();
-                new WritingToFileController(receipt1, "../../../Data/receipts/receipt1.txt").WriteToFile();
-                new WritingToFileController(receipt2, "../../../Data/receipts/receipt2.txt").WriteToFile();
-
+                new CreatePathForDataController().CreateAFolder(receiptsFolder);
+                new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
+                DataFormatController dataFormatController = new DataFormatController(receipt);
+                ItemsList.DataSource = dataFormatController.GetDataTable();
             }
             GC.Collect();
         }
@@ -51,6 +40,11 @@ namespace GREEDY
         private void textResult_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ItemList_CellContentClick()
+        {
+            
         }
     }
 }
