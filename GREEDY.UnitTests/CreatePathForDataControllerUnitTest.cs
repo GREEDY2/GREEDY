@@ -10,14 +10,14 @@ namespace GREEDY.UnitTests
     public class CreatePathForDataControllerUnitTest
     {
 
-        private const string FilePath = @"C:\Users\Valentinas-PC\Desktop\123";
+        private const string FilePath = "../../../Data/receipts/";
 
         [TestMethod]
         [Description("Check to see if a folder is created when we create it first time")]
 
         [DataRow(FilePath)]
 
-        public void FolderFirstTimeCreating(string data)
+        public void CreateFolder_FirstTimeCreating_FolderCreated(string data)
         {
             //arrange
             CreatePathForDataController createPath = new CreatePathForDataController();
@@ -38,14 +38,14 @@ namespace GREEDY.UnitTests
 
             //assert
             Assert.IsTrue(Directory.Exists(data));
-        //    Directory.Delete(data);
+            Directory.Delete(data);
         }
 
         [TestMethod]
         [Description("Check to see if a folder is not replaced when it is exist")]
         [DataRow(FilePath)]
 
-        public void FolderNotFirstTimeCreating(string data)
+        public void CreateFolder_WhereThisFolderExist_FolderDidNotReplaced(string data)
         {
             //arrange
             CreatePathForDataController createPath = new CreatePathForDataController();
@@ -68,14 +68,13 @@ namespace GREEDY.UnitTests
 
         [ExpectedException(typeof (ArgumentNullException))]
 
-        public void PathNameIsNullOrEmpty()
+        public void CreateFolder_WherePathNameIsNullOrEmpty_ExpectedArgumentNullException()
         {
             //arrange
             CreatePathForDataController createPath = new CreatePathForDataController();
 
             //act
             createPath.CreateAFolder("");
-            //assert
         }
     }
 }

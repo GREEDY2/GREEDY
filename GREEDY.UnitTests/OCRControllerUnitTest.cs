@@ -9,7 +9,9 @@ namespace GREEDY.UnitTests
     [TestClass]
     public class OCRControllerUnitTest
     {
-        /*[TestMethod]
+
+
+        [TestMethod]
         public void UseOCRTest()
         {
             //arrange
@@ -33,6 +35,6 @@ namespace GREEDY.UnitTests
             receipt = new Controllers.OCRController().UseOCR("../../TestData/Receipt/test1/original.jpg");
             //assert
             Assert.IsTrue(receipt.LinesOfText.IsAlmostEqual(receiptText, (float)0.8));
-        }*/
+        }
     }
 }

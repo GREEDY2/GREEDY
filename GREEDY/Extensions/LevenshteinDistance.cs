@@ -2,14 +2,9 @@
 
 namespace GREEDY.Extensions
 {
-    /// <summary>
-    /// Contains approximate string matching
-    /// </summary>
     static class LevenshteinDistance
     {
-        /// <summary>
-        /// Compute the distance between two strings.
-        /// </summary>
+        // Compute the distance between two strings.
         public static int Compute(string s, string t)
         {
             int n = s.Length;

@@ -5,17 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Configuration;
+//using Moq;
+using GREEDY;
+using GREEDY.Interfaces;
+using Telerik.JustMock;
 
 namespace GREEDY.UnitTests
 {
     [TestClass]
     public class WritingToFileControllerUnitTest
     {
+
         private const string _GoodFileName = "TestReceipt.txt";
         private const string _BadFileName = "";
-
- //       private string GoodFileName = ConfigurationManager.AppSettings["GoodFileName"];
-  //      private string BadFileName = ConfigurationManager.AppSettings["BadFileName"];
 
         [DataTestMethod]
         [DataRow("1545")]
@@ -25,11 +27,11 @@ namespace GREEDY.UnitTests
 
         public void WriteTextToGoodFile (string data)
         {
-            //arrange
-                       Receipt receipt = new Receipt
-                      {
-                           LinesOfText = new List<String>() { data }
-                      };
+            //Arrange
+            Receipt receipt = new Receipt
+            {
+                LinesOfText = new List<String>() { data }
+            };
 
             //act
             new WritingToFileController().WriteToFile(_GoodFileName, receipt);
@@ -39,7 +41,31 @@ namespace GREEDY.UnitTests
             Assert.AreEqual(data + "\r\n", text);
             File.Delete(_GoodFileName);
         }
-   
+
+        [DataTestMethod]
+        [DataRow("1545")]
+        [DataRow("     ")]
+        [DataRow("")]
+        [DataRow("123456 cdcd s")]
+
+        [ExpectedException(typeof(ArgumentException))]
+        public void WriteTextToBadFile(string data)
+        {
+            //Arrange
+            Receipt receipt = new Receipt
+            {
+                LinesOfText = new List<String>() { data }
+            };
+
+            //act
+            new WritingToFileController().WriteToFile(_BadFileName, receipt);
+            string text = File.ReadAllText(_BadFileName);
+
+            //assert
+            Assert.AreEqual(data + "\r\n", text);
+            File.Delete(_BadFileName);
+        }
+
         [DataTestMethod]
         [DataRow("")]
         [DataRow("     ")]
