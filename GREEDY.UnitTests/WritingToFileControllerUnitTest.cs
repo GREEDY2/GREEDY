@@ -2,34 +2,40 @@
 using GREEDY.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ploeh.AutoFixture;
 
 namespace GREEDY.UnitTests
 {
     [TestClass]
     public class WritingToFileControllerUnitTest
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("")]
-        [DataRow("   ")]
-        [DataRow("123")]
-        public void WriteToFileTest (string data)
+        [DataRow("        ")]
+        [ExpectedException(typeof(ArgumentException))]
+
+        public void WriteToFile_IncorectFileName_ArgumentExcention (string filePath)
         {
             //arrange
-            Receipt receipt = new Receipt
-            {
-                LinesOfText = new List<String>() { data }
-            };
-            string filePath = "testReceipt.txt";
+            var fixture = new Fixture();
+            Receipt receipt = fixture.Create<Receipt>();
+            
             //act
             new WritingToFileController().WriteToFile(filePath, receipt);
-            string text = System.IO.File.ReadAllText("testReceipt.txt");
-            //assert
-            Assert.AreEqual(data + "\r\n", text);
-            System.IO.File.Delete("testReceipt.txt");
+        }
+
+        [TestMethod]
+        [DataRow(null)]
+        [ExpectedException(typeof(ArgumentNullException))]
+
+        public void WriteToFile_NullFileName_ArgumentNullExcention(string filePath)
+        {
+            //arrange
+            var fixture = new Fixture();
+            Receipt receipt = fixture.Create<Receipt>();
+
+            //act
+            new WritingToFileController().WriteToFile(filePath, receipt);
         }
     }
 }
