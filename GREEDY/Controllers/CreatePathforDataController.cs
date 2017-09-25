@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace GREEDY.Controllers
 {
@@ -6,7 +7,18 @@ namespace GREEDY.Controllers
     {
         public void CreateAFolder(string filePath)
         {
+            if (Directory.Exists(filePath))
+            {
+                return;
+            }
+            else if (string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentNullException("filePath");
+            }
+            else
+            {
             Directory.CreateDirectory(filePath);
+            }
         }
     }
 }
