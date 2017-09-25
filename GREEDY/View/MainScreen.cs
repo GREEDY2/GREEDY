@@ -1,7 +1,10 @@
 ﻿using GREEDY.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Data;
+using GREEDY.Models;
 
 namespace GREEDY
 {
@@ -21,32 +24,52 @@ namespace GREEDY
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
-                try
+                Application.UseWaitCursor = true;
+                btnOCR.Enabled = false;
+                    
+                string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
+                string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
+                var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
+                textResult.Text = string.Empty;
+                foreach (var line in receipt.LinesOfText)
                 {
-                    Application.UseWaitCursor = true;
-                    btnOCR.Enabled = false;
-                    string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
-                    string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
-                    var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
-                    textResult.Text = string.Empty;
-                    foreach (var line in receipt.LinesOfText)
-                    {
-                        textResult.Text += line;
-                    }
-                    new CreatePathForDataController().CreateAFolder(receiptsFolder);
-                    new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
-                    DataFormatController dataFormatController = new DataFormatController(receipt);
-                    ItemsList.DataSource = dataFormatController.GetDataTable();
+                    textResult.Text += line;
                 }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error");
-                }
-                finally
-                {
-                    Application.UseWaitCursor = false;
-                    btnOCR.Enabled = true;
-                }
+                new CreatePathForDataController().CreateAFolder(receiptsFolder);
+                new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
+
+                //writing raw data from receipt to items datatable 
+                RawDataFormatController rawDataFormatController = new RawDataFormatController(receipt);
+                ItemsList.DataSource = rawDataFormatController.GetDataTable();
+
+                //reading list of all items and adding new items from receipt list
+                string itemsListsFolder = ConfigurationManager.AppSettings["itemsListsFolder"];
+                string singleItemsListPath = ConfigurationManager.AppSettings["singleItemsListPath"];
+                new CreatePathForDataController().CreateAFolder(itemsListsFolder);
+                DataConvertionController dataConvertionController = 
+                    new DataConvertionController();
+
+                //reading all items from an xml file
+                List<Item> listOfAllItems = 
+                    dataConvertionController.XmlToList(singleItemsListPath);
+
+                //retrieving new receipts data and displaying it to DataGridView
+                DataTable newReceipDataTable = 
+                    new RawDataFormatController(receipt).GetDataTable();
+                ItemsList.DataSource = newReceipDataTable;
+
+                //converting new receipts datatable to List<Item>
+                List<Item> newReceipItems = 
+                    dataConvertionController.DataTableToList(newReceipDataTable);
+
+                //adding new items to the listOfAllItems
+                listOfAllItems.AddRange(newReceipItems);
+
+                //writing the listOfAllItems to the xml file
+                dataConvertionController.ListToXml(listOfAllItems, singleItemsListPath);
+
+                Application.UseWaitCursor = false;
+                btnOCR.Enabled = true;
             }
             GC.Collect();
         }
