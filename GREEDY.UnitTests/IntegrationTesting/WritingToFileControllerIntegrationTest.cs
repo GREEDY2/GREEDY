@@ -17,7 +17,7 @@ namespace GREEDY.IntegrationTest
         [DataRow("   ")]
         [DataRow(null)]
         [DataRow("12545dcdd545 dc45sd dc54s")]
-        public void WriteToFile(string data)
+        public void WriteTextToFile_StringData_TextInFileAsExpected(string data)
         {
             //arrange
             Receipt receipt = new Receipt
