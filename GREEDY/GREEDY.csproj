@@ -75,17 +75,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DataTableXmlController.cs" />
+    <Compile Include="Controllers\DataConvertionController.cs" />
     <Compile Include="Controllers\EmguOCR.cs" />
-    <Compile Include="Controllers\DataFormatController.cs" />
+    <Compile Include="Controllers\RawDataFormatController.cs" />
     <Compile Include="Controllers\CreatePathForDataController.cs" />
     <Compile Include="Controllers\OCRController.cs" />
     <Compile Include="Controllers\TesseractOCR.cs" />
     <Compile Include="Controllers\WritingToFileController.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Extensions\LevenshteinDistance.cs" />
+    <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\iOCR.cs" />
     <Compile Include="Interfaces\IReceipt.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="View\MainScreen.cs">
       <SubType>Form</SubType>

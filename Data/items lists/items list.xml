@@ -1,15 +1,4 @@
-<DocumentElement>
-  <ItemPriceList>
-    <Item>Negazuotas mineralinis vanduo
-NEPTUNAS, 1,51
-6 vnt X 0,58 EUR</Item>
-    <Price> 3,48</Price>
-  </ItemPriceList>
-  <ItemPriceList>
-    <Item>
-Uéstatas — Vienkartiné plastiko
-pakuoté
-6 vnt X 0,10 EUR</Item>
-    <Price> 0,60</Price>
-  </ItemPriceList>
-</DocumentElement>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<items>
+  <item name="vanduo" price="0.45" category="nealkoholiniai gerimai" />  
+</items>

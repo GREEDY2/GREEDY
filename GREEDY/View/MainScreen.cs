@@ -1,7 +1,10 @@
 ﻿using GREEDY.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Data;
+using GREEDY.Models;
 
 namespace GREEDY
 {
@@ -32,15 +35,36 @@ namespace GREEDY
                 new CreatePathForDataController().CreateAFolder(receiptsFolder);
                 new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
 
-                DataFormatController dataFormatController = new DataFormatController(receipt);
-                ItemsList.DataSource = dataFormatController.GetDataTable();
+                //writing raw data from receipt to items datatable 
+                RawDataFormatController rawDataFormatController = new RawDataFormatController(receipt);
+                ItemsList.DataSource = rawDataFormatController.GetDataTable();
 
+                //reading list of all items and adding new items from receipt list
                 string itemsListsFolder = ConfigurationManager.AppSettings["itemsListsFolder"];
                 string singleItemsListPath = ConfigurationManager.AppSettings["singleItemsListPath"];
                 new CreatePathForDataController().CreateAFolder(itemsListsFolder);
-                DataTableXmlController dataTableXmlController = new DataTableXmlController();
-                dataTableXmlController.DataTableToXml(dataFormatController.GetDataTable(), singleItemsListPath);
-                
+                DataConvertionController dataConvertionController = 
+                    new DataConvertionController();
+
+                //reading all items from an xml file
+                List<Item> listOfAllItems = 
+                    dataConvertionController.XmlToList(singleItemsListPath);
+
+                //retrieving new receipts data and displaying it to DataGridView
+                DataTable newReceipDataTable = 
+                    new RawDataFormatController(receipt).GetDataTable();
+                ItemsList.DataSource = newReceipDataTable;
+
+                //converting new receipts datatable to List<Item>
+                List<Item> newReceipItems = 
+                    dataConvertionController.DataTableToList(newReceipDataTable);
+
+                //adding new items to the listOfAllItems
+                listOfAllItems.AddRange(newReceipItems);
+
+                //writing the listOfAllItems to the xml file
+                dataConvertionController.ListToXml(listOfAllItems, singleItemsListPath);
+
             }
             GC.Collect();
         }
