@@ -10,7 +10,7 @@ namespace GREEDY.UnitTests
         [TestMethod]
         [Description("Check to see exception for file path (if it Null or Empty).")]
 
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
 
         public void CreateFolder_WherePathNameIsNullOrEmpty_ExpectedArgumentNullException()
         {
