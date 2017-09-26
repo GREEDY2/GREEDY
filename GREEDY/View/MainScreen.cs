@@ -43,7 +43,6 @@ namespace GREEDY
                 }
                 new CreatePathForDataController().CreateAFolder(receiptsFolder);
                 new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
-                new WritingToFileController().WriteToFile(secondReceiptPath, receipt2);
 
                 //writing raw data from receipt to items datatable 
                 RawDataFormatController rawDataFormatController = new RawDataFormatController(receipt);
