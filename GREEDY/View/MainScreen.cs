@@ -6,6 +6,12 @@ using System.Configuration;
 using System.Data;
 using GREEDY.Models;
 
+using Emgu.CV;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace GREEDY
 {
     public partial class Greedy : Form
@@ -82,6 +88,19 @@ namespace GREEDY
         private void ItemList_CellContentClick()
         {
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ImageViewer viewer = new ImageViewer(); 
+            VideoCapture capture = new VideoCapture(); 
+            Application.Idle += new EventHandler(delegate (object senderis, EventArgs e1)
+            {  
+                viewer.Image = capture.QueryFrame(); 
+            });
+            viewer.ShowDialog(); 
+            viewer.Image.Save(ConfigurationManager.AppSettings["imagePath"]);
+            capture.Dispose();
         }
     }
 }
