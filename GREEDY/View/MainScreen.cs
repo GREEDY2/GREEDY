@@ -35,8 +35,6 @@ namespace GREEDY
                     
                 string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
                 string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
-                string secondReceiptPath = ConfigurationManager.AppSettings["secondReceiptPath"];
-                var receipt2 = new OCRController().UseOCR(imageForOCR.FileName);
                 var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
                 textResult.Text = string.Empty;
                 foreach (var line in receipt.LinesOfText)
