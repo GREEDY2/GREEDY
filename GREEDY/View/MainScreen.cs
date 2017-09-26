@@ -20,13 +20,16 @@ namespace GREEDY
 
         }
 
-        private void btnOCR_Click(object sender, EventArgs e)
+        private async void btnOCR_Click(object sender, EventArgs e)
         {
             if (imageForOCR.ShowDialog() == DialogResult.OK)
             {
+                Application.UseWaitCursor = true;
+                btnOCR.Enabled = false;
+                    
                 string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
                 string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
-                var receipt = new OCRController().UseOCR(imageForOCR.FileName);
+                var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
                 textResult.Text = string.Empty;
                 foreach (var line in receipt.LinesOfText)
                 {
@@ -65,6 +68,8 @@ namespace GREEDY
                 //writing the listOfAllItems to the xml file
                 dataConvertionController.ListToXml(listOfAllItems, singleItemsListPath);
 
+                Application.UseWaitCursor = false;
+                btnOCR.Enabled = true;
             }
             GC.Collect();
         }
