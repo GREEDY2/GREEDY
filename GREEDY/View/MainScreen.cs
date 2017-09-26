@@ -6,6 +6,12 @@ using System.Configuration;
 using System.Data;
 using GREEDY.Models;
 
+using Emgu.CV;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace GREEDY
 {
     public partial class Greedy : Form
@@ -29,6 +35,8 @@ namespace GREEDY
                     
                 string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
                 string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
+                string secondReceiptPath = ConfigurationManager.AppSettings["secondReceiptPath"];
+                var receipt2 = new OCRController().UseOCR(imageForOCR.FileName);
                 var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
                 textResult.Text = string.Empty;
                 foreach (var line in receipt.LinesOfText)
@@ -37,6 +45,7 @@ namespace GREEDY
                 }
                 new CreatePathForDataController().CreateAFolder(receiptsFolder);
                 new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
+                new WritingToFileController().WriteToFile(secondReceiptPath, receipt2);
 
                 //writing raw data from receipt to items datatable 
                 RawDataFormatController rawDataFormatController = new RawDataFormatController(receipt);
@@ -82,6 +91,19 @@ namespace GREEDY
         private void ItemList_CellContentClick()
         {
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ImageViewer viewer = new ImageViewer(); 
+            VideoCapture capture = new VideoCapture(); 
+            Application.Idle += new EventHandler(delegate (object senderis, EventArgs e1)
+            {  
+                viewer.Image = capture.QueryFrame(); 
+            });
+            viewer.ShowDialog(); 
+            viewer.Image.Save(ConfigurationManager.AppSettings["imagePath"]);
+            capture.Dispose();
         }
     }
 }
