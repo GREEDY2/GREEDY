@@ -17,6 +17,7 @@ namespace GREEDY.UnitTests
 
         public void WriteToFile_IncorectFileName_ArgumentExcention (string filePath)
         {
+            throw(new Exception());
             //arrange
             var fixture = new Fixture();
             Receipt receipt = fixture.Create<Receipt>();
