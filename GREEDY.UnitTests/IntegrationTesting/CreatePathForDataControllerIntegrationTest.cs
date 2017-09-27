@@ -1,16 +1,16 @@
 ﻿using GREEDY.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.IO;
 
 namespace GREEDY.IntegrationTest
 {
-    [TestClass]
     public class CreatePathForDataControllerIntegrationTest
     {
         private const string FilePath = "../../../Data/receipts/TestingPath";
-        [TestMethod]
-        [Description("Check to see if a folder is created when we create it first time")]
-        [DataRow(FilePath)]
+        [Theory]
+        //[Description("Check to see if a folder is created when we create it first time")]
+        [InlineData(FilePath)]
         public void CreateFolder_FirstTimeCreating_FolderCreated(string data)
         {
         //arrange
@@ -29,13 +29,13 @@ namespace GREEDY.IntegrationTest
         createPath.CreateAFolder(data);
                 
         //assert
-        Assert.IsTrue(Directory.Exists(data));
+        Assert.True(Directory.Exists(data));
         Directory.Delete(data);
         }
 
-        [TestMethod]
-        [Description("Check to see if a folder is not replaced when it is exist")]
-        [DataRow(FilePath)]
+        [Theory]
+        //[Description("Check to see if a folder is not replaced when it is exist")]
+        [InlineData(FilePath)]
  
         public void CreateFolder_WhereThisFolderExist_FolderDidNotReplaced(string data)
         {
@@ -51,7 +51,7 @@ namespace GREEDY.IntegrationTest
         createPath.CreateAFolder(data);
  
         //assert
-        Assert.IsTrue(Directory.Exists(data));
+        Assert.True(Directory.Exists(data));
         Directory.Delete(data);
         }
     }

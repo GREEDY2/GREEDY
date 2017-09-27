@@ -1,18 +1,19 @@
 ﻿using GREEDY.Models;
 using GREEDY.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Ploeh.AutoFixture;
+using Xunit;
 
 namespace GREEDY.UnitTests
 {
-    [TestClass]
+    //[TestClass]
     public class WritingToFileControllerUnitTest
     {
-        [TestMethod]
-        [DataRow("")]
-        [DataRow("        ")]
-        [ExpectedException(typeof(ArgumentException))]
+        [Theory]
+        [InlineData("")]
+        [InlineData("        ")]
+        //[ExpectedException(typeof(ArgumentException))]
 
         public void WriteToFile_IncorectFileName_ArgumentExcention (string filePath)
         {
@@ -21,12 +22,12 @@ namespace GREEDY.UnitTests
             Receipt receipt = fixture.Create<Receipt>();
             
             //act
-            new WritingToFileController().WriteToFile(filePath, receipt);
+            Assert.Throws(typeof(ArgumentException),()=>new WritingToFileController().WriteToFile(filePath, receipt));
         }
 
-        [TestMethod]
-        [DataRow(null)]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Theory]
+        [InlineData(null)]
+        //[ExpectedException(typeof(ArgumentNullException))]
 
         public void WriteToFile_NullFileName_ArgumentNullExcention(string filePath)
         {
@@ -35,7 +36,7 @@ namespace GREEDY.UnitTests
             Receipt receipt = fixture.Create<Receipt>();
 
             //act
-            new WritingToFileController().WriteToFile(filePath, receipt);
+            Assert.Throws(typeof(ArgumentNullException),()=>new WritingToFileController().WriteToFile(filePath, receipt));
         }
     }
 }
