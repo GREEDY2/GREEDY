@@ -5,21 +5,14 @@ namespace GREEDY.DataManagers
 {
     class FileImageGetter : IImageGetter
     {
-        private readonly IAppConfig _config;
-
-        public FileImageGetter(IAppConfig config)
-        {
-            _config = config;
-        }
-
+        private static IAppConfig AppConfig => new AppConfig();
         private OpenFileDialog GetPathDialog = new OpenFileDialog();
 
         public Bitmap GetImage()
         {
             using (GetPathDialog)
             {
-                //GetPathDialog.Filter = "Image Files(*.PNG; *.JPG; *.GIF)| *.PNG; *.JPG; *.GIF | All files(*.*) | *.*";
-                GetPathDialog.Filter = _config.Filter;
+                GetPathDialog.Filter = AppConfig.FilterImageFiles;
                 GetPathDialog.FilterIndex = 2;
                 GetPathDialog.RestoreDirectory = true;
 

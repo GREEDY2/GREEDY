@@ -7,22 +7,17 @@ namespace GREEDY.DataManagers
 {
     public class DataManager : IDataManager
     {
-        private readonly IAppConfig _config;
+        private static IAppConfig AppConfig => new AppConfig();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-        public DataManager(IAppConfig config)
-        {
-            _config = config;
-        }
         
         // not tested yet. Need to write a methods to create a file
         public void SaveData(List<Item> itemList)
         {
             using (saveFileDialog)
             {
-                saveFileDialog.InitialDirectory = _config.SaveFilePath;
+                saveFileDialog.InitialDirectory = AppConfig.SaveFilePath;
                 //saveFileDialog.Filter = _config.Filter;
-                saveFileDialog.Title = "Save an Image File";
+                saveFileDialog.Title = "Save an XML File";
                 saveFileDialog.RestoreDirectory = true;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)

@@ -25,11 +25,10 @@ namespace GREEDY.refactor
                 (
                     new ReceiptService 
                     (
-                        new EmguOcr (new AppConfig ()),
+                        new EmguOcr (),
                         new DataConverter (), 
-                        new DataManager (new AppConfig())
-                    ),
-                    new AppConfig ()
+                        new DataManager ()
+                    )
                 )
             );
         }

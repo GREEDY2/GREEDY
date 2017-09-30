@@ -4,12 +4,7 @@ namespace GREEDY.DataManagers
 {
     class PhotoImageGetter : IImageGetter
     {
-        private readonly IAppConfig _config;
-
-        public PhotoImageGetter(IAppConfig config)
-        {
-            _config = config;
-        }
+        private static IAppConfig AppConfig => new AppConfig();
 
         /// <summary>
         /// Gets image from camera using Emgu.CV

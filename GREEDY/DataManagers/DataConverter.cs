@@ -13,10 +13,6 @@ namespace GREEDY.DataManagers
         /// <returns></returns>
         public List<Item> ReceiptToItemList (Receipt receipt)
         {
-            
-
-
-
             throw new System.NotImplementedException ();
         }
     }
