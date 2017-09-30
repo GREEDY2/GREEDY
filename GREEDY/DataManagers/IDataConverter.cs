@@ -5,6 +5,6 @@ namespace GREEDY.DataManagers
 {
     public interface IDataConverter
     {
-        List<Item> ReceiptToItemList (Receipt receipt);
+        List<Item> ReceiptToItemList(Receipt receipt);
     }
 }

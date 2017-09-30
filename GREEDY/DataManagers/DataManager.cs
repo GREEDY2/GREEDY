@@ -7,30 +7,36 @@ namespace GREEDY.DataManagers
 {
     public class DataManager : IDataManager
     {
-        private static IAppConfig AppConfig => new AppConfig();
-        private SaveFileDialog saveFileDialog = new SaveFileDialog();
-        
+        private readonly SaveFileDialog _saveFileDialog;
+        private readonly string _saveDataDialogTitle = "Save an Image File";
+
+        public DataManager()
+        {
+            _saveFileDialog = new SaveFileDialog();
+        }
+
         // not tested yet. Need to write a methods to create a file
         public void SaveData(List<Item> itemList)
         {
-            using (saveFileDialog)
+            using (_saveFileDialog)
             {
-                saveFileDialog.InitialDirectory = AppConfig.SaveFilePath;
+                _saveFileDialog.InitialDirectory = Environment.AppConfig.SaveFilePath;
                 //saveFileDialog.Filter = _config.Filter;
-                saveFileDialog.Title = "Save an XML File";
-                saveFileDialog.RestoreDirectory = true;
+                _saveFileDialog.Title = _saveDataDialogTitle;
+                _saveFileDialog.RestoreDirectory = true;
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                if (_saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //var SaveDataPath = saveFileDialog.FileName;
-                    if (saveFileDialog.FileName != "")
+                    if (_saveFileDialog.FileName != "")
                     {
-                        FileStream fs = (FileStream)saveFileDialog.OpenFile();
+                        FileStream fs = (FileStream)_saveFileDialog.OpenFile();
                         fs.Close();
                     }
                     else
                     {
                         // what do you think about this part? how can I write exception if user close a window and do not select a picture/file?
+                        // i dont know honestly
                     }
                 }
             };
@@ -40,9 +46,9 @@ namespace GREEDY.DataManagers
         /// Gets data from {TBD}
         /// </summary>
         /// <returns></returns>
-        public List<Item> LoadData ()
+        public List<Item> LoadData()
         {
-            throw new System.NotImplementedException ();
+            throw new System.NotImplementedException();
         }
     }
 }

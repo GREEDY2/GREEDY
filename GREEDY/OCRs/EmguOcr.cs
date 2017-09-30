@@ -10,23 +10,22 @@ namespace GREEDY.OCRs
     public class EmguOcr : IOcr
     {
         private readonly Emgu.CV.OCR.Tesseract _tesseract;
-        private static IAppConfig AppConfig => new AppConfig();
 
-        public EmguOcr ()
+        public EmguOcr()
         {
             _tesseract = new Emgu.CV.OCR.Tesseract
             (
-                AppConfig.TesseractDataPath,
-                AppConfig.OcrLanguage,
+                Environment.AppConfig.TesseractDataPath,
+                Environment.AppConfig.OcrLanguage,
                 OcrEngineMode.Default
             );
         }
-        
-        public Receipt ConvertImage (Bitmap image)
+
+        public Receipt ConvertImage(Bitmap image)
         {
-            _tesseract.SetImage (new Image<Bgr, byte> (image));
-            _tesseract.Recognize ();
-            return _tesseract.GetReceipt ();
+            _tesseract.SetImage(new Image<Bgr, byte>(image));
+            _tesseract.Recognize();
+            return _tesseract.GetReceipt();
         }
     }
 }

@@ -33,10 +33,10 @@ namespace GREEDY.View
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.InserFile_Button = new System.Windows.Forms.Button();
             this.PictureFromCamera_Button = new System.Windows.Forms.Button();
-            this.XMLdataGridView = new System.Windows.Forms.DataGridView();
+            this.ItemList = new System.Windows.Forms.DataGridView();
             this.DataViewScrollBar = new System.Windows.Forms.VScrollBar();
             this.GREEDYLOGO = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.XMLdataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GREEDYLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,13 +68,13 @@ namespace GREEDY.View
             // 
             // XMLdataGridView
             // 
-            this.XMLdataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
-            this.XMLdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.XMLdataGridView.Location = new System.Drawing.Point(12, 371);
-            this.XMLdataGridView.Name = "XMLdataGridView";
-            this.XMLdataGridView.Size = new System.Drawing.Size(294, 265);
-            this.XMLdataGridView.TabIndex = 3;
-            this.XMLdataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.XMLdataGridView_CellContentClick);
+            this.ItemList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.ItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ItemList.Location = new System.Drawing.Point(12, 371);
+            this.ItemList.Name = "XMLdataGridView";
+            this.ItemList.Size = new System.Drawing.Size(294, 265);
+            this.ItemList.TabIndex = 3;
+            this.ItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.XMLdataGridView_CellContentClick);
             // 
             // DataViewScrollBar
             // 
@@ -104,14 +104,14 @@ namespace GREEDY.View
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(318, 646);
             this.Controls.Add(this.DataViewScrollBar);
-            this.Controls.Add(this.XMLdataGridView);
+            this.Controls.Add(this.ItemList);
             this.Controls.Add(this.PictureFromCamera_Button);
             this.Controls.Add(this.GREEDYLOGO);
             this.Controls.Add(this.InserFile_Button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainScreen";
             this.Text = "GREEDY";
-            ((System.ComponentModel.ISupportInitialize)(this.XMLdataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GREEDYLOGO)).EndInit();
             this.ResumeLayout(false);
 
@@ -122,7 +122,7 @@ namespace GREEDY.View
         private System.Windows.Forms.Button InserFile_Button;
         private System.Windows.Forms.PictureBox GREEDYLOGO;
         private System.Windows.Forms.Button PictureFromCamera_Button;
-        private System.Windows.Forms.DataGridView XMLdataGridView;
+        private System.Windows.Forms.DataGridView ItemList;
         private System.Windows.Forms.VScrollBar DataViewScrollBar;
 
         //private ReceiptService receiptService;
