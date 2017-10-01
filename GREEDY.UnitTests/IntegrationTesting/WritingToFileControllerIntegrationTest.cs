@@ -1,6 +1,5 @@
 ﻿using GREEDY.Models;
 using GREEDY.Controllers;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +27,6 @@ namespace GREEDY.IntegrationTest
             new WritingToFileController().WriteToFile(fileName, receipt);
             string text = File.ReadAllText(fileName);
             //assert
-            //Assert.AreEqual(data + "\r\n", text);
             Assert.Equal(data + "\r\n", text);
             File.Delete(fileName);
         }

@@ -9,7 +9,6 @@ namespace GREEDY.IntegrationTest
     {
         private const string FilePath = "../../../Data/receipts/TestingPath";
         [Theory]
-        //[Description("Check to see if a folder is created when we create it first time")]
         [InlineData(FilePath)]
         public void CreateFolder_FirstTimeCreating_FolderCreated(string data)
         {
@@ -34,9 +33,7 @@ namespace GREEDY.IntegrationTest
         }
 
         [Theory]
-        //[Description("Check to see if a folder is not replaced when it is exist")]
-        [InlineData(FilePath)]
- 
+        [InlineData(FilePath)] 
         public void CreateFolder_WhereThisFolderExist_FolderDidNotReplaced(string data)
         {
         //arrange
