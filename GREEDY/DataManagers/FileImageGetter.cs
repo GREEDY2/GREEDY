@@ -11,7 +11,7 @@ namespace GREEDY.DataManagers
         {
             _getPathDialog = new OpenFileDialog
             {
-                Filter = Environment.AppConfig.FilterImageFiles,
+                Filter = Environments.AppConfig.FilterImageFiles,
                 FilterIndex = 2,
                 RestoreDirectory = true
             };
@@ -19,8 +19,6 @@ namespace GREEDY.DataManagers
 
         public Bitmap GetImage()
         {
-            // what would a using acoomplish here?
-
             if (_getPathDialog.ShowDialog() == DialogResult.OK)
             {
                 if (_getPathDialog.FileName != "")
@@ -29,6 +27,7 @@ namespace GREEDY.DataManagers
                     return imageBitmap;
                 }
             }
+            // what would a using acoomplish here?
             return null;
         }
     }

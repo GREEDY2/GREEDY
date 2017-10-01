@@ -15,8 +15,8 @@ namespace GREEDY.OCRs
         {
             _tesseract = new Emgu.CV.OCR.Tesseract
             (
-                Environment.AppConfig.TesseractDataPath,
-                Environment.AppConfig.OcrLanguage,
+                Environments.AppConfig.TesseractDataPath,
+                Environments.AppConfig.OcrLanguage,
                 OcrEngineMode.Default
             );
         }

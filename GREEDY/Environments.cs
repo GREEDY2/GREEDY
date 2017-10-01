@@ -1,6 +1,6 @@
 ﻿namespace GREEDY
 {
-    public class Environment
+    public class Environments
     {
         public static IAppConfig AppConfig => new AppConfig();
     }

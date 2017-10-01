@@ -13,8 +13,8 @@ namespace GREEDY.OCRs
         {
             _tesseract = new TesseractEngine
             (
-                Environment.AppConfig.TesseractDataPath,
-                Environment.AppConfig.OcrLanguage,
+                Environments.AppConfig.TesseractDataPath,
+                Environments.AppConfig.OcrLanguage,
                 EngineMode.TesseractAndCube
             );
         }

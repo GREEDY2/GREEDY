@@ -73,7 +73,8 @@
     <Compile Include="DataManagers\DataManager.cs" />
     <Compile Include="DataManagers\IDataConverter.cs" />
     <Compile Include="DataManagers\IDataManager.cs" />
-    <Compile Include="Environment.cs" />
+    <Compile Include="DataManagers\ShopDistributor.cs" />
+    <Compile Include="Environments.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Receipt.cs" />

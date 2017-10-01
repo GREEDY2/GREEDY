@@ -23,7 +23,8 @@ namespace GREEDY.Services
         {
             var receipt = _ocr.ConvertImage(image);
             var itemList = _dataConverter.ReceiptToItemList(receipt);
-            _dataManager.SaveData(itemList);
+            //_dataManager.DisplayToScreen(itemList);
+            //_dataManager.SaveData(itemList);
             return itemList;
         }
     }

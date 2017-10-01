@@ -8,11 +8,13 @@ namespace GREEDY.DataManagers
     public class DataManager : IDataManager
     {
         private readonly SaveFileDialog _saveFileDialog;
+        private readonly DataGridView _getDataGridWiew;
         private readonly string _saveDataDialogTitle = "Save an Image File";
 
         public DataManager()
         {
             _saveFileDialog = new SaveFileDialog();
+            _getDataGridWiew = new DataGridView();
         }
 
         // not tested yet. Need to write a methods to create a file
@@ -20,8 +22,8 @@ namespace GREEDY.DataManagers
         {
             using (_saveFileDialog)
             {
-                _saveFileDialog.InitialDirectory = Environment.AppConfig.SaveFilePath;
-                //saveFileDialog.Filter = _config.Filter;
+                _saveFileDialog.InitialDirectory = Environments.AppConfig.SaveFilePath;
+                //_saveFileDialog.Filter = Environments.AppConfig.Filter;
                 _saveFileDialog.Title = _saveDataDialogTitle;
                 _saveFileDialog.RestoreDirectory = true;
 
@@ -35,11 +37,18 @@ namespace GREEDY.DataManagers
                     }
                     else
                     {
-                        // what do you think about this part? how can I write exception if user close a window and do not select a picture/file?
-                        // i dont know honestly
+                        // how can I write exception if user close a window and do not select a picture/file?
                     }
                 }
             };
+        }
+        /// <summary>
+        /// Get list and display to the screen a table. Will be usefull in the future
+        /// </summary>
+        /// <returns></returns>
+        public void DisplayToScreen(List<Item> items)
+        {
+            _getDataGridWiew.DataSource = items;
         }
 
         /// <summary>
