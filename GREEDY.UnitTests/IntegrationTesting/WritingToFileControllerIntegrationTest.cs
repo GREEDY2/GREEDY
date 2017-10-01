@@ -1,22 +1,21 @@
 ﻿using GREEDY.Models;
 using GREEDY.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Xunit;
 
 namespace GREEDY.IntegrationTest
 {
-    [TestClass]
     public class WritingToFileControllerIntegrationTest
     {
         private const string fileName = "TestReceipt.txt";
 
-        [TestMethod]
-        [DataRow("")]
-        [DataRow("   ")]
-        [DataRow(null)]
-        [DataRow("12545dcdd545 dc45sd dc54s")]
+        [Theory]
+        [InlineData("")]
+        [InlineData("   ")]
+        [InlineData(null)]
+        [InlineData("12545dcdd545 dc45sd dc54s")]
         public void WriteTextToFile_StringData_TextInFileAsExpected(string data)
         {
             //arrange
@@ -28,7 +27,7 @@ namespace GREEDY.IntegrationTest
             new WritingToFileController().WriteToFile(fileName, receipt);
             string text = File.ReadAllText(fileName);
             //assert
-            Assert.AreEqual(data + "\r\n", text);
+            Assert.Equal(data + "\r\n", text);
             File.Delete(fileName);
         }
     }
