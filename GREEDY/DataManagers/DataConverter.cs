@@ -11,6 +11,7 @@ namespace GREEDY.DataManagers
     public class DataConverter : IDataConverter
     {
         private static ShopDistributor ShopDistributor => new ShopDistributor();
+        private static ItemCategorization ItemCategorization => new ItemCategorization();
 
         public List<Item> ReceiptToItemList(Receipt receipt)
         {
@@ -36,7 +37,7 @@ namespace GREEDY.DataManagers
                         {
                             Name = m.Groups[1].Value,
                             Price = decimal.Parse(m.Groups[3].Value),
-                            Category = null
+                            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
                         });
                     }
                 }

@@ -44,9 +44,10 @@ namespace GREEDY.View
             this.InserFile_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(188)))), ((int)(((byte)(211)))));
             this.InserFile_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.InserFile_Button.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.InserFile_Button.Location = new System.Drawing.Point(10, 317);
+            this.InserFile_Button.Location = new System.Drawing.Point(13, 390);
+            this.InserFile_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.InserFile_Button.Name = "InserFile_Button";
-            this.InserFile_Button.Size = new System.Drawing.Size(137, 48);
+            this.InserFile_Button.Size = new System.Drawing.Size(183, 59);
             this.InserFile_Button.TabIndex = 0;
             this.InserFile_Button.Text = "ĮKELTI NUOTRAUKĄ";
             this.InserFile_Button.UseVisualStyleBackColor = false;
@@ -57,9 +58,10 @@ namespace GREEDY.View
             this.PictureFromCamera_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(188)))), ((int)(((byte)(211)))));
             this.PictureFromCamera_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PictureFromCamera_Button.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.PictureFromCamera_Button.Location = new System.Drawing.Point(169, 317);
+            this.PictureFromCamera_Button.Location = new System.Drawing.Point(225, 390);
+            this.PictureFromCamera_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PictureFromCamera_Button.Name = "PictureFromCamera_Button";
-            this.PictureFromCamera_Button.Size = new System.Drawing.Size(137, 48);
+            this.PictureFromCamera_Button.Size = new System.Drawing.Size(183, 59);
             this.PictureFromCamera_Button.TabIndex = 2;
             this.PictureFromCamera_Button.Text = "FOTOGRAFUOTI ČEKĮ";
             this.PictureFromCamera_Button.UseVisualStyleBackColor = false;
@@ -69,9 +71,10 @@ namespace GREEDY.View
             // 
             this.ItemList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
             this.ItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ItemList.Location = new System.Drawing.Point(12, 371);
+            this.ItemList.Location = new System.Drawing.Point(16, 457);
+            this.ItemList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ItemList.Name = "ItemList";
-            this.ItemList.Size = new System.Drawing.Size(294, 265);
+            this.ItemList.Size = new System.Drawing.Size(392, 326);
             this.ItemList.TabIndex = 3;
             this.ItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.XMLdataGridView_CellContentClick);
             // 
@@ -80,24 +83,26 @@ namespace GREEDY.View
             this.GREEDYLOGO.ErrorImage = global::GREEDY.Properties.Resources.MainLogo;
             this.GREEDYLOGO.Image = global::GREEDY.Properties.Resources.MainLogo;
             this.GREEDYLOGO.InitialImage = global::GREEDY.Properties.Resources.MainLogo;
-            this.GREEDYLOGO.Location = new System.Drawing.Point(10, 12);
+            this.GREEDYLOGO.Location = new System.Drawing.Point(13, 15);
+            this.GREEDYLOGO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GREEDYLOGO.Name = "GREEDYLOGO";
-            this.GREEDYLOGO.Size = new System.Drawing.Size(296, 299);
+            this.GREEDYLOGO.Size = new System.Drawing.Size(395, 368);
             this.GREEDYLOGO.TabIndex = 1;
             this.GREEDYLOGO.TabStop = false;
             this.GREEDYLOGO.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
             // MainScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(318, 646);
+            this.ClientSize = new System.Drawing.Size(424, 795);
             this.Controls.Add(this.ItemList);
             this.Controls.Add(this.PictureFromCamera_Button);
             this.Controls.Add(this.GREEDYLOGO);
             this.Controls.Add(this.InserFile_Button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainScreen";
             this.Text = "GREEDY";
             ((System.ComponentModel.ISupportInitialize)(this.ItemList)).EndInit();

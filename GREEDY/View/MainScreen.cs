@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using GREEDY.Services;
 using GREEDY.DataManagers;
+using System.Linq;
 
 namespace GREEDY.View
 {
@@ -21,11 +22,36 @@ namespace GREEDY.View
 
         private void InserFile_Button_Click(object sender, EventArgs e)
         {
+            //DataGridViewComboBoxCell cmbCol = new DataGridViewComboBoxCell();
+            /*cmbCol.
+            cmbCol.HeaderText = "yourColumn";
+            cmbCol.Name = "myComboColumn";
+            cmbCol.Items.Add("True");*/
+
+            //if want to add the fix value in ComboBox Male and Female
+
+            
+
             var image = _fileImageGetter.GetImage();
             Application.UseWaitCursor = true;
             InserFile_Button.Enabled = false;
             var processedReceipt = _receiptService.ProcessReceiptImage(image);
             ItemList.DataSource = processedReceipt;
+            //ItemList.Columns["Category"].Visible = false;
+
+            DataGridViewComboBoxCell bc = new DataGridViewComboBoxCell();
+            var ss = processedReceipt.Select(x => x.Category).Distinct();
+            foreach (var item in ss)
+            {
+                bc.Items.AddRange(item);
+            }
+            DataGridViewColumn cc = new DataGridViewColumn(bc);
+            /*var ss = processedReceipt.AsEnumerable()
+                .Select(_ => _.Field<string>("gender")).
+                .Distinct();
+            bc.Items.AddRange(ss.ToArray());*/
+
+            ItemList.Columns.Add(cc);
             Application.UseWaitCursor = false;
             InserFile_Button.Enabled = true;
         }
