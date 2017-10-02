@@ -5,6 +5,7 @@ namespace GREEDY.DataManagers
 {
     class ShopDistributor
     {
+        // TODO: return enum of all shops available
         public string ReceiptDistributor(Receipt receipt)
         {
             var shopTile = "";

@@ -44,7 +44,5 @@ namespace GREEDY.View
         private void XMLdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
 
         private void PictureBox1_Click(object sender, EventArgs e) { }
-
-        private void DataViewScrollBar_Scroll(object sender, ScrollEventArgs e) { }
     }
 }

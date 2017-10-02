@@ -6,7 +6,7 @@ namespace GREEDY.DataManagers
     class PhotoImageGetter : IImageGetter
     {
         /// <summary>
-        /// Gets image from camera using Emgu.CV
+        /// This methods allows to get a photo from camera
         /// </summary>
         /// <returns></returns>
         public Bitmap GetImage()

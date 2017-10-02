@@ -48,6 +48,8 @@ namespace GREEDY.DataManagers
             }
         }
 
+        // TODO
+        // this doesnt belong in this class, can be moved to a static method, maybe an extension method
         public XElement ListToXml(List<Item> items)
         {
             XElement xmlElements = new XElement("items",
@@ -58,6 +60,8 @@ namespace GREEDY.DataManagers
             return xmlElements;
         }
 
+        // TODO
+        // this doesnt belong in this class, can be moved to a static method, maybe an extension method
         public DataTable ListToDataTable(List<Item> items)
         {
             DataTable dataTable = new DataTable();

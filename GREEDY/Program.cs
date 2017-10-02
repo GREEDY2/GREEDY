@@ -5,7 +5,7 @@ using GREEDY.OCRs;
 using GREEDY.Services;
 using GREEDY.View;
 
-namespace GREEDY.refactor
+namespace GREEDY
 {
     static class Program
     {

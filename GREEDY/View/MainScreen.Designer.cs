@@ -34,7 +34,6 @@ namespace GREEDY.View
             this.InserFile_Button = new System.Windows.Forms.Button();
             this.PictureFromCamera_Button = new System.Windows.Forms.Button();
             this.ItemList = new System.Windows.Forms.DataGridView();
-            this.DataViewScrollBar = new System.Windows.Forms.VScrollBar();
             this.GREEDYLOGO = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ItemList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GREEDYLOGO)).BeginInit();
@@ -66,24 +65,15 @@ namespace GREEDY.View
             this.PictureFromCamera_Button.UseVisualStyleBackColor = false;
             this.PictureFromCamera_Button.Click += new System.EventHandler(this.PictureFromCamera_Button_Click);
             // 
-            // XMLdataGridView
+            // ItemList
             // 
             this.ItemList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
             this.ItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ItemList.Location = new System.Drawing.Point(12, 371);
-            this.ItemList.Name = "XMLdataGridView";
+            this.ItemList.Name = "ItemList";
             this.ItemList.Size = new System.Drawing.Size(294, 265);
             this.ItemList.TabIndex = 3;
             this.ItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.XMLdataGridView_CellContentClick);
-            // 
-            // DataViewScrollBar
-            // 
-            this.DataViewScrollBar.Location = new System.Drawing.Point(291, 371);
-            this.DataViewScrollBar.Name = "DataViewScrollBar";
-            this.DataViewScrollBar.Size = new System.Drawing.Size(15, 265);
-            this.DataViewScrollBar.TabIndex = 4;
-            this.DataViewScrollBar.Visible = false;
-            this.DataViewScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DataViewScrollBar_Scroll);
             // 
             // GREEDYLOGO
             // 
@@ -103,7 +93,6 @@ namespace GREEDY.View
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(318, 646);
-            this.Controls.Add(this.DataViewScrollBar);
             this.Controls.Add(this.ItemList);
             this.Controls.Add(this.PictureFromCamera_Button);
             this.Controls.Add(this.GREEDYLOGO);
@@ -123,7 +112,6 @@ namespace GREEDY.View
         private System.Windows.Forms.PictureBox GREEDYLOGO;
         private System.Windows.Forms.Button PictureFromCamera_Button;
         private System.Windows.Forms.DataGridView ItemList;
-        private System.Windows.Forms.VScrollBar DataViewScrollBar;
 
         //private ReceiptService receiptService;
 
