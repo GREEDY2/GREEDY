@@ -11,7 +11,7 @@ namespace GREEDY.DataManagers
         /// <returns></returns>
         public Bitmap GetImage()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Ši galimybė dar negalima");
         }
     }
 }

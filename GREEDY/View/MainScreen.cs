@@ -32,13 +32,31 @@ namespace GREEDY.View
 
         private void PictureFromCamera_Button_Click(object sender, EventArgs e)
         {
-            var image = _photoImageGetter.GetImage();
-            Application.UseWaitCursor = true;
-            InserFile_Button.Enabled = false;
-            var processedReceipt = _receiptService.ProcessReceiptImage(image);
-            ItemList.DataSource = processedReceipt;
-            Application.UseWaitCursor = false;
-            InserFile_Button.Enabled = true;
+            try
+            {
+                var image = _photoImageGetter.GetImage();
+                Application.UseWaitCursor = true;
+                InserFile_Button.Enabled = false;
+                var processedReceipt = _receiptService.ProcessReceiptImage(image);
+                ItemList.DataSource = processedReceipt;
+                Application.UseWaitCursor = false;
+                InserFile_Button.Enabled = true;
+            }
+            catch (NotImplementedException ex)
+            {
+                WarningBox_MessageBox(ex.Message, "Perspėjimas");
+            }
+            
+        }
+
+        private void WarningBox_MessageBox (string message, string windowTitle)
+        {
+            MessageBox.Show(
+                 message,            //Message box text
+                 windowTitle,            //Message box title
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Exclamation //For triangle Warning 
+            );
         }
 
         private void XMLdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
