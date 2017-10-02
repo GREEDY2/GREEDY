@@ -28,16 +28,8 @@ namespace GREEDY.DataManagers
 
                 if (_saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //var SaveDataPath = saveFileDialog.FileName;
-                    if (_saveFileDialog.FileName != "")
-                    {
-                        FileStream fs = (FileStream)_saveFileDialog.OpenFile();
-                        fs.Close();
-                    }
-                    else
-                    {
-                        // how can I write exception if user close a window and do not select a picture/file?
-                    }
+                    FileStream fs = (FileStream)_saveFileDialog.OpenFile();
+                    fs.Close();
                 }
             };
         }
