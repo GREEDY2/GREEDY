@@ -38,7 +38,7 @@ namespace GREEDY.View
             InserFile_Button.Enabled = true;
         }
 
-        private void itemList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void ItemList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (ItemList.SelectedCells[0].Value != null)
             {
