@@ -13,7 +13,7 @@ namespace GREEDY.DataManagers
         {
             UpdateCategories();
         }
-        // TO DO: write a more flexible item categorization
+        // TODO: write a more flexible item categorization
         // decimal price is not needed for now, 
         // but maybe available implementation for the future to help categorization
         public string CategorizeSingleItem(string itemName, decimal price = 0)

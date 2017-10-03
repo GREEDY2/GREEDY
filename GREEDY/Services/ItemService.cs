@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using GREEDY.DataManagers;
-using GREEDY.Models;
-using GREEDY.OCRs;
-using System.Drawing;
-using System;
+﻿using GREEDY.DataManagers;
 
 namespace GREEDY.Services
 {
