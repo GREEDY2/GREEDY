@@ -1,87 +1,84 @@
-﻿using GREEDY.Controllers;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows.Forms;
-using System.Configuration;
-using System.Data;
-using GREEDY.Models;
+using GREEDY.Services;
+using GREEDY.DataManagers;
+using System.Linq;
 
-namespace GREEDY
+namespace GREEDY.View
 {
-    public partial class Greedy : Form
+    public partial class MainScreen : Form
     {
-        public Greedy()
+        private readonly IReceiptService _receiptService;
+        private readonly IItemService _itemService;
+        private readonly IImageGetter _photoImageGetter;
+        private readonly IImageGetter _fileImageGetter;
+
+        public MainScreen(IReceiptService receiptService, IItemService itemService)
         {
+            _receiptService = receiptService;
+            _itemService = itemService;
+            _photoImageGetter = new PhotoImageGetter();
+            _fileImageGetter = new FileImageGetter();
             InitializeComponent();
         }
 
-        private void MainScreen_Load(object sender, EventArgs e)
+        private void InserFile_Button_Click(object sender, EventArgs e)
         {
-
+            Application.UseWaitCursor = true;
+            InserFile_Button.Enabled = false;
+            var image = _fileImageGetter.GetImage();
+            var processedReceipt = _receiptService.ProcessReceiptImage(image);
+            if (processedReceipt != null)
+            {
+                ItemList.DataSource = processedReceipt;
+                ItemList.Columns[0].ReadOnly = true;
+                ItemList.Columns[1].ReadOnly = true;
+            }
+            Application.UseWaitCursor = false;
+            InserFile_Button.Enabled = true;
         }
 
-        private async void btnOCR_Click(object sender, EventArgs e)
+        private void itemList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (imageForOCR.ShowDialog() == DialogResult.OK)
+            if (ItemList.SelectedCells[0].Value != null)
+            {
+                _itemService.AddChangeCategory(
+                    ItemList.CurrentRow.Cells[0].Value.ToString(), 
+                    ItemList.SelectedCells[0].Value.ToString()
+                );
+            }
+        }
+
+        private void PictureFromCamera_Button_Click(object sender, EventArgs e)
+        {
+            try
             {
                 Application.UseWaitCursor = true;
-                btnOCR.Enabled = false;
-                    
-                string receiptsFolder = ConfigurationManager.AppSettings["receiptsFolder"];
-                string singleReceiptPath = ConfigurationManager.AppSettings["singleReceiptPath"];
-                var receipt = await new OCRController().UseOCRAsync(imageForOCR.FileName);
-                textResult.Text = string.Empty;
-                foreach (var line in receipt.LinesOfText)
-                {
-                    textResult.Text += line;
-                }
-                new CreatePathForDataController().CreateAFolder(receiptsFolder);
-                new WritingToFileController().WriteToFile(singleReceiptPath, receipt);
-
-                //writing raw data from receipt to items datatable 
-                RawDataFormatController rawDataFormatController = new RawDataFormatController(receipt);
-                ItemsList.DataSource = rawDataFormatController.GetDataTable();
-
-                //reading list of all items and adding new items from receipt list
-                string itemsListsFolder = ConfigurationManager.AppSettings["itemsListsFolder"];
-                string singleItemsListPath = ConfigurationManager.AppSettings["singleItemsListPath"];
-                new CreatePathForDataController().CreateAFolder(itemsListsFolder);
-                DataConvertionController dataConvertionController = 
-                    new DataConvertionController();
-
-                //reading all items from an xml file
-                List<Item> listOfAllItems = 
-                    dataConvertionController.XmlToList(singleItemsListPath);
-
-                //retrieving new receipts data and displaying it to DataGridView
-                DataTable newReceipDataTable = 
-                    new RawDataFormatController(receipt).GetDataTable();
-                ItemsList.DataSource = newReceipDataTable;
-
-                //converting new receipts datatable to List<Item>
-                List<Item> newReceipItems = 
-                    dataConvertionController.DataTableToList(newReceipDataTable);
-
-                //adding new items to the listOfAllItems
-                listOfAllItems.AddRange(newReceipItems);
-
-                //writing the listOfAllItems to the xml file
-                dataConvertionController.ListToXml(listOfAllItems, singleItemsListPath);
-
-                Application.UseWaitCursor = false;
-                btnOCR.Enabled = true;
+                InserFile_Button.Enabled = false;
+                var image = _photoImageGetter.GetImage();
+                var processedReceipt = _receiptService.ProcessReceiptImage(image);
+                ItemList.DataSource = processedReceipt;
             }
-            GC.Collect();
-        }
-
-        private void textResult_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ItemList_CellContentClick()
-        {
+            catch (NotImplementedException ex)
+            {
+                WarningBox_MessageBox(ex.Message, "Perspėjimas");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+                InserFile_Button.Enabled = true;
+            }
             
+        }
+
+        private void WarningBox_MessageBox (string message, string windowTitle)
+        {
+            MessageBox.Show(
+                 message,            //Message box text
+                 windowTitle,            //Message box title
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Exclamation //For triangle Warning 
+            );
         }
     }
 }

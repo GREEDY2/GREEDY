@@ -1,13 +1,8 @@
-﻿using System;
-using GREEDY.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GREEDY.Models
 {
-    public class Receipt : IReceipt
+    public class Receipt
     {
         public float PercentageMatched { get; set; }
         public List<string> LinesOfText { get; set; }

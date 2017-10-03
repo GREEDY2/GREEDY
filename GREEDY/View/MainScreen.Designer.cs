@@ -1,6 +1,8 @@
-﻿namespace GREEDY
+﻿using GREEDY.Services;
+
+namespace GREEDY.View
 {
-    partial class Greedy
+    partial class MainScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -28,69 +30,98 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnOCR = new System.Windows.Forms.Button();
-            this.textResult = new System.Windows.Forms.TextBox();
-            this.imageForOCR = new System.Windows.Forms.OpenFileDialog();
-            this.ItemsList = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.ItemsList)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
+            this.InserFile_Button = new System.Windows.Forms.Button();
+            this.PictureFromCamera_Button = new System.Windows.Forms.Button();
+            this.ItemList = new System.Windows.Forms.DataGridView();
+            this.GREEDYLOGO = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GREEDYLOGO)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnOCR
+            // InserFile_Button
             // 
-            this.btnOCR.Location = new System.Drawing.Point(14, 15);
-            this.btnOCR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnOCR.Name = "btnOCR";
-            this.btnOCR.Size = new System.Drawing.Size(152, 65);
-            this.btnOCR.TabIndex = 0;
-            this.btnOCR.Text = "OCR";
-            this.btnOCR.UseVisualStyleBackColor = true;
-            this.btnOCR.Click += new System.EventHandler(this.btnOCR_Click);
+            this.InserFile_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(188)))), ((int)(((byte)(211)))));
+            this.InserFile_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.InserFile_Button.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.InserFile_Button.Location = new System.Drawing.Point(13, 390);
+            this.InserFile_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.InserFile_Button.Name = "InserFile_Button";
+            this.InserFile_Button.Size = new System.Drawing.Size(183, 59);
+            this.InserFile_Button.TabIndex = 0;
+            this.InserFile_Button.Text = "ĮKELTI NUOTRAUKĄ";
+            this.InserFile_Button.UseVisualStyleBackColor = false;
+            this.InserFile_Button.Click += new System.EventHandler(this.InserFile_Button_Click);
             // 
-            // textResult
+            // PictureFromCamera_Button
             // 
-            this.textResult.Location = new System.Drawing.Point(14, 101);
-            this.textResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textResult.Multiline = true;
-            this.textResult.Name = "textResult";
-            this.textResult.Size = new System.Drawing.Size(474, 485);
-            this.textResult.TabIndex = 1;
-            this.textResult.TextChanged += new System.EventHandler(this.textResult_TextChanged);
+            this.PictureFromCamera_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(188)))), ((int)(((byte)(211)))));
+            this.PictureFromCamera_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PictureFromCamera_Button.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.PictureFromCamera_Button.Location = new System.Drawing.Point(225, 390);
+            this.PictureFromCamera_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.PictureFromCamera_Button.Name = "PictureFromCamera_Button";
+            this.PictureFromCamera_Button.Size = new System.Drawing.Size(183, 59);
+            this.PictureFromCamera_Button.TabIndex = 2;
+            this.PictureFromCamera_Button.Text = "FOTOGRAFUOTI ČEKĮ";
+            this.PictureFromCamera_Button.UseVisualStyleBackColor = false;
+            this.PictureFromCamera_Button.Click += new System.EventHandler(this.PictureFromCamera_Button_Click);
             // 
-            // ItemsList
+            // ItemList
             // 
-            this.ItemsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ItemsList.Location = new System.Drawing.Point(505, 101);
-            this.ItemsList.Name = "ItemsList";
-            this.ItemsList.RowTemplate.Height = 28;
-            this.ItemsList.Size = new System.Drawing.Size(470, 485);
-            this.ItemsList.TabIndex = 2;
-            //this.ItemsList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ItemsList_CellContentClick);
+            this.ItemList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.ItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ItemList.Location = new System.Drawing.Point(16, 457);
+            this.ItemList.Margin = new System.Windows.Forms.Padding(4);
+            this.ItemList.Name = "ItemList";
+            this.ItemList.Size = new System.Drawing.Size(392, 326);
+            this.ItemList.TabIndex = 3;
+            this.ItemList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemList_CellValueChanged);
             // 
-            // Greedy
+            // GREEDYLOGO
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.GREEDYLOGO.ErrorImage = global::GREEDY.Properties.Resources.MainLogo;
+            this.GREEDYLOGO.Image = global::GREEDY.Properties.Resources.MainLogo;
+            this.GREEDYLOGO.InitialImage = global::GREEDY.Properties.Resources.MainLogo;
+            this.GREEDYLOGO.Location = new System.Drawing.Point(13, 15);
+            this.GREEDYLOGO.Margin = new System.Windows.Forms.Padding(4);
+            this.GREEDYLOGO.Name = "GREEDYLOGO";
+            this.GREEDYLOGO.Size = new System.Drawing.Size(395, 368);
+            this.GREEDYLOGO.TabIndex = 1;
+            this.GREEDYLOGO.TabStop = false;
+            // 
+            // MainScreen
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(987, 602);
-            this.Controls.Add(this.ItemsList);
-            this.Controls.Add(this.textResult);
-            this.Controls.Add(this.btnOCR);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Greedy";
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(424, 795);
+            this.Controls.Add(this.ItemList);
+            this.Controls.Add(this.PictureFromCamera_Button);
+            this.Controls.Add(this.GREEDYLOGO);
+            this.Controls.Add(this.InserFile_Button);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "MainScreen";
             this.Text = "GREEDY";
-            this.Load += new System.EventHandler(this.MainScreen_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ItemsList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GREEDYLOGO)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnOCR;
-        private System.Windows.Forms.TextBox textResult;
-        private System.Windows.Forms.OpenFileDialog imageForOCR;
-        private System.Windows.Forms.DataGridView ItemsList;
+        private System.Windows.Forms.Button InserFile_Button;
+        private System.Windows.Forms.PictureBox GREEDYLOGO;
+        private System.Windows.Forms.Button PictureFromCamera_Button;
+        private System.Windows.Forms.DataGridView ItemList;
+
+        //private ReceiptService receiptService;
+
+        //public MainScreen(ReceiptService receiptService)
+        //{
+        //    this.receiptService = receiptService;
+        //}
     }
 }
-
