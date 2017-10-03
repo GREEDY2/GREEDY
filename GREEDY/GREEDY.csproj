@@ -71,6 +71,7 @@
     <Compile Include="AppConfig.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
+    <Compile Include="DataManagers\IItemCategorization.cs" />
     <Compile Include="DataManagers\ItemCategorization.cs" />
     <Compile Include="DataManagers\PhotoImageGetter.cs" />
     <Compile Include="DataManagers\DataConverter.cs" />
@@ -92,7 +93,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
+    <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
     <Compile Include="View\MainScreen.cs">
       <SubType>Form</SubType>

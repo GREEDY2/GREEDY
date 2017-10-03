@@ -45,7 +45,7 @@ namespace GREEDY.View
             this.InserFile_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.InserFile_Button.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
             this.InserFile_Button.Location = new System.Drawing.Point(13, 390);
-            this.InserFile_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.InserFile_Button.Margin = new System.Windows.Forms.Padding(4);
             this.InserFile_Button.Name = "InserFile_Button";
             this.InserFile_Button.Size = new System.Drawing.Size(183, 59);
             this.InserFile_Button.TabIndex = 0;
@@ -59,7 +59,7 @@ namespace GREEDY.View
             this.PictureFromCamera_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PictureFromCamera_Button.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
             this.PictureFromCamera_Button.Location = new System.Drawing.Point(225, 390);
-            this.PictureFromCamera_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PictureFromCamera_Button.Margin = new System.Windows.Forms.Padding(4);
             this.PictureFromCamera_Button.Name = "PictureFromCamera_Button";
             this.PictureFromCamera_Button.Size = new System.Drawing.Size(183, 59);
             this.PictureFromCamera_Button.TabIndex = 2;
@@ -72,11 +72,11 @@ namespace GREEDY.View
             this.ItemList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
             this.ItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ItemList.Location = new System.Drawing.Point(16, 457);
-            this.ItemList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ItemList.Margin = new System.Windows.Forms.Padding(4);
             this.ItemList.Name = "ItemList";
             this.ItemList.Size = new System.Drawing.Size(392, 326);
             this.ItemList.TabIndex = 3;
-            this.ItemList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.XMLdataGridView_CellContentClick);
+            this.ItemList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemList_CellValueChanged);
             // 
             // GREEDYLOGO
             // 
@@ -84,12 +84,11 @@ namespace GREEDY.View
             this.GREEDYLOGO.Image = global::GREEDY.Properties.Resources.MainLogo;
             this.GREEDYLOGO.InitialImage = global::GREEDY.Properties.Resources.MainLogo;
             this.GREEDYLOGO.Location = new System.Drawing.Point(13, 15);
-            this.GREEDYLOGO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GREEDYLOGO.Margin = new System.Windows.Forms.Padding(4);
             this.GREEDYLOGO.Name = "GREEDYLOGO";
             this.GREEDYLOGO.Size = new System.Drawing.Size(395, 368);
             this.GREEDYLOGO.TabIndex = 1;
             this.GREEDYLOGO.TabStop = false;
-            this.GREEDYLOGO.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
             // MainScreen
             // 
@@ -102,7 +101,7 @@ namespace GREEDY.View
             this.Controls.Add(this.GREEDYLOGO);
             this.Controls.Add(this.InserFile_Button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainScreen";
             this.Text = "GREEDY";
             ((System.ComponentModel.ISupportInitialize)(this.ItemList)).EndInit();

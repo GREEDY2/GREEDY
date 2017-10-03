@@ -26,6 +26,12 @@ namespace GREEDY
                         new EmguOcr(),
                         new DataConverter(),
                         new DataManager()
+                    ),
+                    new ItemService
+                    (
+                        new DataConverter(),
+                        new DataManager(),
+                        new ItemCategorization()
                     )
                 )
             );

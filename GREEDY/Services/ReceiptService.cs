@@ -22,13 +22,13 @@ namespace GREEDY.Services
 
         public List<Item> ProcessReceiptImage(Bitmap image)
         {
-            try
+            if (image != null)
             {
                 var receipt = _ocr.ConvertImage(image);
                 var itemList = _dataConverter.ReceiptToItemList(receipt);
                 return itemList;
             }
-            catch (NullReferenceException e)
+            else
             {
                 return null;
             }

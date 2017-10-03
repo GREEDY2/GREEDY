@@ -9,12 +9,14 @@ namespace GREEDY.View
     public partial class MainScreen : Form
     {
         private readonly IReceiptService _receiptService;
+        private readonly IItemService _itemService;
         private readonly IImageGetter _photoImageGetter;
         private readonly IImageGetter _fileImageGetter;
 
-        public MainScreen(ReceiptService receiptService)
+        public MainScreen(IReceiptService receiptService, IItemService itemService)
         {
             _receiptService = receiptService;
+            _itemService = itemService;
             _photoImageGetter = new PhotoImageGetter();
             _fileImageGetter = new FileImageGetter();
             InitializeComponent();
@@ -22,55 +24,49 @@ namespace GREEDY.View
 
         private void InserFile_Button_Click(object sender, EventArgs e)
         {
-            //DataGridViewComboBoxCell cmbCol = new DataGridViewComboBoxCell();
-            /*cmbCol.
-            cmbCol.HeaderText = "yourColumn";
-            cmbCol.Name = "myComboColumn";
-            cmbCol.Items.Add("True");*/
-
-            //if want to add the fix value in ComboBox Male and Female
-
-            
-
-            var image = _fileImageGetter.GetImage();
             Application.UseWaitCursor = true;
             InserFile_Button.Enabled = false;
+            var image = _fileImageGetter.GetImage();
             var processedReceipt = _receiptService.ProcessReceiptImage(image);
-            ItemList.DataSource = processedReceipt;
-            //ItemList.Columns["Category"].Visible = false;
-
-            DataGridViewComboBoxCell bc = new DataGridViewComboBoxCell();
-            var ss = processedReceipt.Select(x => x.Category).Distinct();
-            foreach (var item in ss)
+            if (processedReceipt != null)
             {
-                bc.Items.AddRange(item);
+                ItemList.DataSource = processedReceipt;
+                ItemList.Columns[0].ReadOnly = true;
+                ItemList.Columns[1].ReadOnly = true;
             }
-            DataGridViewColumn cc = new DataGridViewColumn(bc);
-            /*var ss = processedReceipt.AsEnumerable()
-                .Select(_ => _.Field<string>("gender")).
-                .Distinct();
-            bc.Items.AddRange(ss.ToArray());*/
-
-            ItemList.Columns.Add(cc);
             Application.UseWaitCursor = false;
             InserFile_Button.Enabled = true;
+        }
+
+        private void itemList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (ItemList.SelectedCells[0].Value != null)
+            {
+                _itemService.AddChangeCategory(
+                    ItemList.CurrentRow.Cells[0].Value.ToString(), 
+                    ItemList.SelectedCells[0].Value.ToString()
+                );
+            }
         }
 
         private void PictureFromCamera_Button_Click(object sender, EventArgs e)
         {
             try
             {
-                var image = _photoImageGetter.GetImage();
                 Application.UseWaitCursor = true;
                 InserFile_Button.Enabled = false;
+                var image = _photoImageGetter.GetImage();
                 var processedReceipt = _receiptService.ProcessReceiptImage(image);
                 ItemList.DataSource = processedReceipt;
-                Application.UseWaitCursor = false;
-                InserFile_Button.Enabled = true;
             }
             catch (NotImplementedException ex)
             {
                 WarningBox_MessageBox(ex.Message, "Perspėjimas");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+                InserFile_Button.Enabled = true;
             }
             
         }
@@ -84,9 +80,5 @@ namespace GREEDY.View
                  MessageBoxIcon.Exclamation //For triangle Warning 
             );
         }
-
-        private void XMLdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-
-        private void PictureBox1_Click(object sender, EventArgs e) { }
     }
 }
