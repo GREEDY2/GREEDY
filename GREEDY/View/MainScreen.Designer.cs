@@ -76,7 +76,7 @@ namespace GREEDY.View
             this.ItemList.Name = "ItemList";
             this.ItemList.Size = new System.Drawing.Size(392, 326);
             this.ItemList.TabIndex = 3;
-            this.ItemList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemList_CellValueChanged);
+            this.ItemList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ItemList_CellValueChanged);
             // 
             // GREEDYLOGO
             // 

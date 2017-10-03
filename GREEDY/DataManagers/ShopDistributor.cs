@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace GREEDY.DataManagers
 {
-    class ShopDistributor
+    public class ShopDistributor
     {
         // TODO: return enum of all shops available
         public string ReceiptDistributor(Receipt receipt)
@@ -24,7 +24,7 @@ namespace GREEDY.DataManagers
             }
             else
             {
-                return "";
+                return null;
             }
         }
     }
