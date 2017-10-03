@@ -114,6 +114,7 @@
     <EmbeddedResource Include="View\MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Categories.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
