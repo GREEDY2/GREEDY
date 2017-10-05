@@ -8,7 +8,7 @@ namespace GREEDY.DataManagers
 {
     class ItemCategorization : IItemCategorization
     {
-        private static Dictionary<string, string> CategoriesDictionary;
+        private static Dictionary<string, string> _categoriesDictionary;
         static ItemCategorization()
         {
             UpdateCategories();
@@ -19,7 +19,7 @@ namespace GREEDY.DataManagers
         public string CategorizeSingleItem(string itemName, decimal price = 0)
         {
             string itemCategory = string.Empty;
-            foreach (KeyValuePair<string, string> category in CategoriesDictionary)
+            foreach (KeyValuePair<string, string> category in _categoriesDictionary)
             {
                 if (itemName.ToLower().Contains(category.Key))
                 {
@@ -39,26 +39,26 @@ namespace GREEDY.DataManagers
             }
             else
             {
-                CategoriesDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>
+                _categoriesDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>
                     (File.ReadAllText(Environments.AppConfig.CategoriesDataPath));
             }
-            if (CategoriesDictionary == null)
+            if (_categoriesDictionary == null)
             {
-                CategoriesDictionary = new Dictionary<string, string>();
+                _categoriesDictionary = new Dictionary<string, string>();
             }
         }
 
         public void AddChangeCategories(string itemName, string category)
         {
-            if (!CategoriesDictionary.ContainsKey(itemName))
+            if (!_categoriesDictionary.ContainsKey(itemName))
             {
-                CategoriesDictionary.Add(itemName, category);
-                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(CategoriesDictionary));
+                _categoriesDictionary.Add(itemName, category);
+                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_categoriesDictionary));
             }
-            else if (CategoriesDictionary[itemName] != category)
+            else if (_categoriesDictionary[itemName] != category)
             {
-                CategoriesDictionary[itemName] = category;
-                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(CategoriesDictionary));
+                _categoriesDictionary[itemName] = category;
+                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_categoriesDictionary));
             }
         }
     }
