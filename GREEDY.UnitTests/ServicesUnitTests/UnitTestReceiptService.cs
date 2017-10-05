@@ -1,11 +1,11 @@
-﻿using Xunit;
+﻿using System.Drawing;
 using GREEDY.DataManagers;
-using GREEDY.Services;
 using GREEDY.OCRs;
-using System.Drawing;
+using GREEDY.Services;
 using Moq;
+using Xunit;
 
-namespace GREEDY.UnitTests
+namespace GREEDY.UnitTests.ServicesUnitTests
 {
     public class UnitTestReceiptService
     {

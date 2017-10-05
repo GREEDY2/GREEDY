@@ -86,10 +86,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataManagersUnitTests\UnitTestDataConverter.cs" />
+    <Compile Include="DataManagersUnitTests\UnitTestImageCategorization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestItemService.cs" />
-    <Compile Include="UnitTestReceiptService.cs" />
-    <Compile Include="UnitTestShopDistributor.cs" />
+    <Compile Include="ServicesUnitTests\UnitTestItemService.cs" />
+    <Compile Include="DataManagersUnitTests\UnitTestPhotoImageGetter.cs" />
+    <Compile Include="ServicesUnitTests\UnitTestReceiptService.cs" />
+    <Compile Include="DataManagersUnitTests\UnitTestShopDistributor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Drawing;
 using GREEDY.DataManagers;
-using GREEDY.OCRs;
 using GREEDY.Services;
 using Moq;
 using Xunit;
 
-namespace GREEDY.UnitTests
+namespace GREEDY.UnitTests.ServicesUnitTests
 {
     public class UnitTestItemService
     {

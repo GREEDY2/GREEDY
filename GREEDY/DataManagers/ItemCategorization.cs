@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GREEDY.DataManagers
 {
-    class ItemCategorization : IItemCategorization
+    public class ItemCategorization : IItemCategorization
     {
         private static Dictionary<string, string> _categoriesDictionary;
         static ItemCategorization()

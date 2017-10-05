@@ -35,7 +35,7 @@ namespace GREEDY.DataManagers
                     {
                         itemlList.Add(new Item
                         {
-                            Name = m.Groups[1].Value,
+                            Name = m.Groups[1].Value.Replace("\n", string.Empty),
                             Price = decimal.Parse(m.Groups[3].Value),
                             Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
                         });
