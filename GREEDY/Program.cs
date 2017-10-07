@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using GREEDY.DataManagers;
+using GREEDY.OCRs;
+using GREEDY.Services;
+using GREEDY.View;
 
 namespace GREEDY
 {
@@ -16,7 +17,24 @@ namespace GREEDY
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Greedy());
+            Application.Run
+            (
+                new MainScreen
+                (
+                    new ReceiptService
+                    (
+                        new EmguOcr(),
+                        new DataConverter(),
+                        new DataManager()
+                    ),
+                    new ItemService
+                    (
+                        new DataConverter(),
+                        new DataManager(),
+                        new ItemCategorization()
+                    )
+                )
+            );
         }
     }
 }
