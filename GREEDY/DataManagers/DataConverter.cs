@@ -16,32 +16,33 @@ namespace GREEDY.DataManagers
         public List<Item> ReceiptToItemList(Receipt receipt)
         {
             var shop = ShopDistributor.ReceiptDistributor(receipt);
-            var ReceiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
-            List<Item> itemlList = new List<Item>();
+            var receiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
+            List<Item> itemList = new List<Item>();
 
             if (shop == "RIMI" || shop == "MAXIMA")
             {
                 string pattern = @"([*]+)\n(.+)\n([*]+)";
-                ReceiptLinesToString = Regex.Replace(ReceiptLinesToString, @"\r", "");
+                receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
 
-                Match match = Regex.Match(ReceiptLinesToString, pattern, RegexOptions.Singleline);
+                Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
                 if (match.Success)
                 {
-                    ReceiptLinesToString = match.Groups[2].Value;
+                    receiptLinesToString = match.Groups[2].Value;
                     pattern = @"([^..]*)([.]+)( \d+,\d\d)";
 
-                    MatchCollection matches = Regex.Matches(ReceiptLinesToString, pattern, RegexOptions.Singleline);
+                    MatchCollection matches = Regex.Matches(receiptLinesToString, pattern, RegexOptions.Singleline);
                     foreach (Match m in matches)
                     {
-                        itemlList.Add(new Item
+                        itemList.Add(new Item
                         {
-                            Name = m.Groups[1].Value,
+                            Name = m.Groups[1].Value.Replace("\n", string.Empty),
                             Price = decimal.Parse(m.Groups[3].Value),
                             Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
                         });
                     }
+                    return itemList;
                 }
-                return itemlList;
+                return itemList;
             }
             else
             {

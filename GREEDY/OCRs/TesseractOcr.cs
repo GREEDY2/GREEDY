@@ -7,20 +7,16 @@ namespace GREEDY.OCRs
 {
     public class TesseractOcr : IOcr
     {
-        private readonly TesseractEngine _tesseract;
+        private TesseractEngine _tesseract;
 
-        public TesseractOcr()
+        public Receipt ConvertImage(Bitmap image)
         {
             _tesseract = new TesseractEngine
             (
                 Environments.AppConfig.TesseractDataPath,
                 Environments.AppConfig.OcrLanguage,
-                EngineMode.TesseractAndCube
+                EngineMode.TesseractOnly
             );
-        }
-
-        public Receipt ConvertImage(Bitmap image)
-        {
             var page = _tesseract.Process(image);
             return page.GetReceipt();
         }
