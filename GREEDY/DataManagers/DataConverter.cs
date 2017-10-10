@@ -17,7 +17,7 @@ namespace GREEDY.DataManagers
         {
             var shop = ShopDistributor.ReceiptDistributor(receipt);
             var receiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
-            List<Item> itemlList = new List<Item>();
+            List<Item> itemList = new List<Item>();
 
             if (shop == "RIMI" || shop == "MAXIMA")
             {
@@ -33,16 +33,16 @@ namespace GREEDY.DataManagers
                     MatchCollection matches = Regex.Matches(receiptLinesToString, pattern, RegexOptions.Singleline);
                     foreach (Match m in matches)
                     {
-                        itemlList.Add(new Item
+                        itemList.Add(new Item
                         {
                             Name = m.Groups[1].Value.Replace("\n", string.Empty),
                             Price = decimal.Parse(m.Groups[3].Value),
                             Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
                         });
                     }
-                    return itemlList;
+                    return itemList;
                 }
-                return itemlList;
+                return itemList;
             }
             else
             {
