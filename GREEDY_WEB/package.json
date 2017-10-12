@@ -30,5 +30,9 @@
     "url-loader": "0.5.9",
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.2"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "react-images-upload": "^1.1.1"
   }
 }

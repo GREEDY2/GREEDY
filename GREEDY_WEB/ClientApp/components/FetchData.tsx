@@ -1,63 +1,37 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
+import axios from 'axios';
 
-interface FetchDataExampleState {
-    forecasts: WeatherForecast[];
-    loading: boolean;
-}
 
-export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
+export class FetchData extends React.Component {
     constructor() {
         super();
-        this.state = { forecasts: [], loading: true };
-
-        fetch('api/SampleData/WeatherForecasts')
-            .then(response => response.json() as Promise<WeatherForecast[]>)
-            .then(data => {
-                this.setState({ forecasts: data, loading: false });
+        this.state = {
+            readings: []
+        };
+        axios.get('api/ItemData/ItemData')
+            .then(res => {
+                const readings = res.data;
+                this.setState({ readings });
             });
     }
 
     public render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : FetchData.renderForecastsTable(this.state.forecasts);
-
         return <div>
-            <h1>Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            { contents }
-        </div>;
-    }
+                   <h1>Items</h1>
+                   <table>
+                       <tbody>
+                       {(this.state as any).readings.map(reading =>
+                           <tr key={reading.Name}>
+                               <td>{reading.Name}</td>
+                               <td>{reading.Price}</td>
+                               <td>{reading.Category}</td>
+                           </tr>
+                       )}
+                       </tbody>
+                   </table>
 
-    private static renderForecastsTable(forecasts: WeatherForecast[]) {
-        return <table className='table'>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-            {forecasts.map(forecast =>
-                <tr key={ forecast.dateFormatted }>
-                    <td>{ forecast.dateFormatted }</td>
-                    <td>{ forecast.temperatureC }</td>
-                    <td>{ forecast.temperatureF }</td>
-                    <td>{ forecast.summary }</td>
-                </tr>
-            )}
-            </tbody>
-        </table>;
+               </div>;
     }
-}
-
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
 }

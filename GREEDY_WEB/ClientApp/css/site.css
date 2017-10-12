@@ -18,6 +18,14 @@
     right: 0;
     z-index: 1;
 }
+/*logo properties*/
+.logo {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0 auto;
+    max-width: 70%;
+    max-height: 70%;
+}
 
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
@@ -64,3 +72,28 @@
         text-overflow: ellipsis;
     }
 }
+
+/*Image upload css*/
+.btn-file {
+    padding: 10px;
+    margin: 15px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
