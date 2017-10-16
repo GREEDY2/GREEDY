@@ -102,9 +102,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GREEDY_WEB\GREEDY.csproj">
-      <Project>{52044526-7676-43b0-a0c6-dc0040163c1b}</Project>
-      <Name>GREEDY_WEB</Name>
+    <ProjectReference Include="..\GREEDY\GREEDY SERVER.csproj">
+      <Project>{84d65f88-da5d-4e75-81b7-9da3fdb47259}</Project>
+      <Name>GREEDY SERVER</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

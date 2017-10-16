@@ -17,11 +17,6 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
         this.state = {
             itemList: []
         };
-        axios.get('api/ItemData/ItemData')
-            .then(res => {
-                const itemList = res.data;
-                this.setState({ itemList });
-            });
     }
 
     public getItemList(items)

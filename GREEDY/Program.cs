@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using GREEDY.DataManagers;
 using GREEDY.OCRs;
 using GREEDY.Services;
-using GREEDY.View;
 using System.Net;
 using System.Threading;
 using System.Text;

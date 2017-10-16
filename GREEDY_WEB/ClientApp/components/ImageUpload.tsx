@@ -30,11 +30,9 @@ export class ImageUpload extends React.Component<Props> {
             }
         }).then(res => {
                 const itemList = res.data;
-                console.log(itemList);
                 this.setState({ itemList });
+                this.props.updateItemList((this.state as any).itemList);
             });
-        console.log((this.state as any).itemList);
-        this.props.updateItemList((this.state as any).itemList);
     }
 
     render() {
