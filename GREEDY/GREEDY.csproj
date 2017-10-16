@@ -96,10 +96,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\IImageFormatService.cs" />
     <Compile Include="Services\IItemService.cs" />
+    <Compile Include="Services\ImageFormatService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
+    <Compile Include="View\ImageViewTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ImageViewTest.Designer.cs">
+      <DependentUpon>ImageViewTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +118,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ImageViewTest.resx">
+      <DependentUpon>ImageViewTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>

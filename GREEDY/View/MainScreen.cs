@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using GREEDY.Services;
 using GREEDY.DataManagers;
@@ -12,6 +13,7 @@ namespace GREEDY.View
         private readonly IItemService _itemService;
         private readonly IImageGetter _photoImageGetter;
         private readonly IImageGetter _fileImageGetter;
+        private readonly IImageFormatService _imageFormatService;
 
         public MainScreen(IReceiptService receiptService, IItemService itemService)
         {
@@ -20,6 +22,7 @@ namespace GREEDY.View
             _photoImageGetter = new PhotoImageGetter();
             _fileImageGetter = new FileImageGetter();
             InitializeComponent();
+            _imageFormatService = new ImageFormatService();
         }
 
         private void InserFile_Button_Click(object sender, EventArgs e)
@@ -27,13 +30,36 @@ namespace GREEDY.View
             Application.UseWaitCursor = true;
             InserFile_Button.Enabled = false;
             var image = _fileImageGetter.GetImage();
-            var processedReceipt = _receiptService.ProcessReceiptImage(image);
-            if (processedReceipt != null)
+
+            //temp. testing how every filter works
+            ImageViewTest original = 
+                new ImageViewTest(image, "Original", _receiptService);
+            ImageViewTest blur = 
+                new ImageViewTest(_imageFormatService.Blur(image, 5, 5), "Blured", _receiptService);
+            ImageViewTest dilate = 
+                new ImageViewTest(_imageFormatService.Dilate(image, 1), "Dilated", _receiptService);
+            ImageViewTest erode = 
+                new ImageViewTest(_imageFormatService.Erode(image, 1), "Eroded", _receiptService);
+            original.Show();
+            blur.Show();
+            dilate.Show();
+            erode.Show();
+
+            try
             {
-                ItemList.DataSource = processedReceipt;
-                ItemList.Columns[0].ReadOnly = true;
-                ItemList.Columns[1].ReadOnly = true;
+                var processedReceipt = _receiptService.ProcessReceiptImage(image);
+                if (processedReceipt != null)
+                {
+                    ItemList.DataSource = processedReceipt;
+                    ItemList.Columns[0].ReadOnly = true;
+                    ItemList.Columns[1].ReadOnly = true;
+                }
             }
+            catch (Exception exception)
+            {
+                WarningBox_MessageBox("Could not recognize how to process the receipt","Error");
+            }
+            
             Application.UseWaitCursor = false;
             InserFile_Button.Enabled = true;
         }

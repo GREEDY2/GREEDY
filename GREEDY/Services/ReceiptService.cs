@@ -37,5 +37,19 @@ namespace GREEDY.Services
             //_dataManager.SaveData(itemList);
             
         }
+
+        //temporary method to test image reading. reads all lines, not only items
+        public List<string> TempProcessReceiptImage(Bitmap image)
+        {
+            if (image != null)
+            {
+                var receipt = _ocr.ConvertImage(image);
+                return receipt.LinesOfText;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
