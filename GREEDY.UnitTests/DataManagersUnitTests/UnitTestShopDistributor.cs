@@ -1,11 +1,11 @@
-﻿using Xunit;
-using Ploeh.AutoFixture;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using GREEDY.DataManagers;
 using GREEDY.Models;
-using System.Collections.Generic;
+using Ploeh.AutoFixture;
+using Xunit;
 
-namespace GREEDY.UnitTests
+namespace GREEDY.UnitTests.DataManagersUnitTests
 {
     public class UnitTestShopDistributor
     {

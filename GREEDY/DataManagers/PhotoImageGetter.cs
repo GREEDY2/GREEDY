@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace GREEDY.DataManagers
 {
-    class PhotoImageGetter : IImageGetter
+    public class PhotoImageGetter : IImageGetter
     {
         /// <summary>
         /// This methods allows to get a photo from camera
