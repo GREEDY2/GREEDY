@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
-namespace GREEDY_WEB.Controllers
+namespace GREEDY.Controllers
 {
     class Item
     {
@@ -21,9 +20,9 @@ namespace GREEDY_WEB.Controllers
         public string ItemData()
         {
             var list = new List<Item>();
-            list.Add(new Item() { Name = "lol", Price = 2.11m, Category = "lolik" });
-            list.Add(new Item() { Name = "blabla", Price = 2m, Category = "l" });
-            list.Add(new Item() { Name = "tuscias", Price = 0m, Category = "" });
+            list.Add(new Item() { Name = "krc", Price = 2.11m, Category = "dar" });
+            list.Add(new Item() { Name = "bsk", Price = 2m, Category = "neveik" });
+            list.Add(new Item() { Name = ":(((", Price = 0m, Category = "sad" });
             return JsonConvert.SerializeObject(list);
         }
     }

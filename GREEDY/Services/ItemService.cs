@@ -8,6 +8,13 @@ namespace GREEDY.Services
         private readonly IDataManager _dataManager;
         private readonly IItemCategorization _itemCategorization;
 
+        public ItemService()
+        {
+            _dataConverter = new DataConverter();
+            _dataManager = new DataManager();
+            _itemCategorization = new ItemCategorization();
+        }
+
         public ItemService(
             IDataConverter dataConverter, IDataManager dataManager, IItemCategorization itemCategorization)
         {

@@ -3,17 +3,21 @@ import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 import axios from 'axios';
 
+interface Props {
+    itemList: any
+}
 
-export class FetchData extends React.Component {
+export class FetchData extends React.Component<Props> {
     constructor() {
         super();
+        
         this.state = {
-            readings: []
+            itemList: []
         };
         axios.get('api/ItemData/ItemData')
             .then(res => {
-                const readings = res.data;
-                this.setState({ readings });
+                const itemList = res.data;
+                this.setState({ itemList });
             });
     }
 
@@ -21,14 +25,14 @@ export class FetchData extends React.Component {
         return <div>
                    <h1>Items</h1>
                    <table>
-                       <tbody>
-                       {(this.state as any).readings.map(reading =>
-                           <tr key={reading.Name}>
-                               <td>{reading.Name}</td>
-                               <td>{reading.Price}</td>
-                               <td>{reading.Category}</td>
+                <tbody>
+                    {(this.props as any).itemList.map(item =>
+                           <tr key={item.Name}>
+                               <td>{item.Name}</td>
+                               <td>{item.Price}</td>
+                               <td>{item.Category}</td>
                            </tr>
-                       )}
+                       )} 
                        </tbody>
                    </table>
 

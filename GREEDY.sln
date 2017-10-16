@@ -8,11 +8,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		GREEDY\GREEDY.csproj = GREEDY\GREEDY.csproj
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GREEDY", "GREEDY\GREEDY.csproj", "{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GREEDY.UnitTests", "GREEDY.UnitTests\GREEDY.UnitTests.csproj", "{31DB6705-50BE-4A4F-AA46-2F0E5581F607}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GREEDY_WEB", "GREEDY_WEB\GREEDY_WEB.csproj", "{52044526-7676-43B0-A0C6-DC0040163C1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GREEDY", "GREEDY_WEB\GREEDY.csproj", "{52044526-7676-43B0-A0C6-DC0040163C1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GREEDY SERVER", "GREEDY\GREEDY SERVER.csproj", "{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31DB6705-50BE-4A4F-AA46-2F0E5581F607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31DB6705-50BE-4A4F-AA46-2F0E5581F607}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31DB6705-50BE-4A4F-AA46-2F0E5581F607}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +28,10 @@ Global
 		{52044526-7676-43B0-A0C6-DC0040163C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52044526-7676-43B0-A0C6-DC0040163C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52044526-7676-43B0-A0C6-DC0040163C1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D65F88-DA5D-4E75-81B7-9DA3FDB47259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

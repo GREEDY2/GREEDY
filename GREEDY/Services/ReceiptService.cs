@@ -13,6 +13,13 @@ namespace GREEDY.Services
         private readonly IDataConverter _dataConverter;
         private readonly IDataManager _dataManager;
 
+        public ReceiptService()
+        {
+            _ocr = new EmguOcr();
+            _dataConverter = new DataConverter();
+            _dataManager = new DataManager();
+        }
+
         public ReceiptService(IOcr ocr, IDataConverter dataConverter, IDataManager dataManager)
         {
             _ocr = ocr;
