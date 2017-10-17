@@ -1,15 +1,10 @@
 ﻿using System.Drawing;
-using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
-using GREEDY.OCRs;
 using System.IO;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using GREEDY.Services;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using GREEDY.Models;
 using System.Text;
 
 namespace GREEDY.Controllers
