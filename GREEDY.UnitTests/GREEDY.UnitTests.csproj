@@ -90,7 +90,6 @@
     <Compile Include="DataManagersUnitTests\UnitTestImageCategorization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicesUnitTests\UnitTestItemService.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTestPhotoImageGetter.cs" />
     <Compile Include="ServicesUnitTests\UnitTestReceiptService.cs" />
     <Compile Include="DataManagersUnitTests\UnitTestShopDistributor.cs" />
   </ItemGroup>
