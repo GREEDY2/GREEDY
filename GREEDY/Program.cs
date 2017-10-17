@@ -19,32 +19,12 @@ namespace GREEDY
         [STAThread]
         static void Main()
         {
-            string domainAddress = "http://localhost:6967/";
+            string domainAddress = Environments.AppConfig.ServerAdressAndPort;
             using (WebApp.Start(url: domainAddress))
             {
                 Console.WriteLine("Service Hosted " + domainAddress);
                 System.Threading.Thread.Sleep(-1);
             }
-            /*Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run
-            (
-                new MainScreen
-                (
-                    new ReceiptService
-                    (
-                        new EmguOcr(),
-                        new DataConverter(),
-                        new DataManager()
-                    ),
-                    new ItemService
-                    (
-                        new DataConverter(),
-                        new DataManager(),
-                        new ItemCategorization()
-                    )
-                )
-            );*/
         }
     }
 }

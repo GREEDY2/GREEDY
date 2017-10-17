@@ -6,9 +6,9 @@ import { UserLogin } from './components/UserLogin';
 import { Counter } from './components/Counter';
 
 export const routes =
-<Layout>
-    <Route exact path='/' component={ Home } />
-    <Route path='/counter' component={ Counter } />
-    <Route path='/fetchdata' component={Home} />
-    <Route path='/login' component={ UserLogin } />
-</Layout>;
+    <Layout>
+        <Route exact path='/' component={Home} />
+        <Route path='/counter' component={Counter} />
+        <Route path='/fetchdata' component={Home} />
+        <Route path='/login' component={UserLogin} />
+    </Layout>;

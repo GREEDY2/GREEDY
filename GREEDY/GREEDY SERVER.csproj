@@ -102,12 +102,10 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
-    <Compile Include="Controllers\ItemDataController.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
     <Compile Include="DataManagers\IItemCategorization.cs" />
     <Compile Include="DataManagers\ItemCategorization.cs" />
-    <Compile Include="DataManagers\PhotoImageGetter.cs" />
     <Compile Include="DataManagers\DataConverter.cs" />
     <Compile Include="DataManagers\DataManager.cs" />
     <Compile Include="DataManagers\IDataConverter.cs" />
@@ -158,7 +156,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MainLogo.png" />
     <Content Include="tessdata\eng.cube.bigrams">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -10,7 +10,7 @@ interface Props {
 export class FetchData extends React.Component<Props> {
     constructor() {
         super();
-        
+
         this.state = {
             itemList: []
         };
@@ -23,19 +23,27 @@ export class FetchData extends React.Component<Props> {
 
     public render() {
         return <div>
-                   <h1>Items</h1>
-                   <table>
+            <table className="table-hover table itemTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th className="center">Item</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    {(this.props as any).itemList.map(item =>
-                           <tr key={item.Name}>
-                               <td>{item.Name}</td>
-                               <td>{item.Price}</td>
-                               <td>{item.Category}</td>
-                           </tr>
-                       )} 
-                       </tbody>
-                   </table>
+                    {this.props.itemList.map((item, index) =>
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{item.Name}</td>
+                            <td>{item.Price.toFixed(2)}&#8364;</td>
+                            <td>{item.Category}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
 
-               </div>;
+        </div>;
     }
 }

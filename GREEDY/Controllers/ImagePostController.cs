@@ -29,7 +29,7 @@ namespace GREEDY.Controllers
             //TODO: Need to save the items somewhere
             return new HttpResponseMessage()
             {
-                    Content = new StringContent(
+                Content = new StringContent(
                     JsonConvert.SerializeObject(list),
                     Encoding.UTF8,
                     "text/html"

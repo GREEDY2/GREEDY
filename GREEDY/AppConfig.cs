@@ -9,6 +9,7 @@ namespace GREEDY
         string FilterImageFiles { get; }
         string SaveFilePath { get; }
         string CategoriesDataPath { get; }
+        string ServerAdressAndPort { get; }
     }
 
     public class AppConfig : IAppConfig
@@ -18,5 +19,6 @@ namespace GREEDY
         public string FilterImageFiles => ConfigurationManager.AppSettings["FilterImageFiles"];
         public string SaveFilePath => ConfigurationManager.AppSettings["SaveFilePath"];
         public string CategoriesDataPath => ConfigurationManager.AppSettings["CategoriesDataPath"];
+        public string ServerAdressAndPort => ConfigurationManager.AppSettings["ServerAdressAndPort"];
     }
 }

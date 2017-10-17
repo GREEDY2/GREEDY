@@ -13,7 +13,7 @@ function renderApp() {
     const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href')!;
     ReactDOM.render(
         <AppContainer>
-            <BrowserRouter children={ routes } basename={ baseUrl } />
+            <BrowserRouter children={routes} basename={baseUrl} />
         </AppContainer>,
         document.getElementById('react-app')
     );

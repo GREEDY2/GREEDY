@@ -9,8 +9,7 @@ interface State {
 }
 
 export class Home extends React.Component<RouteComponentProps<{}>, State> {
-    constructor()
-    {
+    constructor() {
         super();
 
         this.getItemList = this.getItemList.bind(this);
@@ -19,8 +18,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
         };
     }
 
-    public getItemList(items)
-    {
+    public getItemList(items) {
         this.setState({ itemList: items });
     }
 
@@ -28,7 +26,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
         return <div>
             <img className="img-responsive logo" src={"Logo.png"} height="100%" />
             <ImageUpload updateItemList={this.getItemList} />
-            <FetchData itemList={this.state.itemList}/>
+            <FetchData itemList={this.state.itemList} />
         </div>;
     }
 }

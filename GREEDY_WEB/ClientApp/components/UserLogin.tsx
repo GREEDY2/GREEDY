@@ -55,47 +55,47 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>, {}> {
 
     public render() {
         return <div>
-                   <DocumentTitle title={`Login`}>
-                       <div className="container">
-                           <div className="row">
-                               <div className="col-xs-12 text-center loginLogo">
-                                   <img className="img-responsive logo" src={"Logo.png"} height="100%"/>
-                               </div>
-                           </div>
-                           <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
-                               <div className='sp-login-form'>
-                                   <div className="row">
-                                       <div className="col-xs-12">
-                                           <div className="form-horizontal">
-                                               <div className="form-group">
-                                                   <label htmlFor="spEmail" className="col-xs-12 col-sm-4 control-label"></label>
-                                                   <div className="col-xs-12 col-sm-4">
-                                                       <input className="form-control" id="spUsername" name="username" placeholder="Username or Email"/>
-                                                   </div>
-                                               </div>
-                                               <div className="form-group">
-                                                   <label htmlFor="spPassword" className="col-xs-12 col-sm-4 control-label"></label>
-                                                   <div className="col-xs-12 col-sm-4">
-                                                       <input type="password" className="form-control" id="spPassword" name="password" placeholder="Password"/>
-                                                   </div>
-                                               </div>
-                                               <div className="form-group">
-                                                   <div className="col-sm-offset-4 col-sm-4 text-center">
+            <DocumentTitle title={`Login`}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xs-12 text-center loginLogo">
+                            <img className="img-responsive logo" src={"Logo.png"} height="100%" />
+                        </div>
+                    </div>
+                    <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
+                        <div className='sp-login-form'>
+                            <div className="row">
+                                <div className="col-xs-12">
+                                    <div className="form-horizontal">
+                                        <div className="form-group">
+                                            <label htmlFor="spEmail" className="col-xs-12 col-sm-4 control-label"></label>
+                                            <div className="col-xs-12 col-sm-4">
+                                                <input className="form-control" id="spUsername" name="username" placeholder="Username or Email" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="spPassword" className="col-xs-12 col-sm-4 control-label"></label>
+                                            <div className="col-xs-12 col-sm-4">
+                                                <input type="password" className="form-control" id="spPassword" name="password" placeholder="Password" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="col-sm-offset-4 col-sm-4 text-center">
                                                 <p className="alert alert-danger" data-spIf="form.error">
-                                                    <span data-spBind="form.errorMessage"/>
-                                                       </p>
-                                                       <Button type="submit" color="btn btn-default buttonText">Login</Button>
-                                                       { /* <Link to="/forgot" className="pull-right">Forgot Password</Link> */
-                                                       }
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                           </LoginForm>
-                       </div>
-                   </DocumentTitle>
-               </div>;
+                                                    <span data-spBind="form.errorMessage" />
+                                                </p>
+                                                <Button type="submit" color="btn btn-primary buttonText">Login</Button>
+                                                { /* <Link to="/forgot" className="pull-right">Forgot Password</Link> */
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </LoginForm>
+                </div>
+            </DocumentTitle>
+        </div>;
     }
 }
