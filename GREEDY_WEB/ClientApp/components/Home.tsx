@@ -2,7 +2,6 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ImageUpload } from './ImageUpload';
 import { FetchData } from './FetchData';
-import axios from 'axios';
 
 interface State {
     itemList: any

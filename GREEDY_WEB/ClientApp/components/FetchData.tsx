@@ -43,7 +43,6 @@ export class FetchData extends React.Component<Props> {
                     )}
                 </tbody>
             </table>
-
         </div>;
     }
 }
