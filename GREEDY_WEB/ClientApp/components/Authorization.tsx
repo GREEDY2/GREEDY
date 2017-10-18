@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 import Cookies from 'universal-cookie';
 import { UserLogin } from './UserLogin';
-import { Route } from 'react-router-dom';
+import { UserRegistration } from './UserRegistration';
+import { Switch, Route } from 'react-router-dom';
 
 export class Authorization extends React.Component {
 
@@ -23,6 +24,9 @@ export class Authorization extends React.Component {
                 </div>
             );
         }
-        return <Route path='/' component={UserLogin} />;
+        return <Switch>
+            <Route exact path='/registration' component={UserRegistration} />
+            <Route path='/' component={UserLogin} />
+        </Switch>
     }
 }

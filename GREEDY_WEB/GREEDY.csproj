@@ -23,6 +23,7 @@
     <None Remove="ClientApp\components\Authorization.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
+    <None Remove="ClientApp\components\UserRegistration.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +39,7 @@
     <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UserLogin.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\UserRegistration.tsx" />
   </ItemGroup>
 
   <ItemGroup>

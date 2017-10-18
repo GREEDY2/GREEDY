@@ -23,7 +23,13 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
 
     public render() {
         return <div>
-            <img className="img-responsive logo" src={"Logo.png"} height="100%" />
+            <div className="container">
+                <div className="row">
+                    <div className="col-xs-12 text-center">
+                        <img className="img-responsive logo" src={"Logo.png"} height="100%" />
+                    </div>
+                </div>
+            </div>
             <ImageUpload updateItemList={this.getItemList} />
             <FetchData itemList={this.state.itemList} />
         </div>;

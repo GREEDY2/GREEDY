@@ -8,10 +8,6 @@ import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import FacebookLogin from 'react-facebook-login';
 
-interface Props {
-    update: any
-}
-
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     constructor(props) {
         super(props);
@@ -63,7 +59,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     }
 
     facebookButtonClick = () => {
-        
+
     }
 
     public render() {
@@ -91,17 +87,22 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                             <div className="col-xs-12 col-sm-4">
                                                 <input type="password" className="form-control" id="spPassword" name="password" placeholder="Password" />
                                             </div>
+                                            <Link to="/forgot" className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">Forgot password</Link>
                                         </div>
                                         <div className="form-group">
                                             <div className="col-sm-offset-4 col-sm-4 text-center">
                                                 <p className="alert alert-danger" data-spIf="form.error">
                                                     <span data-spBind="form.errorMessage" />
                                                 </p>
-                                                <Button className="col-xs-12 col-sm-4" type="submit" color="btn btn-primary buttonText">Login</Button>
-                                                <div className="col-xs-12 col-sm-4 fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                                <Button className="col-xs-12 col-sm-12" type="submit" color="btn btn-primary buttonText">Login</Button>
+                                                <Link to="/registration" className="pull-right marginTop loginLinkButton">Don't have an account? Register</Link>
                                                 { /* <Link to="/forgot" className="pull-right">Forgot Password</Link> */
                                                 }
+
                                             </div>
+                                        </div>
+                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center">
+                                            <div className="fb-login-button " data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
                                         </div>
                                     </div>
                                 </div>
