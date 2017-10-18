@@ -19,6 +19,10 @@ namespace GREEDY.DataManagers
             var receiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
             List<Item> itemList = new List<Item>();
 
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ",";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
             if (shop == "RIMI" || shop == "MAXIMA")
             {
                 string pattern = @"([*]+)\n(.+)\n([*]+)";
