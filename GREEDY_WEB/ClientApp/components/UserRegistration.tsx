@@ -33,6 +33,11 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, S
             return next(new Error('Email must not be empty.'));
         }
 
+        var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+        if (!regex.test(data.email)) {
+            return next(new Error('Wrong email.'));
+        }
+
         if (data.givenName.length < 1) {
             return next(new Error('First name must not be empty.'));
         }
@@ -65,28 +70,22 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, S
             return next(new Error('Password is too long.'));
         }
         let credentials = {}
-        // Force usernames to be in lowercase.
         credentials["username"] = data.username;
         credentials["password"] = data.password;
         credentials["fullname"] = data.givenName + " " + data.surname;
         credentials["email"] = data.email;
-        this.setState({ isAccountCreated: true });
-        console.log(this.state.isAccountCreated);
-        /*axios.put("http://localhost:6967/api/Registration", credentials)
+        
+        axios.put("http://localhost:6967/api/Registration", credentials)
             .then(response => {
                 let res = response.data;
                 if (res) {
-                    const cookies = new Cookies();
-                    cookies.set('username', res.username, { path: '/' });
-                    // set sessionId for user
-                    //cookies.set('sessionId', res.SessionId, { path: '/' });
-                    (this.props as any).history.push("/");
+                    this.setState({ isAccountCreated: true });
                 }
                 else
-                    return next(new Error('Failed to login. Make sure your username and/or password are correct'));
+                    return next(new Error('Username or email is already in use'));
             }).catch(error => {
                 console.log(error);
-            });*/
+            });
     }
 
     public render() {

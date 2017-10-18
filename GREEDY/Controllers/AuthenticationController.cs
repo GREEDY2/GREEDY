@@ -1,17 +1,10 @@
-﻿using System.Drawing;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using GREEDY.OCRs;
-using System.IO;
+﻿using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using GREEDY.Services;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using GREEDY.Models;
 using GREEDY.Extensions;
-using System.Text;
 using System;
 
 namespace GREEDY.Controllers
@@ -23,23 +16,28 @@ namespace GREEDY.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = requestContent.ReadAsStringAsync().Result;
-            Credentials credentials = JsonConvert.DeserializeObject<Credentials>(jsonContent);
-            if (credentials.username.Length < 1 || credentials.password.Length < 1
-                || credentials.username.Length > 256 || credentials.password.Length > 256)
+            LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
+            if (credentials.Username.Length < 1 || credentials.Password.Length < 1
+                || credentials.Username.Length > 256 || credentials.Password.Length > 256)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            User user = AuthService.FindByUsername(credentials.username);
+            User user = AuthService.FindByUsername(credentials.Username);
             if (user == null)
-                user = AuthService.FindByEmail(credentials.username);
-            if (user == null)
-                return HelperClass.JsonHttpResponse<Object>(null);
-            if (user.password.Decrypt() == credentials.password)
             {
-                user.password = null;
+                user = AuthService.FindByEmail(credentials.Username);
+            }
+            if (user == null)
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+            if (user.Password.Decrypt() == credentials.Password)
+            {
+                user.Password = null;
                 return HelperClass.JsonHttpResponse(user);
             }
             /*
+             * Later will need to add sessions (Probably when we have database)
                 // var allSessions = _context.Sessions.ToList();
                 // var singleSession = allSessions.FirstOrDefault(x => x.UserId == user.id);
                 // if (singleSession != null)

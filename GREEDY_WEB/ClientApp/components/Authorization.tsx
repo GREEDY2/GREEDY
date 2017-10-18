@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import { UserLogin } from './UserLogin';
 import { UserRegistration } from './UserRegistration';
 import { Switch, Route } from 'react-router-dom';
+import { ForgotPassword } from './ForgotPassword';
 
 export class Authorization extends React.Component {
 
@@ -26,6 +27,7 @@ export class Authorization extends React.Component {
         }
         return <Switch>
             <Route exact path='/registration' component={UserRegistration} />
+            <Route exact path='/forgot' component={ForgotPassword} />
             <Route path='/' component={UserLogin} />
         </Switch>
     }

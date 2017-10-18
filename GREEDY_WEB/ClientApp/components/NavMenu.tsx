@@ -38,7 +38,7 @@ export class NavMenu extends React.Component<{}, {}> {
 
     handleLogout() {
         const cookies = new Cookies();
-        cookies.set('username', '', { path: '/' });
+        cookies.remove('username', { path: '/' });
         //TODO: clear session once we have one
         /*axios.post(`/api/Authentication/Logout`)
             .then(res => {

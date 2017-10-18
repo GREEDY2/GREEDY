@@ -17,7 +17,9 @@ namespace GREEDY.Services
         {
             UpdateUsers();
         }
-
+        //TODO: This mothed will be useless with database, implement one of two options:
+        //1. The controller has an object of the database info and it passes it to the service.
+        //2. The service has an object of the database, constantly updates it.
         private static void UpdateUsers()
         {
             if (!File.Exists(Environments.AppConfig.UsersDataPath))
@@ -39,19 +41,19 @@ namespace GREEDY.Services
         public static User FindByUsername(string username)
         {
             UpdateUsers();
-            return _users.FirstOrDefault(user => user.username.ToLower() == username.ToLower());
+            return _users.FirstOrDefault(user => user.Username.ToLower() == username.ToLower());
         }
 
         public static User FindByEmail(string email)
         {
             UpdateUsers();
-            return _users.FirstOrDefault(user => user.email.ToLower() == email.ToLower());
+            return _users.FirstOrDefault(user => user.Email.ToLower() == email.ToLower());
         }
 
         public static User FindById(int id)
         {
             UpdateUsers();
-            return _users.FirstOrDefault(user => user.id == id);
+            return _users.FirstOrDefault(user => user.Id == id);
         }
         //TODO: Add logic for geting users session ID
 

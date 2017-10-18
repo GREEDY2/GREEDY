@@ -103,6 +103,7 @@
     <Compile Include="AppConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
     <Compile Include="DataManagers\IItemCategorization.cs" />
@@ -112,13 +113,15 @@
     <Compile Include="DataManagers\IDataConverter.cs" />
     <Compile Include="DataManagers\IDataManager.cs" />
     <Compile Include="DataManagers\ShopDistributor.cs" />
+    <Compile Include="DataManagers\UserRegistration.cs" />
     <Compile Include="Environments.cs" />
     <Compile Include="Extensions\GetReceiptExtensions.cs" />
     <Compile Include="Extensions\HelperClass.cs" />
     <Compile Include="Extensions\StringEncryptExtension.cs" />
-    <Compile Include="Models\Credentials.cs" />
+    <Compile Include="Models\LoginCredentials.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\RegistrationCredentials.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="OCRs\EmguOcr.cs" />
     <Compile Include="OCRs\IOcr.cs" />
