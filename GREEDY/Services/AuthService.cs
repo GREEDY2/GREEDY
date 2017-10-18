@@ -22,9 +22,8 @@ namespace GREEDY.Services
         {
             if (!File.Exists(Environments.AppConfig.UsersDataPath))
             {
-                //File.Create(Environments.AppConfig.CategoriesDataPath);
-                // TO DO:Fix problem with file creation, 
-                // line 56 throws an exeption when changing category, if file was created this way
+                //File.Create(Environments.AppConfig.UsersDataPath);
+                // TO DO:Fix problem with file creation
             }
             else
             {
@@ -40,40 +39,19 @@ namespace GREEDY.Services
         public static User FindByUsername(string username)
         {
             UpdateUsers();
-            foreach (var item in _users)
-            {
-                if (username.ToLower() == item.username.ToLower())
-                {
-                    return item;
-                }
-            }
-            return null;
+            return _users.FirstOrDefault(user => user.username.ToLower() == username.ToLower());
         }
 
         public static User FindByEmail(string email)
         {
             UpdateUsers();
-            foreach (var item in _users)
-            {
-                if (email.ToLower() == item.email.ToLower())
-                {
-                    return item;
-                }
-            }
-            return null;
+            return _users.FirstOrDefault(user => user.email.ToLower() == email.ToLower());
         }
 
         public static User FindById(int id)
         {
             UpdateUsers();
-            foreach (var item in _users)
-            {
-                if (id == item.id)
-                {
-                    return item;
-                }
-            }
-            return null;
+            return _users.FirstOrDefault(user => user.id == id);
         }
         //TODO: Add logic for geting users session ID
 
