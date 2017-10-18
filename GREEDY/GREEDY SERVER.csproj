@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
@@ -112,9 +113,13 @@
     <Compile Include="DataManagers\IDataManager.cs" />
     <Compile Include="DataManagers\ShopDistributor.cs" />
     <Compile Include="Environments.cs" />
-    <Compile Include="Extensions\ExtensionMethods.cs" />
+    <Compile Include="Extensions\GetReceiptExtensions.cs" />
+    <Compile Include="Extensions\HelperClass.cs" />
+    <Compile Include="Extensions\StringEncryptExtension.cs" />
+    <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="OCRs\EmguOcr.cs" />
     <Compile Include="OCRs\IOcr.cs" />
     <Compile Include="OCRs\TesseractOcr.cs" />
@@ -125,6 +130,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />
@@ -135,6 +141,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Users.json" />
     <None Include="Categories.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

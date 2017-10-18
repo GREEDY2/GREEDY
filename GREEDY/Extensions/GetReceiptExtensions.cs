@@ -4,7 +4,7 @@ using Tesseract;
 
 namespace GREEDY.Extensions
 {
-    public static class ExtensionMethods
+    public static class GetReceiptExtensions
     {
         public static Receipt GetReceipt(this Emgu.CV.OCR.Tesseract source)
         {

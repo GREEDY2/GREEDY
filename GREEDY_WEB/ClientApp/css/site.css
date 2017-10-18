@@ -60,14 +60,18 @@
     .itemTable .center {
         text-align: center;
     }
-
+/*ON SMALL SCREENS*/
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {
         padding-top: 50px;
     }
+    /* On small screens, thre is a space beetween navicons and username/logout button*/
+    .widenSpace {
+        height: 25px;
+    }
 }
-
+/*ON BIG SCREENS*/
 @media (min-width: 768px) {
     /* On big screens, convert the nav menu to a vertical sidebar */
     .main-nav {
@@ -120,5 +124,9 @@
         width: 40%;
         margin-left: 30%;
         margin-right: 30%
+    }
+    /*On big screens, there is a big space beetwenn navicons and username/logout*/
+    .widenSpace {
+        padding-top: 100%;
     }
 }

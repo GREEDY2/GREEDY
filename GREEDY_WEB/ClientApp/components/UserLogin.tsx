@@ -6,10 +6,15 @@ import { LoginForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import FacebookLogin from 'react-facebook-login';
 
-export class UserLogin extends React.Component<RouteComponentProps<{}>, {}> {
-    constructor() {
-        super();
+interface Props {
+    update: any
+}
+
+export class UserLogin extends React.Component<RouteComponentProps<{}>> {
+    constructor(props) {
+        super(props);
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
@@ -36,21 +41,29 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>, {}> {
         // Force usernames to be in lowercase.
         credentials["username"] = data.username;
         credentials["password"] = data.password;
-        axios.post(`/api/Authentication/Login/`, credentials)
+        axios.put("http://localhost:6967/api/Authentication", credentials)
             .then(response => {
                 let res = response.data;
                 if (res) {
                     const cookies = new Cookies();
-                    cookies.set('role', res.role, { path: '/' });
                     cookies.set('username', res.username, { path: '/' });
-                    cookies.set('sessionId', res.SessionId, { path: '/' });
-                    this.props.history.push("/");
+                    /* set sessionId for user
+                    cookies.set('sessionId', res.SessionId, { path: '/' });*/
+                    (this.props as any).history.push("/");
                 }
                 else
                     return next(new Error('Failed to login. Make sure your username and/or password are correct'));
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    responseFacebook = (response) => {
+        console.log(response);
+    }
+
+    facebookButtonClick = () => {
+        
     }
 
     public render() {
@@ -84,7 +97,8 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>, {}> {
                                                 <p className="alert alert-danger" data-spIf="form.error">
                                                     <span data-spBind="form.errorMessage" />
                                                 </p>
-                                                <Button type="submit" color="btn btn-primary buttonText">Login</Button>
+                                                <Button className="col-xs-12 col-sm-4" type="submit" color="btn btn-primary buttonText">Login</Button>
+                                                <div className="col-xs-12 col-sm-4 fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
                                                 { /* <Link to="/forgot" className="pull-right">Forgot Password</Link> */
                                                 }
                                             </div>

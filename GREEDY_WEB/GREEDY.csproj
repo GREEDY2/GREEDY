@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Authorization.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
   </ItemGroup>
@@ -34,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UserLogin.tsx" />
   </ItemGroup>

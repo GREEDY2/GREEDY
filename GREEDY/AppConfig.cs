@@ -10,6 +10,8 @@ namespace GREEDY
         string SaveFilePath { get; }
         string CategoriesDataPath { get; }
         string ServerAdressAndPort { get; }
+        string UsersDataPath { get; }
+        string EncryptionKey { get; }
     }
 
     public class AppConfig : IAppConfig
@@ -20,5 +22,7 @@ namespace GREEDY
         public string SaveFilePath => ConfigurationManager.AppSettings["SaveFilePath"];
         public string CategoriesDataPath => ConfigurationManager.AppSettings["CategoriesDataPath"];
         public string ServerAdressAndPort => ConfigurationManager.AppSettings["ServerAdressAndPort"];
+        public string UsersDataPath => ConfigurationManager.AppSettings["UsersDataPath"];
+        public string EncryptionKey => ConfigurationManager.AppSettings["EncryptionKey"];
     }
 }
