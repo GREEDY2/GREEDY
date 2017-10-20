@@ -39,6 +39,7 @@
     "react-document-title": "^2.0.3",
     "react-facebook-login": "^3.6.2",
     "react-images-upload": "^1.1.1",
+    "react-modal-dialog": "^4.0.7",
     "react-stormpath": "^2.0.1",
     "react-transition-group": "https://registry.npmjs.org/react-transition-group/-/react-transition-group-2.2.1.tgz",
     "reactstrap": "^4.8.0",
