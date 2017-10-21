@@ -24,7 +24,12 @@ interface IState {
 
 export class FetchData extends React.Component<IProps, IState> {
     componentWillMount() {
-        this.setState({ showItems: true, showEdit: false, eHappened: false, itemList: this.props.itemList });
+        this.setState({
+            showItems: true,
+            showEdit: false,
+            eHappened: false,
+            itemList: this.props.itemList
+        });
     }
 
     update = () => {
@@ -32,15 +37,17 @@ export class FetchData extends React.Component<IProps, IState> {
     }
 
     getItems = () => {
-        /*axios.get('http://localhost:6967/api/ItemData')
-            .then(res => {
-                const data = res.data;
-                this.setState({ itemList: data, showItems: true });
-            });*/
+
     }
 
     editItem = (id, name, price, category) => {
-        this.setState({ showEdit: true, eItemId: id, eItemName: name, eItemCategory: category, eItemPrice: price });
+        this.setState({
+            showEdit: true,
+            eItemId: id,
+            eItemName: name,
+            eItemCategory: category,
+            eItemPrice: price
+        });
     }
 
     hideEdit = () => {
@@ -53,7 +60,11 @@ export class FetchData extends React.Component<IProps, IState> {
             this.setState({ eSuccess: false, showEdit: false });
             return;
         }
-        const item = { itemId: this.state.eItemId, name: this.state.eItemName, category: this.state.eItemCategory }
+        const item = {
+            itemId: this.state.eItemId,
+            name: this.state.eItemName,
+            category: this.state.eItemCategory
+        }
         axios.post(`/api/UpdateItem/`, item)
             .then(response => {
                 let res = response.data;
@@ -102,8 +113,12 @@ export class FetchData extends React.Component<IProps, IState> {
                                     <td>{item.Name}</td>
                                     <td>{item.Price.toFixed(2)}&#8364;</td>
                                     <td>{item.Category}</td>
-                                    <td><span className="glyphicon glyphicon-pencil readGlyphs" color="primary" onClick={() =>
-                                        this.editItem(index, item.Name, item.Price, item.Category)}></span></td>
+                                    <td><span
+                                        className="glyphicon glyphicon-pencil readGlyphs"
+                                        color="primary"
+                                        onClick={() =>
+                                            this.editItem(index, item.Name, item.Price, item.Category)}>
+                                    </span></td>
                                 </tr>
                             )}
                         </tbody>
@@ -123,25 +138,43 @@ export class FetchData extends React.Component<IProps, IState> {
                         <Form onSubmit={this.saveItemChanges}>
                             <FormGroup>
                                 <Label for="eItemName">Item Name</Label>
-                                <Input type="text" name="itemName" maxLength="100" required id="eItemName"
-                                    defaultValue={this.state.eItemName} onChange={this.eNameChange}
+                                <Input
+                                    type="text"
+                                    name="itemName"
+                                    maxLength="100"
+                                    required id="eItemName"
+                                    defaultValue={this.state.eItemName}
+                                    onChange={this.eNameChange}
                                     placeholder="Item Name" />
                                 <Label for="eItemPrice">Price</Label>
-                                <Input type="text" name="itemPrice" maxLength="8" required id="eItemPrice"
-                                    defaultValue={this.state.eItemPrice} onChange={this.ePriceChange}
+                                <Input
+                                    type="text"
+                                    name="itemPrice"
+                                    maxLength="8"
+                                    required id="eItemPrice"
+                                    defaultValue={this.state.eItemPrice}
+                                    onChange={this.ePriceChange}
                                     placeholder="Item Price" />
                                 <Label for="eItemCategory">Category</Label>
-                                <Input type="select" name="eItemCategory" id="eItemCategory"
-                                    defaultValue={this.state.eItemCategory} onChange={this.eCategoryChange}>
+                                <Input
+                                    type="select"
+                                    name="eItemCategory"
+                                    id="eItemCategory"
+                                    defaultValue={this.state.eItemCategory}
+                                    onChange={this.eCategoryChange}>
                                     <option>{this.state.eItemCategory}</option>
                                     <option>gerimai</option>
                                     <option>uztatas</option>
                                     <option>4</option>
                                     <option>5</option>
                                 </Input>
-                                <Button type="button" color="primary">Add Category</Button>
+                                <Button type="button" color="primary">
+                                    Add Category
+                                </Button>
                             </FormGroup>
-                            <Button color="success" block>Save</Button>
+                            <Button color="success" block>
+                                Save
+                            </Button>
                         </Form>
                     </ModalDialog>
                 </ModalContainer>}

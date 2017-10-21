@@ -39,8 +39,6 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                 if (res) {
                     const cookies = new Cookies();
                     cookies.set('username', res.Username, { path: '/' });
-                    /* set sessionId for user
-                    cookies.set('sessionId', res.SessionId, { path: '/' });*/
                     (this.props as any).history.push("/");
                 }
                 else
@@ -65,7 +63,10 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                     <div className="container">
                         <div className="row">
                             <div className="col-xs-12 text-center loginLogo">
-                                <img className="img-responsive logo" src={"Logo.png"} height="100%" />
+                                <img
+                                    className="img-responsive logo"
+                                    src={"Logo.png"}
+                                    height="100%" />
                             </div>
                         </div>
                         <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
@@ -74,34 +75,54 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                     <div className="col-xs-12">
                                         <div className="form-horizontal">
                                             <div className="form-group">
-                                                <label htmlFor="spEmail" className="col-xs-12 col-sm-4 control-label"></label>
+                                                <label
+                                                    htmlFor="spEmail"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                </label>
                                                 <div className="col-xs-12 col-sm-4">
-                                                    <input className="form-control" id="spUsername" name="username" placeholder="Username or Email" />
+                                                    <input
+                                                        className="form-control"
+                                                        id="spUsername"
+                                                        name="username"
+                                                        placeholder="Username or Email"/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="spPassword" className="col-xs-12 col-sm-4 control-label"></label>
+                                                <label
+                                                    htmlFor="spPassword"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                </label>
                                                 <div className="col-xs-12 col-sm-4">
                                                     <input
                                                         type="password"
                                                         className="form-control"
                                                         id="spPassword"
                                                         name="password"
-                                                        placeholder="Password"
-                                                    />
+                                                        placeholder="Password"/>
                                                 </div>
-                                                <Link to="/forgot" className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">Forgot password</Link>
+                                                <Link
+                                                    to="/forgot"
+                                                    className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">
+                                                    Forgot password
+                                                 </Link>
                                             </div>
                                             <div className="form-group">
                                                 <div className="col-sm-offset-4 col-sm-4 text-center">
                                                     <p className="alert alert-danger" data-spIf="form.error">
                                                         <span data-spBind="form.errorMessage" />
                                                     </p>
-                                                    <Button className="col-xs-12 col-sm-12" type="submit" color="btn btn-primary buttonText">Login</Button>
-                                                    <Link to="/registration" className="pull-right marginTop loginLinkButton">Don't have an account? Register</Link>
-                                                { /* <Link to="/forgot" className="pull-right">Forgot Password</Link> */
-                                                }
-
+                                                    <Button
+                                                        className="col-xs-12 col-sm-12"
+                                                        type="submit"
+                                                        color="btn btn-primary buttonText">
+                                                        Login
+                                                    </Button>
+                                                    <Link to="/registration"
+                                                        className="pull-right marginTop loginLinkButton">
+                                                        Don't have an account? Register
+                                                    </Link>
+                                                    {
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="form-group col-sm-offset-4 col-sm-12 text-center">
@@ -121,6 +142,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                         </LoginForm>
                     </div>
                 </DocumentTitle>
-            </div>);
+            </div>
+        );
     }
 }

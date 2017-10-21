@@ -36,7 +36,11 @@ export class ImageUpload extends React.Component<IProps> {
         return (
             <div>
                 <label className="btn btn-primary active btn-file center-block">
-                    Upload receipt <input type="file" accept="image/*" onChange={(e) => this._handleImageChange(e)} />
+                    Upload receipt
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => this._handleImageChange(e)} />
                 </label>
             </div>
         )

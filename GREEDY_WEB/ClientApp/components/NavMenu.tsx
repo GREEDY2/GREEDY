@@ -33,13 +33,6 @@ export class NavMenu extends React.Component<{}, {}> {
         const cookies = new Cookies();
         cookies.remove('username', { path: '/' });
         //TODO: clear session once we have one
-        /*axios.post(`/api/Authentication/Logout`)
-            .then(res => {
-                let result = res.data;
-
-                cookies.set('sessionId', '0', { path: '/' });
-                this.setState({ loggedIn: false });
-            });*/
     }
 
     public render() {
@@ -47,7 +40,11 @@ export class NavMenu extends React.Component<{}, {}> {
             <div className='main-nav'>
                 <div className='navbar navbar-inverse'>
                     <div className='navbar-header'>
-                        <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                        <button
+                            type='button'
+                            className='navbar-toggle'
+                            data-toggle='collapse'
+                            data-target='.navbar-collapse'>
                             <span className='sr-only'>Toggle navigation</span>
                             <span className='icon-bar'></span>
                             <span className='icon-bar'></span>
@@ -57,42 +54,58 @@ export class NavMenu extends React.Component<{}, {}> {
                     </div>
                     <div className='clearfix'></div>
                     <div className='navbar-collapse collapse'>
-                        <ul className='nav navbar-nav' data-toggle="collapse" data-target=".navbar-collapse">
+                        <ul
+                            className='nav navbar-nav'
+                            data-toggle="collapse"
+                            data-target=".navbar-collapse">
                             <li>
                                 <NavLink to={'/'} exact activeClassName='active'>
-                                    <span className='glyphicon glyphicon-home'></span> Home
+                                    <span className='glyphicon glyphicon-home'></span> 
+                                    Home
                                 </NavLink>
                             </li>
-                            {(this.state as any).loggedIn ?
-                                <li>
-                                    <NavLink to={'/counter'} activeClassName='active'>
-                                        <span className='glyphicon glyphicon-education'></span> Counter
-                                    </NavLink>
-                                </li> : null
-                        }
-                            {(this.state as any).loggedIn ?
-                                <li>
-                                    <NavLink to={'/fetchdata'} activeClassName='active'>
-                                        <span className='glyphicon glyphicon-th-list'></span> Fetch data
-                                    </NavLink>
-                                </li> : null
-                        }
-                        {(this.state as any).loggedIn ?
-                            <li className='widenSpace' /> : null
-                        }
-                        {(this.state as any).loggedIn ?
-                            <li>
-                                <NavLink to={'/'} activeClassName='inactive'>
-                                    <span className='glyphicon glyphicon-user' /> Hello, {(this.state as any).username}!
-                                </NavLink>
-                                <NavLink to={'/'} onClick={() => this.handleLogout()} activeClassName='inactive'>
-                                    <span className='glyphicon glyphicon-log-out' /> Logout
-                                </NavLink>
-                            </li> : null
-                        }
-                    </ul>
+                            {
+                                (this.state as any).loggedIn ?
+                                    <li>
+                                        <NavLink to={'/counter'} activeClassName='active'>
+                                            <span className='glyphicon glyphicon-education'></span>
+                                            Counter
+                                        </NavLink>
+                                    </li> : null
+                            }
+                            {
+                                (this.state as any).loggedIn ?
+                                    <li>
+                                        <NavLink to={'/fetchdata'} activeClassName='active'>
+                                            <span className='glyphicon glyphicon-th-list'></span>
+                                            Fetch data
+                                        </NavLink>
+                                    </li> : null
+                            }
+                            {
+                                (this.state as any).loggedIn ?
+                                    <li className='widenSpace' /> : null
+                            }
+                            {
+                                (this.state as any).loggedIn ?
+                                    <li>
+                                        <NavLink to={'/'} activeClassName='inactive'>
+                                            <span className='glyphicon glyphicon-user' />
+                                            Hello, {(this.state as any).username}!
+                                        </NavLink>
+                                        <NavLink
+                                            to={'/'}
+                                            onClick={() => this.handleLogout()}
+                                            activeClassName='inactive'>
+                                            <span className='glyphicon glyphicon-log-out' />
+                                            Logout
+                                        </NavLink>
+                                    </li> : null
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>);
+        );
     }
 }

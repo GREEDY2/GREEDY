@@ -20,7 +20,10 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
                 <div className="container">
                     <div className="row">
                         <div className="col-xs-12 text-center">
-                            <img className="img-responsive logo" src={"Logo.png"} height="100%" />
+                            <img
+                                className="img-responsive logo"
+                                src={"Logo.png"}
+                                height="100%" />
                         </div>
                     </div>
                 </div>
