@@ -25,7 +25,7 @@ namespace GREEDY.Services
             if (!File.Exists(Environments.AppConfig.UsersDataPath))
             {
                 //File.Create(Environments.AppConfig.UsersDataPath);
-                // TO DO:Fix problem with file creation
+                // TODO:Fix problem with file creation
             }
             else
             {

@@ -5,11 +5,11 @@ import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 
-interface Props {
+interface IProps {
     itemList: any
 }
 
-interface State {
+interface IState {
     showEdit: boolean
     showItems: boolean
     itemList: any
@@ -22,33 +22,16 @@ interface State {
     eSuccess: boolean
 }
 
-export class FetchData extends React.Component<Props, State> {
-    constructor() {
-        super();
-        /*axios.get('http://localhost:6967/api/ItemData')
-            .then(res => {
-                const data = res.data;
-                this.setState({ itemList: data, showItems: true });
-            });*/
-        this.editItem = this.editItem.bind(this);
-        this.getItems = this.getItems.bind(this);
-        this.hideEdit = this.hideEdit.bind(this);
-        this.saveItemChanges = this.saveItemChanges.bind(this);
-        this.eCategoryChange = this.eCategoryChange.bind(this);
-        this.eNameChange = this.eNameChange.bind(this);
-        this.ePriceChange = this.ePriceChange.bind(this);
-    }
-
+export class FetchData extends React.Component<IProps, IState> {
     componentWillMount() {
         this.setState({ showItems: true, showEdit: false, eHappened: false, itemList: this.props.itemList });
     }
 
-
-    update() {
+    update = () => {
         this.getItems();
     }
 
-    getItems() {
+    getItems = () => {
         /*axios.get('http://localhost:6967/api/ItemData')
             .then(res => {
                 const data = res.data;
@@ -56,15 +39,15 @@ export class FetchData extends React.Component<Props, State> {
             });*/
     }
 
-    editItem(id, name, price, category) {
+    editItem = (id, name, price, category) => {
         this.setState({ showEdit: true, eItemId: id, eItemName: name, eItemCategory: category, eItemPrice: price });
     }
 
-    hideEdit() {
+    hideEdit = () => {
         this.setState({ showEdit: false });
     }
 
-    saveItemChanges(e) {
+    saveItemChanges = (e) => {
         e.preventDefault();
         if (this.state.eItemId < 0 || this.state.eItemName === "") {
             this.setState({ eSuccess: false, showEdit: false });
@@ -86,22 +69,22 @@ export class FetchData extends React.Component<Props, State> {
             });
     }
 
-    eNameChange(event) {
+    eNameChange = (event) => {
         this.setState({ eItemName: event.target.value });
     }
 
-    ePriceChange(event) {
+    ePriceChange = (event) => {
         this.setState({ eItemPrice: event.target.value });
     }
 
-    eCategoryChange(event) {
+    eCategoryChange = (event) => {
         this.setState({ eItemCategory: event.target.value });
     }
 
     public render() {
-        return <div>
-            {
-                this.state.showItems ?
+        return (
+            <div>
+                {this.state.showItems ?
                     <table className="table-hover table itemTable">
                         <thead>
                             <tr>
@@ -126,17 +109,14 @@ export class FetchData extends React.Component<Props, State> {
                         </tbody>
                     </table> : null
             }
-            {
-                this.state.eHappened ?
+                {this.state.eHappened ?
                     this.state.eSuccess ?
                         <div className="text-center h4">Item Edited Successfully</div>
                         : <div className="text-center h4">Failed to Edit Item</div>
                     : null
             }
 
-
-            {
-                this.state.showEdit &&
+            {this.state.showEdit &&
                 <ModalContainer onClose={this.hideEdit}>
                     <ModalDialog onClose={this.hideEdit} style={{ width: '80%' }}>
                         <h3>Edit Item Nr. {this.state.eItemId + 1}</h3>
@@ -164,8 +144,7 @@ export class FetchData extends React.Component<Props, State> {
                             <Button color="success" block>Save</Button>
                         </Form>
                     </ModalDialog>
-                </ModalContainer>
-            }
-        </div>;
+                </ModalContainer>}
+            </div>);
     }
 }

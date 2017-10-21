@@ -7,10 +7,10 @@ import { Authorization } from './components/Authorization';
 import { UserLogin } from './components/UserLogin';
 
 export const routes =
-    <Layout>
+    (<Layout>
         <Authorization>
             <Route exact path='/' component={Home} />
             <Route path='/counter' component={Counter} />
             <Route path='/fetchdata' component={Home} />
         </Authorization>
-    </Layout>;
+    </Layout>);

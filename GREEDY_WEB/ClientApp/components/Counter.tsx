@@ -6,26 +6,25 @@ interface CounterState {
 }
 
 export class Counter extends React.Component<RouteComponentProps<{}>, CounterState> {
-    constructor() {
-        super();
-        this.state = { currentCount: 0 };
-    }
+    state = { currentCount: 0 };
+
+    incrementCounter = () => {
+        this.setState((prevState) => ({
+            currentCount: prevState.currentCount + 1
+        }));
+    };
 
     public render() {
-        return <div>
-            <h1>Counter</h1>
+        return (
+            <div>
+                <h1>Counter</h1>
 
-            <p>This is a simple example of a React component.</p>
+                <p>This is a simple example of a React component.</p>
 
-            <p>Current count: <strong>{ this.state.currentCount }</strong></p>
+                <p>Current count: <strong>{this.state.currentCount}</strong></p>
 
-            <button className="btn btn-info" onClick={ () => { this.incrementCounter() } }>Increment</button>
-        </div>;
-    }
-
-    incrementCounter() {
-        this.setState({
-            currentCount: this.state.currentCount + 1
-        });
+                <button className="btn btn-info" onClick={this.incrementCounter}>Increment</button>
+            </div>
+        );
     }
 }

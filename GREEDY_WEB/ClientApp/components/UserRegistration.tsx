@@ -8,20 +8,14 @@ import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import FacebookLogin from 'react-facebook-login';
 
-interface State {
+interface IState {
     isAccountCreated: any;
 }
 
-export class UserRegistration extends React.Component<RouteComponentProps<{}>, State> {
-    constructor(props) {
-        super(props);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-        this.state = {
-            isAccountCreated: false
-        }
-    }
+export class UserRegistration extends React.Component<RouteComponentProps<{}>, IState> {
+    state = { isAccountCreated: false }
 
-    onFormSubmit(e, next) {
+    onFormSubmit = (e, next) => {
         e.preventDefault();
         var data = e.data;
 
@@ -89,11 +83,10 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, S
     }
 
     public render() {
-
-
-        return <div>
-            <DocumentTitle title={`Register`}>
-                <div className="container">
+        return (
+            <div>
+                <DocumentTitle title={`Register`}>
+                    <div className="container">
                     {/*<div className="row">
                         <div className="col-xs-12 text-center loginLogo">
                             <img className="img-responsive logo" src={"Logo.png"} height="40%" />
@@ -196,7 +189,7 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, S
                     </LoginForm > */}
                 </div >
             </DocumentTitle >
-        </div >;
+        </div >);
     }
 }
 

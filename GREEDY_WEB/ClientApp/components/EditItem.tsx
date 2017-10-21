@@ -4,7 +4,7 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import axios from 'axios';
 
-interface Props {
+interface IProps {
     hideEdit: any;
     //e - edit
     eItemId: number;
@@ -12,10 +12,9 @@ interface Props {
     eItemPrice: number;
     eItemCategory: string;
     eSuccess: boolean;
-    
 }
 
-export class EditItem extends React.Component<Props> {
+export class EditItem extends React.Component<IProps> {
     constructor(props) {
         super(props);
     }
@@ -42,20 +41,21 @@ export class EditItem extends React.Component<Props> {
             });
     }
 
-    eNameChange(event) {
+    eNameChange = (event) => {
         this.setState({ eItemName: event.target.value });
     }
 
-    ePriceChange(event) {
+    ePriceChange = (event) =>  {
         this.setState({ eItemPrice: event.target.value });
     }
 
-    eCategoryChange(event) {
+    eCategoryChange = (event) =>  {
         this.setState({ eItemCategory: event.target.value });
     }
 
     public render() {
-        return <ModalContainer onClose={this.props.hideEdit}>
+        return (
+        <ModalContainer onClose={this.props.hideEdit}>
             <ModalDialog onClose={this.props.hideEdit} style={{ width: '80%' }}>
                 <h3>Edit Item Nr. {this.props.eItemId + 1}</h3>
                 <Form onSubmit={this.saveItemChanges}>
@@ -82,6 +82,6 @@ export class EditItem extends React.Component<Props> {
                     <Button color="success" block>Save</Button>
                 </Form>
             </ModalDialog>
-        </ModalContainer>
+        </ModalContainer>)
     }
 }
