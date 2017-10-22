@@ -6,12 +6,14 @@ using System.Web.Http.Cors;
 using GREEDY.Services;
 using Newtonsoft.Json;
 using System.Text;
+using GREEDY.DataManagers;
 
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ImagePostController : ApiController
     {
+        private ItemManager itemManager = new ItemManager();
         public HttpResponseMessage Put()
         {
             var requestStream = Request.Content.ReadAsStreamAsync().Result;
@@ -21,7 +23,10 @@ namespace GREEDY.Controllers
             var receiptImage = new Bitmap(memoryStream);
             memoryStream.Close();
             var list = new ReceiptService().ProcessReceiptImage(receiptImage);
-            //TODO: Need to save the items somewhere
+
+            //TODO: Need to get shop and need to have username of the user uploading thee image
+
+            itemManager.AddItems(list, new Models.Shop() { Name = "Not supported yet", Location= "Not supported yet" }, "username");
             return new HttpResponseMessage()
             {
                 Content = new StringContent(

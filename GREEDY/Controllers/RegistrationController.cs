@@ -33,7 +33,7 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            UserRegistration.RegisterNewUser(credentials);
+            UserManager.RegisterNewUser(credentials);
             return HelperClass.JsonHttpResponse(true);
         }
 }

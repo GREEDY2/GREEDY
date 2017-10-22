@@ -4,11 +4,10 @@ using GREEDY.Models;
 
 namespace GREEDY.DataManagers
 {
-    public interface IDataManager
+    public interface IItemManager
     {
         // TODO: remove unnecessary methods
-        void SaveData(List<Item> itemList);
-        List<Item> LoadData();
-        void DisplayToScreen(List<Item> items);
+        void AddItems(IEnumerable<Item> itemList, Shop shop, string Username);
+        List<Item> LoadData(string Username);
     }
 }

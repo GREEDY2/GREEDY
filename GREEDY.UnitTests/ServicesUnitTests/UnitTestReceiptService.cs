@@ -15,7 +15,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             //arrange
             var ocr = new Mock<IOcr>();
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IDataManager>();
+            var dataManager = new Mock<IItemManager>();
             ReceiptService receiptService = new ReceiptService(ocr.Object, dataConverter.Object, dataManager.Object);
             //act
 
@@ -30,7 +30,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             Bitmap image = new Bitmap(1, 1);
             var ocr = new Mock<IOcr>();
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IDataManager>();
+            var dataManager = new Mock<IItemManager>();
             ReceiptService receiptService = new ReceiptService(ocr.Object, dataConverter.Object, dataManager.Object);
             //act
 

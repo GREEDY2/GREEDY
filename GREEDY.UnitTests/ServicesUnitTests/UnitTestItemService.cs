@@ -13,7 +13,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         {
             //arrange
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IDataManager>();
+            var dataManager = new Mock<IItemManager>();
             var itemCategorization = new Mock<IItemCategorization>();
             ItemService itemService = new ItemService(dataConverter.Object, dataManager.Object, itemCategorization.Object);
             //act

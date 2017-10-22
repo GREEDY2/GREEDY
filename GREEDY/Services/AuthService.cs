@@ -22,20 +22,7 @@ namespace GREEDY.Services
         //2. The service has an object of the database, constantly updates it.
         private static void UpdateUsers()
         {
-            if (!File.Exists(Environments.AppConfig.UsersDataPath))
-            {
-                //File.Create(Environments.AppConfig.UsersDataPath);
-                // TO DO:Fix problem with file creation
-            }
-            else
-            {
-                _users = JsonConvert.DeserializeObject<List<User>>
-                    (File.ReadAllText(Environments.AppConfig.UsersDataPath));
-            }
-            if (_users == null)
-            {
-                _users = new List<User>();
-            }
+            _users = GREEDY.DataManagers.UserManager.GetExistingUsers();
         }
 
         public static User FindByUsername(string username)
