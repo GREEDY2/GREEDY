@@ -42,11 +42,23 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.CV.UI, Version=3.2.0.2721, Culture=neutral, PublicKeyToken=7281126722ab4438">
       <HintPath>..\packages\Emgu.CV.3.2.0.2721\lib\net35\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.World, Version=3.2.0.2721, Culture=neutral, PublicKeyToken=7281126722ab4438">
       <HintPath>..\packages\Emgu.CV.3.2.0.2721\lib\net35\Emgu.CV.World.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.3.502\lib\net40-client\Magick.NET-Q16-AnyCPU.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -102,6 +114,12 @@
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
+    <Compile Include="View\ImageResizeTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ImageResizeTest.Designer.cs">
+      <DependentUpon>ImageResizeTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ImageViewTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,16 +132,28 @@
     <Compile Include="View\MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\PointSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PointSelector.Designer.cs">
+      <DependentUpon>PointSelector.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ImageResizeTest.resx">
+      <DependentUpon>ImageResizeTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ImageViewTest.resx">
       <DependentUpon>ImageViewTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PointSelector.resx">
+      <DependentUpon>PointSelector.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Categories.json" />
     <None Include="packages.config">

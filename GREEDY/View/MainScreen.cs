@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using GREEDY.Services;
 using GREEDY.DataManagers;
@@ -32,7 +33,7 @@ namespace GREEDY.View
             var image = _fileImageGetter.GetImage();
 
             //temp. testing how every filter works
-            ImageViewTest original = 
+            /*ImageViewTest original = 
                 new ImageViewTest(image, "Original", _receiptService);
             ImageViewTest blur = 
                 new ImageViewTest(_imageFormatService.Blur(image, 5, 5), "Blured", _receiptService);
@@ -43,7 +44,12 @@ namespace GREEDY.View
             original.Show();
             blur.Show();
             dilate.Show();
-            erode.Show();
+            erode.Show();*/
+
+            
+
+            PointSelector pointSelector = new PointSelector(image);
+            pointSelector.Show();
 
             try
             {
@@ -55,7 +61,7 @@ namespace GREEDY.View
                     ItemList.Columns[1].ReadOnly = true;
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 WarningBox_MessageBox("Could not recognize how to process the receipt","Error");
             }
@@ -105,6 +111,11 @@ namespace GREEDY.View
                  MessageBoxButtons.OK,
                  MessageBoxIcon.Exclamation //For triangle Warning 
             );
+        }
+
+        private void MainScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -38,5 +38,10 @@ namespace GREEDY.View
                 textBox.Text += "\n";
             }
         }
+
+        private void receiptPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

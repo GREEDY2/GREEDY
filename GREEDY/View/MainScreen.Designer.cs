@@ -104,6 +104,7 @@ namespace GREEDY.View
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainScreen";
             this.Text = "GREEDY";
+            this.Load += new System.EventHandler(this.MainScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ItemList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GREEDYLOGO)).EndInit();
             this.ResumeLayout(false);

@@ -41,6 +41,7 @@
             this.receiptPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.receiptPictureBox.TabIndex = 0;
             this.receiptPictureBox.TabStop = false;
+            this.receiptPictureBox.Click += new System.EventHandler(this.receiptPictureBox_Click);
             // 
             // textBox
             // 

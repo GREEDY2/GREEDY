@@ -12,5 +12,6 @@ namespace GREEDY.Services
         Bitmap Blur(Bitmap bitmap, int width, int height);
         Bitmap Dilate(Bitmap bitmap, int iterations);
         Bitmap Erode(Bitmap bitmap, int iterations);
+        Bitmap Resize(Bitmap bitmap, double[] cornerPoints);
     }
 }
