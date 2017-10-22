@@ -2,13 +2,25 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ImageUpload } from './ImageUpload';
 import { FetchData } from './FetchData';
+import { Logo } from './Logo';
+import Cookies from 'universal-cookie';
 
 interface State {
-    itemList: any
+    itemList: any;
+    username: string;
 }
 
 export class Home extends React.Component<RouteComponentProps<{}>, State> {
-    state = { itemList: [] };
+    constructor()
+    {
+        super();
+        const cookies = new Cookies();
+        let username = cookies.get('username');
+        this.state = {
+            itemList: [],
+            username: username
+        }
+    }   
 
     public getItemList = (items) => {
         this.setState({ itemList: items });
@@ -17,17 +29,8 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
     public render() {
         return (
             <div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xs-12 text-center">
-                            <img
-                                className="img-responsive logo"
-                                src={"Logo.png"}
-                                height="100%" />
-                        </div>
-                    </div>
-                </div>
-                <ImageUpload updateItemList={this.getItemList} />
+                <Logo />
+                <ImageUpload updateItemList={this.getItemList} username={this.state.username} />
                 <FetchData itemList={this.state.itemList} />
             </div>
         );

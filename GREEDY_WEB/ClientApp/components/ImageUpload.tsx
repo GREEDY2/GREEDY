@@ -4,6 +4,7 @@ import axios from 'axios';
 
 interface IProps {
     updateItemList: any;
+    username: string;
 }
 
 export class ImageUpload extends React.Component<IProps> {
@@ -21,7 +22,8 @@ export class ImageUpload extends React.Component<IProps> {
 
         axios.put("http://localhost:6967/api/ImagePost", file, {
             headers: {
-                'Content-Type': file.type
+                'Content-Type': file.type,
+                'Authorization': 'Basic ' + this.props.username
             }
         }).then(res => {
             const itemList = res.data;

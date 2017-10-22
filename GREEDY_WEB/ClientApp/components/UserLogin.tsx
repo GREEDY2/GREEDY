@@ -6,7 +6,7 @@ import { LoginForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import FacebookLogin from 'react-facebook-login';
+import { Logo } from './Logo';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
 
@@ -59,88 +59,79 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     public render() {
         return (
             <div>
+                <Logo />
                 <DocumentTitle title={`Login`}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xs-12 text-center loginLogo">
-                                <img
-                                    className="img-responsive logo"
-                                    src={"Logo.png"}
-                                    height="100%" />
-                            </div>
-                        </div>
-                        <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
-                            <div className='sp-login-form'>
-                                <div className="row">
-                                    <div className="col-xs-12">
-                                        <div className="form-horizontal">
-                                            <div className="form-group">
-                                                <label
-                                                    htmlFor="spEmail"
-                                                    className="col-xs-12 col-sm-4 control-label">
-                                                </label>
-                                                <div className="col-xs-12 col-sm-4">
-                                                    <input
-                                                        className="form-control"
-                                                        id="spUsername"
-                                                        name="username"
-                                                        placeholder="Username or Email"/>
-                                                </div>
+                    <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
+                        <div className='sp-login-form'>
+                            <div className="row">
+                                <div className="col-xs-12">
+                                    <div className="form-horizontal">
+                                        <div className="form-group">
+                                            <label
+                                                htmlFor="spEmail"
+                                                className="col-xs-12 col-sm-4 control-label">
+                                            </label>
+                                            <div className="col-xs-12 col-sm-4">
+                                                <input
+                                                    className="form-control"
+                                                    id="spUsername"
+                                                    name="username"
+                                                    placeholder="Username or Email" />
                                             </div>
-                                            <div className="form-group">
-                                                <label
-                                                    htmlFor="spPassword"
-                                                    className="col-xs-12 col-sm-4 control-label">
-                                                </label>
-                                                <div className="col-xs-12 col-sm-4">
-                                                    <input
-                                                        type="password"
-                                                        className="form-control"
-                                                        id="spPassword"
-                                                        name="password"
-                                                        placeholder="Password"/>
-                                                </div>
-                                                <Link
-                                                    to="/forgot"
-                                                    className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">
-                                                    Forgot password
+                                        </div>
+                                        <div className="form-group">
+                                            <label
+                                                htmlFor="spPassword"
+                                                className="col-xs-12 col-sm-4 control-label">
+                                            </label>
+                                            <div className="col-xs-12 col-sm-4">
+                                                <input
+                                                    type="password"
+                                                    className="form-control"
+                                                    id="spPassword"
+                                                    name="password"
+                                                    placeholder="Password" />
+                                            </div>
+                                            <Link
+                                                to="/forgot"
+                                                className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">
+                                                Forgot password
                                                  </Link>
-                                            </div>
-                                            <div className="form-group">
-                                                <div className="col-sm-offset-4 col-sm-4 text-center">
-                                                    <p className="alert alert-danger" data-spIf="form.error">
-                                                        <span data-spBind="form.errorMessage" />
-                                                    </p>
-                                                    <Button
-                                                        className="col-xs-12 col-sm-12"
-                                                        type="submit"
-                                                        color="btn btn-primary buttonText">
-                                                        Login
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="col-sm-offset-4 col-sm-4 text-center">
+                                                <p className="alert alert-danger" data-spIf="form.error">
+                                                    <span data-spBind="form.errorMessage" />
+                                                </p>
+                                                <Button
+                                                    className="col-xs-12 col-sm-12"
+                                                    type="submit"
+                                                    color="btn btn-primary buttonText">
+                                                    Login
                                                     </Button>
-                                                    <Link to="/registration"
-                                                        className="pull-right marginTop loginLinkButton">
-                                                        Don't have an account? Register
+                                                <Link to="/registration"
+                                                    className="pull-right marginTop loginLinkButton">
+                                                    Don't have an account? Register
                                                     </Link>
-                                                    {
-                                                    }
-                                                </div>
+                                                {
+                                                }
                                             </div>
-                                            <div className="form-group col-sm-offset-4 col-sm-12 text-center">
-                                                <div
-                                                    className="fb-login-button "
-                                                    data-max-rows="1" data-size="medium"
-                                                    data-button-type="continue_with"
-                                                    data-show-faces="false"
-                                                    data-auto-logout-link="false"
-                                                    data-use-continue-as="false">
-                                                </div>
+                                        </div>
+                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center">
+                                            <div
+                                                className="fb-login-button "
+                                                data-max-rows="1" data-size="medium"
+                                                data-button-type="continue_with"
+                                                data-show-faces="false"
+                                                data-auto-logout-link="false"
+                                                data-use-continue-as="false">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </LoginForm>
-                    </div>
+                        </div>
+                    </LoginForm>
                 </DocumentTitle>
             </div>
         );

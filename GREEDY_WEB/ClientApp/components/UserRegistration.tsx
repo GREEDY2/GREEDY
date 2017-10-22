@@ -68,7 +68,7 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
         credentials["password"] = data.password;
         credentials["fullname"] = data.givenName + " " + data.surname;
         credentials["email"] = data.email;
-        
+
         axios.put("http://localhost:6967/api/Registration", credentials)
             .then(response => {
                 let res = response.data;
@@ -86,119 +86,117 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
         return (
             <div>
                 <DocumentTitle title={`Register`}>
-                    <div className="container">{}
-                        <RegistrationForm onSubmit={this.onFormSubmit.bind(this)}>
-                            <div className='sp-login-form regForm'>
-                                {this.state.isAccountCreated ?
-                                    <div className="row">
-                                        <div className="col-sm-offset-4 col-xs-12 col-sm-4">
-                                            <p className="alert alert-success">
-                                                Your account has been created.
-                                                <Link to="/" className="pull-right">
-                                                    Login Now
-                                                </Link>.
-                                            </p>
-                                            {}
-                                        </div>
+                    <RegistrationForm onSubmit={this.onFormSubmit.bind(this)}>
+                        <div className='sp-login-form regForm'>
+                            {this.state.isAccountCreated ?
+                                <div className="row">
+                                    <div className="col-sm-offset-4 col-xs-12 col-sm-4">
+                                        <p className="alert alert-success">
+                                            Your account has been created.
+                                        </p>
+                                        <p>
+                                            <Link to="/" className="pull-right">
+                                                Login Now
+                                            </Link>.
+                                        </p>
                                     </div>
-                                    :
-                                    <div className="row">
-                                        <div className="col-xs-12">
-                                            <div className="form-horizontal">
-                                                <div className="form-group">
-                                                    <label
-                                                        htmlFor="spUsername"
-                                                        className="col-xs-12 col-sm-4 control-label">
-                                                        Username
+                                </div>
+                                :
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <div className="form-horizontal">
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spUsername"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                    Username
                                                     </label>
-                                                    <div className="col-xs-12 col-sm-4">
-                                                        <input
-                                                            className="form-control"
-                                                            id="spUsername"
-                                                            placeholder="Username"
-                                                            name="username" />
-                                                    </div>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        className="form-control"
+                                                        id="spUsername"
+                                                        placeholder="Username"
+                                                        name="username" />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label
-                                                        htmlFor="spEmail"
-                                                        className="col-xs-12 col-sm-4 control-label">
-                                                        Email
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spEmail"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                    Email
                                                     </label>
-                                                    <div className="col-xs-12 col-sm-4">
-                                                        <input
-                                                            className="form-control"
-                                                            id="spEmail"
-                                                            placeholder="Email"
-                                                            name="email" />
-                                                    </div>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        className="form-control"
+                                                        id="spEmail"
+                                                        placeholder="Email"
+                                                        name="email" />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label
-                                                        htmlFor="spFirstName"
-                                                        className="col-xs-12 col-sm-4 control-label">
-                                                        First Name
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spFirstName"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                    First Name
                                                     </label>
-                                                    <div className="col-xs-12 col-sm-4">
-                                                        <input
-                                                            className="form-control"
-                                                            id="spFirstName"
-                                                            placeholder="First Name"
-                                                            name="givenName" />
-                                                    </div>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        className="form-control"
+                                                        id="spFirstName"
+                                                        placeholder="First Name"
+                                                        name="givenName" />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label
-                                                        htmlFor="spLastName"
-                                                        className="col-xs-12 col-sm-4 control-label">
-                                                        Last Name
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spLastName"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                    Last Name
                                                     </label>
-                                                    <div className="col-xs-12 col-sm-4">
-                                                        <input
-                                                            className="form-control"
-                                                            id="spLastName"
-                                                            placeholder="Last Name"
-                                                            name="surname" />
-                                                    </div>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        className="form-control"
+                                                        id="spLastName"
+                                                        placeholder="Last Name"
+                                                        name="surname" />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label
-                                                        htmlFor="spPassword"
-                                                        className="col-xs-12 col-sm-4 control-label">
-                                                        Password
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spPassword"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                    Password
                                                     </label>
-                                                    <div className="col-xs-12 col-sm-4">
-                                                        <input
-                                                            type="password"
-                                                            className="form-control"
-                                                            id="spPassword"
-                                                            placeholder="Password"
-                                                            name="password" />
-                                                    </div>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        type="password"
+                                                        className="form-control"
+                                                        id="spPassword"
+                                                        placeholder="Password"
+                                                        name="password" />
                                                 </div>
-                                                <div className="form-group">
-                                                    <div className="col-sm-offset-4 col-sm-4">
-                                                        <p
-                                                            className="alert alert-danger"
-                                                            data-spIf="form.error">
-                                                            <span data-spBind="form.errorMessage" />
-                                                        </p>
-                                                        <Button
-                                                            className="col-xs-12 col-sm-12"
-                                                            type="submit"
-                                                            color="btn btn-primary buttonText">
-                                                            Register
+                                            </div>
+                                            <div className="form-group">
+                                                <div className="col-sm-offset-4 col-sm-4">
+                                                    <p
+                                                        className="alert alert-danger"
+                                                        data-spIf="form.error">
+                                                        <span data-spBind="form.errorMessage" />
+                                                    </p>
+                                                    <Button
+                                                        className="col-xs-12 col-sm-12"
+                                                        type="submit"
+                                                        color="btn btn-primary buttonText">
+                                                        Register
                                                         </Button>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                }
-                            </div>
-                        </RegistrationForm>
-                        {}
-                    </div >
+                                </div>
+                            }
+                        </div>
+                    </RegistrationForm>
                 </DocumentTitle >
             </div >
         );

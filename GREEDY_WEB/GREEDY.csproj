@@ -40,6 +40,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EditItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Logo.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ForgotPassword.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UserLogin.tsx" />
