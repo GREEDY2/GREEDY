@@ -9,12 +9,8 @@ import Cookies from 'universal-cookie';
 import FacebookLogin from 'react-facebook-login';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
-    constructor(props) {
-        super(props);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-    }
 
-    onFormSubmit(e, next) {
+    onFormSubmit = (e, next) => {
         e.preventDefault();
         var data = e.data;
 
@@ -43,8 +39,6 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                 if (res) {
                     const cookies = new Cookies();
                     cookies.set('username', res.Username, { path: '/' });
-                    /* set sessionId for user
-                    cookies.set('sessionId', res.SessionId, { path: '/' });*/
                     (this.props as any).history.push("/");
                 }
                 else
@@ -63,54 +57,92 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     }
 
     public render() {
-        return <div>
-            <DocumentTitle title={`Login`}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xs-12 text-center loginLogo">
-                            <img className="img-responsive logo" src={"Logo.png"} height="100%" />
+        return (
+            <div>
+                <DocumentTitle title={`Login`}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12 text-center loginLogo">
+                                <img
+                                    className="img-responsive logo"
+                                    src={"Logo.png"}
+                                    height="100%" />
+                            </div>
                         </div>
-                    </div>
-                    <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
-                        <div className='sp-login-form'>
-                            <div className="row">
-                                <div className="col-xs-12">
-                                    <div className="form-horizontal">
-                                        <div className="form-group">
-                                            <label htmlFor="spEmail" className="col-xs-12 col-sm-4 control-label"></label>
-                                            <div className="col-xs-12 col-sm-4">
-                                                <input className="form-control" id="spUsername" name="username" placeholder="Username or Email" />
+                        <LoginForm onSubmit={this.onFormSubmit.bind(this)}>
+                            <div className='sp-login-form'>
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <div className="form-horizontal">
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spEmail"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                </label>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        className="form-control"
+                                                        id="spUsername"
+                                                        name="username"
+                                                        placeholder="Username or Email"/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="spPassword" className="col-xs-12 col-sm-4 control-label"></label>
-                                            <div className="col-xs-12 col-sm-4">
-                                                <input type="password" className="form-control" id="spPassword" name="password" placeholder="Password" />
+                                            <div className="form-group">
+                                                <label
+                                                    htmlFor="spPassword"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                </label>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        type="password"
+                                                        className="form-control"
+                                                        id="spPassword"
+                                                        name="password"
+                                                        placeholder="Password"/>
+                                                </div>
+                                                <Link
+                                                    to="/forgot"
+                                                    className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">
+                                                    Forgot password
+                                                 </Link>
                                             </div>
-                                            <Link to="/forgot" className=" col-sm-offset-4 col-sm-4 pull-left loginLinkButton">Forgot password</Link>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="col-sm-offset-4 col-sm-4 text-center">
-                                                <p className="alert alert-danger" data-spIf="form.error">
-                                                    <span data-spBind="form.errorMessage" />
-                                                </p>
-                                                <Button className="col-xs-12 col-sm-12" type="submit" color="btn btn-primary buttonText">Login</Button>
-                                                <Link to="/registration" className="pull-right marginTop loginLinkButton">Don't have an account? Register</Link>
-                                                { /* <Link to="/forgot" className="pull-right">Forgot Password</Link> */
-                                                }
-
+                                            <div className="form-group">
+                                                <div className="col-sm-offset-4 col-sm-4 text-center">
+                                                    <p className="alert alert-danger" data-spIf="form.error">
+                                                        <span data-spBind="form.errorMessage" />
+                                                    </p>
+                                                    <Button
+                                                        className="col-xs-12 col-sm-12"
+                                                        type="submit"
+                                                        color="btn btn-primary buttonText">
+                                                        Login
+                                                    </Button>
+                                                    <Link to="/registration"
+                                                        className="pull-right marginTop loginLinkButton">
+                                                        Don't have an account? Register
+                                                    </Link>
+                                                    {
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center">
-                                            <div className="fb-login-button " data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                            <div className="form-group col-sm-offset-4 col-sm-12 text-center">
+                                                <div
+                                                    className="fb-login-button "
+                                                    data-max-rows="1" data-size="medium"
+                                                    data-button-type="continue_with"
+                                                    data-show-faces="false"
+                                                    data-auto-logout-link="false"
+                                                    data-use-continue-as="false">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </LoginForm>
-                </div>
-            </DocumentTitle>
-        </div>;
+                        </LoginForm>
+                    </div>
+                </DocumentTitle>
+            </div>
+        );
     }
 }

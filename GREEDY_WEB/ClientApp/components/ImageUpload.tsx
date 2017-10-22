@@ -2,17 +2,12 @@
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 
-interface Props {
+interface IProps {
     updateItemList: any;
 }
 
-export class ImageUpload extends React.Component<Props> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            itemList: []
-        };
-    }
+export class ImageUpload extends React.Component<IProps> {
+    state = { itemList: [] };
 
     _handleImageChange(e) {
         e.preventDefault();
@@ -41,7 +36,11 @@ export class ImageUpload extends React.Component<Props> {
         return (
             <div>
                 <label className="btn btn-primary active btn-file center-block">
-                    Upload receipt <input type="file" accept="image/*" onChange={(e) => this._handleImageChange(e)} />
+                    Upload receipt
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => this._handleImageChange(e)} />
                 </label>
             </div>
         )

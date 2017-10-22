@@ -11,7 +11,7 @@ export class Authorization extends React.Component {
         super(props);
     }
 
-    componentUpdate() {
+    componentUpdate = () => {
         this.render();
     }
 
@@ -25,10 +25,12 @@ export class Authorization extends React.Component {
                 </div>
             );
         }
-        return <Switch>
-            <Route exact path='/registration' component={UserRegistration} />
-            <Route exact path='/forgot' component={ForgotPassword} />
-            <Route path='/' component={UserLogin} />
-        </Switch>
+        return (
+            <Switch>
+                <Route exact path='/registration' component={UserRegistration} />
+                <Route exact path='/forgot' component={ForgotPassword} />
+                <Route path='/' component={UserLogin} />
+            </Switch>
+        );
     }
 }
