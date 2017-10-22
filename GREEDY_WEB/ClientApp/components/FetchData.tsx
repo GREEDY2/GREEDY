@@ -12,6 +12,7 @@ interface IProps {
 interface IState {
     showEdit: boolean
     showItems: boolean
+    showCategoryAdd: boolean
     itemList: any
     //e - edit
     eItemId: number
@@ -22,11 +23,16 @@ interface IState {
     eSuccess: boolean
 }
 
+    //TODO: Write a controller that gets Items from the database for the user
+    //TODO: Write a controller that gets categories from the database
+    //TODO: Write methods to get the items and categories from BackEnd
+    //TODO: Display categories (the default should be selected)
 export class FetchData extends React.Component<IProps, IState> {
     componentWillMount() {
         this.setState({
             showItems: true,
             showEdit: false,
+            showCategoryAdd: false,
             eHappened: false,
             itemList: this.props.itemList
         });
@@ -54,6 +60,14 @@ export class FetchData extends React.Component<IProps, IState> {
         this.setState({ showEdit: false });
     }
 
+    showCategoryAdd = () => {
+        this.setState({ showCategoryAdd: true });
+    }
+
+    hideCategoryAdd = () => {
+        this.setState({ showCategoryAdd: false });
+    }
+
     saveItemChanges = (e) => {
         e.preventDefault();
         if (this.state.eItemId < 0 || this.state.eItemName === "") {
@@ -65,7 +79,9 @@ export class FetchData extends React.Component<IProps, IState> {
             name: this.state.eItemName,
             category: this.state.eItemCategory
         }
-        axios.post(`/api/UpdateItem/`, item)
+        //TODO: Create an API UpdateItem, that saves the changes to database
+        //TODO: Make it post to "http://localhost:6967/api/UpdateItem/"
+        axios.post("api/UpdateItem/", item)
             .then(response => {
                 let res = response.data;
                 if (res) {
@@ -78,6 +94,20 @@ export class FetchData extends React.Component<IProps, IState> {
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    saveCategoryChanges = (e) => {
+        e.preventDefault();
+        //TODO: add new category to the list (make it selected aswell)
+        //TODO: Create controller, that adds the new category to the database
+        //TODO: Make it post to "http://localhost:6967/api/AddCategory/". Now its only for testing not to crash
+        axios.post("api/AddCategory/", this.state.eItemCategory)
+            .then(response => {
+                let res = response.data;
+                this.setState({ showCategoryAdd: false });
+            }).catch(error => {
+                console.log(error);
+            })
     }
 
     eNameChange = (event) => {
@@ -168,12 +198,32 @@ export class FetchData extends React.Component<IProps, IState> {
                                     <option>4</option>
                                     <option>5</option>
                                 </Input>
-                                <Button type="button" color="primary">
+                                <Button type="button" color="primary" onClick={this.showCategoryAdd}>
                                     Add Category
                                 </Button>
                             </FormGroup>
                             <Button color="success" block>
                                 Save
+                            </Button>
+                        </Form>
+                    </ModalDialog>
+                </ModalContainer>}
+            {this.state.showCategoryAdd &&
+                <ModalContainer onClose={this.hideCategoryAdd}>
+                    <ModalDialog onClose={this.hideCategoryAdd}>
+                        <h3>Add a new category</h3>
+                        <Form onSubmit={this.saveCategoryChanges}>
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="itemCategory"
+                                    maxLength="100"
+                                    required id="eItemCategory"
+                                    placeholder="Category"
+                                    onChange={this.eCategoryChange}/>
+                            </FormGroup>
+                            <Button color="success" block>
+                                Confirm
                             </Button>
                         </Form>
                     </ModalDialog>
