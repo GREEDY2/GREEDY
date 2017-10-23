@@ -14,13 +14,17 @@ namespace GREEDY.DataManagers
                 shopTile += receipt.LinesOfText.ElementAt(i);
             }
 
-            if (shopTile.ToUpper().Contains("RIMI"))
+            if (shopTile.ToUpper().Contains("MAXIMA"))
+            {
+                return "MAXIMA";
+            }
+            else if (shopTile.ToUpper().Contains("RIMI"))
             {
                 return "RIMI";
             }
-            else if (shopTile.ToUpper().Contains("MAXIMA"))
+            else if (shopTile.ToUpper().Contains("PALINK"))
             {
-                return "MAXIMA";
+                return "IKI";
             }
             else
             {
