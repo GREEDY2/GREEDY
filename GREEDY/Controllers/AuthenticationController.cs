@@ -36,6 +36,7 @@ namespace GREEDY.Controllers
                 user.Password = null;
                 return HelperClass.JsonHttpResponse(user);
             }
+            //TODO: need to uncomment this method because we have database now
             /*
              * Later will need to add sessions (Probably when we have database)
                 // var allSessions = _context.Sessions.ToList();

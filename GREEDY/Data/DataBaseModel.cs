@@ -12,7 +12,6 @@ namespace GREEDY.Data
             Database.SetInitializer<DataBaseModel>(new DropCreateDatabaseIfModelChanges<DataBaseModel>());
         }
 
-
         public DbSet<UserDataModel> User { get; set; }
         public DbSet<ReceiptDataModel> Receipt { get; set; }
         public DbSet<ShopDataModel> Shop { get; set; }

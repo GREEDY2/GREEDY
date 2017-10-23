@@ -3,7 +3,6 @@ using GREEDY.DataManagers;
 using GREEDY.Models;
 using GREEDY.OCRs;
 using System.Drawing;
-using System;
 
 namespace GREEDY.Services
 {
@@ -43,10 +42,6 @@ namespace GREEDY.Services
             {
                 return null;
             }
-            
-            //_dataManager.DisplayToScreen(itemList);
-            //_dataManager.SaveData(itemList);
-            
         }
     }
 }

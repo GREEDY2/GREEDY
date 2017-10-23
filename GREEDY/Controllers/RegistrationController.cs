@@ -15,6 +15,7 @@ namespace GREEDY.Controllers
     {
         public HttpResponseMessage Put()
         {
+            //TODO: Change magic numbers to const
             HttpContent requestContent = Request.Content;
             string jsonContent = requestContent.ReadAsStringAsync().Result;
             RegistrationCredentials credentials = JsonConvert.DeserializeObject<RegistrationCredentials>(jsonContent);

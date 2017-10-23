@@ -59,7 +59,6 @@ namespace GREEDY.Extensions
                 Console.WriteLine($"Invalid format of cipher text.\r\n{ex}");
                 return cipherText;
             }
-
             return cipherText;
         }
     }

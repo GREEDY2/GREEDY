@@ -18,8 +18,8 @@ namespace GREEDY.Services
             UpdateUsers();
         }
         //TODO: This mothed will be useless with database, implement one of two options:
-        //1. The controller has an object of the database info and it passes it to the service.
-        //2. The service has an object of the database, constantly updates it.
+        //1. The controller has an object of the database info and it passes it to the service.!
+        //2. The service has an object of the database, constantly updates it.!
         private static void UpdateUsers()
         {
             _users = GREEDY.DataManagers.UserManager.GetExistingUsers();

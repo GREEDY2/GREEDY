@@ -5,7 +5,7 @@ namespace GREEDY.DataManagers
 {
     public class ShopDistributor
     {
-        // TODO: return enum of all shops available
+        // TODO: need connection to DB or dictionary of all shops available
         public string ReceiptDistributor(Receipt receipt)
         {
             var shopTile = "";
