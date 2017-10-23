@@ -23,10 +23,10 @@ namespace GREEDY
                 (
                     new ReceiptService
                     (
+                        new ImageFormating(),
                         new EmguOcr(),
                         new DataConverter(),
-                        new DataManager()
-                    ),
+                        new DataManager()),
                     new ItemService
                     (
                         new DataConverter(),

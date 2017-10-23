@@ -8,5 +8,8 @@ namespace GREEDY.Services
     {
         List<Item> ProcessReceiptImage(Bitmap image);
         //object ProcessReceiptImage();
+
+        //temp method
+        List<string> TempProcessReceiptImage(Bitmap image);
     }
 }
