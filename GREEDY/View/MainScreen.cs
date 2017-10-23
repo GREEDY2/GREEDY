@@ -14,7 +14,7 @@ namespace GREEDY.View
         private readonly IItemService _itemService;
         private readonly IImageGetter _photoImageGetter;
         private readonly IImageGetter _fileImageGetter;
-        private readonly IImageFormatService _imageFormatService;
+        private readonly IImageFormating _imageFormatService;
 
         public MainScreen(IReceiptService receiptService, IItemService itemService)
         {
@@ -23,7 +23,7 @@ namespace GREEDY.View
             _photoImageGetter = new PhotoImageGetter();
             _fileImageGetter = new FileImageGetter();
             InitializeComponent();
-            _imageFormatService = new ImageFormatService();
+            _imageFormatService = new ImageFormating();
         }
 
         private void InserFile_Button_Click(object sender, EventArgs e)
@@ -32,24 +32,8 @@ namespace GREEDY.View
             InserFile_Button.Enabled = false;
             var image = _fileImageGetter.GetImage();
 
-            //temp. testing how every filter works
-            /*ImageViewTest original = 
-                new ImageViewTest(image, "Original", _receiptService);
-            ImageViewTest blur = 
-                new ImageViewTest(_imageFormatService.Blur(image, 5, 5), "Blured", _receiptService);
-            ImageViewTest dilate = 
-                new ImageViewTest(_imageFormatService.Dilate(image, 1), "Dilated", _receiptService);
-            ImageViewTest erode = 
-                new ImageViewTest(_imageFormatService.Erode(image, 1), "Eroded", _receiptService);
-            original.Show();
-            blur.Show();
-            dilate.Show();
-            erode.Show();*/
-
-            
-
-            PointSelector pointSelector = new PointSelector(image);
-            pointSelector.Show();
+            //PointSelector pointSelector = new PointSelector(image);
+            //pointSelector.Show();
 
             try
             {

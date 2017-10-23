@@ -22,6 +22,10 @@ namespace GREEDY.DataManagers
             {
                 return "MAXIMA";
             }
+            else if (shopTile.ToUpper().Contains("PALINK"))
+            {
+                return "IKI";
+            }
             else
             {
                 return null;
