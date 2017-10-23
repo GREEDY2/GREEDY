@@ -31,6 +31,7 @@ namespace GREEDY.DataManagers
                     productList = Regex.Replace(productList, @"\n", " ");
                     productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
 
+                    //words begin at least with 3 letters, after that it takes everything until it find price with new line
                     pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
                     MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
                     foreach (Match m in matches)
