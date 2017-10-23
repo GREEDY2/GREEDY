@@ -36,7 +36,7 @@ export class ImageUpload extends React.Component<IProps> {
 
     render() {
         return (
-            <div>
+            <div className="col-xs-12">
                 <label className="btn btn-primary active btn-file center-block">
                     Upload receipt
                     <input
