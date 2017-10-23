@@ -32,9 +32,6 @@ namespace GREEDY.View
             InserFile_Button.Enabled = false;
             var image = _fileImageGetter.GetImage();
 
-            //PointSelector pointSelector = new PointSelector(image);
-            //pointSelector.Show();
-
             try
             {
                 var processedReceipt = _receiptService.ProcessReceiptImage(image);
