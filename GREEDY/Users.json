@@ -1,1 +1,16 @@
-[{"Id":1,"Username":"marius","Email":"realpk2@gmail.com","Password":"1/OGGLatoLA2PRribpCExQ==","Fullname":"Marius Kurbakovas"},{"Id":0,"Username":"admin","Email":"admin@admin.com","Password":"1/OGGLatoLA2PRribpCExQ==","Fullname":"admin admin"}]
+[
+  {
+    "Id": 1,
+    "Username": "marius",
+    "Email": "realpk2@gmail.com",
+    "Password": "1/OGGLatoLA2PRribpCExQ==",
+    "Fullname": "Marius Kurbakovas"
+  },
+  {
+    "Id": 0,
+    "Username": "admin",
+    "Email": "admin@admin.com",
+    "Password": "1/OGGLatoLA2PRribpCExQ==",
+    "Fullname": "admin admin"
+  }
+]
