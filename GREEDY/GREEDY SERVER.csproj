@@ -120,6 +120,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="DataManagers\NaiveBayesianClassifier.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\IImageFormating.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
