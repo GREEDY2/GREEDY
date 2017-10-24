@@ -1,0 +1,164 @@
+.main-nav li .glyphicon {
+    margin-right: 10px;
+}
+
+/* Highlighting rules for nav menu items */
+.main-nav li a.active,
+.main-nav li a.active:hover,
+.main-nav li a.active:focus {
+    background-color: #4189C7;
+    color: white;
+}
+
+/* Keep the nav menu independent of scrolling and on top of other items */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+/*logo properties*/
+.logo {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0 auto;
+    max-width: 70%;
+    max-height: 70%;
+}
+/*space bellow the logo in login screen*/
+.loginLogo {
+    padding-bottom: 20px;
+}
+
+/*space above registration form (needed when no logo)*/
+.regForm {
+    padding-top: 25px;
+}
+
+/*Image upload button css*/
+.btn-file {
+    padding: 10px;
+    margin: 15px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+/*item table css*/
+.itemTable {
+    font-family: "Segoe UI", "Source Sans Pro", Calibri, Candara, Arial, sans-serif;
+}
+
+    .itemTable .center {
+        text-align: center;
+    }
+
+/*buttons for forgot pass and register, made small and new line*/
+.loginLinkButton {
+    font-size: 13px;
+    float: right;
+    clear: right;
+}
+/*ON SMALL SCREENS*/
+@media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    body {
+        padding-top: 50px;
+    }
+    /* On small screens, thre is a space beetween navicons and username/logout button*/
+    .widenSpace {
+        height: 25px;
+    }
+    /*Buttons in the login screen for reg and forg will be smaller*/
+    .loginLinkButton {
+        font-size: 13px;
+        float: right;
+        clear: right;
+    }
+    /*On small screens, margin between login button and Register button*/
+    .marginTop {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+}
+/*ON BIG SCREENS*/
+@media (min-width: 768px) {
+    /*On big screens, margin between login button and Register button*/
+    .marginTop {
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+    /* On big screens, convert the nav menu to a vertical sidebar */
+    .main-nav {
+        height: 100%;
+        width: calc(25% - 20px);
+    }
+
+        .main-nav .navbar {
+            border-radius: 0;
+            border-width: 0;
+            height: 100%;
+        }
+
+        .main-nav .navbar-header {
+            float: none;
+        }
+
+        .main-nav .navbar-collapse {
+            border-top: 1px solid #444;
+            padding: 0;
+        }
+
+        .main-nav .navbar ul {
+            float: none;
+        }
+
+        .main-nav .navbar li {
+            float: none;
+            font-size: 15px;
+            margin: 6px;
+        }
+
+            .main-nav .navbar li a {
+                padding: 10px 16px;
+                border-radius: 4px;
+            }
+
+        .main-nav .navbar a {
+            /* If a menu item's text is too long, truncate it */
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    .btn-file {
+        padding: 15px;
+        margin: 15px;
+        position: center;
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%
+    }
+    /*On big screens, there is a big space beetwenn navicons and username/logout*/
+    .widenSpace {
+        padding-top: 100%;
+    }
+}

@@ -13,10 +13,16 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         public void ReceiptService_NoImage_NullBitmap()
         {
             //arrange
+            var imageFormating = new Mock<IImageFormating>();
             var ocr = new Mock<IOcr>();
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IDataManager>();
-            ReceiptService receiptService = new ReceiptService(ocr.Object, dataConverter.Object, dataManager.Object);
+            var dataManager = new Mock<IItemManager>();
+            ReceiptService receiptService = 
+                new ReceiptService(
+                    imageFormating: imageFormating.Object, 
+                    ocr: ocr.Object, 
+                    dataConverter: dataConverter.Object, 
+                    dataManager: dataManager.Object);
             //act
 
             //assert
@@ -27,11 +33,17 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         public void ReceiptService_EmptyImage_ReturnNull()
         {
             //arrange
+            var imageFormating = new Mock<IImageFormating>();
             Bitmap image = new Bitmap(1, 1);
             var ocr = new Mock<IOcr>();
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IDataManager>();
-            ReceiptService receiptService = new ReceiptService(ocr.Object, dataConverter.Object, dataManager.Object);
+            var dataManager = new Mock<IItemManager>();
+            ReceiptService receiptService =
+                new ReceiptService(
+                    imageFormating: imageFormating.Object,
+                    ocr: ocr.Object,
+                    dataConverter: dataConverter.Object,
+                    dataManager: dataManager.Object);
             //act
 
             //assert
