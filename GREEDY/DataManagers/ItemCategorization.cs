@@ -33,9 +33,7 @@ namespace GREEDY.DataManagers
         {
             if (!File.Exists(Environments.AppConfig.CategoriesDataPath))
             {
-                //File.Create(Environments.AppConfig.CategoriesDataPath);
-                // TO DO:Fix problem with file creation, 
-                // line 56 throws an exeption when changing category, if file was created this way
+                File.Create(Environments.AppConfig.CategoriesDataPath).Close();
             }
             else
             {
