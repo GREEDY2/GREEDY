@@ -130,6 +130,7 @@
     <Compile Include="DataManagers\ItemManager.cs" />
     <Compile Include="DataManagers\IDataConverter.cs" />
     <Compile Include="DataManagers\IItemManager.cs" />
+    <Compile Include="DataManagers\NaiveBayesianClassifier.cs" />
     <Compile Include="DataManagers\ShopDistributor.cs" />
     <Compile Include="DataManagers\UserManager.cs" />
     <Compile Include="Data\CategoryDataModel.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace GREEDY.DataManagers
 {
@@ -34,21 +35,43 @@ namespace GREEDY.DataManagers
             }
             return max;
         }
-        /* TODO: figure out a better way
-        public List<string> GetXCategories(string test, int x)
+        
+        public List<string> GetTopXCategories(string test, int numberOfCategories)
         {
-            List<string> categories;
+            List<CategoryAndProb> cap = new List<CategoryAndProb>();
+            CategoryAndProb n = new CategoryAndProb();
+            List<string> categories = new List<string>();
             var c = new Classifier(Info);
-            string max = "";
-            double maxProb = 0;
-            foreach (string element in Info.Select(x => x.Category).Distinct())
+            double res;
+            cap.Clear();
+            categories.Clear();
+            foreach (string element in Info.Select(x => x.Category))
             {
-                var res = c.IsInClassProbability(element, test);
-                Console.WriteLine("Probability of " + element + ": " + res);
+                res = c.IsInClassProbability(element, test);
+                n.Prob = res;
+                n.Category = element;
+                cap.Add(n);
+                
+            }
+            List<string> teststr = new List<string>();
+            foreach(CategoryAndProb thing in cap)
+            {
+                teststr.Add(thing.Category);
+                teststr.Add(thing.Prob.ToString());
 
             }
+            
+           
+            categories = cap.OrderByDescending(t => t.Prob).Select(o => o.Category).ToList();
+            File.WriteAllLines("f:\\kazkas.txt", teststr);
+            
             return categories;
-        }*/
+        }
+    }
+    public class CategoryAndProb
+    {
+        public string Category;
+        public double Prob;
     }
     public class ItemInfo
     {

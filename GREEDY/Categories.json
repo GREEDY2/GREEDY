@@ -1,5 +1,26 @@
-{
-  "vanduo": "gėrimai",
+[
+  {
+    /*"vanduo": "gėrimai",
   "alus": "gėrimai",
-  "\nužstatas - vienkartinė plastiko\npakuotė\n6 vnt x 0,10 eur": "užstatas"
-}
+  "\nužstatas - vienkartinė plastiko\npakuotė\n6 vnt x 0,10 eur": "užstatas"*/
+    "Category": "maistas",
+    "Text": "Traškuoiai IAFFEL SAN DIEGO  "
+
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "Bananai i 0,69 X 1,494 kg "
+  },
+  {
+    "Category": "pienas",
+    "Text": "Natūralus Rokiškio NAMINIS pienas, 3,52 rieb. "
+  },
+  {
+    "Category": "maistas",
+    "Text": "Citrinu sorbetas AUGUSIO "
+  },
+  {
+    "Category": "maistas",
+    "Text": "Baityminis gaminys GUUDA VIOIROS picai 2,99 X 0,346 kg "
+  }
+]
