@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
+import Constants from './Constants';
 
 interface IProps {
     updateItemList: any;
@@ -20,7 +21,7 @@ export class ImageUpload extends React.Component<IProps> {
             itemList: []
         };
 
-        axios.put("http://localhost:6967/api/ImagePost", file, {
+        axios.put(Constants.httpRequestBasePath + 'api/ImagePost', file, {
             headers: {
                 'Content-Type': file.type,
                 'Authorization': 'Basic ' + this.props.username

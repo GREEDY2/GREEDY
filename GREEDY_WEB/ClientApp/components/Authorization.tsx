@@ -4,6 +4,7 @@ import { UserLogin } from './UserLogin';
 import { UserRegistration } from './UserRegistration';
 import { Switch, Route } from 'react-router-dom';
 import { ForgotPassword } from './ForgotPassword';
+import Constants from './Constants';
 
 export class Authorization extends React.Component {
 
@@ -17,7 +18,7 @@ export class Authorization extends React.Component {
 
     public render() {
         const cookies = new Cookies();
-        let role = cookies.get('username');
+        let role = cookies.get(Constants.cookieUsername);
         if (role) {
             return (
                 <div>

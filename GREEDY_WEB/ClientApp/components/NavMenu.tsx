@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import Constants from './Constants';
 
 interface IState {
     loggedIn: boolean;
@@ -13,13 +14,13 @@ export class NavMenu extends React.Component<{}, {}> {
     state = { loggedIn: false }
 
     componentDidMount() {
-        this.timer = setInterval(() => this.checkIfLoggedIn(), 100);
+        this.timer = setInterval(() => this.checkIfLoggedIn(), Constants.checkIfUserlogedInTimer);
     }
 
     checkIfLoggedIn = () => {
         const cookies = new Cookies();
         let loggedIn = false;
-        let username = cookies.get('username');
+        let username = cookies.get(Constants.cookieUsername);
         if (username)
             loggedIn = true;
         this.setState({ loggedIn, username });
@@ -31,7 +32,7 @@ export class NavMenu extends React.Component<{}, {}> {
 
     handleLogout = () => {
         const cookies = new Cookies();
-        cookies.remove('username', { path: '/' });
+        cookies.remove(Constants.cookieUsername, { path: '/' });
         //TODO: clear session once we have one
     }
 

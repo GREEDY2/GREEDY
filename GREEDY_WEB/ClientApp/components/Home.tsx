@@ -4,6 +4,7 @@ import { ImageUpload } from './ImageUpload';
 import { FetchData } from './FetchData';
 import { Logo } from './Logo';
 import Cookies from 'universal-cookie';
+import Constants from './Constants';
 
 interface State {
     itemList: any;
@@ -15,7 +16,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
     {
         super();
         const cookies = new Cookies();
-        let username = cookies.get('username');
+        let username = cookies.get(Constants.cookieUsername);
         this.state = {
             itemList: [],
             username: username

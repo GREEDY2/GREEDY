@@ -31,7 +31,7 @@ export class EditItem extends React.Component<IProps> {
             category: this.props.eItemCategory
         }
 
-        axios.post(`/api/UpdateItem/`, item)
+        axios.post('/api/UpdateItem/', item)
             .then(response => {
                 let res = response.data;
                 if (res) {
