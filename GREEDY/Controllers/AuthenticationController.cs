@@ -17,7 +17,7 @@ namespace GREEDY.Controllers
             HttpContent requestContent = Request.Content;
             string jsonContent = requestContent.ReadAsStringAsync().Result;
             LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
-            if (credentials.Username.Length < 1 || credentials.Password.Length < 1
+            if (credentials.Username.Length < 5 || credentials.Password.Length < 5
                 || credentials.Username.Length > 256 || credentials.Password.Length > 256)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);

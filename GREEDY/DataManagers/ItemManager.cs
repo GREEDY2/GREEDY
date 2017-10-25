@@ -7,7 +7,7 @@ namespace GREEDY.DataManagers
 {
     public class ItemManager : IItemManager
     {
-        public void AddItems(IEnumerable<Item> items, Shop shop, string username)
+        public int AddItems(IEnumerable<Item> items, Shop shop, string username)
         {
             using (DataBaseModel context = new DataBaseModel())
             {
@@ -28,6 +28,17 @@ namespace GREEDY.DataManagers
                 }
                 context.Set<ReceiptDataModel>().Add(receiptDataModel);
                 context.SaveChanges();
+                return receiptDataModel.ReceiptId;
+            }
+        }
+
+        public List<Item> GetItemsOfSingleReceipt(int receiptId)
+        {
+            using (DataBaseModel context = new DataBaseModel())
+            {
+                var temp = context.Set<ReceiptDataModel>()
+                    .FirstOrDefault(x => x.ReceiptId == receiptId);
+                return temp.Items.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price, ItemId = x.ItemId }).ToList();
             }
         }
 

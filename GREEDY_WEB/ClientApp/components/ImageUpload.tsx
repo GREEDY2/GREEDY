@@ -3,23 +3,17 @@ import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import Constants from './Constants';
 
-interface IProps {
-    updateItemList: any;
+interface Props {
+    updateReceiptId: any;
     username: string;
 }
 
-export class ImageUpload extends React.Component<IProps> {
-    state = { itemList: [] };
-
+export class ImageUpload extends React.Component<Props> {
     _handleImageChange(e) {
         e.preventDefault();
 
         let reader = new FileReader();
         let file = e.target.files[0];
-
-        this.state = {
-            itemList: []
-        };
 
         axios.put(Constants.httpRequestBasePath + 'api/ImagePost', file, {
             headers: {
@@ -27,9 +21,7 @@ export class ImageUpload extends React.Component<IProps> {
                 'Authorization': 'Basic ' + this.props.username
             }
         }).then(res => {
-            const itemList = res.data;
-            this.setState({ itemList });
-            this.props.updateItemList((this.state as any).itemList);
+            this.props.updateReceiptId(res.data);
         }).catch(error => {
             console.log(error);
         });
