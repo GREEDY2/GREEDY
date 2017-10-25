@@ -67,7 +67,7 @@ export class FetchData extends React.Component<Props, State> {
                         </thead>
                         <tbody>
                             {this.state.itemList.map((item, index) =>
-                                <tr key={index}>
+                                <tr key={item.ItemId}>
                                     <td>{index + 1}</td>
                                     <td>{item.Name}</td>
                                     <td>{item.Price.toFixed(2)}&#8364;</td>
@@ -76,7 +76,7 @@ export class FetchData extends React.Component<Props, State> {
                                         className="glyphicon glyphicon-pencil readGlyphs"
                                         color="primary"
                                         onClick={() =>
-                                            this.child.showEdit(index, item.Name, item.Price, item.Category)}>
+                                            this.child.showEdit(index, item.ItemId, item.Name, item.Price, item.Category)}>
                                     </span></td>
                                 </tr>
                             )}

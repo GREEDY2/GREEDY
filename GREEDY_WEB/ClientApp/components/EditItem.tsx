@@ -11,6 +11,7 @@ interface Props {
 
 interface State {
     ItemId: number;
+    ItemIndex: number;
     ItemName: string;
     ItemPrice: number;
     ItemCategory: string;
@@ -23,6 +24,7 @@ interface State {
 export class EditItem extends React.Component<Props, State> {
     state = {
         ItemId: 0,
+        ItemIndex: 0,
         ItemName: '',
         ItemPrice: 0,
         ItemCategory: '',
@@ -95,9 +97,10 @@ export class EditItem extends React.Component<Props, State> {
         this.setState({ showEdit: false });
     }
 
-    showEdit = (id, name, price, category) => {
+    showEdit = (index, itemId, name, price, category) => {
         this.setState({
-            ItemId: id,
+            ItemId: itemId,
+            ItemIndex: index,
             ItemName: name,
             ItemPrice: price,
             ItemCategory: category,
@@ -131,7 +134,7 @@ export class EditItem extends React.Component<Props, State> {
                 {this.state.showEdit &&
                     <ModalContainer onClose={this.hideEdit} >
                         <ModalDialog onClose={this.hideEdit} style={{ width: '80%' }}>
-                            <h3>Edit Item Nr. {this.state.ItemId + 1}</h3>
+                            <h3>Edit Item Nr. {this.state.ItemIndex + 1}</h3>
                             <Form onSubmit={this.saveItemChanges}>
                                 <FormGroup>
                                     <Label for="eItemName">Item Name</Label>
