@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace GREEDY.Services
 {
+    //Marius: After discussing with Aidas, I believe this (and all classes except for those
+    //that are in extensions) shouldn't be static and be part of dependecy injection
+    //TODO: This class will have to be made non static once dependency injection in controllers is working.
     public static class AuthService
     {
         private static List<User> _users;
@@ -17,12 +20,10 @@ namespace GREEDY.Services
         {
             UpdateUsers();
         }
-        //TODO: This mothed will be useless with database, implement one of two options:
-        //1. The controller has an object of the database info and it passes it to the service.!
-        //2. The service has an object of the database, constantly updates it.!
+
         private static void UpdateUsers()
         {
-            _users = GREEDY.DataManagers.UserManager.GetExistingUsers();
+            _users = DataManagers.UserManager.GetExistingUsers();
         }
 
         public static User FindByUsername(string username)

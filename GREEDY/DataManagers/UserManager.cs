@@ -8,7 +8,6 @@ namespace GREEDY.DataManagers
 {
     public static class UserManager
     {
-        //TODO: this class will change a lot once we have database!
         public static void RegisterNewUser(RegistrationCredentials credentials)
         {
             AddUser(new User()
@@ -20,7 +19,6 @@ namespace GREEDY.DataManagers
             });
         }
 
-        //TODO: Method won't be needed once we have database!
         public static List<User> GetExistingUsers()
         {
             using (DataBaseModel context = new DataBaseModel())

@@ -18,8 +18,15 @@ namespace GREEDY.Controllers
         private IItemManager _itemManager = new ItemManager();
         public HttpResponseMessage Get(int id)
         {
-            var list = _itemManager.GetItemsOfSingleReceipt(id);
-            return HelperClass.JsonHttpResponse(list);
+            try
+            {
+                var list = _itemManager.GetItemsOfSingleReceipt(id);
+                return HelperClass.JsonHttpResponse(list);
+            }
+            catch (NullReferenceException)
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
         }
     }
 }
