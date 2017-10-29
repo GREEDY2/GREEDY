@@ -91,7 +91,7 @@ namespace GREEDY.DataManagers
                     using (VectorOfPoint approxContour = new VectorOfPoint())
                     {
                         CvInvoke.ApproxPolyDP(contour, approxContour, CvInvoke.ArcLength(contour, true) * 0.05, true);
-                        if (CvInvoke.ContourArea(approxContour, false) > (resizedHeight*resizedWidth)*3)//only consider contours with area greater than 250
+                        if (CvInvoke.ContourArea(approxContour, false) > (resizedHeight*resizedWidth)/3)//only consider contours with area greater than the third of the whole image
                         {
                             if (approxContour.Size == 4) //The contour has 4 vertices.
                             {
