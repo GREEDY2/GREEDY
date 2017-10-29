@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
 
-namespace GREEDY.Services
+namespace GREEDY.DataManagers
 {
     public interface IImageFormating
     {
-        Bitmap Blur(Bitmap bitmap, int width, int height);
+        Bitmap Format(Bitmap bitmap);
     }
 }
