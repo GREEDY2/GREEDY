@@ -19,14 +19,13 @@ namespace GREEDY.DataManagers
         private List<ItemInfo> Info { get; set; }
         private Classifier c;
 
-        public string GetTopCategory(string test)
+        public string GetTopCategory(string itemName)
         {
-            //var c = new Classifier(_trainCorpus);
             string max = "";
             double maxProb = 0;
             foreach (string element in Info.Select(x => x.Category).Distinct())
             {
-                var res = c.IsInClassProbability(element, test);
+                var res = c.IsInClassProbability(element, itemName);
                 if (res > maxProb)
                 {
                     max = element;
@@ -36,42 +35,36 @@ namespace GREEDY.DataManagers
             return max;
         }
         
-        public List<string> GetTopXCategories(string test, int numberOfCategories)
+        public List<string> GetAllCategoriesSorted(string itemName)
         {
-            List<CategoryAndProb> cap = new List<CategoryAndProb>();
-            CategoryAndProb n = new CategoryAndProb();
             List<string> categories = new List<string>();
-            var c = new Classifier(Info);
-            double res;
-            cap.Clear();
-            categories.Clear();
-            foreach (string element in Info.Select(x => x.Category))
+            List<CategoryAndProb> cap = new List<CategoryAndProb>();
+            foreach(string element in Info.Select(x => x.Category).Distinct())
             {
-                res = c.IsInClassProbability(element, test);
-                n.Prob = res;
-                n.Category = element;
-                cap.Add(n);
-                
-            }
-            List<string> teststr = new List<string>();
-            foreach(CategoryAndProb thing in cap)
-            {
-                teststr.Add(thing.Category);
-                teststr.Add(thing.Prob.ToString());
-
+                var res = c.IsInClassProbability(element, itemName);
+                cap.Add(new CategoryAndProb(element, res));                
             }
             
-           
-            categories = cap.OrderByDescending(t => t.Prob).Select(o => o.Category).ToList();
-            File.WriteAllLines("f:\\kazkas.txt", teststr);
-            
+            cap = cap.OrderByDescending(x => x.Prob).ToList();
+            foreach (CategoryAndProb element in cap)
+                categories.Add(element.Category);
             return categories;
         }
     }
     public class CategoryAndProb
     {
-        public string Category;
-        public double Prob;
+        public CategoryAndProb(string category, double prob)
+        {
+            Category = category;
+            Prob = prob;
+        }
+        public string Category { get; set; }
+        public double Prob { get; set; }
+
+        public string println()
+        {
+            return Category + Prob.ToString();
+        }
     }
     public class ItemInfo
     {
