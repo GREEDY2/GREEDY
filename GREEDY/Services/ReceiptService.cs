@@ -12,18 +12,21 @@ namespace GREEDY.Services
         private readonly IOcr _ocr;
         private readonly IDataConverter _dataConverter;
         private readonly IDataManager _dataManager;
+        private readonly IImageFormatting _imageFormatting;
 
-        public ReceiptService(IOcr ocr, IDataConverter dataConverter, IDataManager dataManager)
+        public ReceiptService(IOcr ocr, IDataConverter dataConverter, IDataManager dataManager, IImageFormatting imageFormatting)
         {
             _ocr = ocr;
             _dataConverter = dataConverter;
             _dataManager = dataManager;
+            _imageFormatting = imageFormatting;
         }
 
         public List<Item> ProcessReceiptImage(Bitmap image)
         {
             if (image != null)
             {
+                image = _imageFormatting.Format(image);
                 var receipt = _ocr.ConvertImage(image);
                 var itemList = _dataConverter.ReceiptToItemList(receipt);
                 return itemList;
