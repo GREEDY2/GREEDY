@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace GREEDY.DataManagers
 {
-    public static class UserManager
+    public class UserManager : IUserManager
     {
-        public static void RegisterNewUser(RegistrationCredentials credentials)
+        public void RegisterNewUser(RegistrationCredentials credentials)
         {
             AddUser(new User()
             {
@@ -19,7 +19,7 @@ namespace GREEDY.DataManagers
             });
         }
 
-        public static List<User> GetExistingUsers()
+        public List<User> GetExistingUsers()
         {
             using (DataBaseModel context = new DataBaseModel())
             {
@@ -28,7 +28,7 @@ namespace GREEDY.DataManagers
                     .ToList();
             }
         }
-        public static void AddUser(User user)
+        public void AddUser(User user)
         {
             using (DataBaseModel context = new DataBaseModel())
             {

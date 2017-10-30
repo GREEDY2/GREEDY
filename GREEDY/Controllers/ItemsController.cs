@@ -13,7 +13,11 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GetItemsFromPostedReceiptController : ApiController
     {
-        private IItemManager _itemManager = new ItemManager();
+        private IItemManager _itemManager;
+        public GetItemsFromPostedReceiptController(IItemManager itemManager)
+        {
+            _itemManager = itemManager;
+        }
         public HttpResponseMessage Get(int id)
         {
             try
@@ -31,7 +35,11 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UpdateItemController : ApiController
     {
-        private IItemManager _itemManager = new ItemManager();
+        private IItemManager _itemManager;
+        public UpdateItemController(IItemManager itemManager)
+        {
+            _itemManager = itemManager;
+        }
         public async Task<HttpResponseMessage> Put()
         {
             HttpContent content = Request.Content;

@@ -17,7 +17,8 @@ namespace GREEDY.DataManagers
                     .FirstOrDefault() ?? new ShopDataModel() { Location = shop.Location, Name = shop.Name };
 
                 UserDataModel userDataModel = context.Set<UserDataModel>()
-                    .Select(x => x).Where(x => x.Username == username).FirstOrDefault() ?? throw new System.Exception(Properties.Resources.UserNotFound);
+                    .Select(x => x).Where(x => x.Username == username).FirstOrDefault();
+                if (userDataModel == null) throw new System.Exception(Properties.Resources.UserNotFound);
 
                 ReceiptDataModel receiptDataModel = new ReceiptDataModel() { Shop = shopDataModel, User = userDataModel, Total = 0 };
                 receiptDataModel.Items = new List<ItemDataModel>();

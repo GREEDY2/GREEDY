@@ -12,7 +12,12 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GetDistinctCategoriesController : ApiController
     {
-        private ICategoryManager _categoryManager= new CategoryManager();
+        private ICategoryManager _categoryManager;
+
+        public GetDistinctCategoriesController(ICategoryManager categoryManager)
+        {
+            _categoryManager = categoryManager;
+        }
         public HttpResponseMessage Get()
         {
             var categories = _categoryManager.GetAllDistinctCategories();

@@ -6,39 +6,35 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-
+using GREEDY.DataManagers;
 namespace GREEDY.Services
 {
-    //Marius: After discussing with Aidas, I believe this (and all classes except for those
-    //that are in extensions) shouldn't be static and be part of dependecy injection
-    //TODO: This class will have to be made non static once dependency injection in controllers is working.
-    public static class AuthService
+    public class AuthService : IAuthService
     {
-        private static List<User> _users;
-
-        static AuthService()
+        private List<User> _users;
+        private IUserManager _userManager;
+        public AuthService(IUserManager userManager)
         {
-            UpdateUsers();
+            _userManager = userManager;
+        }
+        private void UpdateUsers()
+        {
+            _users = _userManager.GetExistingUsers();
         }
 
-        private static void UpdateUsers()
-        {
-            _users = DataManagers.UserManager.GetExistingUsers();
-        }
-
-        public static User FindByUsername(string username)
+        public User FindByUsername(string username)
         {
             UpdateUsers();
             return _users.FirstOrDefault(user => user.Username.ToLower() == username.ToLower());
         }
 
-        public static User FindByEmail(string email)
+        public User FindByEmail(string email)
         {
             UpdateUsers();
             return _users.FirstOrDefault(user => user.Email.ToLower() == email.ToLower());
         }
 
-        public static User FindById(int id)
+        public User FindById(int id)
         {
             UpdateUsers();
             return _users.FirstOrDefault(user => user.Id == id);
