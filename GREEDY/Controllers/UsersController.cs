@@ -14,6 +14,8 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
+        //TODO: add dependency injection to controllers
+        private ISessionManager _sessionManager = new SessionManager();
         public async Task<HttpResponseMessage> Put()
         {
             HttpContent requestContent = Request.Content;
@@ -35,24 +37,9 @@ namespace GREEDY.Controllers
             }
             if (user.Password.Decrypt() == credentials.Password)
             {
-                user.Password = null;
-                return HelperClass.JsonHttpResponse(user);
+                var loginSession = _sessionManager.CreateNewSession(user);
+                return HelperClass.JsonHttpResponse(loginSession);
             }
-            //TODO: need to uncomment this method because we have database now
-            /*
-             * Later will need to add sessions (Probably when we have database)
-                // var allSessions = _context.Sessions.ToList();
-                // var singleSession = allSessions.FirstOrDefault(x => x.UserId == user.id);
-                // if (singleSession != null)
-                //     _context.Remove(singleSession);
-                var session = new SessionDataModel();
-                session.UserId = user.id;
-                session.SessionId = DateTime.Now;
-                _context.Sessions.Add(session);
-                _context.SaveChanges();
-                user.SessionId = session.SessionId;
-                return
-            }*/
             return HelperClass.JsonHttpResponse<Object>(null);
         }
     }

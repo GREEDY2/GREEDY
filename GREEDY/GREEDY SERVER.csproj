@@ -128,11 +128,13 @@
     <Compile Include="DataManagers\IImageGetter.cs" />
     <Compile Include="DataManagers\IItemCategorization.cs" />
     <Compile Include="DataManagers\ImageFormating.cs" />
+    <Compile Include="DataManagers\ISessionManager.cs" />
     <Compile Include="DataManagers\ItemCategorization.cs" />
     <Compile Include="DataManagers\DataConverter.cs" />
     <Compile Include="DataManagers\ItemManager.cs" />
     <Compile Include="DataManagers\IDataConverter.cs" />
     <Compile Include="DataManagers\IItemManager.cs" />
+    <Compile Include="DataManagers\SessionManager.cs" />
     <Compile Include="DataManagers\ShopDistributor.cs" />
     <Compile Include="DataManagers\UserManager.cs" />
     <Compile Include="Data\CategoryDataModel.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\RegistrationCredentials.cs" />
+    <Compile Include="Models\LoginSession.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="OCRs\EmguOcr.cs" />

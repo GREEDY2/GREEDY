@@ -39,6 +39,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                 if (res) {
                     const cookies = new Cookies();
                     cookies.set(Constants.cookieUsername, res.Username, { path: '/' });
+                    cookies.set(Constants.cookieSessionId, res.SessionID, { path: '/' });
                     (this.props as any).history.push("/");
                 }
                 else
