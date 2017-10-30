@@ -15,13 +15,12 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ImagePostController : ApiController
     {
-        private IItemManager _itemManager = new ItemManager();
-        //TODO: Research and fix how can we implement Dependency Injection into Controllers
-        //Probably will be something with adding Services to OWIN application (Ninject)
-        /*public ImagePostController(IItemManager itemManager)
+        private IItemManager _itemManager;
+        
+        public ImagePostController(IItemManager itemManager)
         {
             _itemManager = itemManager;
-        }*/
+        }
 
         public async Task<HttpResponseMessage> Put()
         {

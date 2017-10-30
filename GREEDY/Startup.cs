@@ -2,6 +2,11 @@
 using System.Linq;
 using System.Web.Http;
 using GREEDY.DataManagers;
+using GREEDY.Services;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
+using System.Reflection;
+using Ninject;
 
 namespace GREEDY
 {
@@ -17,7 +22,18 @@ namespace GREEDY
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
                 );
-            appBuilder.UseWebApi(CONFIG);
+            appBuilder.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(CONFIG);
+        }
+
+        private static StandardKernel CreateKernel()
+        {
+            var kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+            kernel.Bind<IItemManager>().To<ItemManager>();
+            kernel.Bind<IUserManager>().To<UserManager>();
+            kernel.Bind<ICategoryManager>().To<CategoryManager>();
+            kernel.Bind<IAuthService>().To<AuthService>();
+            return kernel;
         }
     }
 }

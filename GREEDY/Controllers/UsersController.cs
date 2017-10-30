@@ -14,6 +14,11 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
+        private IAuthService _authService;
+        public AuthenticationController(IAuthService authService)
+        {
+            _authService = authService;
+        }
         public async Task<HttpResponseMessage> Put()
         {
             HttpContent requestContent = Request.Content;
@@ -24,10 +29,10 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            User user = AuthService.FindByUsername(credentials.Username);
+            User user = _authService.FindByUsername(credentials.Username);
             if (user == null)
             {
-                user = AuthService.FindByEmail(credentials.Username);
+                user = _authService.FindByEmail(credentials.Username);
             }
             if (user == null)
             {
@@ -60,6 +65,13 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RegistrationController : ApiController
     {
+        private IAuthService _authService;
+        private IUserManager _userManager;
+        public RegistrationController(IAuthService authService,IUserManager userManager)
+        {
+            _authService = authService;
+            _userManager = userManager;
+        }
         public async Task<HttpResponseMessage> Put()
         {
             //TODO: Change magic numbers to const
@@ -73,15 +85,15 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (AuthService.FindByUsername(credentials.Username) != null)
+            if (_authService.FindByUsername(credentials.Username) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (AuthService.FindByEmail(credentials.Email) != null)
+            if (_authService.FindByEmail(credentials.Email) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            UserManager.RegisterNewUser(credentials);
+            _userManager.RegisterNewUser(credentials);
             return HelperClass.JsonHttpResponse(true);
         }
     }
