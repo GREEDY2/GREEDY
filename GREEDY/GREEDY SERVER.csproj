@@ -142,6 +142,9 @@
     <Compile Include="DataManagers\CategoryManager.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\ICategoryManager.cs" />
+	<Compile Include="DataManagers\ISessionManager.cs" />
+    <Compile Include="DataManagers\SessionManager.cs" />
+	<Compile Include="Models\LoginSession.cs" />
     <Compile Include="DataManagers\IImageFormating.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
     <Compile Include="DataManagers\IItemCategorization.cs" />
