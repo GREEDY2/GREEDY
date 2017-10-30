@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Text;
 using GREEDY.DataManagers;
 using GREEDY.Extensions;
+using System.Threading.Tasks;
 
 namespace GREEDY.Controllers
 {
@@ -22,9 +23,9 @@ namespace GREEDY.Controllers
             _itemManager = itemManager;
         }*/
 
-        public HttpResponseMessage Put()
+        public async Task<HttpResponseMessage> Put()
         {
-            var requestStream = Request.Content.ReadAsStreamAsync().Result;
+            var requestStream = await Request.Content.ReadAsStreamAsync();
             var username = Request.Headers.Authorization.Parameter;
             var memoryStream = new MemoryStream(); //Using a MemoryStream because can't parse directly to image
             requestStream.CopyTo(memoryStream);

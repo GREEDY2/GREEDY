@@ -30,11 +30,11 @@ export class FetchData extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        this.props.onRef(this)
+        this.props.onRef(this);
     }
 
     componentWillUnmount() {
-        this.props.onRef(undefined)
+        this.props.onRef(undefined);
     }
 
     updateList = () => {
@@ -42,7 +42,7 @@ export class FetchData extends React.Component<Props, State> {
     }
 
     getItems(receiptId) {
-        axios.get(Constants.httpRequestBasePath + 'api/PostedReceipt/' + receiptId)
+        axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId)
             .then(res => {
                 const itemList = res.data;
                 this.setState({ itemList, showItems: true, receiptId });

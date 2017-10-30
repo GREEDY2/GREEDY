@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import axios from 'axios';
+import Constants from './Constants';
 
 interface Props {
     onRef: any;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 interface State {
+    Categories: Array<string>;
     ItemId: number;
     ItemIndex: number;
     ItemName: string;
@@ -23,6 +25,7 @@ interface State {
 
 export class EditItem extends React.Component<Props, State> {
     state = {
+        Categories: [],
         ItemId: 0,
         ItemIndex: 0,
         ItemName: '',
@@ -40,6 +43,7 @@ export class EditItem extends React.Component<Props, State> {
             showCategoryAdd: false,
             eHappened: false
         });
+        this.getAllDistinctCategories();
     }
 
     componentDidMount() {
@@ -57,14 +61,12 @@ export class EditItem extends React.Component<Props, State> {
             return;
         }
         const item = {
-            itemId: this.state.ItemId,
-            name: this.state.ItemName,
-            price: this.state.ItemPrice,
-            category: this.state.ItemCategory
+            ItemId: this.state.ItemId,
+            Name: this.state.ItemName,
+            Price: this.state.ItemPrice,
+            Category: this.state.ItemCategory
         }
-        //TODO: Create an API UpdateItem, that saves the changes to database
-        //TODO: Make it post to "http://localhost:6967/api/UpdateItem/"
-        axios.post("api/UpdateItem/", item)
+        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item)
             .then(response => {
                 let res = response.data;
                 if (res) {
@@ -77,6 +79,16 @@ export class EditItem extends React.Component<Props, State> {
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    getAllDistinctCategories = () => {
+        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories")
+            .then(response => {
+                let res = response.data;
+                this.setState({ Categories: res });
+            }).catch(error => {
+                console.log(error);
+            })
     }
 
     saveCategoryChanges = (e) => {
@@ -162,11 +174,12 @@ export class EditItem extends React.Component<Props, State> {
                                         id="eItemCategory"
                                         defaultValue={this.state.ItemCategory}
                                         onChange={this.eCategoryChange}>
-                                        <option>{this.state.ItemCategory}</option>
-                                        <option>gerimai</option>
-                                        <option>uztatas</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        {/*Show an empty category if none is set to an item*/}
+                                        {this.state.ItemCategory ? null : <option>{this.state.ItemCategory}</option>}
+                                    
+                                        {this.state.Categories.map(category =>
+                                            <option key={category}>{category}</option>
+                                        )}
                                     </Input>
                                     <Button type="button" color="primary" onClick={this.showCategoryAdd}>
                                         Add Category

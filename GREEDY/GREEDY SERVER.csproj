@@ -117,11 +117,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
-    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
-    <Compile Include="Controllers\RegistrationController.cs" />
-    <Compile Include="Controllers\PostedReceiptController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataManagers\CategoryManager.cs" />
     <Compile Include="DataManagers\FileImageGetter.cs" />
+    <Compile Include="DataManagers\ICategoryManager.cs" />
     <Compile Include="DataManagers\IImageFormating.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
     <Compile Include="DataManagers\IItemCategorization.cs" />

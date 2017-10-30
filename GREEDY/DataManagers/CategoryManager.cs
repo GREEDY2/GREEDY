@@ -5,9 +5,18 @@ using System.Linq;
 
 namespace GREEDY.DataManagers
 {
-    public class ItemManager : IItemManager
+    public class CategoryManager : ICategoryManager
     {
-        public int AddItems(IEnumerable<Item> items, Shop shop, string username)
+        public List<string> GetAllDistinctCategories()
+        {
+            using (DataBaseModel context = new DataBaseModel())
+            {
+                var distinctCategories = context.Set<CategoryDataModel>()
+                    .Select(x => x.Category).Distinct();
+                return distinctCategories.ToList();
+            }
+        }
+        /*public int AddItems(IEnumerable<Item> items, Shop shop, string username)
         {
             using (DataBaseModel context = new DataBaseModel())
             {
@@ -51,25 +60,6 @@ namespace GREEDY.DataManagers
                     .Where(x => x.Receipt.User.Username == Username);
                 return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
             }
-        }
-
-        //TODO: for now this only saves the changed item to ItemDataModels table
-        //nothing is written for categorizations.
-        //Once categoraziation is sorted out need to add extra logic
-        public void UpdateItem(Item UpdatedItem)
-        {
-            using (DataBaseModel context = new DataBaseModel())
-            {
-                var itemToUpdate = context.Set<ItemDataModel>()
-                    .FirstOrDefault(x => x.ItemId == UpdatedItem.ItemId);
-                //TODO: I believe this can be written in more SOLID style
-                //Using explicit/implicit type conversion operators
-                //Didn't have the time to research this
-                itemToUpdate.Name = UpdatedItem.Name;
-                itemToUpdate.Category = UpdatedItem.Category;
-                itemToUpdate.Price = UpdatedItem.Price;
-                context.SaveChanges();
-            }
-        }
+        }*/
     }
 }

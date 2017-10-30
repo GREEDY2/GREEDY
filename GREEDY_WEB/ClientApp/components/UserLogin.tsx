@@ -117,7 +117,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center">
+                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center facebook">
                                             <div
                                                 className="fb-login-button "
                                                 data-max-rows="1" data-size="medium"
