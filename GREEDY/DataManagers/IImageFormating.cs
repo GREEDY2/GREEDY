@@ -4,6 +4,6 @@ namespace GREEDY.DataManagers
 {
     public interface IImageFormating
     {
-        Bitmap Format(Bitmap bitmap);
+        Bitmap FormatImage(Bitmap bitmap);
     }
 }

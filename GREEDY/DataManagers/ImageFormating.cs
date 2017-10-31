@@ -8,12 +8,15 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Point = System.Drawing.Point;
+using MoreLinq;
+using System.Linq;
 
 namespace GREEDY.DataManagers
 {
     public class ImageFormating : IImageFormating
     {
-        private Bitmap BradleyLocalThreshold(Bitmap bitmap)
+        // adds BradleyLocalThreshold filter to the picture
+        private Bitmap BradleyLocalThreshold(Bitmap bitmap) 
         {
             Image<Gray, byte> inputImage = new Image<Gray, byte>(bitmap);
             BradleyLocalThresholding bradleyLocalThresholding = new BradleyLocalThresholding();
@@ -39,18 +42,13 @@ namespace GREEDY.DataManagers
         //returns the bigest found rectangle
         private Bitmap FilterCropedImages(List<Bitmap> list)
         {
-            Bitmap correctImage = null;
-            foreach (Bitmap img in list)
-            {
-                if (correctImage == null)
-                    correctImage = img;
-                else if ((img.Height * img.Width) > (correctImage.Height * correctImage.Width))
-                    correctImage = img;
-            }
-            return correctImage;
+            if (list.Any())
+                return list.MaxBy(x => x.Height * x.Width); // this guy throws an exception if list is null.
+            else
+                return null;
         }
 
-        public Bitmap Format(Bitmap bitmap)
+        public Bitmap FormatImage(Bitmap bitmap)
         {
             if (bitmap.Width > bitmap.Height)
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
@@ -73,7 +71,7 @@ namespace GREEDY.DataManagers
             CvInvoke.PyrDown(uimage, pyrDown);
             CvInvoke.PyrUp(pyrDown, uimage);
 
-
+            // These values work best
             double cannyThreshold = 180.0;
             double cannyThresholdLinking = 120.0;
             UMat cannyEdges = new UMat();
@@ -104,7 +102,7 @@ namespace GREEDY.DataManagers
                                 {
                                     double angle = Math.Abs(
                                        edges[(j + 1) % edges.Length].GetExteriorAngleDegree(edges[j]));
-                                    if (angle < 10 || angle > 170)
+                                    if (angle < 70 || angle > 110) // these values mean that the angle must be a right angle
                                     {
                                         isRectangle = false;
                                         break;

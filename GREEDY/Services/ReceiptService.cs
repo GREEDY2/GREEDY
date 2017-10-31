@@ -33,7 +33,7 @@ namespace GREEDY.Services
         {
             if (image != null)
             {
-                image = _imageFormating.Format(image);
+                image = _imageFormating.FormatImage(image);
                 var receipt = _ocr.ConvertImage(image);
                 var itemList = _dataConverter.ReceiptToItemList(receipt);
                 return itemList;
