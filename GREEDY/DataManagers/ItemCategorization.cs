@@ -1,4 +1,5 @@
 ﻿using GREEDY.Models;
+using MoreLinq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -8,27 +9,33 @@ namespace GREEDY.DataManagers
 {
     public class ItemCategorization : IItemCategorization
     {
-        private static Dictionary<string, string> _categoriesDictionary;
+        //private static Dictionary<string, string> _categoriesDictionary;
+        private static List<ItemInfo> _info = new List<ItemInfo>();
+        private static NaiveBayesianClassifier c = new NaiveBayesianClassifier(_info);
         static ItemCategorization()
         {
             UpdateCategories();
+            c = new NaiveBayesianClassifier(_info);
         }
-        // TODO: write a more flexible item categorization
-        // decimal price is not needed for now, 
-        // but maybe available implementation for the future to help categorization
+        
         public string CategorizeSingleItem(string itemName, decimal price = 0)
         {
             string itemCategory = string.Empty;
-            foreach (KeyValuePair<string, string> category in _categoriesDictionary)
-            {
-                if (itemName.ToLower().Contains(category.Key))
-                {
-                    itemCategory = category.Value;
-                }
-            }
+            //itemCategory = c.GetTopCategory(itemName.ToLower()); // this works too. using the other one for testing
+            itemCategory = c.GetAllCategoriesSorted(itemName.ToLower()).First();
+            AddItemToInfo(itemName, itemCategory);
+            UpdateClassifier();
+            AddChangeCategories();
             return itemCategory;
         }
 
+        // updates classifier trained data
+        private void UpdateClassifier()
+        {
+            c = new NaiveBayesianClassifier(_info);
+        }
+
+        // reads info from file
         private static void UpdateCategories()
         {
             if (!File.Exists(Environments.AppConfig.CategoriesDataPath))
@@ -39,27 +46,26 @@ namespace GREEDY.DataManagers
             }
             else
             {
-                _categoriesDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>
+                _info = JsonConvert.DeserializeObject<List<ItemInfo>>
                     (File.ReadAllText(Environments.AppConfig.CategoriesDataPath));
+                
             }
-            if (_categoriesDictionary == null)
+            if (_info == null)
             {
-                _categoriesDictionary = new Dictionary<string, string>();
+                _info = new List<ItemInfo>();
             }
         }
-
-        public void AddChangeCategories(string itemName, string category)
+        // adds item to info, filters out duplicates
+        public void AddItemToInfo(string itemName, string category)
         {
-            if (!_categoriesDictionary.ContainsKey(itemName))
-            {
-                _categoriesDictionary.Add(itemName, category);
-                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_categoriesDictionary));
-            }
-            else if (_categoriesDictionary[itemName] != category)
-            {
-                _categoriesDictionary[itemName] = category;
-                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_categoriesDictionary));
-            }
+            ItemInfo i = new ItemInfo(category, itemName);
+            _info.Add(i);
+            _info = _info.DistinctBy(o => o.Text).ToList();
+        }
+        // writes info into file
+        public void AddChangeCategories()
+        {
+            File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_info));
         }
     }
 }
