@@ -21,7 +21,8 @@ export class NavMenu extends React.Component<{}, {}> {
         const cookies = new Cookies();
         let loggedIn = false;
         let username = cookies.get(Constants.cookieUsername);
-        if (username)
+        let sessionId = cookies.get(Constants.cookieSessionId);
+        if (username && sessionId)
             loggedIn = true;
         this.setState({ loggedIn, username });
     }
@@ -33,7 +34,7 @@ export class NavMenu extends React.Component<{}, {}> {
     handleLogout = () => {
         const cookies = new Cookies();
         cookies.remove(Constants.cookieUsername, { path: '/' });
-        //TODO: clear session once we have one
+        cookies.remove(Constants.cookieSessionId, { path: '/' });
     }
 
     public render() {

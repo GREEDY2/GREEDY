@@ -17,10 +17,6 @@ interface State {
     itemList: any
 }
 
-//TODO: Write a controller that gets Items from the database for the user
-//TODO: Write a controller that gets categories from the database
-//TODO: Write methods to get the items and categories from BackEnd
-//TODO: Display categories (the default should be selected)
 export class FetchData extends React.Component<Props, State> {
     child: any;
     state = {

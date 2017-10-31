@@ -33,7 +33,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
         // Force usernames to be in lowercase.
         credentials["username"] = data.username;
         credentials["password"] = data.password;
-        axios.put(Constants.httpRequestBasePath + 'api/Authentication', credentials)
+        axios.put(Constants.httpRequestBasePath + 'api/Login', credentials)
             .then(response => {
                 let res = response.data;
                 if (res) {

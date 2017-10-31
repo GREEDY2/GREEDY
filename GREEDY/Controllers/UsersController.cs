@@ -12,12 +12,14 @@ using System.Threading.Tasks;
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class AuthenticationController : ApiController
+    public class LoginController : ApiController
     {
         private IAuthService _authService;
-        public AuthenticationController(IAuthService authService)
+        private ISessionManager _sessionManager;
+        public LoginController(IAuthService authService, ISessionManager sessionManager)
         {
             _authService = authService;
+            _sessionManager = sessionManager;
         }
         public async Task<HttpResponseMessage> Put()
         {
@@ -40,24 +42,9 @@ namespace GREEDY.Controllers
             }
             if (user.Password.Decrypt() == credentials.Password)
             {
-                user.Password = null;
-                return HelperClass.JsonHttpResponse(user);
+                var loginSession = _sessionManager.CreateNewSession(user);
+                return HelperClass.JsonHttpResponse(loginSession);
             }
-            //TODO: need to uncomment this method because we have database now
-            /*
-             * Later will need to add sessions (Probably when we have database)
-                // var allSessions = _context.Sessions.ToList();
-                // var singleSession = allSessions.FirstOrDefault(x => x.UserId == user.id);
-                // if (singleSession != null)
-                //     _context.Remove(singleSession);
-                var session = new SessionDataModel();
-                session.UserId = user.id;
-                session.SessionId = DateTime.Now;
-                _context.Sessions.Add(session);
-                _context.SaveChanges();
-                user.SessionId = session.SessionId;
-                return
-            }*/
             return HelperClass.JsonHttpResponse<Object>(null);
         }
     }
@@ -95,6 +82,30 @@ namespace GREEDY.Controllers
             }
             _userManager.RegisterNewUser(credentials);
             return HelperClass.JsonHttpResponse(true);
+        }
+    }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class AuthenticationController : ApiController
+    {
+        private ISessionManager _sessionManager;
+        public AuthenticationController(ISessionManager sessionManager)
+        {
+            _sessionManager = sessionManager;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            LoginSession loginSession = JsonConvert.DeserializeObject<LoginSession>(jsonContent);
+            if (_sessionManager.AuthenticateSession(loginSession))
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
         }
     }
 }

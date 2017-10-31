@@ -33,6 +33,7 @@ namespace GREEDY
             kernel.Bind<IUserManager>().To<UserManager>();
             kernel.Bind<ICategoryManager>().To<CategoryManager>();
             kernel.Bind<IAuthService>().To<AuthService>();
+            kernel.Bind<ISessionManager>().To<SessionManager>();
             return kernel;
         }
     }

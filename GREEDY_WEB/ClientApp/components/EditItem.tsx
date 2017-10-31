@@ -69,13 +69,8 @@ export class EditItem extends React.Component<Props, State> {
         axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item)
             .then(response => {
                 let res = response.data;
-                if (res) {
-                    this.setState({ eSuccess: true, eHappened: true, showEdit: false });
-                    this.props.updateListAfterChange();
-                }
-                else {
-                    this.setState({ eSuccess: false, eHappened: true, showEdit: false });
-                }
+                this.setState({ eSuccess: true, eHappened: true, showEdit: false });
+                this.props.updateListAfterChange();
             }).catch(error => {
                 console.log(error);
             });
@@ -176,7 +171,7 @@ export class EditItem extends React.Component<Props, State> {
                                         onChange={this.eCategoryChange}>
                                         {/*Show an empty category if none is set to an item*/}
                                         {this.state.ItemCategory ? null : <option>{this.state.ItemCategory}</option>}
-                                    
+
                                         {this.state.Categories.map(category =>
                                             <option key={category}>{category}</option>
                                         )}
