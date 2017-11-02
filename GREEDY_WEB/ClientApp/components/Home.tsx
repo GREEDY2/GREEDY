@@ -23,7 +23,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, State> {
     }   
 
     public getReceiptId = (receiptId) => {
-        this.child.getItems(receiptId);
+        this.child.getItemsFromPhoto(receiptId);
     }
 
     public render() {

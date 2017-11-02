@@ -34,10 +34,16 @@ export class FetchData extends React.Component<Props, State> {
     }
 
     updateList = () => {
-        this.getItems(this.state.receiptId);
+        if (this.state.receiptId != 0) {
+            this.getItemsFromPhoto(this.state.receiptId);
+        }
+        else {
+            //TODO:
+            // This is for code reusability. getAllUsersItems() method should be called here.
+        }
     }
 
-    getItems(receiptId) {
+    getItemsFromPhoto(receiptId) {
         axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId)
             .then(res => {
                 const itemList = res.data;
