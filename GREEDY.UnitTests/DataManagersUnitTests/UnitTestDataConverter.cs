@@ -30,9 +30,8 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 0);
         }
 
-        [Theory]
-        [InlineData("MAXIMA")]
-        public void DataConverter_ReceiptToItemList_MAXIMA_ItemToMatchRegex(string data)
+        [Fact]
+        public void DataConverter_ReceiptToItemList_MAXIMA_ItemToMatchRegex()
         {
             //arrange
             var fixture = new Fixture();
@@ -53,9 +52,8 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             //Assert.Equal((decimal)5.22, dataConverter.ReceiptToItemList(receipt)[0].Price);
         }
 
-        [Theory]
-        [InlineData("IKI")]
-        public void DataConverter_ReceiptToItemList_IKI_ItemToMatchRegex(string data)
+        [Fact]
+        public void DataConverter_ReceiptToItemList_IKI_ItemToMatchRegex()
         {
             //arrange
             var fixture = new Fixture();

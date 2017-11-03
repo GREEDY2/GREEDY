@@ -18,7 +18,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             ShopDistributor shopDistributor = new ShopDistributor();
             //act
 
-            Assert.Throws(typeof(ArgumentOutOfRangeException), () => shopDistributor.ReceiptDistributor(receipt));
+            Assert.Throws<ArgumentOutOfRangeException>(() => shopDistributor.ReceiptDistributor(receipt));
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             ShopDistributor shopDistributor = new ShopDistributor();
             //act
 
-            Assert.Throws(typeof(ArgumentNullException), () => shopDistributor.ReceiptDistributor(receipt));
+            Assert.Throws<ArgumentNullException>(() => shopDistributor.ReceiptDistributor(receipt));
         }
 
         [Theory]
@@ -41,8 +41,10 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
         {
             //arrange
             var fixture = new Fixture();
-            var list = new List<string>();
-            list.Add(data);
+            var list = new List<string>
+            {
+                data
+            };
             fixture.AddManyTo(list);
             Receipt receipt = fixture.Build<Receipt>().With(x => x.LinesOfText, list).Create();
 
