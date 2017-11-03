@@ -33,8 +33,8 @@ namespace GREEDY.Services
         {
             if (image != null)
             {
-                var imageNew = _imageFormating.Blur(image, 5, 5); // 5 and 5 is a const for the best blurring effect
-                var receipt = _ocr.ConvertImage(imageNew);
+                image = _imageFormating.FormatImage(image);
+                var receipt = _ocr.ConvertImage(image);
                 var itemList = _dataConverter.ReceiptToItemList(receipt);
                 return itemList;
             }
