@@ -5,7 +5,6 @@ import DocumentTitle from 'react-document-title';
 import { RegistrationForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
 import Constants from './Constants';
 
 interface IState {
