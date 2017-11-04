@@ -35,15 +35,21 @@
     "axios": "^0.16.2",
     "create-react-class": "https://registry.npmjs.org/create-react-class/-/create-react-class-15.6.0.tgz",
     "form-data": "^2.3.1",
-    "prop-types": "https://registry.npmjs.org/prop-types/-/prop-types-15.5.10.tgz",
+    "react": "https://registry.npmjs.org/react/-/react-15.6.1.tgz",
     "react-document-title": "^2.0.3",
+    "react-dom": "https://registry.npmjs.org/react-dom/-/react-dom-15.6.1.tgz",
     "react-facebook-login": "^3.6.2",
     "react-images-upload": "^1.1.1",
     "react-modal-dialog": "^4.0.7",
     "react-stormpath": "^2.0.1",
     "react-transition-group": "https://registry.npmjs.org/react-transition-group/-/react-transition-group-2.2.1.tgz",
     "reactstrap": "^4.8.0",
+    "sw-precache": "^5.2.0",
+    "sw-toolbox": "^3.6.0",
     "typescript": "2.3.4",
     "universal-cookie": "^2.1.0"
+  },
+  "scripts": {
+    "build": "mkdir -p dist && nwb build && npm run copy-manifest && npm run clean && npm run generate-sw"
   }
 }

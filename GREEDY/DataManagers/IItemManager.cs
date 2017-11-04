@@ -6,8 +6,9 @@ namespace GREEDY.DataManagers
 {
     public interface IItemManager
     {
-        // TODO: remove unnecessary methods
-        void AddItems(IEnumerable<Item> itemList, Shop shop, string Username);
+        int AddItems(IEnumerable<Item> itemList, Shop shop, string Username);
+        List<Item> GetItemsOfSingleReceipt(int receiptId);
         List<Item> LoadData(string Username);
+        void UpdateItem(Item updatedItem);
     }
 }

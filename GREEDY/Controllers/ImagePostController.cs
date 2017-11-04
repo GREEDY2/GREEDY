@@ -7,17 +7,24 @@ using GREEDY.Services;
 using Newtonsoft.Json;
 using System.Text;
 using GREEDY.DataManagers;
-
+using GREEDY.Extensions;
+using System.Threading.Tasks;
 
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ImagePostController : ApiController
     {
-        private ItemManager itemManager = new ItemManager();
-        public HttpResponseMessage Put()
+        private IItemManager _itemManager;
+        
+        public ImagePostController(IItemManager itemManager)
         {
-            var requestStream = Request.Content.ReadAsStreamAsync().Result;
+            _itemManager = itemManager;
+        }
+
+        public async Task<HttpResponseMessage> Put()
+        {
+            var requestStream = await Request.Content.ReadAsStreamAsync();
             var username = Request.Headers.Authorization.Parameter;
             var memoryStream = new MemoryStream(); //Using a MemoryStream because can't parse directly to image
             requestStream.CopyTo(memoryStream);
@@ -28,15 +35,9 @@ namespace GREEDY.Controllers
 
             //TODO: Need to get shop
 
-            itemManager.AddItems(list, new Models.Shop() { Name = "Not supported yet", Location= "Not supported yet" }, username);
-            return new HttpResponseMessage()
-            {
-                Content = new StringContent(
-                    JsonConvert.SerializeObject(list),
-                    Encoding.UTF8,
-                    "text/html"
-                    )
-            };
+            var receiptId = _itemManager.AddItems(list, new Models.Shop() 
+                { Name = "Not supported yet", Location= "Not supported yet" }, username);
+            return HelperClass.JsonHttpResponse(receiptId);
             //TODO: create an error if something goes wrong
         }
     }

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { Logo } from './Logo';
+import Constants from './Constants';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
 
@@ -22,7 +23,6 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
             return next(new Error('Username/Email is too long.'));
         }
 
-        // Require passwords to be at least 10 characters.
         if (data.password.length < 1) {
             return next(new Error('Password must not be empty.'));
         }
@@ -33,12 +33,13 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
         // Force usernames to be in lowercase.
         credentials["username"] = data.username;
         credentials["password"] = data.password;
-        axios.put("http://localhost:6967/api/Authentication", credentials)
+        axios.put(Constants.httpRequestBasePath + 'api/Login', credentials)
             .then(response => {
                 let res = response.data;
                 if (res) {
                     const cookies = new Cookies();
-                    cookies.set('username', res.Username, { path: '/' });
+                    cookies.set(Constants.cookieUsername, res.Username, { path: '/' });
+                    cookies.set(Constants.cookieSessionId, res.SessionID, { path: '/' });
                     (this.props as any).history.push("/");
                 }
                 else
@@ -117,7 +118,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center">
+                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center facebook">
                                             <div
                                                 className="fb-login-button "
                                                 data-max-rows="1" data-size="medium"

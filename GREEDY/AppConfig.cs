@@ -12,6 +12,9 @@ namespace GREEDY
         string ServerAdressAndPort { get; }
         string UsersDataPath { get; }
         string EncryptionKey { get; }
+        string MinUsernameLength { get; }
+        string MinPasswordLength { get; }
+        string MaxAnyInputLength { get; }
     }
 
     public class AppConfig : IAppConfig
@@ -24,5 +27,8 @@ namespace GREEDY
         public string ServerAdressAndPort => ConfigurationManager.AppSettings["ServerAdressAndPort"];
         public string UsersDataPath => ConfigurationManager.AppSettings["UsersDataPath"];
         public string EncryptionKey => ConfigurationManager.AppSettings["EncryptionKey"];
+        public string MinUsernameLength => ConfigurationManager.AppSettings["MinUsernameLength"];
+        public string MinPasswordLength => ConfigurationManager.AppSettings["MinPasswordLength"];
+        public string MaxAnyInputLength => ConfigurationManager.AppSettings["MaxAnyInputLength"];
     }
 }

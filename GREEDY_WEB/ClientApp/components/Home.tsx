@@ -4,34 +4,34 @@ import { ImageUpload } from './ImageUpload';
 import { FetchData } from './FetchData';
 import { Logo } from './Logo';
 import Cookies from 'universal-cookie';
+import Constants from './Constants';
 
 interface State {
-    itemList: any;
     username: string;
 }
 
 export class Home extends React.Component<RouteComponentProps<{}>, State> {
+    child: any;
     constructor()
     {
         super();
         const cookies = new Cookies();
-        let username = cookies.get('username');
+        let username = cookies.get(Constants.cookieUsername);
         this.state = {
-            itemList: [],
-            username: username
+            username
         }
     }   
 
-    public getItemList = (items) => {
-        this.setState({ itemList: items });
+    public getReceiptId = (receiptId) => {
+        this.child.getItemsFromPhoto(receiptId);
     }
 
     public render() {
         return (
             <div>
                 <Logo />
-                <ImageUpload updateItemList={this.getItemList} username={this.state.username} />
-                <FetchData itemList={this.state.itemList} />
+                <ImageUpload updateReceiptId={this.getReceiptId} username={this.state.username} />
+                <FetchData onRef={ref => (this.child = ref)} />
             </div>
         );
     }

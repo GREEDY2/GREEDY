@@ -6,38 +6,35 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-
+using GREEDY.DataManagers;
 namespace GREEDY.Services
 {
-    public static class AuthService
+    public class AuthService : IAuthService
     {
-        private static List<User> _users;
-
-        static AuthService()
+        private List<User> _users;
+        private IUserManager _userManager;
+        public AuthService(IUserManager userManager)
         {
-            UpdateUsers();
+            _userManager = userManager;
         }
-        //TODO: This mothed will be useless with database, implement one of two options:
-        //1. The controller has an object of the database info and it passes it to the service.!
-        //2. The service has an object of the database, constantly updates it.!
-        private static void UpdateUsers()
+        private void UpdateUsers()
         {
-            _users = GREEDY.DataManagers.UserManager.GetExistingUsers();
+            _users = _userManager.GetExistingUsers();
         }
 
-        public static User FindByUsername(string username)
+        public User FindByUsername(string username)
         {
             UpdateUsers();
             return _users.FirstOrDefault(user => user.Username.ToLower() == username.ToLower());
         }
 
-        public static User FindByEmail(string email)
+        public User FindByEmail(string email)
         {
             UpdateUsers();
             return _users.FirstOrDefault(user => user.Email.ToLower() == email.ToLower());
         }
 
-        public static User FindById(int id)
+        public User FindById(int id)
         {
             UpdateUsers();
             return _users.FirstOrDefault(user => user.Id == id);

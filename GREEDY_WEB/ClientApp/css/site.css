@@ -31,6 +31,10 @@
     padding-bottom: 20px;
 }
 
+.facebook {
+    margin-left: 0px !important;
+}
+
 /*space above registration form (needed when no logo)*/
 .regForm {
     padding-top: 25px;

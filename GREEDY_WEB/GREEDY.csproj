@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\components\Authorization.tsx" />
+    <None Remove="ClientApp\components\Constants.tsx" />
     <None Remove="ClientApp\components\EditItem.tsx" />
     <None Remove="ClientApp\components\ForgotPassword.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
@@ -40,6 +41,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Constants.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EditItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Logo.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ForgotPassword.tsx" />

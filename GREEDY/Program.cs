@@ -12,7 +12,7 @@ namespace GREEDY
         static void Main()
         {
             string domainAddress = Environments.AppConfig.ServerAdressAndPort;
-            using (WebApp.Start(url: domainAddress))
+            using (WebApp.Start<Startup>(url: domainAddress))
             {
                 Console.WriteLine("Service Hosted " + domainAddress);
                 System.Threading.Thread.Sleep(-1);
