@@ -26,8 +26,8 @@ namespace GREEDY.Controllers
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
-            if (credentials.Username.Length < 5 || credentials.Password.Length < 5
-                || credentials.Username.Length > 256 || credentials.Password.Length > 256)
+            if (!credentials.Username.IsUsernameValid() 
+                || !credentials.Password.IsPasswordValid())
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
@@ -61,14 +61,12 @@ namespace GREEDY.Controllers
         }
         public async Task<HttpResponseMessage> Put()
         {
-            //TODO: Change magic numbers to const
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             RegistrationCredentials credentials = JsonConvert.DeserializeObject<RegistrationCredentials>(jsonContent);
-            if (credentials.Username.Length < 5 || credentials.Password.Length < 5
-                || credentials.Username.Length > 256 || credentials.Password.Length > 256
-                || credentials.Email.Length < 3 || credentials.Email.Length > 256
-                || credentials.Fullname.Length < 1 || credentials.Fullname.Length > 512)
+            if (!credentials.Username.IsUsernameValid() 
+                || !credentials.Password.IsPasswordValid()
+                || !credentials.Email.IsEmailValid())
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }

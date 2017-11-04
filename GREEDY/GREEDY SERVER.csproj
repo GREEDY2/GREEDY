@@ -150,6 +150,7 @@
     <Compile Include="DataManagers\ICategoryManager.cs" />
     <Compile Include="DataManagers\ISessionManager.cs" />
     <Compile Include="DataManagers\SessionManager.cs" />
+    <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="Models\LoginSession.cs" />
     <Compile Include="DataManagers\IImageFormating.cs" />
     <Compile Include="DataManagers\IImageGetter.cs" />
