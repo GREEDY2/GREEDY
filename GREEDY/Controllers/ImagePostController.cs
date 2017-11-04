@@ -35,7 +35,8 @@ namespace GREEDY.Controllers
 
             //TODO: Need to get shop
 
-            var receiptId = _itemManager.AddItems(list, new Models.Shop() { Name = "Not supported yet", Location= "Not supported yet" }, username);
+            var receiptId = _itemManager.AddItems(list, new Models.Shop() 
+                { Name = "Not supported yet", Location= "Not supported yet" }, username);
             return HelperClass.JsonHttpResponse(receiptId);
             //TODO: create an error if something goes wrong
         }
