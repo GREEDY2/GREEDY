@@ -42,10 +42,16 @@ namespace GREEDY.DataManagers
         //returns the bigest found rectangle
         private Bitmap FilterCropedImages(List<Bitmap> list)
         {
-            if (list.Any())
-                return list.MaxBy(x => x.Height * x.Width); // this guy throws an exception if list is null.
-            else
-                return null;
+            try
+            {
+                if (list.Any())
+                    return list.MaxBy(x => x.Height * x.Width); // this guy throws an exception if list is null.
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught when trying to crop immage", e);
+            }
+            return null;
         }
 
         public Bitmap FormatImage(Bitmap bitmap)

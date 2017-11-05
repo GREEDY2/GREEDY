@@ -52,16 +52,6 @@ namespace GREEDY.DataManagers
             }
         }
 
-        public static List<Shop> GetExistingShop()
-        {
-            using (DataBaseModel context = new DataBaseModel())
-            {
-                return context.Set<ShopDataModel>()
-                    .Select(x => new Shop() { Name = x.Name, Location = x.Location, SubName = x.SubName })
-                    .ToList();
-            }
-        }
-
         private void AddDataToShopDataTable()
         {
             //"Environments.AppConfig.Shops
@@ -83,33 +73,30 @@ namespace GREEDY.DataManagers
                 }
             }
         }
-        // TODO: need connection to DB or dictionary of all shops available
+
+        public static List<Shop> GetExistingShop()
+        {
+            using (DataBaseModel context = new DataBaseModel())
+            {
+                return context.Set<ShopDataModel>()
+                    .Select(x => new Shop() { Name = x.Name, Location = x.Location, SubName = x.SubName })
+                    .ToList();
+            }
+        }
+
         public Shop GetShopFromData(List<string> linesOfText)
         {
-            string shopTitle = "";
-            for (int i = 0; i < 4; i++)
-            {
-                shopTitle += linesOfText.ElementAt(i);
-            }
+            var shopTitle = String.Join(String.Empty, linesOfText.Take(4));
+            var shops = GetExistingShop();
 
-            GetExistingShop();
-
-            if (shopTitle.ToUpper().Contains("MAXIMA"))
+            foreach ( Shop element in shops)
             {
-                return new Shop { Name = "MAXIMA" };
+                if (shopTitle.Contains(element.Name) || shopTitle.Contains(element.SubName))
+                {
+                    return element;
+                }
             }
-            else if (shopTitle.ToUpper().Contains("RIMI"))
-            {
-                return new Shop { Name = "RIMI" };
-            }
-            else if (shopTitle.ToUpper().Contains("PALINK"))
-            {
-                return new Shop { Name = "IKI" };
-            }
-            else
-            {
-                return new Shop { Name = "Neatpažinta" };
-            }
+            return new Shop { Name = "Neatpažinta" };
         }
     }
 }

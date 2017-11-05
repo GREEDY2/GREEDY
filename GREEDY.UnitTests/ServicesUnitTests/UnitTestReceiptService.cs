@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using GREEDY.DataManagers;
-using GREEDY.OCRs;
 using GREEDY.Services;
 using Moq;
 using Xunit;
