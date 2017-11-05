@@ -18,72 +18,78 @@ namespace GREEDY.DataManagers
             customCulture.NumberFormat.NumberDecimalSeparator = ",";
             Thread.CurrentThread.CurrentCulture = customCulture;
 
-            //working with text
-            string pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+,\d{2})(.[A|B|E|F|N]{1}(\b|\.))";
-            //string pattern = @"(\n[A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d).[A|E|B|F|N]{1}\b\n";
+            //working with first item
+            string pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+[\.\,]\d{2})(.[A|B|E|F|N]{1}(\b|\.))";
             List<Item> itemList = new List<Item>();
             string previous = String.Empty;
-            //string current = String.Empty;
-            //string nextValue = String.Empty;
+            List<string> sublist = new List<string>();
             Match match1;
-            Match match2;
-            bool FirstItem = true;
-            string itemName = String.Empty;
 
-            foreach (var line in receipt.LinesOfText)
+            for (int i = 0; i < receipt.LinesOfText.Count; i++)
+            //foreach (var line in receipt.LinesOfText)
             {
-                match1 = Regex.Match(line, pattern, RegexOptions.Singleline);
-                if (match1.Success && FirstItem == false)
+                match1 = Regex.Match(receipt.LinesOfText[i], pattern, RegexOptions.Singleline);
+                if (match1.Success)
                 {
-                    itemList.Add(new Item
-                    {
-                        Name = itemName + match1.Groups[1].Value,
-                        Price = decimal.Parse(match1.Groups[2].Value),
-                        Category = ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
-                    });
-                    itemName = String.Empty;
-                }
-                else if (match1.Success && FirstItem)
-                {
-                    match2 = Regex.Match(previous, @"(?!(.+)?\d{6,}(.+)?)^.+$", RegexOptions.Multiline);
+                    Match match2 = Regex.Match(previous, @"(?!(.+)?\d{6,}(.+)?)^.+$", RegexOptions.Multiline);
                     if (match2.Success)
                     {
                         itemList.Add(new Item
                         {
                             Name = match2.Groups[1].Value + match1.Groups[1].Value,
-                            Price = decimal.Parse(match1.Groups[2].Value),
+                            Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
                             Category = ItemCategorization.CategorizeSingleItem(match2.Groups[1].Value + match1.Groups[1].Value)
                         });
-                        FirstItem = false;
-                        itemName = String.Empty;
+                        sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
+                        break;
                     }
                     else
                     {
                         itemList.Add(new Item
                         {
                             Name = match1.Groups[1].Value,
-                            Price = decimal.Parse(match1.Groups[2].Value),
+                            Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
                             Category = ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
                         });
-                        FirstItem = false;
-                        itemName = String.Empty;
+                        sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
+                        break;
                     }
                 }
                 else
                 {
-                    previous = line;
-                    itemName += line;
+                    previous = receipt.LinesOfText[i];
+                }
+            }
+
+            //working with text
+            previous = String.Join(Environment.NewLine, sublist);
+            previous = Regex.Replace(previous, @"\r", "");
+            previous = Regex.Replace(previous, @"\n", " ");
+            previous = Regex.Replace(previous, "›", ",");
+            previous = Regex.Replace(previous, @"(\d+[\.\,]\d{2}.[A|E|B|F|N]{1}(\b|\.))", "$1" + Environment.NewLine);
+
+            //string pattern = @"\d+,\d{2}\b.[A|E|B|F|N]{1}\b(.+)(\d+,\d{2})(\b.[A|E|B|F|N]{1}\b)";
+            MatchCollection match = Regex.Matches(previous, pattern, RegexOptions.Multiline);
+            if (match.Count != 0)
+            {
+                foreach (Match m in match)
+                {
+                    itemList.Add(new Item
+                    {
+                        Name = m.Groups[1].Value.Replace("\n", string.Empty),
+                        Price = decimal.Parse(m.Groups[2].Value.Replace(".", ",")),
+                        Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                    });
                 }
             }
 
 
+            Console.WriteLine(receipt.Shop.Name);
+            Console.WriteLine(receipt.Date);
+
             return itemList;
 
-
-
-
-
-
+            //return itemList;
 
             //////////////////IDictionary<string, string> replaceDiction = new Dictionary<string, string>()
             //////////////////{
@@ -97,19 +103,6 @@ namespace GREEDY.DataManagers
             //////////////////var regex = new Regex(String.Join("|", replaceDiction.Keys));
             //////////////////receiptLinesToString = regex.Replace(receiptLinesToString, r => replaceDiction[r.Value]);
 
-            ////////////////receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
-            ////////////////receiptLinesToString = Regex.Replace(receiptLinesToString, @"\n", " ");
-            ////////////////receiptLinesToString = Regex.Replace(receiptLinesToString, @"›", ",");
-            ////////////////receiptLinesToString = Regex.Replace(receiptLinesToString, @"(\d+,\d{2}.[A|E|B|F|N]{1}(\b|\.))", "$1" + Environment.NewLine);
-            ////////////////List<Item> itemList = new List<Item>();
-
-
-
-            ////////////////if (receipt.Shop.Name == "Neatpažinta")
-            ////////////////{
-            ////////////////    //throw new NotImplementedException();
-            ////////////////    Console.WriteLine("Parduotuve neatpazinta");
-            ////////////////}
 
             //////////////////string pattern = @"\d+,\d{2}\b.[A|E|B|F|N]{1}\b(.+)(\d+,\d{2})(\b.[A|E|B|F|N]{1}\b)";
             ////////////////string pattern = @"(.+)(\d+,\d{2})(.[A|E|B|F|N]{1}(\b|\.))";
