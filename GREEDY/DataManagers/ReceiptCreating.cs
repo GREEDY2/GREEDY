@@ -57,7 +57,7 @@ namespace GREEDY.DataManagers
             using (DataBaseModel context = new DataBaseModel())
             {
                 return context.Set<ShopDataModel>()
-                    .Select(x => new Shop() { Name = x.Name, Location = x.Location, SubName = x.Subname })
+                    .Select(x => new Shop() { Name = x.Name, Location = x.Location, SubName = x.SubName })
                     .ToList();
             }
         }
@@ -78,7 +78,7 @@ namespace GREEDY.DataManagers
                 foreach (var item in dynJson)
                 {
                     context.Set<ShopDataModel>()
-                        .Add(new ShopDataModel() { Name = item.Name, Location = item.Location, Subname = item.SubName });
+                        .Add(new ShopDataModel() { Name = item.Name, Location = item.Location, SubName = item.SubName });
                     context.SaveChanges();
                 }
             }

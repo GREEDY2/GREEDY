@@ -14,15 +14,13 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         {
             //arrange
             var imageFormating = new Mock<IImageFormating>();
-            var ocr = new Mock<IOcr>();
+            var receiptCreating = new Mock<IReceiptCreating>();
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IItemManager>();
             ReceiptService receiptService = 
                 new ReceiptService(
-                    imageFormating: imageFormating.Object, 
-                    ocr: ocr.Object, 
-                    dataConverter: dataConverter.Object, 
-                    dataManager: dataManager.Object);
+                    imageFormating: imageFormating.Object,
+                    receiptCreating: receiptCreating.Object, 
+                    dataConverter: dataConverter.Object);
             //act
 
             //assert
@@ -35,15 +33,13 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             //arrange
             var imageFormating = new Mock<IImageFormating>();
             Bitmap image = new Bitmap(1, 1);
-            var ocr = new Mock<IOcr>();
+            var receiptCreating = new Mock<IReceiptCreating>();
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IItemManager>();
             ReceiptService receiptService =
                 new ReceiptService(
                     imageFormating: imageFormating.Object,
-                    ocr: ocr.Object,
-                    dataConverter: dataConverter.Object,
-                    dataManager: dataManager.Object);
+                    receiptCreating: receiptCreating.Object,
+                    dataConverter: dataConverter.Object);
             //act
 
             //assert
