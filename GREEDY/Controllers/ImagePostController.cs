@@ -4,8 +4,6 @@ using System.IO;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using GREEDY.Services;
-using Newtonsoft.Json;
-using System.Text;
 using GREEDY.DataManagers;
 using GREEDY.Extensions;
 using System.Threading.Tasks;

@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace GREEDY.DataManagers
 {
-    public class FileImageGetter : IImageGetter
+    public class ImageGetter : IImageGetter
     {
         private readonly OpenFileDialog _getPathDialog;
 
-        public FileImageGetter()
+        public ImageGetter()
         {
             _getPathDialog = new OpenFileDialog
             {
