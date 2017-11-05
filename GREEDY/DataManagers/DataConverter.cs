@@ -26,7 +26,6 @@ namespace GREEDY.DataManagers
             Match match1;
 
             for (int i = 0; i < receipt.LinesOfText.Count; i++)
-            //foreach (var line in receipt.LinesOfText)
             {
                 match1 = Regex.Match(receipt.LinesOfText[i], pattern, RegexOptions.Singleline);
                 if (match1.Success)
@@ -83,135 +82,17 @@ namespace GREEDY.DataManagers
                 }
             }
 
-
             Console.WriteLine(receipt.Shop.Name);
             Console.WriteLine(receipt.Date);
 
+            //if no item was created. Need to create a massage for user
+            if (itemList.Count == 0)
+            {
+                Console.WriteLine("Nepavyko nuskaityti cekio");
+            }
+
             return itemList;
-
-            //return itemList;
-
-            //////////////////IDictionary<string, string> replaceDiction = new Dictionary<string, string>()
-            //////////////////{
-            //////////////////    { @"\r",""},
-            //////////////////    { @"\n"," "},
-            //////////////////    { "›",","}
-            //////////////////};
-
-            //////////////////replace every pair in dictionary
-            ////////////////var receiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
-            //////////////////var regex = new Regex(String.Join("|", replaceDiction.Keys));
-            //////////////////receiptLinesToString = regex.Replace(receiptLinesToString, r => replaceDiction[r.Value]);
-
-
-            //////////////////string pattern = @"\d+,\d{2}\b.[A|E|B|F|N]{1}\b(.+)(\d+,\d{2})(\b.[A|E|B|F|N]{1}\b)";
-            ////////////////string pattern = @"(.+)(\d+,\d{2})(.[A|E|B|F|N]{1}(\b|\.))";
-            ////////////////MatchCollection match = Regex.Matches(receiptLinesToString, pattern, RegexOptions.Multiline);
-            ////////////////if (match.Count != 0)
-            ////////////////{
-            ////////////////    foreach (Match m in match)
-            ////////////////    {
-            ////////////////        //var sss = receipt.LinesOfText.GetEnumerator().Current;
-            ////////////////        itemList.Add(new Item
-            ////////////////        {
-            ////////////////            Name = m.Groups[1].Value.Replace("\n", string.Empty),
-            ////////////////            Price = decimal.Parse(m.Groups[2].Value),
-            ////////////////            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
-            ////////////////        });
-            ////////////////    }
-            ////////////////}
-            ////////////////return itemList;
-            ////string pattern = @"(\n[A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d).[A|E|B|F|N]{1}\b\n";
-            //foreach (string line in receipt.LinesOfText)
-            //{
-            //    Match match = Regex.Match(Regex.Replace(line, @"\r", ""), pattern, RegexOptions.Multiline);
-            //    if (match.Success)
-            //    {
-            //        //var sss = receipt.LinesOfText.GetEnumerator().Current;
-            //        itemList.Add(new Item
-            //        {
-            //            Name = match.Groups[1].Value.Replace("\n", string.Empty),
-            //            Price = decimal.Parse(match.Groups[2].Value),
-            //            Category = ItemCategorization.CategorizeSingleItem(match.Groups[1].Value)
-            //        });
-            //    }
-            //}
-            //return itemList;
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("Problem with receipt text: {0}", e);
-            //    throw new NotImplementedException();
-            //}
-
-
-
-
-
-            //    //TODO: change strings to dictionary
-            //    //TODO: create extension method to pass only shop name and get itemList
-            //    if (receipt.Shop.Name == "MAXIMA")
-            //    {
-            //        string pattern = @"\b(([A-Z]|#)(\d){8})(.+)\n(PVM\b)";
-            //        receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
-
-            //        Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
-            //        if (match.Success)
-            //        {
-            //            var productList = match.Groups[4].Value;
-            //            productList = Regex.Replace(productList, @"\n", " ");
-            //            productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
-
-            //            pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
-            //            MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
-            //            foreach (Match m in matches)
-            //            {
-            //                itemList.Add(new Item
-            //                {
-            //                    Name = m.Groups[1].Value.Replace("\n", string.Empty),
-            //                    Price = decimal.Parse(m.Groups[2].Value),
-            //                    Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
-            //                });
-            //            }
-            //            return itemList;
-            //        }
-            //        return itemList;
-            //    }
-            //    else if (receipt.Shop.Name == "IKI")
-            //    {
-            //        string pattern = @"\b(([A-Z]{2})(\d){9})(.+)(Prekiautojo\b|ID\b)";
-            //        receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
-
-            //        Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
-            //        if (match.Success)
-            //        {
-            //            var productList = match.Groups[4].Value;
-            //            productList = Regex.Replace(productList, @"\n", " ");
-            //            productList = Regex.Replace(productList, @"›", ",");
-            //            productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
-
-            //            pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
-            //            MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
-            //            foreach (Match m in matches)
-            //            {
-            //                itemList.Add(new Item
-            //                {
-            //                    Name = m.Groups[1].Value.Replace("\n", string.Empty),
-            //                    Price = decimal.Parse(m.Groups[2].Value),
-            //                    Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
-            //                });
-            //            }
-            //            return itemList;
-            //        }
-            //        return itemList;
-            //    }
-            //    else
-            //    {
-            //        throw new NotImplementedException();
-            //    }
-            //}
-
-
-
+        }
             //// TODO
             //// this doesnt belong in this class, can be moved to a static method, maybe an extension method
             //public XElement ListToXml(List<Item> items)
@@ -243,6 +124,5 @@ namespace GREEDY.DataManagers
             //    }
             //    return dataTable;
             //}
-        }
     }
 }

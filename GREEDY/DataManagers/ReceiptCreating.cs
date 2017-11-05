@@ -14,10 +14,10 @@ namespace GREEDY.DataManagers
     {
         private readonly IOcr _ocr;
 
-        //pakeist i static?
         public ReceiptCreating()
         {
             _ocr = new EmguOcr();
+            //TODO: !!! need to find better place or create new class to fill all tables data as we need !!!
             AddDataToShopDataTable();
         }
 
@@ -48,7 +48,7 @@ namespace GREEDY.DataManagers
             }
             else
             {
-                return DateTime.Today.ToString("yyyy-mm-dd");
+                return DateTime.Today.ToString("yyyy-MM-dd");
             }
         }
 
