@@ -14,15 +14,17 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        private IAuthService _authService;
         private ISessionManager _sessionManager;
-        public LoginController(IAuthService authService, ISessionManager sessionManager)
+        private IUserManager _userManager;
+        public LoginController(ISessionManager sessionManager, IUserManager userManager)
         {
-            _authService = authService;
             _sessionManager = sessionManager;
+            _userManager = userManager;
         }
         public async Task<HttpResponseMessage> Put()
         {
+            Request.RegisterForDispose((IDisposable)_userManager);
+            Request.RegisterForDispose((IDisposable)_sessionManager);
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
@@ -31,10 +33,10 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            User user = _authService.FindByUsername(credentials.Username);
+            User user = _userManager.FindByUsername(credentials.Username);
             if (user == null)
             {
-                user = _authService.FindByEmail(credentials.Username);
+                user = _userManager.FindByEmail(credentials.Username);
             }
             if (user == null)
             {
@@ -52,15 +54,14 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RegistrationController : ApiController
     {
-        private IAuthService _authService;
         private IUserManager _userManager;
-        public RegistrationController(IAuthService authService,IUserManager userManager)
+        public RegistrationController(IUserManager userManager)
         {
-            _authService = authService;
             _userManager = userManager;
         }
         public async Task<HttpResponseMessage> Put()
         {
+            Request.RegisterForDispose((IDisposable)_userManager);
             //TODO: Change magic numbers to const
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
@@ -72,11 +73,11 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (_authService.FindByUsername(credentials.Username) != null)
+            if (_userManager.FindByUsername(credentials.Username) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (_authService.FindByEmail(credentials.Email) != null)
+            if (_userManager.FindByEmail(credentials.Email) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
@@ -95,6 +96,7 @@ namespace GREEDY.Controllers
         }
         public async Task<HttpResponseMessage> Put()
         {
+            Request.RegisterForDispose((IDisposable)_sessionManager);
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             LoginSession loginSession = JsonConvert.DeserializeObject<LoginSession>(jsonContent);

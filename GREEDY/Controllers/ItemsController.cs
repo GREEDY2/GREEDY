@@ -20,6 +20,7 @@ namespace GREEDY.Controllers
         }
         public HttpResponseMessage Get(int id)
         {
+            Request.RegisterForDispose((IDisposable)_itemManager);
             try
             {
                 var list = _itemManager.GetItemsOfSingleReceipt(id);
@@ -42,6 +43,7 @@ namespace GREEDY.Controllers
         }
         public async Task<HttpResponseMessage> Put()
         {
+            Request.RegisterForDispose((IDisposable)_itemManager);
             HttpContent content = Request.Content;
             string jsonContent = await content.ReadAsStringAsync();
             var updatedItem = JsonConvert.DeserializeObject<Item>(jsonContent);

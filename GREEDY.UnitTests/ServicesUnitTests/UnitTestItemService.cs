@@ -12,10 +12,8 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         public void ItemService_NullStrings_NullException()
         {
             //arrange
-            var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IItemManager>();
             var itemCategorization = new Mock<IItemCategorization>();
-            ItemService itemService = new ItemService(dataConverter.Object, dataManager.Object, itemCategorization.Object);
+            ItemService itemService = new ItemService(itemCategorization.Object);
             //act
 
             //assert

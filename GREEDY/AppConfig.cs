@@ -6,11 +6,8 @@ namespace GREEDY
     {
         string OcrLanguage { get; }
         string TesseractDataPath { get; }
-        string FilterImageFiles { get; }
-        string SaveFilePath { get; }
         string CategoriesDataPath { get; }
         string ServerAdressAndPort { get; }
-        string UsersDataPath { get; }
         string EncryptionKey { get; }
     }
 
@@ -18,11 +15,8 @@ namespace GREEDY
     {
         public string OcrLanguage => ConfigurationManager.AppSettings["OcrLanguage"];
         public string TesseractDataPath => ConfigurationManager.AppSettings["TessDataPath"];
-        public string FilterImageFiles => ConfigurationManager.AppSettings["FilterImageFiles"];
-        public string SaveFilePath => ConfigurationManager.AppSettings["SaveFilePath"];
         public string CategoriesDataPath => ConfigurationManager.AppSettings["CategoriesDataPath"];
         public string ServerAdressAndPort => ConfigurationManager.AppSettings["ServerAdressAndPort"];
-        public string UsersDataPath => ConfigurationManager.AppSettings["UsersDataPath"];
         public string EncryptionKey => ConfigurationManager.AppSettings["EncryptionKey"];
     }
 }

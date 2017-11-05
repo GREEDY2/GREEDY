@@ -20,6 +20,7 @@ namespace GREEDY.Controllers
         }
         public HttpResponseMessage Get()
         {
+            Request.RegisterForDispose((IDisposable)_categoryManager);
             var categories = _categoryManager.GetAllDistinctCategories();
             return HelperClass.JsonHttpResponse(categories);
         }

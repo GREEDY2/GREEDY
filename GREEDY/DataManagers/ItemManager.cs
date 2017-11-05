@@ -2,22 +2,27 @@
 using GREEDY.Models;
 using GREEDY.Data;
 using System.Linq;
+using System.Data.Entity;
+using System;
 
 namespace GREEDY.DataManagers
 {
-    public class ItemManager : IItemManager
+    public class ItemManager : IItemManager,IDisposable
     {
+        private DbContext context;
+        public ItemManager(DbContext context)
+        {
+            this.context = context;
+        }
         public int AddItems(IEnumerable<Item> items, Shop shop, string username)
         {
-            using (DataBaseModel context = new DataBaseModel())
-            {
                 ShopDataModel shopDataModel = context.Set<ShopDataModel>()
                     .Select(x => x)
                     .Where(x => x.Name == shop.Name && x.Location == shop.Location)
                     .FirstOrDefault() ?? new ShopDataModel() { Location = shop.Location, Name = shop.Name };
 
                 UserDataModel userDataModel = context.Set<UserDataModel>()
-                    .Select(x => x).Where(x => x.Username == username).FirstOrDefault();
+                    .Select(x => x).Where(x => x.Username.ToLower() == username.ToLower()).FirstOrDefault();
                 if (userDataModel == null) throw new System.Exception(Properties.Resources.UserNotFound);
 
                 ReceiptDataModel receiptDataModel = new ReceiptDataModel() { Shop = shopDataModel, User = userDataModel, Total = 0 };
@@ -30,28 +35,21 @@ namespace GREEDY.DataManagers
                 context.Set<ReceiptDataModel>().Add(receiptDataModel);
                 context.SaveChanges();
                 return receiptDataModel.ReceiptId;
-            }
         }
 
         public List<Item> GetItemsOfSingleReceipt(int receiptId)
         {
-            using (DataBaseModel context = new DataBaseModel())
-            {
                 var temp = context.Set<ReceiptDataModel>()
                     .FirstOrDefault(x => x.ReceiptId == receiptId);
                 return temp.Items.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price, ItemId = x.ItemId }).ToList();
-            }
         }
 
         public List<Item> LoadData(string Username)
         {
-            using (DataBaseModel context = new DataBaseModel())
-            {
-                var temp = context.Set<ItemDataModel>()
-                    .Select(x => x)
-                    .Where(x => x.Receipt.User.Username == Username);
-                return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
-            }
+            var temp = context.Set<ItemDataModel>()
+                     .Select(x => x)
+                     .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
+            return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
         }
 
         //TODO: for now this only saves the changed item to ItemDataModels table
@@ -59,8 +57,6 @@ namespace GREEDY.DataManagers
         //Once categoraziation is sorted out need to add extra logic
         public void UpdateItem(Item UpdatedItem)
         {
-            using (DataBaseModel context = new DataBaseModel())
-            {
                 var itemToUpdate = context.Set<ItemDataModel>()
                     .FirstOrDefault(x => x.ItemId == UpdatedItem.ItemId);
                 //TODO: I believe this can be written in more SOLID style
@@ -70,7 +66,11 @@ namespace GREEDY.DataManagers
                 itemToUpdate.Category = UpdatedItem.Category;
                 itemToUpdate.Price = UpdatedItem.Price;
                 context.SaveChanges();
-            }
+        }
+
+        void IDisposable.Dispose()
+        {
+            context.Dispose();
         }
     }
 }
