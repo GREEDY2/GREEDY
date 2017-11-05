@@ -19,24 +19,60 @@ namespace GREEDY.DataManagers
             var receiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
             List<Item> itemList = new List<Item>();
 
-            if (shop == "RIMI" || shop == "MAXIMA")
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ",";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
+            //TODO: change strings to dictionary
+            //TODO: create extension method to pass only shop name and get itemList
+            if (shop == "MAXIMA")
             {
-                string pattern = @"([*]+)\n(.+)\n([*]+)";
+                string pattern = @"\b(([A-Z]|#)(\d){8})(.+)\n(PVM\b)";
                 receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
 
                 Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
                 if (match.Success)
                 {
-                    receiptLinesToString = match.Groups[2].Value;
-                    pattern = @"([^..]*)([.]+)( \d+,\d\d)";
+                    var productList = match.Groups[4].Value;
+                    productList = Regex.Replace(productList, @"\n", " ");
+                    productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
 
-                    MatchCollection matches = Regex.Matches(receiptLinesToString, pattern, RegexOptions.Singleline);
+                    pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
+                    MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
                     foreach (Match m in matches)
                     {
                         itemList.Add(new Item
                         {
                             Name = m.Groups[1].Value.Replace("\n", string.Empty),
-                            Price = decimal.Parse(m.Groups[3].Value),
+                            Price = decimal.Parse(m.Groups[2].Value),
+                            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                        });
+                    }
+                    return itemList;
+                }
+                return itemList;
+            }
+            else if (shop == "IKI")
+            {
+                string pattern = @"\b(([A-Z]{2})(\d){9})(.+)(Prekiautojo\b|ID\b)";
+                receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
+
+                Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
+                if (match.Success)
+                {
+                    var productList = match.Groups[4].Value;
+                    productList = Regex.Replace(productList, @"\n", " ");
+                    productList = Regex.Replace(productList, @"›", ",");
+                    productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
+
+                    pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
+                    MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
+                    foreach (Match m in matches)
+                    {
+                        itemList.Add(new Item
+                        {
+                            Name = m.Groups[1].Value.Replace("\n", string.Empty),
+                            Price = decimal.Parse(m.Groups[2].Value),
                             Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
                         });
                     }
@@ -49,7 +85,7 @@ namespace GREEDY.DataManagers
                 throw new NotImplementedException();
             }
         }
-
+    
         // TODO
         // this doesnt belong in this class, can be moved to a static method, maybe an extension method
         public XElement ListToXml(List<Item> items)

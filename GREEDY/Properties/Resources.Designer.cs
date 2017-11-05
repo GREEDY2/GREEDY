@@ -61,12 +61,11 @@ namespace GREEDY.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to User not found.
         /// </summary>
-        internal static System.Drawing.Bitmap MainLogo {
+        internal static string UserNotFound {
             get {
-                object obj = ResourceManager.GetObject("MainLogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
     }

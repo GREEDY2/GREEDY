@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Windows.Forms;
-using GREEDY.DataManagers;
-using GREEDY.OCRs;
-using GREEDY.Services;
-using GREEDY.View;
+using Microsoft.Owin.Hosting;
 
 namespace GREEDY
 {
@@ -15,26 +11,12 @@ namespace GREEDY
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run
-            (
-                new MainScreen
-                (
-                    new ReceiptService
-                    (
-                        new EmguOcr(),
-                        new DataConverter(),
-                        new DataManager()
-                    ),
-                    new ItemService
-                    (
-                        new DataConverter(),
-                        new DataManager(),
-                        new ItemCategorization()
-                    )
-                )
-            );
+            string domainAddress = Environments.AppConfig.ServerAdressAndPort;
+            using (WebApp.Start<Startup>(url: domainAddress))
+            {
+                Console.WriteLine("Service Hosted " + domainAddress);
+                System.Threading.Thread.Sleep(-1);
+            }
         }
     }
 }

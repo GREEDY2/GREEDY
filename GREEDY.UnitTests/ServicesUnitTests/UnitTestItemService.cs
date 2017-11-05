@@ -13,13 +13,13 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         {
             //arrange
             var dataConverter = new Mock<IDataConverter>();
-            var dataManager = new Mock<IDataManager>();
+            var dataManager = new Mock<IItemManager>();
             var itemCategorization = new Mock<IItemCategorization>();
             ItemService itemService = new ItemService(dataConverter.Object, dataManager.Object, itemCategorization.Object);
             //act
 
             //assert
-            Assert.Throws(typeof(NullReferenceException), () => itemService.AddChangeCategory(null, null));
+            Assert.Throws<NullReferenceException>(() => itemService.AddChangeCategory(null, null));
         }
     }
 }
