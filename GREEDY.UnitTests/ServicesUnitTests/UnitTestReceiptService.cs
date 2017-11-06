@@ -21,8 +21,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
                 new ReceiptService(
                     imageFormating: imageFormating.Object, 
                     ocr: ocr.Object, 
-                    dataConverter: dataConverter.Object, 
-                    dataManager: dataManager.Object);
+                    dataConverter: dataConverter.Object);
             //act
 
             //assert
@@ -42,8 +41,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
                 new ReceiptService(
                     imageFormating: imageFormating.Object,
                     ocr: ocr.Object,
-                    dataConverter: dataConverter.Object,
-                    dataManager: dataManager.Object);
+                    dataConverter: dataConverter.Object);
             //act
 
             //assert
