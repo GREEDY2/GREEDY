@@ -146,14 +146,12 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataManagers\CategoryManager.cs" />
-    <Compile Include="DataManagers\FileImageGetter.cs" />
     <Compile Include="DataManagers\ICategoryManager.cs" />
     <Compile Include="DataManagers\ISessionManager.cs" />
     <Compile Include="DataManagers\SessionManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="Models\LoginSession.cs" />
     <Compile Include="DataManagers\IImageFormating.cs" />
-    <Compile Include="DataManagers\IImageGetter.cs" />
     <Compile Include="DataManagers\IItemCategorization.cs" />
     <Compile Include="DataManagers\ImageFormating.cs" />
     <Compile Include="DataManagers\ItemCategorization.cs" />
@@ -191,8 +189,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />
@@ -203,7 +199,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Users.json" />
     <None Include="Categories.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

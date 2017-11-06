@@ -9,6 +9,7 @@ using System.Text;
 using GREEDY.DataManagers;
 using GREEDY.Extensions;
 using System.Threading.Tasks;
+using System;
 
 namespace GREEDY.Controllers
 {
@@ -16,14 +17,16 @@ namespace GREEDY.Controllers
     public class ImagePostController : ApiController
     {
         private IItemManager _itemManager;
-        
-        public ImagePostController(IItemManager itemManager)
+        private IReceiptService _receiptService;
+        public ImagePostController(IItemManager itemManager, IReceiptService receiptService)
         {
             _itemManager = itemManager;
+            _receiptService = receiptService;
         }
 
         public async Task<HttpResponseMessage> Put()
         {
+            Request.RegisterForDispose((IDisposable)_itemManager);
             var requestStream = await Request.Content.ReadAsStreamAsync();
             var username = Request.Headers.Authorization.Parameter;
             var memoryStream = new MemoryStream(); //Using a MemoryStream because can't parse directly to image
@@ -31,12 +34,12 @@ namespace GREEDY.Controllers
             requestStream.Close();
             var receiptImage = new Bitmap(memoryStream);
             memoryStream.Close();
-            var list = new ReceiptService().ProcessReceiptImage(receiptImage);
+            var list = _receiptService.ProcessReceiptImage(receiptImage);
 
             //TODO: Need to get shop
 
-            var receiptId = _itemManager.AddItems(list, new Models.Shop() 
-                { Name = "Not supported yet", Location= "Not supported yet" }, username);
+            var receiptId = _itemManager.AddItems(list, new Models.Shop()
+                { Name = "Not supported yet", Location = "Not supported yet" }, username);
             return HelperClass.JsonHttpResponse(receiptId);
             //TODO: create an error if something goes wrong
         }
