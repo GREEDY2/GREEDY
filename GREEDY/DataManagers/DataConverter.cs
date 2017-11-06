@@ -19,7 +19,7 @@ namespace GREEDY.DataManagers
             Thread.CurrentThread.CurrentCulture = customCulture;
 
             //working with first item
-            string pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+[\.\,]\d{2})(.[A|B|E|F|N]{1}(\b|\.))";
+            string pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+[\.\,]\d{2})(.[A|E|B|F|N|C]{1}(\b|\.))";
             List<Item> itemList = new List<Item>();
             string previous = String.Empty;
             List<string> sublist = new List<string>();
@@ -35,7 +35,7 @@ namespace GREEDY.DataManagers
                     {
                         itemList.Add(new Item
                         {
-                            Name = match2.Groups[1].Value + match1.Groups[1].Value,
+                            Name = previous + match1.Groups[1].Value,
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
                             Category = ItemCategorization.CategorizeSingleItem(match2.Groups[1].Value + match1.Groups[1].Value)
                         });
@@ -65,9 +65,8 @@ namespace GREEDY.DataManagers
             previous = Regex.Replace(previous, @"\r", "");
             previous = Regex.Replace(previous, @"\n", " ");
             previous = Regex.Replace(previous, "›", ",");
-            previous = Regex.Replace(previous, @"(\d+[\.\,]\d{2}.[A|E|B|F|N]{1}(\b|\.))", "$1" + Environment.NewLine);
+            previous = Regex.Replace(previous, @"(\d+[\.\,]\d{2}.[A|E|B|F|N|C]{1}(\b|\.))", "$1" + Environment.NewLine);
 
-            //string pattern = @"\d+,\d{2}\b.[A|E|B|F|N]{1}\b(.+)(\d+,\d{2})(\b.[A|E|B|F|N]{1}\b)";
             MatchCollection match = Regex.Matches(previous, pattern, RegexOptions.Multiline);
             if (match.Count != 0)
             {

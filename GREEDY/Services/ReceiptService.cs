@@ -18,7 +18,6 @@ namespace GREEDY.Services
             _dataConverter = new DataConverter();
         }
 
-        // o mes ji naudojam? :O
         public ReceiptService(IImageFormating imageFormating, IReceiptCreating receiptCreating, IDataConverter dataConverter)
         {
             _imageFormating = imageFormating;

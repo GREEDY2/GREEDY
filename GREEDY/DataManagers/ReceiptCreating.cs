@@ -38,7 +38,7 @@ namespace GREEDY.DataManagers
         public string GetDateForReceipt(List<string> linesOfText)
         {
             var receiptLinesToString = String.Join(Environment.NewLine, linesOfText);
-            string pattern = @"(\d{4}-\d{2}-\d{2})";
+            string pattern = @"(\d{4}-\d{2}-\d{2})(\d{2})?";
             receiptLinesToString = Regex.Replace(receiptLinesToString, @"~", "-");
 
             Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
@@ -54,7 +54,6 @@ namespace GREEDY.DataManagers
 
         private void AddDataToShopDataTable()
         {
-            //"Environments.AppConfig.Shops
             dynamic dynJson = JsonConvert.DeserializeObject<List<Shop>>(
                 @"[
                     {'Name': 'IKI','Adress': '','Subname': 'PALINK'},
@@ -91,7 +90,11 @@ namespace GREEDY.DataManagers
 
             foreach ( Shop element in shops)
             {
-                if (shopTitle.Contains(element.Name) || shopTitle.Contains(element.SubName))
+                if (shopTitle.Contains(element.Name))
+                {
+                    return element;
+                }
+                else if (shopTitle.Contains(element.SubName) && element.SubName!= String.Empty)
                 {
                     return element;
                 }
