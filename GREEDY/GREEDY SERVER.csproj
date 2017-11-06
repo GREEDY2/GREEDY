@@ -153,6 +153,11 @@
     <Compile Include="DataManagers\ReceiptCreating.cs" />
     <Compile Include="DataManagers\SessionManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
+    <Compile Include="Migrations\201711061716547_Initial.cs" />
+    <Compile Include="Migrations\201711061716547_Initial.Designer.cs">
+      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginSession.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="ImagePreparation\IImageGetter.cs" />
@@ -199,6 +204,9 @@
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
     <Compile Include="Startup.cs" />
+    <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
+      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
