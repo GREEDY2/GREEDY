@@ -21,14 +21,13 @@ namespace GREEDY.DataManagers
         {
             if (_getPathDialog.ShowDialog() == DialogResult.OK)
             {
-                if (_getPathDialog.FileName != "")
+                if (_getPathDialog.FileName != string.Empty)
                 {
                     var imageBitmap = new Bitmap(_getPathDialog.FileName);
                     return imageBitmap;
                 }
             }
-            //TODO
-            //Should return something which allows to continue working
+            //TODO: Should return something which allows to continue working
             return null;
         }
     }

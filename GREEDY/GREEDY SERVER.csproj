@@ -146,6 +146,8 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataManagers\CategoryManager.cs" />
+    <Compile Include="DataManagers\IShopManager.cs" />
+    <Compile Include="DataManagers\ShopManager.cs" />
     <Compile Include="ImagePreparation\ImageGetter.cs" />
     <Compile Include="DataManagers\ICategoryManager.cs" />
     <Compile Include="DataManagers\IReceiptCreating.cs" />

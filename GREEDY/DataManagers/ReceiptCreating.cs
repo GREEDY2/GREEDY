@@ -1,7 +1,5 @@
-﻿using GREEDY.Data;
-using GREEDY.Models;
+﻿using GREEDY.Models;
 using GREEDY.OCRs;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,12 +11,12 @@ namespace GREEDY.DataManagers
     public class ReceiptCreating : IReceiptCreating
     {
         private readonly IOcr _ocr;
+        private readonly IShopManager _shops;
 
         public ReceiptCreating()
         {
             _ocr = new EmguOcr();
-            //TODO: !!! need to find better place or create new class to fill all tables data as we need !!!
-            AddDataToShopDataTable();
+            _shops = new ShopManager();
         }
 
         public Receipt FullReceiptCreating(Bitmap image)
@@ -52,41 +50,10 @@ namespace GREEDY.DataManagers
             }
         }
 
-        private void AddDataToShopDataTable()
-        {
-            dynamic dynJson = JsonConvert.DeserializeObject<List<Shop>>(
-                @"[
-                    {'Name': 'IKI','Adress': '','Subname': 'PALINK'},
-                    {'Name': 'MAXIMA','Adress': '', 'Subname': ''},
-                    {'Name': 'RIMI','Adress': '','Subname': ''},
-                    {'Name': 'LIDL','Adress': '','Subname': ''}
-                ]");
-
-            using (DataBaseModel context = new DataBaseModel())
-            {
-                foreach (var item in dynJson)
-                {
-                    context.Set<ShopDataModel>()
-                        .Add(new ShopDataModel() { Name = item.Name, Location = item.Location, SubName = item.SubName });
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        public static List<Shop> GetExistingShop()
-        {
-            using (DataBaseModel context = new DataBaseModel())
-            {
-                return context.Set<ShopDataModel>()
-                    .Select(x => new Shop() { Name = x.Name, Location = x.Location, SubName = x.SubName })
-                    .ToList();
-            }
-        }
-
         public Shop GetShopFromData(List<string> linesOfText)
         {
             var shopTitle = String.Join(String.Empty, linesOfText.Take(4));
-            var shops = GetExistingShop();
+            var shops = _shops.GetExistingShop();
 
             foreach ( Shop element in shops)
             {

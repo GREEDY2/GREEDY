@@ -42,28 +42,29 @@ namespace GREEDY.DataManagers
         //returns the bigest found rectangle
         private Bitmap FilterCropedImages(List<Bitmap> list)
         {
-            try
+            if (list.Any())
             {
-                if (list.Any())
-                    return list.MaxBy(x => x.Height * x.Width); // this guy throws an exception if list is null.
+                // this guy throws an exception if list is null
+                return list.MaxBy(x => x.Height * x.Width); 
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine("{0} Exception caught when trying to crop immage", e);
-            }
-            return null;
+                return null;
+            }    
         }
 
         public Bitmap FormatImage(Bitmap bitmap)
         {
             if (bitmap.Width > bitmap.Height)
+            {
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            }
 
             int originalWidth = bitmap.Width;
             int originalHeight = bitmap.Height;
 
-            Image<Bgr, Byte> img =
-                new Image<Bgr, byte>(bitmap).Resize(400, 400, Inter.Linear, true); //resizing is needed for better rectangle detection
+            //resizing is needed for better rectangle detection
+            Image<Bgr, Byte> img = new Image<Bgr, byte>(bitmap).Resize(400, 400, Inter.Linear, true); 
 
             int resizedWidth = img.Width;
             int resizedHeight = img.Height;
@@ -95,9 +96,11 @@ namespace GREEDY.DataManagers
                     using (VectorOfPoint approxContour = new VectorOfPoint())
                     {
                         CvInvoke.ApproxPolyDP(contour, approxContour, CvInvoke.ArcLength(contour, true) * 0.05, true);
-                        if (CvInvoke.ContourArea(approxContour, false) > (resizedHeight*resizedWidth)/3)//only consider contours with area greater than the third of the whole image
+                        //only consider contours with area greater than the third of the whole image
+                        if (CvInvoke.ContourArea(approxContour, false) > (resizedHeight*resizedWidth)/3)
                         {
-                            if (approxContour.Size == 4) //The contour has 4 vertices.
+                            //The contour has 4 vertices
+                            if (approxContour.Size == 4) 
                             {
                                 //determine if all the angles in the contour are within [70, 110] degree
                                 bool isRectangle = true;
@@ -108,7 +111,8 @@ namespace GREEDY.DataManagers
                                 {
                                     double angle = Math.Abs(
                                        edges[(j + 1) % edges.Length].GetExteriorAngleDegree(edges[j]));
-                                    if (angle < 70 || angle > 110) // these values mean that the angle must be a right angle
+                                    // these values mean that the angle must be a right angle
+                                    if (angle < 70 || angle > 110) 
                                     {
                                         isRectangle = false;
                                         break;
@@ -126,7 +130,9 @@ namespace GREEDY.DataManagers
 
                                     //crop only if X1 is to the left of X2
                                     if (corners[0] <= corners[2])
+                                    {
                                         cropedImagesList.Add(Crop(bitmap, corners));
+                                    }
                                 }
                             }
                         }
@@ -134,7 +140,8 @@ namespace GREEDY.DataManagers
                 }
             }
 
-            if (FilterCropedImages(cropedImagesList) != null) //if we crop something
+            //if we crop something
+            if (FilterCropedImages(cropedImagesList) != null) 
             {
                 //crop image and add filter
                 var result = FilterCropedImages(cropedImagesList);
