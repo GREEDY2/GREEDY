@@ -1,7 +1,4 @@
-﻿using System;
-using GREEDY.DataManagers;
-using GREEDY.Services;
-using Moq;
+﻿using GREEDY.DataManagers;
 using Xunit;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests

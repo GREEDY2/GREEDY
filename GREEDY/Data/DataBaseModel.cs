@@ -3,13 +3,8 @@ namespace GREEDY.Data
 {
     public class DataBaseModel:DbContext
     {
-        public DataBaseModel(string connectionString):base()
-        {
-            Database.SetInitializer<DataBaseModel>(new DropCreateDatabaseIfModelChanges<DataBaseModel>());
-        }
         public DataBaseModel() : base()
         {
-            Database.SetInitializer<DataBaseModel>(new DropCreateDatabaseIfModelChanges<DataBaseModel>());
         }
 
         public DbSet<UserDataModel> User { get; set; }

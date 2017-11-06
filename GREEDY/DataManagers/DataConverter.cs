@@ -1,122 +1,91 @@
 ﻿using System.Collections.Generic;
 using GREEDY.Models;
-using System.Linq;
 using System;
 using System.Text.RegularExpressions;
-using System.Data;
-using System.Xml.Linq;
+using System.Globalization;
+using System.Threading;
 
 namespace GREEDY.DataManagers
 {
     public class DataConverter : IDataConverter
     {
-        private static ShopDistributor ShopDistributor => new ShopDistributor();
         private static ItemCategorization ItemCategorization => new ItemCategorization();
 
         public List<Item> ReceiptToItemList(Receipt receipt)
         {
-            var shop = ShopDistributor.ReceiptDistributor(receipt);
-            var receiptLinesToString = String.Join(Environment.NewLine, receipt.LinesOfText);
-            List<Item> itemList = new List<Item>();
-
-            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            //Set correct number format
+            CultureInfo customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ",";
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            Thread.CurrentThread.CurrentCulture = customCulture;
 
-            //TODO: change strings to dictionary
-            //TODO: create extension method to pass only shop name and get itemList
-            if (shop == "MAXIMA")
+            //working with first item
+            string pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+[\.\,]\d{2})(.[A|E|B|F|N|C]{1}(\b|\.))";
+            List<Item> itemList = new List<Item>();
+            string previous = String.Empty;
+            List<string> sublist = new List<string>();
+            Match match1;
+
+            for (int i = 0; i < receipt.LinesOfText.Count; i++)
             {
-                string pattern = @"\b(([A-Z]|#)(\d){8})(.+)\n(PVM\b)";
-                receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
-
-                Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
-                if (match.Success)
+                match1 = Regex.Match(receipt.LinesOfText[i], pattern, RegexOptions.Singleline);
+                if (match1.Success)
                 {
-                    var productList = match.Groups[4].Value;
-                    productList = Regex.Replace(productList, @"\n", " ");
-                    productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
-
-                    pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
-                    MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
-                    foreach (Match m in matches)
+                    Match match2 = Regex.Match(previous, @"(?!(.+)?\d{6,}(.+)?)^.+$", RegexOptions.Multiline);
+                    if (match2.Success)
                     {
                         itemList.Add(new Item
                         {
-                            Name = m.Groups[1].Value.Replace("\n", string.Empty),
-                            Price = decimal.Parse(m.Groups[2].Value),
-                            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                            Name = previous + match1.Groups[1].Value,
+                            Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
+                            Category = ItemCategorization.CategorizeSingleItem(match2.Groups[1].Value + match1.Groups[1].Value)
                         });
+                        sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
+                        break;
                     }
-                    return itemList;
-                }
-                return itemList;
-            }
-            else if (shop == "IKI")
-            {
-                string pattern = @"\b(([A-Z]{2})(\d){9})(.+)(Prekiautojo\b|ID\b)";
-                receiptLinesToString = Regex.Replace(receiptLinesToString, @"\r", "");
-
-                Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
-                if (match.Success)
-                {
-                    var productList = match.Groups[4].Value;
-                    productList = Regex.Replace(productList, @"\n", " ");
-                    productList = Regex.Replace(productList, @"›", ",");
-                    productList = Regex.Replace(productList, @"(\d+(,)\d\d).[A|E|B|F|N]{1}\b", "$1" + Environment.NewLine);
-
-                    pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+(,)\d\d)\r\n";
-                    MatchCollection matches = Regex.Matches(productList, pattern, RegexOptions.Multiline);
-                    foreach (Match m in matches)
+                    else
                     {
                         itemList.Add(new Item
                         {
-                            Name = m.Groups[1].Value.Replace("\n", string.Empty),
-                            Price = decimal.Parse(m.Groups[2].Value),
-                            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                            Name = match1.Groups[1].Value,
+                            Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
+                            Category = ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
                         });
+                        sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
+                        break;
                     }
-                    return itemList;
                 }
-                return itemList;
+                else
+                {
+                    previous = receipt.LinesOfText[i];
+                }
             }
-            else
+
+            //working with text
+            previous = String.Join(Environment.NewLine, sublist);
+            previous = Regex.Replace(previous, @"\r", "");
+            previous = Regex.Replace(previous, @"\n", " ");
+            previous = Regex.Replace(previous, "›", ",");
+            previous = Regex.Replace(previous, @"(\d+[\.\,]\d{2}.[A|E|B|F|N|C]{1}(\b|\.))", "$1" + Environment.NewLine);
+
+            MatchCollection match = Regex.Matches(previous, pattern, RegexOptions.Multiline);
+            if (match.Count != 0)
             {
-                throw new NotImplementedException();
+                foreach (Match m in match)
+                {
+                    itemList.Add(new Item
+                    {
+                        Name = m.Groups[1].Value.Replace("\n", string.Empty),
+                        Price = decimal.Parse(m.Groups[2].Value.Replace(".", ",")),
+                        Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                    });
+                }
             }
-        }
-    
-        // TODO
-        // this doesnt belong in this class, can be moved to a static method, maybe an extension method
-        public XElement ListToXml(List<Item> items)
-        {
-            XElement xmlElements = new XElement("items",
-                items.Select(i => new XElement("item",
-                new XAttribute("Name", i.Name),
-                new XAttribute("Price", i.Price),
-                new XAttribute("Category", i.Category))));
-            return xmlElements;
-        }
 
-        // TODO
-        // this doesnt belong in this class, can be moved to a static method, maybe an extension method
-        public DataTable ListToDataTable(List<Item> items)
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("Name");
-            dataTable.Columns.Add("Price");
-            dataTable.Columns.Add("Category");
+            Console.WriteLine(receipt.Shop.Name);
+            Console.WriteLine(receipt.Date);
 
-            foreach (Item item in items)
-            {
-                DataRow dr = dataTable.NewRow();
-                dr[0] = item.Name;
-                dr[1] = item.Price;
-                dr[2] = item.Category;
-                dataTable.Rows.Add(dr);
-            }
-            return dataTable;
+            //TODO: if no item was created. Need to create a massage for user
+            return itemList;
         }
-
     }
 }
