@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface State {
-    showChoose: boolean
+    showChoice: boolean
     fPriceCompare: string
     fPrice: number
     fCategory: string
@@ -21,7 +21,7 @@ interface State {
 
 export class ChooseFiltersForItems extends React.Component<Props, State> {
     state = {
-        showChoose: false,
+        showChoice: false,
         fPriceCompare: 'All',
         fPrice: 0,
         fCategory: 'All',
@@ -44,11 +44,11 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
     }
 
     hideChoose = () => {
-        this.setState({ showChoose: false });
+        this.setState({ showChoice: false });
     }
 
-    showChoose = () => {
-        this.setState({ showChoose: true });
+    showChoice = () => {
+        this.setState({ showChoice: true });
     }
 
     saveFilterChanges = (event) => {
@@ -88,10 +88,10 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
     public render() {
         return (
             <div>
-                <Button color="info" onClick={this.showChoose}>
+                <Button color="info" onClick={this.showChoice}>
                     Change filters
                 </Button>
-                {this.state.showChoose &&
+                {this.state.showChoice &&
                     <ModalContainer onClose={this.hideChoose} >
                         <ModalDialog onClose={this.hideChoose}>
                             <h3>Select how to filter items</h3>
