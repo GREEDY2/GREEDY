@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import 'isomorphic-fetch';
 import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
@@ -17,7 +15,7 @@ interface State {
     itemList: any
 }
 
-export class FetchData extends React.Component<Props, State> {
+export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
     child: any;
     state = {
         receiptId: 0,
@@ -34,20 +32,19 @@ export class FetchData extends React.Component<Props, State> {
     }
 
     updateList = () => {
-        if (this.state.receiptId != 0) {
-            this.getItemsFromPhoto(this.state.receiptId);
-        }
-        else {
-            //TODO:
-            // This is for code reusability. getAllUsersItems() method should be called here.
-        }
+        this.getItemsFromPhoto(this.state.receiptId);
     }
 
     getItemsFromPhoto(receiptId) {
         axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId)
             .then(res => {
-                const itemList = res.data;
-                this.setState({ itemList, showItems: true, receiptId });
+                if (res) {
+                    const itemList = res.data;
+                    this.setState({ itemList, showItems: true, receiptId });
+                }
+                else {
+                    alert('Could not read items from the receipt. Can you please take another picture?')
+                }
             }).catch(e => {
                 console.log(e);
             })
