@@ -1,24 +1,19 @@
 ﻿using System.Linq;
-using GREEDY.Models;
+using System.Collections.Generic;
 using Tesseract;
 
 namespace GREEDY.Extensions
 {
     public static class GetReceiptExtensions
     {
-        public static Receipt GetReceipt(this Emgu.CV.OCR.Tesseract source)
+        public static List<string> GetLinesOfText(this Emgu.CV.OCR.Tesseract source)
         {
-            var linesOfText = source.GetUTF8Text()?.Split('\n').ToList();
-            return new Receipt { LinesOfText = linesOfText };
+            return source.GetUTF8Text()?.Split('\n').ToList();
         }
 
-        public static Receipt GetReceipt(this Page source)
+        public static List<string> GetLinesOfText(this Page source)
         {
-            return new Receipt
-            {
-                PercentageMatched = source.GetMeanConfidence(),
-                LinesOfText = source.GetText().Split('\n').ToList()
-            };
+            return source.GetText().Split('\n').ToList();
         }
     }
 }

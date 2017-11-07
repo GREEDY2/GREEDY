@@ -21,7 +21,6 @@ namespace GREEDY.Extensions
             try
             {
                 MailAddress m = new MailAddress(email);
-
                 return true;
             }
             catch (FormatException)
