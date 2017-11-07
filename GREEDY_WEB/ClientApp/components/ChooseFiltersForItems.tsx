@@ -62,11 +62,7 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
     }
 
     fPriceChange = (event) => {
-        this.setState({ fPriceCompare: event.target.value.toFixed(2) });
-        //TODO: logic for extracting a number for a string
-        //Keep in mind the user can be dumb
-        //Or change the field from text to something else
-
+        this.setState({ fPrice: event.target.value });
     }
 
     fCategoryChange = (event) => {
@@ -78,9 +74,8 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
             return null;
         }
         else {
-            //This needs formating or type change (because now price is read like a string
             return (<Input
-                type="text"
+                type="number"
                 name="fPrice"
                 maxLength="8"
                 required id="fPrice"

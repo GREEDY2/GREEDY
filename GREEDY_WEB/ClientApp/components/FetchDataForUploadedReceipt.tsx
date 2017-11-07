@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import 'isomorphic-fetch';
 import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';

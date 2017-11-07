@@ -129,7 +129,7 @@ export class EditItem extends React.Component<Props, State> {
     }
 
     ePriceChange = (event) => {
-        this.setState({ ItemPrice: event.target.value.toFixed(2) });
+        this.setState({ ItemPrice: event.target.value });
     }
 
     eCategoryChange = (event) => {
@@ -156,7 +156,7 @@ export class EditItem extends React.Component<Props, State> {
                                         placeholder="Item Name" />
                                     <Label for="eItemPrice">Price</Label>
                                     <Input
-                                        type="text"
+                                        type="number"
                                         name="itemPrice"
                                         maxLength="8"
                                         required id="eItemPrice"

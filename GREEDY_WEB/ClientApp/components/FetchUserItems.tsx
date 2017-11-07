@@ -1,6 +1,4 @@
 ﻿import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import 'isomorphic-fetch';
 import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
@@ -70,7 +68,7 @@ export class FetchUserItems extends React.Component<Props, State> {
         //This filters the items, if new filters for data are added need to add logic here.
         if (this.state.filter !== undefined) {
             if (this.state.filter.priceCompare !== 'All') {
-                itemList = itemList.filter(x => x.Price === this.state.filter.price
+                itemList = itemList.filter(x => x.Price == this.state.filter.price
                     || x.Price * this.state.filter.priceCompare > this.state.filter.price * this.state.filter.priceCompare);
             }
             if (this.state.filter.category !== 'All') {
