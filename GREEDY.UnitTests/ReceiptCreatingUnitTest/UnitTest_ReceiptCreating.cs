@@ -40,16 +40,16 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         public void ReceiptCreating_GetDateForReceipt_RandomDate()
         {
             //arrange
-            var dateTime = fixture.Create<DateTime>().ToString();
+            var dateTime = fixture.Create<DateTime>();
             List<string> linesOfText = new List<string>
             {
-                dateTime
+                dateTime.ToString()
             };
             linesOfText.AddMany(fixture.Create<string>, 10);
             ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
             //act
             //assert
-            Assert.Equal(dateTime, receiptCreating.GetDateForReceipt(linesOfText));
+            Assert.Equal(dateTime.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
             
         }
 
@@ -62,7 +62,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
             //act
             //assert
-            Assert.Equal(DateTime.Today.ToString("yyyy-MM-dd"), receiptCreating.GetDateForReceipt(linesOfText));
+            Assert.Equal(DateTime.Now.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
         }
 
         [Fact]
@@ -95,11 +95,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
             //act
             //assert
-
-            
-
-
-    Assert.Equal(ShopName, receiptCreating.GetShopFromData(linesOfText).Name);
+            Assert.Equal(ShopName, receiptCreating.GetShopFromData(linesOfText).Name);
         }
     }
 }

@@ -4,8 +4,10 @@ using GREEDY.OCRs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace GREEDY.DataManagers
 {
@@ -40,20 +42,21 @@ namespace GREEDY.DataManagers
             };
         }
 
-        public string GetDateForReceipt(List<string> linesOfText)
+        public DateTime GetDateForReceipt(List<string> linesOfText)
         {
             var receiptLinesToString = String.Join(Environment.NewLine, linesOfText);
             string pattern = @"(\d{4}-\d{2}-\d{2})(\d{2})?";
             receiptLinesToString = Regex.Replace(receiptLinesToString, @"~", "-");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
             Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
             if (match.Success)
             {
-                return match.Groups[1].Value;
+                return DateTime.Parse(match.Groups[1].Value, Thread.CurrentThread.CurrentCulture);
             }
             else
             {
-                return DateTime.Today.ToString("yyyy-MM-dd");
+                return DateTime.Now;
             }
         }
 
@@ -64,11 +67,11 @@ namespace GREEDY.DataManagers
 
             foreach (Shop element in shops)
             {
-                if (shopTitle.Contains(element.Name))
+                if (shopTitle.ToUpper().Contains(element.Name.ToUpper()))
                 {
                     return element;
                 }
-                else if (shopTitle.Contains(element.SubName) && element.SubName != String.Empty)
+                else if (element.SubName!=null && shopTitle.ToUpper().Contains(element.SubName.ToUpper()) && element.SubName != String.Empty)
                 {
                     return element;
                 }
