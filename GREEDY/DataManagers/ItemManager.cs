@@ -43,6 +43,16 @@ namespace GREEDY.DataManagers
             }
         }
 
+        public List<Item> GetAllUserItems(string username)
+        {
+            using (DataBaseModel context = new DataBaseModel())
+            {
+                var items = context.Set<ItemDataModel>()
+                    .Select(x => x).Where(x => x.Receipt.User.Username == username);
+                return items.Select(x => new Item() { Name = x.Name, Category = x.Category, ItemId = x.ItemId, Price = x.Price }).ToList();
+            }
+        }
+
         public List<Item> LoadData(string Username)
         {
             using (DataBaseModel context = new DataBaseModel())

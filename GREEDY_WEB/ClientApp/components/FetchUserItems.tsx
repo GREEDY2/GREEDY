@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 import axios from 'axios';
@@ -6,51 +6,48 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from './Constants';
 import { EditItem } from './EditItem';
+import { GetCredentialsFromCookies } from './HelperClass';
 
 interface Props {
-    onRef: any
+    username: string
 }
 
 interface State {
-    receiptId: number
     showItems: boolean
     itemList: any
 }
 
-export class FetchData extends React.Component<Props, State> {
+export class FetchUserItems extends React.Component<Props, State> {
     child: any;
     state = {
-        receiptId: 0,
         showItems: false,
         itemList: []
     }
 
-    componentDidMount() {
-        this.props.onRef(this);
-    }
-
-    componentWillUnmount() {
-        this.props.onRef(undefined);
+    componentWillMount() {
+        this.updateList();
     }
 
     updateList = () => {
-        if (this.state.receiptId != 0) {
-            this.getItemsFromPhoto(this.state.receiptId);
-        }
-        else {
-            //TODO:
-            // This is for code reusability. getAllUsersItems() method should be called here.
-        }
+        this.getAllUserItems(this.props.username);
     }
 
-    getItemsFromPhoto(receiptId) {
-        axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId)
-            .then(res => {
+    getAllUserItems(username) {
+        axios.get(Constants.httpRequestBasePath + 'api/GetAllUserItems/', {
+            headers: {
+                'Authorization': 'Basic ' + this.props.username
+            }
+        }).then(res => {
+            if (res) {
                 const itemList = res.data;
-                this.setState({ itemList, showItems: true, receiptId });
-            }).catch(e => {
-                console.log(e);
-            })
+                this.setState({ itemList, showItems: true });
+            }
+            else {
+                //TODO: display that the user has no items.
+            }
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
     public render() {

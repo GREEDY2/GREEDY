@@ -33,6 +33,29 @@ namespace GREEDY.Controllers
     }
 
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class GetAllUserItemsController : ApiController
+    {
+        private IItemManager _itemManager;
+        public GetAllUserItemsController(IItemManager itemManager)
+        {
+            _itemManager = itemManager;
+        }
+        public HttpResponseMessage Get()
+        {
+            var username = Request.Headers.Authorization.Parameter;
+            try
+            {
+                var items = _itemManager.GetAllUserItems(username);
+                return HelperClass.JsonHttpResponse(items);
+            }
+            catch (NullReferenceException)
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+        }
+    }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UpdateItemController : ApiController
     {
         private IItemManager _itemManager;
