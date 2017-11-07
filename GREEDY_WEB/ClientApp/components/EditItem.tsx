@@ -56,8 +56,9 @@ export class EditItem extends React.Component<Props, State> {
 
     saveItemChanges = (e) => {
         e.preventDefault();
+        this.hideEdit();
         if (this.state.ItemId < 0 || this.state.ItemName === "") {
-            this.setState({ eSuccess: false, showEdit: false });
+            this.setState({ eSuccess: false });
             return;
         }
         const item = {
@@ -69,7 +70,7 @@ export class EditItem extends React.Component<Props, State> {
         axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item)
             .then(response => {
                 let res = response.data;
-                this.setState({ eSuccess: true, eHappened: true, showEdit: false });
+                this.setState({ eSuccess: true, eHappened: true });
                 this.props.updateListAfterChange();
             }).catch(error => {
                 console.log(error);
@@ -128,7 +129,7 @@ export class EditItem extends React.Component<Props, State> {
     }
 
     ePriceChange = (event) => {
-        this.setState({ ItemPrice: event.target.value });
+        this.setState({ ItemPrice: event.target.value.toFixed(2) });
     }
 
     eCategoryChange = (event) => {
@@ -169,9 +170,7 @@ export class EditItem extends React.Component<Props, State> {
                                         id="eItemCategory"
                                         defaultValue={this.state.ItemCategory}
                                         onChange={this.eCategoryChange}>
-                                        {/*Show an empty category if none is set to an item*/}
-                                        {this.state.ItemCategory ? null : <option>{this.state.ItemCategory}</option>}
-
+                                        <option></option>
                                         {this.state.Categories.map(category =>
                                             <option key={category}>{category}</option>
                                         )}

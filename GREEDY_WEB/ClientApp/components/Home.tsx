@@ -13,8 +13,6 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
         super();
     }
 
-
-
     public getReceiptId = (receiptId) => {
         this.child.getItemsFromPhoto(receiptId);
     }

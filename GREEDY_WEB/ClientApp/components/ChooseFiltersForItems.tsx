@@ -1,3 +1,144 @@
-﻿// A '.tsx' file enables JSX support in the TypeScript compiler, 
-// for more information see the following page on the TypeScript wiki:
-// https://github.com/Microsoft/TypeScript/wiki/JSX
+﻿import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
+import 'isomorphic-fetch';
+import axios from 'axios';
+import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
+import { ModalContainer, ModalDialog } from 'react-modal-dialog';
+import Constants from './Constants';
+import { EditItem } from './EditItem';
+
+interface Props {
+    refilter: any
+}
+
+interface State {
+    showChoose: boolean
+    fPriceCompare: string
+    fPrice: number
+    fCategory: string
+    Categories: any
+}
+
+export class ChooseFiltersForItems extends React.Component<Props, State> {
+    state = {
+        showChoose: false,
+        fPriceCompare: 'All',
+        fPrice: 0,
+        fCategory: 'All',
+        Categories: []
+    }
+
+    constructor() {
+        super();
+        this.getAllDistinctCategories();
+    }
+
+    getAllDistinctCategories = () => {
+        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories")
+            .then(response => {
+                let res = response.data;
+                this.setState({ Categories: res });
+            }).catch(error => {
+                console.log(error);
+            })
+    }
+
+    hideChoose = () => {
+        this.setState({ showChoose: false });
+    }
+
+    showChoose = () => {
+        this.setState({ showChoose: true });
+    }
+
+    saveFilterChanges = (event) => {
+        event.preventDefault();
+        this.hideChoose();
+        this.props.refilter(this.state.fPriceCompare, this.state.fPrice, this.state.fCategory);
+    }
+
+    fPriceCompareChange = (event) => {
+        this.setState({ fPriceCompare: event.target.value });
+    }
+
+    fPriceChange = (event) => {
+        this.setState({ fPriceCompare: event.target.value.toFixed(2) });
+        //TODO: logic for extracting a number for a string
+        //Keep in mind the user can be dumb
+        //Or change the field from text to something else
+
+    }
+
+    fCategoryChange = (event) => {
+        this.setState({ fCategory: event.target.value });
+    }
+
+    fPriceType() {
+        if (this.state.fPriceCompare === 'All') {
+            return null;
+        }
+        else {
+            //This needs formating or type change (because now price is read like a string
+            return (<Input
+                type="text"
+                name="fPrice"
+                maxLength="8"
+                required id="fPrice"
+                defaultValue={this.state.fPrice}
+                onChange={this.fPriceChange}
+                placeholder="Price" />);
+        }
+    }
+
+    public render() {
+        return (
+            <div>
+                <Button color="info" onClick={this.showChoose}>
+                    Change filters
+                </Button>
+                {this.state.showChoose &&
+                    <ModalContainer onClose={this.hideChoose} >
+                        <ModalDialog onClose={this.hideChoose}>
+                            <h3>Select how to filter items</h3>
+                            <Form onSubmit={this.saveFilterChanges}>
+                                <FormGroup>
+                                    <Label for="fPrice">Price</Label>
+                                    <Input
+                                        type="select"
+                                        name="fPriceCompare"
+                                        id="fPriceCompare"
+                                        defaultValue={this.state.fPriceCompare}
+                                        onChange={this.fPriceCompareChange}>
+                                        <option key={0}>All</option>
+                                        <option key={1}>More than</option>
+                                        <option key={2}>Less than</option>
+                                        <option key={3}>Equal</option>
+                                        >
+                                    </Input>
+                                    {this.fPriceType()}
+
+                                    <Label for="fCategory">Category</Label>
+                                    <Input
+                                        type="select"
+                                        name="fCategory"
+                                        id="fCategory"
+                                        defaultValue={this.state.fCategory}
+                                        onChange={this.fCategoryChange}>
+                                        <option>All</option>
+                                        <option></option>
+                                        {this.state.Categories.map(category =>
+                                            <option key={category}>{category}</option>
+                                        )}
+                                    </Input>
+                                </FormGroup>
+                                <Button color="success" block>
+                                    Confirm filters
+                            </Button>
+                            </Form>
+                        </ModalDialog>
+                    </ModalContainer >
+                }
+            </div>
+        );
+    }
+}
