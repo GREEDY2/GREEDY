@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using GREEDY.Extensions;
-using GREEDY.Models;
 using Tesseract;
+using System.Collections.Generic;
 
 namespace GREEDY.OCRs
 {
@@ -9,7 +9,7 @@ namespace GREEDY.OCRs
     {
         private TesseractEngine _tesseract;
 
-        public Receipt ConvertImage(Bitmap image)
+        public List<string> ConvertImage(Bitmap image)
         {
             _tesseract = new TesseractEngine
             (
@@ -18,7 +18,7 @@ namespace GREEDY.OCRs
                 EngineMode.TesseractOnly
             );
             var page = _tesseract.Process(image);
-            return page.GetReceipt();
+            return page.GetLinesOfText();
         }
     }
 }

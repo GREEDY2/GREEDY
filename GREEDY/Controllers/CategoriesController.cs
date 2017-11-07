@@ -4,8 +4,6 @@ using System.Web.Http.Cors;
 using GREEDY.DataManagers;
 using GREEDY.Extensions;
 using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace GREEDY.Controllers
 {
@@ -20,19 +18,9 @@ namespace GREEDY.Controllers
         }
         public HttpResponseMessage Get()
         {
+            Request.RegisterForDispose((IDisposable)_categoryManager);
             var categories = _categoryManager.GetAllDistinctCategories();
             return HelperClass.JsonHttpResponse(categories);
         }
     }
-
-    /*
-     public async Task<HttpResponseMessage> Put()
-        {
-            HttpContent content = Request.Content;
-            string jsonContent = await content.ReadAsStringAsync();
-            //TODO: this is totaly unfinished, need to consult with the team
-            var temp = JsonConvert.DeserializeObject(jsonContent);
-            return HelperClass.JsonHttpResponse<Object>(null);
-        }
-     */
 }

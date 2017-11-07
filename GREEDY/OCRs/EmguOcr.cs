@@ -2,8 +2,8 @@
 using Emgu.CV;
 using Emgu.CV.OCR;
 using Emgu.CV.Structure;
-using GREEDY.Models;
 using GREEDY.Extensions;
+using System.Collections.Generic;
 
 namespace GREEDY.OCRs
 {
@@ -17,15 +17,14 @@ namespace GREEDY.OCRs
             (
                 Environments.AppConfig.TesseractDataPath,
                 Environments.AppConfig.OcrLanguage,
-                OcrEngineMode.Default
-            );
+                OcrEngineMode.Default);
         }
 
-        public Receipt ConvertImage(Bitmap image)
+        public List<string> ConvertImage(Bitmap image)
         {
             _tesseract.SetImage(new Image<Bgr, byte>(image));
             _tesseract.Recognize();
-            return _tesseract.GetReceipt();
+            return _tesseract.GetLinesOfText();
         }
     }
 }
