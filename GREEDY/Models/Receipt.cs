@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GREEDY.Models
 {
@@ -6,7 +7,7 @@ namespace GREEDY.Models
     {
         public float PercentageMatched { get; set; }
         public List<string> LinesOfText { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public Shop Shop { get; set; }
     }
 }

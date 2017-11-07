@@ -202,6 +202,9 @@
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
     <Compile Include="Startup.cs" />
+    <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
+      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
