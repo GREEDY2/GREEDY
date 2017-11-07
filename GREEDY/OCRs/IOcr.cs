@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
-using GREEDY.Models;
+using System.Collections.Generic;
 
 namespace GREEDY.OCRs
 {
     public interface IOcr
     {
-        Receipt ConvertImage (Bitmap image);
+        List<string> ConvertImage (Bitmap image);
     }
 }

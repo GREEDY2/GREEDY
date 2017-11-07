@@ -16,6 +16,7 @@ namespace GREEDY.DataManagers
         {
             this.context = context;
         }
+
         public void RegisterNewUser(RegistrationCredentials credentials)
         {
             AddUser(new User()

@@ -4,8 +4,6 @@ using System.Web.Http.Cors;
 using GREEDY.DataManagers;
 using GREEDY.Extensions;
 using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace GREEDY.Controllers
 {

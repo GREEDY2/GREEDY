@@ -150,17 +150,24 @@
     <Compile Include="DataManagers\ISessionManager.cs" />
     <Compile Include="DataManagers\SessionManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
+    <Compile Include="Migrations\201711061716547_Initial.cs" />
+    <Compile Include="Migrations\201711061716547_Initial.designer.cs">
+      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginSession.cs" />
-    <Compile Include="DataManagers\IImageFormating.cs" />
-    <Compile Include="DataManagers\IItemCategorization.cs" />
-    <Compile Include="DataManagers\ImageFormating.cs" />
-    <Compile Include="DataManagers\ItemCategorization.cs" />
-    <Compile Include="DataManagers\DataConverter.cs" />
+    <Compile Include="ImagePreparation\IImageFormating.cs" />
+    <Compile Include="ReceiptCreating\IItemCategorization.cs" />
+    <Compile Include="ImagePreparation\ImageFormating.cs" />
+    <Compile Include="ReceiptCreating\IReceiptCreating.cs" />
+    <Compile Include="DataManagers\IShopManager.cs" />
+    <Compile Include="ReceiptCreating\ItemCategorization.cs" />
+    <Compile Include="ReceiptCreating\DataConverter.cs" />
     <Compile Include="DataManagers\ItemManager.cs" />
-    <Compile Include="DataManagers\IDataConverter.cs" />
+    <Compile Include="ReceiptCreating\IDataConverter.cs" />
     <Compile Include="DataManagers\IItemManager.cs" />
     <Compile Include="DataManagers\IUserManager.cs" />
-    <Compile Include="DataManagers\ShopDistributor.cs" />
+    <Compile Include="ReceiptCreating\ReceiptCreating.cs" />
     <Compile Include="DataManagers\UserManager.cs" />
     <Compile Include="Data\CategoryDataModel.cs" />
     <Compile Include="Data\DataBaseModel.cs" />
@@ -189,6 +196,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="DataManagers\ShopManager.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />

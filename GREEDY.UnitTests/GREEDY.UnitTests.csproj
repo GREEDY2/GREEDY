@@ -77,9 +77,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Unity.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.Abstractions.dll</HintPath>
@@ -121,14 +118,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManagersUnitTests\DatabaseMock.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTestDataConverter.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTestImageCategorization.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTestItemManager.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTestUserManager.cs" />
+    <Compile Include="ImagePreparationUnitTest\UnitTest_ImageFormating.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\UnitTest_DataConverter.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\UnitTest_ItemCategorization.cs" />
+    <Compile Include="DataManagersUnitTests\UnitTest_ItemManager.cs" />
+    <Compile Include="DataManagersUnitTests\UnitTest_UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServicesUnitTests\UnitTestItemService.cs" />
-    <Compile Include="ServicesUnitTests\UnitTestReceiptService.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTestShopDistributor.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\UnitTest_ReceiptCreating.cs" />
+    <Compile Include="ServicesUnitTests\UnitTest_ItemService.cs" />
+    <Compile Include="ServicesUnitTests\UnitTest_ReceiptService.cs" />
+    <Compile Include="DataManagersUnitTests\UnitTest_ShopManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -148,6 +147,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

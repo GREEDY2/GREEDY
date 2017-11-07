@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GREEDY.DataManagers;
 using GREEDY.Models;
-using GREEDY.OCRs;
 using System.Drawing;
 
 namespace GREEDY.Services
@@ -9,20 +8,20 @@ namespace GREEDY.Services
     public class ReceiptService : IReceiptService
     {
         private readonly IImageFormating _imageFormating;
-        private readonly IOcr _ocr;
+        private readonly IReceiptCreating _receiptCreating;
         private readonly IDataConverter _dataConverter;
 
         public ReceiptService()
         {
             _imageFormating = new ImageFormating();
-            _ocr = new EmguOcr();
+            _receiptCreating = new ReceiptCreating();
             _dataConverter = new DataConverter();
         }
 
-        public ReceiptService(IImageFormating imageFormating, IOcr ocr, IDataConverter dataConverter)
+        public ReceiptService(IImageFormating imageFormating, IReceiptCreating receiptCreating, IDataConverter dataConverter)
         {
             _imageFormating = imageFormating;
-            _ocr = ocr;
+            _receiptCreating = receiptCreating;
             _dataConverter = dataConverter;
         }
 
@@ -31,7 +30,7 @@ namespace GREEDY.Services
             if (image != null)
             {
                 image = _imageFormating.FormatImage(image);
-                var receipt = _ocr.ConvertImage(image);
+                var receipt = _receiptCreating.FullReceiptCreating(image);
                 var itemList = _dataConverter.ReceiptToItemList(receipt);
                 return itemList;
             }

@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using GREEDY.Services;
 using Newtonsoft.Json;
 using GREEDY.Models;
 using GREEDY.Extensions;
