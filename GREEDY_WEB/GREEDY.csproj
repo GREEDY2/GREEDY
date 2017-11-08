@@ -23,6 +23,8 @@
   <ItemGroup>
     <None Remove="ClientApp\components\AllUserItems.tsx" />
     <None Remove="ClientApp\components\Authorization.tsx" />
+    <None Remove="ClientApp\components\ChangeEmail.tsx" />
+    <None Remove="ClientApp\components\ChangePassword.tsx" />
     <None Remove="ClientApp\components\Constants.tsx" />
     <None Remove="ClientApp\components\EditItem.tsx" />
     <None Remove="ClientApp\components\FetchUserItems.tsx" />
@@ -31,6 +33,7 @@
     <None Remove="ClientApp\components\ImageUpload.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
     <None Remove="ClientApp\components\UserRegistration.tsx" />
+    <None Remove="ClientApp\components\UserSettings.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +49,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\AllUserItems.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\ChangeEmail.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\ChangePassword.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Constants.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EditItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FetchUserItems.tsx" />
@@ -55,6 +60,7 @@
     <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UserLogin.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UserRegistration.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\UserSettings.tsx" />
   </ItemGroup>
 
   <ItemGroup>

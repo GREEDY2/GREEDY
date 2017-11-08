@@ -15,16 +15,24 @@ export class ImageUpload extends React.Component<Props> {
         let reader = new FileReader();
         let file = e.target.files[0];
 
-        axios.put(Constants.httpRequestBasePath + 'api/ImagePost', file, {
-            headers: {
-                'Content-Type': file.type,
-                'Authorization': 'Basic ' + this.props.username
-            }
-        }).then(res => {
-            this.props.updateReceiptId(res.data);
-        }).catch(error => {
-            console.log(error);
-        });
+        if (file !== undefined) {
+            axios.post(Constants.httpRequestBasePath + 'api/ImageUpload', file, {
+                headers: {
+                    'Content-Type': file.type,
+                    'Authorization': 'Basic ' + this.props.username
+                }
+            }).then(res => {
+                if (res) {
+                    this.props.updateReceiptId(res.data);
+                }
+                else {
+                    //TODO: message for user to upload again, because items not read
+                }
+                }).catch(error => {
+                //TODO: message for user that try again later because there is a problem with the server
+                console.log(error);
+            });
+        }
     }
 
     render() {

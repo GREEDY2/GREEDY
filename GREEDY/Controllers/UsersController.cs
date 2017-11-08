@@ -58,7 +58,7 @@ namespace GREEDY.Controllers
         {
             _userManager = userManager;
         }
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Post()
         {
             Request.RegisterForDispose((IDisposable)_userManager);
             HttpContent requestContent = Request.Content;
@@ -105,6 +105,78 @@ namespace GREEDY.Controllers
             {
                 return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
             }
+        }
+    }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class ChangeEmailController : ApiController
+    {
+        private IUserManager _userManager;
+        public ChangeEmailController(IUserManager userManager)
+        {
+            _userManager = userManager;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            Request.RegisterForDispose((IDisposable)_userManager);
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            string username = "";
+            string newEmail = "";
+            //TODO: dynamicly get username and new email.
+
+            //TODO: this now checks if this user exist. Actually we need to try and authorize with each request
+            //so if the user is succesfully authorized we don't really need to check if that user exists.
+            User user = _userManager.FindByUsername(username);
+            if (user == null)
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+            user = _userManager.FindByEmail(newEmail);
+            if (user != null)
+            {
+                //Email is already taken
+                //TODO: need a different message for the user if this happens
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+            //TODO: write this method (this class has too many todos and faults so will do everything at one time
+            //_userManager.ChangeUserEmail(username, email);
+            return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+        }
+    }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class ChangePasswordController : ApiController
+    {
+        private IUserManager _userManager;
+        public ChangePasswordController(IUserManager userManager)
+        {
+            _userManager = userManager;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            Request.RegisterForDispose((IDisposable)_userManager);
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            string username = "";
+            string newPassword = "";
+            if (!newPassword.IsPasswordValid())
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+            //TODO: dynamicly get username and new password.
+
+            //TODO: this now checks if this user exist. Actually we need to try and authorize with each request
+            //so if the user is succesfully authorized we don't really need to check if that user exists.
+            User user = _userManager.FindByUsername(username);
+            if (user == null)
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+
+            //TODO: write this method (this class has too many todos and faults so will do everything at one time
+            //_userManager.ChangeUserPassword(username, email);
+            return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
         }
     }
 }

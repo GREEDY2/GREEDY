@@ -12,17 +12,17 @@ using System;
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ImagePostController : ApiController
+    public class ImageUploadController : ApiController
     {
         private IItemManager _itemManager;
         private IReceiptService _receiptService;
-        public ImagePostController(IItemManager itemManager, IReceiptService receiptService)
+        public ImageUploadController(IItemManager itemManager, IReceiptService receiptService)
         {
             _itemManager = itemManager;
             _receiptService = receiptService;
         }
 
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Post()
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
             var requestStream = await Request.Content.ReadAsStreamAsync();

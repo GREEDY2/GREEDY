@@ -63,10 +63,17 @@ export class NavMenu extends React.Component<{}, State> {
                             data-toggle="collapse"
                             data-target=".navbar-collapse">
                             <li>
-                                <NavLink to={'/'} exact activeClassName='active'>
-                                    <span className='glyphicon glyphicon-home'></span>
-                                    Home
-                                </NavLink>
+                                {
+                                    this.state.loggedIn ?
+                                        <NavLink to={'/'} exact activeClassName='active'>
+                                            <span className='glyphicon glyphicon-camera'></span>
+                                            Photograph receipt
+                                        </NavLink> :
+                                        <NavLink to={'/'} exact activeClassName='active'>
+                                            <span className='glyphicon glyphicon-log-in'></span>
+                                            Login
+                                        </NavLink>
+                                }
                             </li>
                             {
                                 this.state.loggedIn ?
@@ -89,12 +96,19 @@ export class NavMenu extends React.Component<{}, State> {
                                             Hello, {this.state.username}!
                                         </NavLink>
                                         <NavLink
+                                            to={'/user'}
+                                            activeClassName='inactive'>
+                                            <span className='glyphicon glyphicon-wrench' />
+                                            My account
+                                        </NavLink>
+                                        <NavLink
                                             to={'/'}
                                             onClick={() => this.handleLogout()}
                                             activeClassName='inactive'>
                                             <span className='glyphicon glyphicon-log-out' />
                                             Logout
                                         </NavLink>
+                                        
                                     </li> : null
                             }
                         </ul>

@@ -4,12 +4,13 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { AllUserItems } from './components/AllUserItems';
 import { Authorization } from './components/Authorization';
-import { UserLogin } from './components/UserLogin';
+import { UserSettings } from './components/UserSettings';
 
 export const routes =
     (<Layout>
         <Authorization>
             <Route exact path='/' component={Home} />
             <Route path='/fetchdata' component={AllUserItems} />
+            <Route path='/user' component={UserSettings} />
         </Authorization>
     </Layout>);
