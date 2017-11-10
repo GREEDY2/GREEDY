@@ -168,7 +168,6 @@
       <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\LoginSession.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />
