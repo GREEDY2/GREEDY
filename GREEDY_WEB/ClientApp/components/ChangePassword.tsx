@@ -5,11 +5,7 @@ import axios from 'axios';
 import DocumentTitle from 'react-document-title';
 import { RegistrationForm } from 'react-stormpath';
 
-interface Props {
-    username: string
-}
-
-export class ChangePassword extends React.Component<Props> {
+export class ChangePassword extends React.Component {
     constructor() {
         super();
     }
@@ -35,12 +31,15 @@ export class ChangePassword extends React.Component<Props> {
         }
 
         let changePassword = {}
-        changePassword["username"] = this.props.username;
         changePassword["password"] = data.password;
         changePassword["newpassword"] = data.givenName;
 
-        axios.put(Constants.httpRequestBasePath + 'api/ChangePassword', changePassword)
-            .then(response => {
+        axios.put(Constants.httpRequestBasePath + 'api/ChangePassword', changePassword,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 if (res) {
                     this.setState({ isAccountCreated: true });
@@ -57,68 +56,74 @@ export class ChangePassword extends React.Component<Props> {
             <DocumentTitle title={`Register`}>
                 <RegistrationForm onSubmit={this.onFormSubmit.bind(this)}>
                     <h3 className="text-center">Change password</h3>
-                    <div className='sp-login-form regForm row col-xs-12 form-horizontal'>
-                        <div className="form-group">
-                            <label
-                                htmlFor="spChangePassword"
-                                className="col-xs-12 col-sm-4 control-label">
-                                Password
+                    <div className='sp-login-form regForm'>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <div className="form-horizontal">
+                                    <div className="form-group">
+                                        <label
+                                            htmlFor="spChangePassword"
+                                            className="col-xs-12 col-sm-4 control-label">
+                                            Password
                                 </label>
-                            <div className="col-xs-12 col-sm-4">
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="spChangePassword"
-                                    placeholder="Old password"
-                                    name="password" />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label
-                                htmlFor="spChangePasswordNew"
-                                className="col-xs-12 col-sm-4 control-label">
-                                New password
+                                        <div className="col-xs-12 col-sm-4">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="spChangePassword"
+                                                placeholder="Old password"
+                                                name="password" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label
+                                            htmlFor="spChangePasswordNew"
+                                            className="col-xs-12 col-sm-4 control-label">
+                                            New password
                                 </label>
-                            <div className="col-xs-12 col-sm-4">
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="spChangePasswordNew"
-                                    placeholder="New password"
-                                    name="givenName" />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label
-                                htmlFor="spChangePasswordNewRepeat"
-                                className="col-xs-12 col-sm-4 control-label">
-                                Repeat new password
+                                        <div className="col-xs-12 col-sm-4">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="spChangePasswordNew"
+                                                placeholder="New password"
+                                                name="givenName" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label
+                                            htmlFor="spChangePasswordNewRepeat"
+                                            className="col-xs-12 col-sm-4 control-label">
+                                            Repeat new password
                                 </label>
-                            <div className="col-xs-12 col-sm-4">
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="spChangePasswordNewRepeat"
-                                    placeholder="Repeat new password"
-                                    name="surname" />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="col-sm-offset-4 col-sm-4">
-                                <p
-                                    className="alert alert-danger"
-                                    data-spIf="form.error">
-                                    <span data-spBind="form.errorMessage" />
-                                </p>
-                                <Button
-                                    className="col-xs-12 col-sm-12"
-                                    type="submit"
-                                    color="btn btn-primary buttonText">
-                                    Change password
+                                        <div className="col-xs-12 col-sm-4">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="spChangePasswordNewRepeat"
+                                                placeholder="Repeat new password"
+                                                name="surname" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="col-sm-offset-4 col-sm-4">
+                                            <p
+                                                className="alert alert-danger"
+                                                data-spIf="form.error">
+                                                <span data-spBind="form.errorMessage" />
+                                            </p>
+                                            <Button
+                                                className="col-xs-12 col-sm-12"
+                                                type="submit"
+                                                color="btn btn-primary buttonText">
+                                                Change password
                                     </Button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div >
                 </RegistrationForm >
             </DocumentTitle >
         );

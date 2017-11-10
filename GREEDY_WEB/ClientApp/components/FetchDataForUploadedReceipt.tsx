@@ -36,8 +36,12 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
     }
 
     getItemsFromPhoto(receiptId) {
-        axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId)
-            .then(res => {
+        axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(res => {
                 if (res) {
                     const itemList = res.data;
                     this.setState({ itemList, showItems: true, receiptId });

@@ -5,7 +5,6 @@ import Constants from './Constants';
 
 interface Props {
     updateReceiptId: any;
-    username: string;
 }
 
 export class ImageUpload extends React.Component<Props> {
@@ -19,7 +18,7 @@ export class ImageUpload extends React.Component<Props> {
             axios.post(Constants.httpRequestBasePath + 'api/ImageUpload', file, {
                 headers: {
                     'Content-Type': file.type,
-                    'Authorization': 'Basic ' + this.props.username
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
                 }
             }).then(res => {
                 if (res) {

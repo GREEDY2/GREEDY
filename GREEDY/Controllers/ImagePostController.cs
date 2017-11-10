@@ -16,17 +16,21 @@ namespace GREEDY.Controllers
     {
         private IItemManager _itemManager;
         private IReceiptService _receiptService;
-        public ImageUploadController(IItemManager itemManager, IReceiptService receiptService)
+        private IAuthenticationService _authenticationService;
+        public ImageUploadController(IItemManager itemManager, IReceiptService receiptService,
+            IAuthenticationService authenticationService)
         {
             _itemManager = itemManager;
             _receiptService = receiptService;
+            _authenticationService = authenticationService;
         }
 
         public async Task<HttpResponseMessage> Post()
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
             var requestStream = await Request.Content.ReadAsStreamAsync();
-            var username = Request.Headers.Authorization.Parameter;
             var memoryStream = new MemoryStream(); //Using a MemoryStream because can't parse directly to image
             requestStream.CopyTo(memoryStream);
             requestStream.Close();
@@ -34,12 +38,19 @@ namespace GREEDY.Controllers
             memoryStream.Close();
             var list = _receiptService.ProcessReceiptImage(receiptImage);
 
-            //TODO: Need to get shop
-
-            var receiptId = _itemManager.AddItems(list, new Models.Shop()
+            
+            if (await isAuthenticated)
+            {
+                //TODO: Need to get shop
+                var receiptId = _itemManager.AddItems(list, new Models.Shop()
                 { Name = "Not supported yet", Location = "Not supported yet" }, username);
-            return HelperClass.JsonHttpResponse(receiptId);
-            //TODO: create an error if something goes wrong
+                return HelperClass.JsonHttpResponse(receiptId);
+                //TODO: create an error if something goes wrong
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
         }
     }
 }

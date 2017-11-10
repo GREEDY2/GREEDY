@@ -29,7 +29,6 @@
     <None Remove="ClientApp\components\EditItem.tsx" />
     <None Remove="ClientApp\components\FetchUserItems.tsx" />
     <None Remove="ClientApp\components\ForgotPassword.tsx" />
-    <None Remove="ClientApp\components\HelperClass.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
     <None Remove="ClientApp\components\UserRegistration.tsx" />
@@ -54,7 +53,6 @@
     <TypeScriptCompile Include="ClientApp\components\Constants.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EditItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FetchUserItems.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\HelperClass.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Logo.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ForgotPassword.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />

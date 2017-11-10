@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Constants from './Constants';
-import { GetCredentialsFromCookies, RemoveCredentialsFromCookies } from './HelperClass';
 
 interface State {
     loggedIn: boolean;
@@ -22,9 +20,12 @@ export class NavMenu extends React.Component<{}, State> {
     }
 
     checkIfLoggedIn = () => {
-        let credentials = GetCredentialsFromCookies();
-        if (credentials.Username && credentials.SessionId) {
-            this.setState({ loggedIn: true, username: credentials.Username });
+        let token = localStorage.getItem("auth");
+        if (token) {
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace('-', '+').replace('_', '/');
+            let tokenJson = JSON.parse(window.atob(base64));
+            this.setState({ loggedIn: true, username: tokenJson.unique_name });
         }
         else {
             this.setState({ loggedIn: false });
@@ -36,7 +37,7 @@ export class NavMenu extends React.Component<{}, State> {
     }
 
     handleLogout = () => {
-        RemoveCredentialsFromCookies();
+        localStorage.removeItem("auth");
     }
 
     public render() {

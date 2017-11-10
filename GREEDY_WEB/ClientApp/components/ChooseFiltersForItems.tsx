@@ -34,8 +34,12 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
     }
 
     getAllDistinctCategories = () => {
-        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories")
-            .then(response => {
+        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories",
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 this.setState({ Categories: res });
             }).catch(error => {

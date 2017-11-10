@@ -4,10 +4,8 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from './Constants';
 import { EditItem } from './EditItem';
-import { GetCredentialsFromCookies } from './HelperClass';
 
 interface Props {
-    username: string
     onRef: any
 }
 
@@ -42,13 +40,13 @@ export class FetchUserItems extends React.Component<Props, State> {
     }
 
     updateList = () => {
-        this.getAllUserItems(this.props.username);
+        this.getAllUserItems();
     }
 
-    getAllUserItems(username) {
+    getAllUserItems() {
         axios.get(Constants.httpRequestBasePath + 'api/GetAllUserItems', {
             headers: {
-                'Authorization': 'Basic ' + this.props.username
+                'Authorization': 'Bearer ' + localStorage.getItem("auth")
             }
         }).then(res => {
             if (res) {

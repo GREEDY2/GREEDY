@@ -7,23 +7,24 @@ using GREEDY.Extensions;
 using System;
 using GREEDY.DataManagers;
 using System.Threading.Tasks;
+using System.Linq;
+using GREEDY.Services;
 
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        private ISessionManager _sessionManager;
         private IUserManager _userManager;
-        public LoginController(ISessionManager sessionManager, IUserManager userManager)
+        private IAuthenticationService _authenticationService;
+        public LoginController(IUserManager userManager, IAuthenticationService authenticationService)
         {
-            _sessionManager = sessionManager;
             _userManager = userManager;
+            _authenticationService = authenticationService;
         }
         public async Task<HttpResponseMessage> Put()
         {
             Request.RegisterForDispose((IDisposable)_userManager);
-            Request.RegisterForDispose((IDisposable)_sessionManager);
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
@@ -43,8 +44,8 @@ namespace GREEDY.Controllers
             }
             if (user.Password.Decrypt() == credentials.Password)
             {
-                var loginSession = _sessionManager.CreateNewSession(user);
-                return HelperClass.JsonHttpResponse(loginSession);
+                var token = _authenticationService.GenerateToken(credentials.Username);
+                return HelperClass.JsonHttpResponse(token);
             }
             return HelperClass.JsonHttpResponse<Object>(null);
         }
@@ -80,31 +81,6 @@ namespace GREEDY.Controllers
             }
             _userManager.RegisterNewUser(credentials);
             return HelperClass.JsonHttpResponse(true);
-        }
-    }
-
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class AuthenticationController : ApiController
-    {
-        private ISessionManager _sessionManager;
-        public AuthenticationController(ISessionManager sessionManager)
-        {
-            _sessionManager = sessionManager;
-        }
-        public async Task<HttpResponseMessage> Put()
-        {
-            Request.RegisterForDispose((IDisposable)_sessionManager);
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
-            LoginSession loginSession = JsonConvert.DeserializeObject<LoginSession>(jsonContent);
-            if (_sessionManager.AuthenticateSession(loginSession))
-            {
-                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-            }
-            else
-            {
-                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
-            }
         }
     }
 

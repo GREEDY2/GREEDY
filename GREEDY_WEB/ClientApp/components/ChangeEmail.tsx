@@ -5,11 +5,7 @@ import axios from 'axios';
 import DocumentTitle from 'react-document-title';
 import { RegistrationForm } from 'react-stormpath';
 
-interface Props {
-    username: string
-}
-
-export class ChangeEmail extends React.Component<Props> {
+export class ChangeEmail extends React.Component {
     constructor() {
         super();
     }
@@ -33,12 +29,15 @@ export class ChangeEmail extends React.Component<Props> {
         }
 
         let changeEmail = {}
-        changeEmail["username"] = this.props.username;
         changeEmail["password"] = data.password;
         changeEmail["email"] = data.email;
 
-        axios.put(Constants.httpRequestBasePath + 'api/ChangeEmail', changeEmail)
-            .then(response => {
+        axios.put(Constants.httpRequestBasePath + 'api/ChangeEmail', changeEmail,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 if (res) {
                     this.setState({ isAccountCreated: true });
@@ -57,49 +56,55 @@ export class ChangeEmail extends React.Component<Props> {
             <DocumentTitle title={`Register`}>
                 <RegistrationForm onSubmit={this.onFormSubmit.bind(this)}>
                     <h3 className="text-center">Change email</h3>
-                    <div className='sp-login-form regForm row col-xs-12 form-horizontal'>
-                        <div className="form-group">
-                            <label
-                                htmlFor="spPasswordChangeEmail"
-                                className="col-xs-12 col-sm-4 control-label">
-                                Password
+                    <div className='sp-login-form regForm'>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <div className="form-horizontal">
+                                    <div className="form-group">
+                                        <label
+                                            htmlFor="spPasswordChangeEmail"
+                                            className="col-xs-12 col-sm-4 control-label">
+                                            Password
                                 </label>
-                            <div className="col-xs-12 col-sm-4">
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="spPasswordChangeEmail"
-                                    placeholder="Password"
-                                    name="password" />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label
-                                htmlFor="spChangeEmail"
-                                className="col-xs-12 col-sm-4 control-label">
-                                New email
+                                        <div className="col-xs-12 col-sm-4">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="spPasswordChangeEmail"
+                                                placeholder="Password"
+                                                name="password" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label
+                                            htmlFor="spChangeEmail"
+                                            className="col-xs-12 col-sm-4 control-label">
+                                            New email
                                 </label>
-                            <div className="col-xs-12 col-sm-4">
-                                <input
-                                    className="form-control"
-                                    id="spChangeEmail"
-                                    placeholder="New email"
-                                    name="email" />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="col-sm-offset-4 col-sm-4">
-                                <p
-                                    className="alert alert-danger"
-                                    data-spIf="form.error">
-                                    <span data-spBind="form.errorMessage" />
-                                </p>
-                                <Button
-                                    className="col-xs-12 col-sm-12"
-                                    type="submit"
-                                    color="btn btn-primary buttonText">
-                                    Change email
+                                        <div className="col-xs-12 col-sm-4">
+                                            <input
+                                                className="form-control"
+                                                id="spChangeEmail"
+                                                placeholder="New email"
+                                                name="email" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="col-sm-offset-4 col-sm-4">
+                                            <p
+                                                className="alert alert-danger"
+                                                data-spIf="form.error">
+                                                <span data-spBind="form.errorMessage" />
+                                            </p>
+                                            <Button
+                                                className="col-xs-12 col-sm-12"
+                                                type="submit"
+                                                color="btn btn-primary buttonText">
+                                                Change email
                                     </Button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

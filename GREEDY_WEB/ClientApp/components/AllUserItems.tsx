@@ -1,7 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { FetchUserItems } from './FetchUserItems';
-import { GetCredentialsFromCookies } from './HelperClass';
 import { ChooseFiltersForItems } from './ChooseFiltersForItems';
 import Constants from './Constants';
 
@@ -36,11 +35,10 @@ export class AllUserItems extends React.Component<RouteComponentProps<{}>> {
     }
 
     public render() {
-        let username = GetCredentialsFromCookies().Username;
         return (
             <div>
                 <ChooseFiltersForItems refilter={this.updateFilters} />
-                <FetchUserItems onRef={ref => (this.child = ref)} username={username}/>
+                <FetchUserItems onRef={ref => (this.child = ref)}/>
             </div>
         );
     }

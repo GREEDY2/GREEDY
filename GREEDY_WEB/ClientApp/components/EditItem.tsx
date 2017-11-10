@@ -67,8 +67,12 @@ export class EditItem extends React.Component<Props, State> {
             Price: this.state.ItemPrice,
             Category: this.state.ItemCategory
         }
-        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item)
-            .then(response => {
+        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 this.setState({ eSuccess: true, eHappened: true });
                 this.props.updateListAfterChange();
@@ -78,8 +82,12 @@ export class EditItem extends React.Component<Props, State> {
     }
 
     getAllDistinctCategories = () => {
-        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories")
-            .then(response => {
+        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories",
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 this.setState({ Categories: res });
             }).catch(error => {

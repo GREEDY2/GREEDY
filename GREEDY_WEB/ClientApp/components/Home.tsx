@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router';
 import { ImageUpload } from './ImageUpload';
 import { FetchDataForUploadedReceipt } from './FetchDataForUploadedReceipt';
 import { Logo } from './Logo';
-import { GetCredentialsFromCookies } from './HelperClass';
 import Constants from './Constants';
 
 export class Home extends React.Component<RouteComponentProps<{}>> {
@@ -18,11 +17,10 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
     }
 
     public render() {
-        let username = GetCredentialsFromCookies().Username;
         return (
             <div>
                 <Logo />
-                <ImageUpload updateReceiptId={this.getReceiptId} username={username} />
+                <ImageUpload updateReceiptId={this.getReceiptId} />
                 <FetchDataForUploadedReceipt onRef={ref => (this.child = ref)} />
             </div>
         );
