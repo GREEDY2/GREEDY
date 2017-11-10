@@ -10,5 +10,7 @@ namespace GREEDY.DataManagers
         void AddUser(User user);
         User FindByUsername(string username);
         User FindByEmail(string email);
+        bool ChangeUserEmail(string username, string encryptedPassword, string newEmail);
+        bool ChangeUserPassword(string username, string encryptedPassword, string newEncryptedPassword);
     }
 }
