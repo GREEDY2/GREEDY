@@ -6,6 +6,6 @@ namespace GREEDY.Services
 {
     public interface IReceiptService
     {
-        Receipt ProcessReceiptImage(Bitmap image);
+        List<Item> ProcessReceiptImage(Bitmap image);
     }
 }

@@ -36,13 +36,14 @@ namespace GREEDY.Controllers
             requestStream.Close();
             var receiptImage = new Bitmap(memoryStream);
             memoryStream.Close();
-            var receipt = _receiptService.ProcessReceiptImage(receiptImage);
+            var list = _receiptService.ProcessReceiptImage(receiptImage);
 
             
             if (await isAuthenticated)
             {
                 //TODO: Need to get shop
-                var receiptId = _itemManager.AddItems(receipt, username);
+                var receiptId = _itemManager.AddItems(list, new Models.Shop()
+                { Name = "Not supported yet", Location = "Not supported yet" }, username);
                 return HelperClass.JsonHttpResponse(receiptId);
                 //TODO: create an error if something goes wrong
             }

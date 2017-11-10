@@ -25,14 +25,14 @@ namespace GREEDY.Services
             _dataConverter = dataConverter;
         }
 
-        public Receipt ProcessReceiptImage(Bitmap image)
+        public List<Item> ProcessReceiptImage(Bitmap image)
         {
             if (image != null)
             {
                 image = _imageFormating.FormatImage(image);
                 var receipt = _receiptCreating.FullReceiptCreating(image);
-                receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
-                return receipt;
+                var itemList = _dataConverter.ReceiptToItemList(receipt);
+                return itemList;
             }
             else
             {

@@ -14,28 +14,20 @@ namespace GREEDY.DataManagers
         {
             this.context = context;
         }
-        public int AddItems(Receipt receipt, string username)
+        public int AddItems(IEnumerable<Item> items, Shop shop, string username)
         {
             ShopDataModel shopDataModel = context.Set<ShopDataModel>()
                 .Select(x => x)
-                .Where(x => x.Name == receipt.Shop.Name && x.Location == receipt.Shop.Location)
-                .FirstOrDefault() ?? new ShopDataModel()
-                {
-                    Location = receipt.Shop.Location,
-                    Name = receipt.Shop.Name,
-                    SubName = receipt.Shop.SubName
-                };
+                .Where(x => x.Name == shop.Name && x.Location == shop.Location)
+                .FirstOrDefault() ?? new ShopDataModel() { Location = shop.Location, Name = shop.Name };
 
             UserDataModel userDataModel = context.Set<UserDataModel>()
-                .FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
-            if (userDataModel == null)
-            {
-                throw new System.Exception(Properties.Resources.UserNotFound);
-            }
+                .Select(x => x).Where(x => x.Username.ToLower() == username.ToLower()).FirstOrDefault();
+            if (userDataModel == null) throw new System.Exception(Properties.Resources.UserNotFound);
 
             ReceiptDataModel receiptDataModel = new ReceiptDataModel() { Shop = shopDataModel, User = userDataModel, Total = 0 };
             receiptDataModel.Items = new List<ItemDataModel>();
-            foreach (Item item in receipt.ItemsList)
+            foreach (Item item in items)
             {
                 receiptDataModel.Items.Add(new ItemDataModel() { Receipt = receiptDataModel, Price = item.Price, Name = item.Name, Category = item.Category });
                 receiptDataModel.Total += item.Price;
