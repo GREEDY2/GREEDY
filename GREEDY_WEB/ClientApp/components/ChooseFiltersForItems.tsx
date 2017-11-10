@@ -91,8 +91,9 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
 
     public render() {
         return (
-            <div>
+            <div className="filters">
                 <Button color="info" onClick={this.showChoice}>
+                    <span className='glyphicon glyphicon-filter'></span>
                     Change filters
                 </Button>
                 {this.state.showChoice &&

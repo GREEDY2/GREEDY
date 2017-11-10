@@ -87,6 +87,15 @@ export class NavMenu extends React.Component<{}, State> {
                             }
                             {
                                 this.state.loggedIn ?
+                                    <li>
+                                        <NavLink to={'/statistics'} activeClassName='active'>
+                                            <span className='glyphicon glyphicon-stats'></span>
+                                            Statistics
+                                        </NavLink>
+                                    </li> : null
+                            }
+                            {
+                                this.state.loggedIn ?
                                     <li className='widenSpace' /> : null
                             }
                             {

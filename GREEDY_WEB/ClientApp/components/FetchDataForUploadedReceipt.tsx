@@ -13,6 +13,7 @@ interface State {
     receiptId: number
     showItems: boolean
     itemList: any
+    imageIsUploading: boolean;
 }
 
 export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
@@ -20,7 +21,8 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
     state = {
         receiptId: 0,
         showItems: false,
-        itemList: []
+        itemList: [],
+        imageIsUploading: false
     }
 
     componentDidMount() {
@@ -35,6 +37,10 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
         this.getItemsFromPhoto(this.state.receiptId);
     }
 
+    imageUploadStarted() {
+        this.setState({ imageIsUploading: true });
+    }
+
     getItemsFromPhoto(receiptId) {
         axios.get(Constants.httpRequestBasePath + 'api/GetItemsFromPostedReceipt/' + receiptId,
             {
@@ -44,7 +50,7 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
             }).then(res => {
                 if (res) {
                     const itemList = res.data;
-                    this.setState({ itemList, showItems: true, receiptId });
+                    this.setState({ itemList, showItems: true, receiptId, imageIsUploading: false });
                 }
                 else {
                     alert('Could not read items from the receipt. Can you please take another picture?')
@@ -55,38 +61,41 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
     }
 
     public render() {
+        if (this.state.imageIsUploading) {
+            return <img className="img-responsive loading" src={"Rolling.gif"} />;
+        }
+        if (!this.state.showItems) {
+            return null;
+        }
         return (
             <div>
-                {this.state.showItems ? <div>
-                    <table className="table-hover table itemTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th className="center">Item</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Edit</th>
+                <table className="table-hover table itemTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th className="center">Item</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.itemList.map((item, index) =>
+                            <tr key={item.ItemId}>
+                                <td>{index + 1}</td>
+                                <td>{item.Name}</td>
+                                <td>{item.Price.toFixed(2)}&#8364;</td>
+                                <td>{item.Category}</td>
+                                <td><span
+                                    className="glyphicon glyphicon-pencil readGlyphs"
+                                    color="primary"
+                                    onClick={() =>
+                                        this.child.showEdit(index, item.ItemId, item.Name, item.Price, item.Category)}>
+                                </span></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.itemList.map((item, index) =>
-                                <tr key={item.ItemId}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.Name}</td>
-                                    <td>{item.Price.toFixed(2)}&#8364;</td>
-                                    <td>{item.Category}</td>
-                                    <td><span
-                                        className="glyphicon glyphicon-pencil readGlyphs"
-                                        color="primary"
-                                        onClick={() =>
-                                            this.child.showEdit(index, item.ItemId, item.Name, item.Price, item.Category)}>
-                                    </span></td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div> : null
-                }
+                        )}
+                    </tbody>
+                </table>
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
     }

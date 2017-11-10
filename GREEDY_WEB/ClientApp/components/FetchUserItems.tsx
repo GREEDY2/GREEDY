@@ -108,7 +108,8 @@ export class FetchUserItems extends React.Component<Props, State> {
                         </thead>
                         {this.populateTableWithItems()}
                     </table>
-                </div> : null
+                </div> :
+                    <img className="img-responsive loading" src={"Rolling.gif"} />
                 }
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);

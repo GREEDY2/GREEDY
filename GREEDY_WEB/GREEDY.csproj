@@ -30,6 +30,7 @@
     <None Remove="ClientApp\components\FetchUserItems.tsx" />
     <None Remove="ClientApp\components\ForgotPassword.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
+    <None Remove="ClientApp\components\ItemPriceGraph.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
     <None Remove="ClientApp\components\UserRegistration.tsx" />
     <None Remove="ClientApp\components\UserSettings.tsx" />
@@ -53,6 +54,8 @@
     <TypeScriptCompile Include="ClientApp\components\Constants.tsx" />
     <TypeScriptCompile Include="ClientApp\components\EditItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\FetchUserItems.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\ItemPriceGraph.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\StatisticsPage.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Logo.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ForgotPassword.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />

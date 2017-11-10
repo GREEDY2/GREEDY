@@ -16,11 +16,15 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
         this.child.getItemsFromPhoto(receiptId);
     }
 
+    public imageUploadStarted = () => {
+        this.child.imageUploadStarted();
+    }
+
     public render() {
         return (
             <div>
                 <Logo />
-                <ImageUpload updateReceiptId={this.getReceiptId} />
+                <ImageUpload updateReceiptId={this.getReceiptId} imageUploadStarted={this.imageUploadStarted} />
                 <FetchDataForUploadedReceipt onRef={ref => (this.child = ref)} />
             </div>
         );

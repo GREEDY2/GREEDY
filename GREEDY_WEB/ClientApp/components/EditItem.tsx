@@ -24,6 +24,7 @@ interface State {
 }
 
 export class EditItem extends React.Component<Props, State> {
+    timer: any;
     state = {
         Categories: [],
         ItemId: 0,
@@ -52,6 +53,7 @@ export class EditItem extends React.Component<Props, State> {
 
     componentWillUnmount() {
         this.props.onRef(undefined);
+        clearInterval(this.timer);
     }
 
     saveItemChanges = (e) => {
@@ -79,6 +81,18 @@ export class EditItem extends React.Component<Props, State> {
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    //Doesn't work
+    //TODO: fix disapearence of Item edited message.
+    showEditedMessage = (isSuccess) => {
+        this.setState({ eSuccess: isSuccess, eHappened: true });
+        this.timer = setInterval(() => this.hideEditMessage(), Constants.displayItemChangedMessage);
+    }
+
+    hideEditMessage = () => {
+        this.setState({ eHappened: false });
+        clearInterval(this.timer);
     }
 
     getAllDistinctCategories = () => {

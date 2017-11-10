@@ -5,6 +5,7 @@ import Constants from './Constants';
 
 interface Props {
     updateReceiptId: any;
+    imageUploadStarted: any;
 }
 
 export class ImageUpload extends React.Component<Props> {
@@ -15,6 +16,7 @@ export class ImageUpload extends React.Component<Props> {
         let file = e.target.files[0];
 
         if (file !== undefined) {
+            this.props.imageUploadStarted();
             axios.post(Constants.httpRequestBasePath + 'api/ImageUpload', file, {
                 headers: {
                     'Content-Type': file.type,

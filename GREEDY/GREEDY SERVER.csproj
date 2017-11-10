@@ -153,11 +153,14 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\GraphDataController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataManagers\CategoryManager.cs" />
+    <Compile Include="DataManagers\GraphManager.cs" />
     <Compile Include="DataManagers\ICategoryManager.cs" />
+    <Compile Include="DataManagers\IGraphManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="Migrations\201711061716547_Initial.cs" />
     <Compile Include="Migrations\201711061716547_Initial.designer.cs">
@@ -169,6 +172,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
+    <Compile Include="Models\GraphData.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />
     <Compile Include="ReceiptCreating\IReceiptCreating.cs" />

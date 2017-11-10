@@ -10,6 +10,16 @@
     color: white;
 }
 
+/* Rolling gif styles */
+.loading.img-responsive {
+    margin: 0 auto;
+}
+
+/* Filter button padding at the top*/
+.filters {
+    padding-top: 15px;
+}
+
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
     position: fixed;
