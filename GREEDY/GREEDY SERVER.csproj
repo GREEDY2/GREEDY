@@ -163,6 +163,10 @@
     <Compile Include="Migrations\201711061716547_Initial.designer.cs">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711100145578_RemovedSessions.cs" />
+    <Compile Include="Migrations\201711100145578_RemovedSessions.Designer.cs">
+      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginSession.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
@@ -181,7 +185,6 @@
     <Compile Include="Data\CategoryDataModel.cs" />
     <Compile Include="Data\DataBaseModel.cs" />
     <Compile Include="Data\ItemDataModel.cs" />
-    <Compile Include="Data\LoginSessionDataModel.cs" />
     <Compile Include="Data\ReceiptDataModel.cs" />
     <Compile Include="Data\ShopDataModel.cs" />
     <Compile Include="Data\UserDataModel.cs" />
@@ -215,6 +218,9 @@
     <Compile Include="Startup.cs" />
     <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711100145578_RemovedSessions.resx">
+      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

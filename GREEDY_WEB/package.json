@@ -44,6 +44,7 @@
     "react-stormpath": "^2.0.1",
     "react-transition-group": "https://registry.npmjs.org/react-transition-group/-/react-transition-group-2.2.1.tgz",
     "reactstrap": "^4.8.0",
+    "recharts": "^1.0.0-beta.1",
     "sw-precache": "^5.2.0",
     "sw-toolbox": "^3.6.0",
     "typescript": "2.3.4",
