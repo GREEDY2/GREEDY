@@ -7,6 +7,7 @@ namespace GREEDY.Models
     {
         public float PercentageMatched { get; set; }
         public List<string> LinesOfText { get; set; }
+        public List<Item> ItemsList { get; set; }
         public DateTime Date { get; set; }
         public Shop Shop { get; set; }
     }
