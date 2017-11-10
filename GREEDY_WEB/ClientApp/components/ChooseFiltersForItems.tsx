@@ -9,23 +9,32 @@ import { EditItem } from './EditItem';
 
 interface Props {
     refilter: any
+    resort: any
 }
 
 interface State {
-    showChoice: boolean
+    showFilterChoice: boolean
+    showSortChoice: boolean
+    //f - filter options
     fPriceCompare: string
     fPrice: number
     fCategory: string
+    //s - sort options
+    sSortType: string
+    sByPriceAsc: boolean
     Categories: any
 }
 
 export class ChooseFiltersForItems extends React.Component<Props, State> {
     state = {
-        showChoice: false,
+        showSortChoice: false,
+        showFilterChoice: false,
         fPriceCompare: 'All',
         fPrice: 0,
         fCategory: 'All',
-        Categories: []
+        Categories: [],
+        sSortType: 'No sort',
+        sByPriceAsc: false
     }
 
     constructor() {
@@ -47,18 +56,33 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
             })
     }
 
-    hideChoose = () => {
-        this.setState({ showChoice: false });
+    hideFilterChoice = () => {
+        this.setState({ showFilterChoice: false });
     }
 
-    showChoice = () => {
-        this.setState({ showChoice: true });
+    hideSortChoice = () => {
+        this.setState({ showSortChoice: false });
+    }
+
+    showFilterChoice = () => {
+        this.setState({ showFilterChoice: true });
+    }
+
+    showSortChoice = () => {
+        this.setState({ showSortChoice: true });
     }
 
     saveFilterChanges = (event) => {
         event.preventDefault();
-        this.hideChoose();
+        this.hideFilterChoice();
         this.props.refilter(this.state.fPriceCompare, this.state.fPrice, this.state.fCategory);
+    }
+
+    saveSortChanges = (event) => {
+        event.preventDefault();
+        this.hideSortChoice();
+        //
+        this.props.resort();
     }
 
     fPriceCompareChange = (event) => {
@@ -89,16 +113,79 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
         }
     }
 
+    sSortTypeChange = (event) => {
+        this.setState({ sSortType: event.target.value });
+    }
+
+    sSortByPriceAsc = (event) => {
+        console.log(event.target.value);
+        this.setState({ sByPriceAsc: false });
+    }
+
     public render() {
         return (
-            <div className="filters">
-                <Button color="info" onClick={this.showChoice}>
+            <div className="filters row">
+                <Button color="info" onClick={this.showFilterChoice}>
                     <span className='glyphicon glyphicon-filter'></span>
                     Change filters
                 </Button>
-                {this.state.showChoice &&
-                    <ModalContainer onClose={this.hideChoose} >
-                        <ModalDialog onClose={this.hideChoose}>
+                <Button className="pull-right" color="info" onClick={this.showSortChoice}>
+                    <span className='glyphicon glyphicon-filter'></span>
+                    Sort items
+                </Button>
+                {this.state.showSortChoice &&
+                    <ModalContainer onClose={this.hideSortChoice} >
+                        <ModalDialog onClose={this.hideSortChoice}>
+                            <h3>Select how to sort items</h3>
+                            <Form onSubmit={this.saveSortChanges}>
+                                <FormGroup>
+                                    <Label for="fPrice">Sort by</Label>
+                                    <Input
+                                        type="select"
+                                        name="fPriceCompare"
+                                        id="fPriceCompare"
+                                        defaultValue={this.state.sSortType}
+                                        onChange={this.sSortTypeChange}>
+                                        <option key={0}>No sort</option>
+                                        <option key={1}>Price</option>
+                                        <option key={2}>Name</option>
+                                        <option key={2}>Name</option>
+
+                                    </Input>
+                                    {this.state.sSortType === 'Price' &&
+                                        <div>
+                                            <FormGroup check>
+                                                <Label check>
+                                                    <Input
+                                                        type="radio"
+                                                        name="priceSort"
+                                                        checked="checked"
+                                                    />
+                                                    Highest first
+                                            </Label>
+                                            </FormGroup>
+                                            <FormGroup check>
+                                                <Label check>
+                                                    <Input
+                                                        type="radio"
+                                                        name="priceSort"
+                                                        onChange={this.sSortByPriceAsc}/>
+                                                    Lowest first
+                                            </Label>
+                                            </FormGroup>
+                                        </div>
+                                    }
+                                </FormGroup>
+                                <Button color="success" block>
+                                    Sort
+                            </Button>
+                            </Form>
+                        </ModalDialog>
+                    </ModalContainer >
+                }
+                {this.state.showFilterChoice &&
+                    <ModalContainer onClose={this.hideFilterChoice} >
+                        <ModalDialog onClose={this.hideFilterChoice}>
                             <h3>Select how to filter items</h3>
                             <Form onSubmit={this.saveFilterChanges}>
                                 <FormGroup>
@@ -113,7 +200,6 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
                                         <option key={1}>More than</option>
                                         <option key={2}>Less than</option>
                                         <option key={3}>Equal</option>
-                                        >
                                     </Input>
                                     {this.fPriceType()}
 
@@ -132,7 +218,7 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
                                     </Input>
                                 </FormGroup>
                                 <Button color="success" block>
-                                    Confirm filters
+                                    Filter
                             </Button>
                             </Form>
                         </ModalDialog>

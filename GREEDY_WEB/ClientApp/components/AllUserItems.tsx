@@ -34,10 +34,14 @@ export class AllUserItems extends React.Component<RouteComponentProps<{}>> {
         this.child.updateFilter(filter);
     }
 
+    updateSort = () => {
+
+    }
+
     public render() {
         return (
             <div>
-                <ChooseFiltersForItems refilter={this.updateFilters} />
+                <ChooseFiltersForItems refilter={this.updateFilters} resort={this.updateSort} />
                 <FetchUserItems onRef={ref => (this.child = ref)}/>
             </div>
         );
