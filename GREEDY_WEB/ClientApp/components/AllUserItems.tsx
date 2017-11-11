@@ -34,8 +34,23 @@ export class AllUserItems extends React.Component<RouteComponentProps<{}>> {
         this.child.updateFilter(filter);
     }
 
-    updateSort = () => {
-
+    updateSort = (sortType, byPriceAsc) => {
+        if (sortType === undefined) return;
+        switch (byPriceAsc) {
+            case 'Highest first':
+                byPriceAsc = 1
+                break;
+            case 'Lowest first':
+                byPriceAsc = -1
+                break;
+            default:
+                byPriceAsc = undefined;
+        }
+        let sort = {
+            sortType,
+            byPriceAsc
+        }
+        this.child.updateSort(sort);
     }
 
     public render() {

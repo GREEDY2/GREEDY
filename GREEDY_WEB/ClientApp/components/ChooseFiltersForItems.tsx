@@ -21,7 +21,7 @@ interface State {
     fCategory: string
     //s - sort options
     sSortType: string
-    sByPriceAsc: boolean
+    sByPriceAsc: string
     Categories: any
 }
 
@@ -34,7 +34,7 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
         fCategory: 'All',
         Categories: [],
         sSortType: 'No sort',
-        sByPriceAsc: false
+        sByPriceAsc: 'Highest first'
     }
 
     constructor() {
@@ -81,8 +81,7 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
     saveSortChanges = (event) => {
         event.preventDefault();
         this.hideSortChoice();
-        //
-        this.props.resort();
+        this.props.resort(this.state.sSortType, this.state.sByPriceAsc);
     }
 
     fPriceCompareChange = (event) => {
@@ -118,8 +117,7 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
     }
 
     sSortByPriceAsc = (event) => {
-        console.log(event.target.value);
-        this.setState({ sByPriceAsc: false });
+        this.setState({ sByPriceAsc: event.target.value });
     }
 
     public render() {
@@ -139,41 +137,28 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
                             <h3>Select how to sort items</h3>
                             <Form onSubmit={this.saveSortChanges}>
                                 <FormGroup>
-                                    <Label for="fPrice">Sort by</Label>
+                                    <Label for="sSort">Sort by</Label>
                                     <Input
                                         type="select"
-                                        name="fPriceCompare"
-                                        id="fPriceCompare"
+                                        name="sSortType"
+                                        id="sSortType"
                                         defaultValue={this.state.sSortType}
                                         onChange={this.sSortTypeChange}>
                                         <option key={0}>No sort</option>
                                         <option key={1}>Price</option>
                                         <option key={2}>Name</option>
-                                        <option key={2}>Name</option>
-
+                                        <option key={3}>Category</option>
                                     </Input>
                                     {this.state.sSortType === 'Price' &&
-                                        <div>
-                                            <FormGroup check>
-                                                <Label check>
-                                                    <Input
-                                                        type="radio"
-                                                        name="priceSort"
-                                                        checked="checked"
-                                                    />
-                                                    Highest first
-                                            </Label>
-                                            </FormGroup>
-                                            <FormGroup check>
-                                                <Label check>
-                                                    <Input
-                                                        type="radio"
-                                                        name="priceSort"
-                                                        onChange={this.sSortByPriceAsc}/>
-                                                    Lowest first
-                                            </Label>
-                                            </FormGroup>
-                                        </div>
+                                        <Input
+                                            type="select"
+                                            name="sByPrice"
+                                            id="sByPrice"
+                                            defaultValue={this.state.sByPriceAsc}
+                                            onChange={this.sSortByPriceAsc}>
+                                            <option key={0}>Highest first</option>
+                                            <option key={1}>Lowest first</option>
+                                        </Input>
                                     }
                                 </FormGroup>
                                 <Button color="success" block>

@@ -13,6 +13,7 @@ interface State {
     showItems: boolean
     itemList: any
     filter: any
+    sort: any
 }
 
 export class FetchUserItems extends React.Component<Props, State> {
@@ -20,7 +21,8 @@ export class FetchUserItems extends React.Component<Props, State> {
     state = {
         showItems: false,
         itemList: [],
-        filter: undefined
+        filter: undefined,
+        sort: undefined
     }
 
     componentWillMount() {
@@ -37,6 +39,10 @@ export class FetchUserItems extends React.Component<Props, State> {
 
     updateFilter(filter) {
         this.setState({ filter });
+    }
+
+    updateSort(sort) {
+        this.setState({ sort });
     }
 
     updateList = () => {
@@ -61,6 +67,22 @@ export class FetchUserItems extends React.Component<Props, State> {
         })
     }
 
+    sort = (a, b) => {
+        switch (this.state.sort.sortType) {
+            case 'Price':
+                if (a.Price * this.state.sort.byPriceAsc > b.Price * this.state.sort.byPriceAsc) return -1;
+                return 1;
+            case 'Name':
+                if (a.Name > b.Name) return 1;
+                return -1;
+            case 'Category':
+                if (a.Category > b.Category) return -1;
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
     populateTableWithItems() {
         let itemList = this.state.itemList;
         //This filters the items, if new filters for data are added need to add logic here.
@@ -72,6 +94,9 @@ export class FetchUserItems extends React.Component<Props, State> {
             if (this.state.filter.category !== 'All') {
                 itemList = itemList.filter(x => x.Category === this.state.filter.category);
             }
+        }
+        if (this.state.sort !== undefined) {
+            itemList.sort(this.sort);
         }
         return (
             <tbody>
