@@ -7,6 +7,7 @@ import { EditItem } from './EditItem';
 
 interface Props {
     onRef: any
+    history: any
 }
 
 interface State {
@@ -62,8 +63,12 @@ export class FetchUserItems extends React.Component<Props, State> {
             else {
                 //TODO: display that the user has no items.
             }
-        }).catch(e => {
-            console.log(e);
+            }).catch(error => {
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    (this.props as any).history.push("/");
+                }
+                console.log(error);
         })
     }
 

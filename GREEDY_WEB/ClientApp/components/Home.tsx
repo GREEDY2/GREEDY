@@ -24,7 +24,7 @@ export class Home extends React.Component<RouteComponentProps<{}>> {
         return (
             <div>
                 <Logo />
-                <ImageUpload updateReceiptId={this.getReceiptId} imageUploadStarted={this.imageUploadStarted} />
+                <ImageUpload updateReceiptId={this.getReceiptId} imageUploadStarted={this.imageUploadStarted} history={this.props.history} />
                 <FetchDataForUploadedReceipt onRef={ref => (this.child = ref)} />
             </div>
         );

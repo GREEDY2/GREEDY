@@ -12,7 +12,7 @@ export class StatisticsPage extends React.Component<RouteComponentProps<{}>> {
         return (
             <div>
                 <Logo />
-                <ItemPriceGraph />
+                <ItemPriceGraph history={this.props.history} />
             </div>
         );
     }

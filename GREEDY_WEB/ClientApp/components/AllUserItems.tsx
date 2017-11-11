@@ -57,7 +57,7 @@ export class AllUserItems extends React.Component<RouteComponentProps<{}>> {
         return (
             <div>
                 <ChooseFiltersForItems refilter={this.updateFilters} resort={this.updateSort} />
-                <FetchUserItems onRef={ref => (this.child = ref)}/>
+                <FetchUserItems onRef={ref => (this.child = ref)} history={this.props.history} />
             </div>
         );
     }

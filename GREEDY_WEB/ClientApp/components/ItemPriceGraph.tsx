@@ -4,13 +4,17 @@ import { ComposedChart, Area, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid,
 import { Button, ButtonGroup } from 'reactstrap';
 import Constants from './Constants';
 
+interface Props {
+    history: any
+}
+
 interface State {
     graphData: any;
     showGraphs: boolean;
     time: number;
 }
 
-export class ItemPriceGraph extends React.Component {
+export class ItemPriceGraph extends React.Component<Props, State> {
     state = {
         graphData: [],
         showGraphs: false,
@@ -33,8 +37,14 @@ export class ItemPriceGraph extends React.Component {
             }).then(response => {
                 let graphData = response.data;
                 this.setState({ graphData, showGraphs: true });
-            });
+            }).catch(error => {
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    (this.props as any).history.push("/");
+                }
+            })
     }
+
 
     /*onTimeButtonClick(seconds) {
         if (seconds < 1)
@@ -63,7 +73,8 @@ export class ItemPriceGraph extends React.Component {
                                 <Line name="Purchased items price" type='monotone' dot={false} dataKey='ItemPrice' stroke='#8884d8' strokeWidth={2} />
                             </LineChart>
                         </div>
-                    </div> : null
+                    </div> :
+                    <img className="img-responsive loading" src={"Rolling.gif"} />
                 }
             </div>)
     }

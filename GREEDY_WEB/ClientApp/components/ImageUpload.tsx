@@ -6,6 +6,7 @@ import Constants from './Constants';
 interface Props {
     updateReceiptId: any;
     imageUploadStarted: any;
+    history: any;
 }
 
 export class ImageUpload extends React.Component<Props> {
@@ -22,14 +23,18 @@ export class ImageUpload extends React.Component<Props> {
                     'Content-Type': file.type,
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
                 }
-            }).then(res => {
-                if (res) {
-                    this.props.updateReceiptId(res.data);
+            }).then(response => {
+                if (response) {
+                    this.props.updateReceiptId(response.data);
                 }
                 else {
                     //TODO: message for user to upload again, because items not read
                 }
                 }).catch(error => {
+                    if (error.response.status == 401) {
+                        localStorage.removeItem('auth');
+                        (this.props as any).history.push("/");
+                    }
                 //TODO: message for user that try again later because there is a problem with the server
                 console.log(error);
             });
