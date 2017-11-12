@@ -4,6 +4,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
+using System.Linq;
 
 namespace GREEDY.DataManagers
 {
@@ -37,7 +38,7 @@ namespace GREEDY.DataManagers
                         {
                             Name = previous + match1.Groups[1].Value,
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(match2.Groups[1].Value + match1.Groups[1].Value)
+                            Category = ""
                         });
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
@@ -48,7 +49,7 @@ namespace GREEDY.DataManagers
                         {
                             Name = match1.Groups[1].Value,
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
+                            Category = ""
                         });
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
@@ -59,6 +60,14 @@ namespace GREEDY.DataManagers
                     previous = receipt.LinesOfText[i];
                 }
             }
+            List<ItemInfo> NewData = new List<ItemInfo>();
+            foreach (Item x in itemList)
+                NewData.Add(new ItemInfo("", x.Name, 0));
+            NewData = ItemCategorization.CategorizeAllItems(NewData);
+            foreach (Item x in itemList)
+                foreach (ItemInfo inf in NewData)
+                    if (inf.Text == x.Name)
+                        x.Category = inf.Category;
 
             //working with text
             previous = String.Join(Environment.NewLine, sublist);
@@ -76,10 +85,18 @@ namespace GREEDY.DataManagers
                     {
                         Name = m.Groups[1].Value.Replace("\n", string.Empty),
                         Price = decimal.Parse(m.Groups[2].Value.Replace(".", ",")),
-                        Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                        Category = ""
                     });
                 }
             }
+            NewData = new List<ItemInfo>();
+            foreach (Item x in itemList)
+                NewData.Add(new ItemInfo("", x.Name, 0));
+            NewData = ItemCategorization.CategorizeAllItems(NewData);
+            foreach (Item x in itemList)
+                foreach (ItemInfo inf in NewData)
+                    if (inf.Text == x.Name)
+                        x.Category = inf.Category;
             //TODO: if no item was created. Need to create a massage for user
             return itemList;
         }

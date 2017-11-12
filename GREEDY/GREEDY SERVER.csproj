@@ -167,6 +167,7 @@
     <Compile Include="ReceiptCreating\IDataConverter.cs" />
     <Compile Include="DataManagers\IItemManager.cs" />
     <Compile Include="DataManagers\IUserManager.cs" />
+    <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />
     <Compile Include="ReceiptCreating\ReceiptCreating.cs" />
     <Compile Include="DataManagers\UserManager.cs" />
     <Compile Include="Data\CategoryDataModel.cs" />
