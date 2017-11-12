@@ -2,6 +2,7 @@
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import Constants from './Constants';
+import { Alert } from './Alert';
 
 interface Props {
     updateReceiptId: any;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export class ImageUpload extends React.Component<Props> {
+    child: any;
     _handleImageChange(e) {
         e.preventDefault();
 
@@ -17,26 +19,27 @@ export class ImageUpload extends React.Component<Props> {
         let file = e.target.files[0];
 
         if (file !== undefined) {
-            this.props.imageUploadStarted();
+            this.props.imageUploadStarted(true);
             axios.post(Constants.httpRequestBasePath + 'api/ImageUpload', file, {
                 headers: {
                     'Content-Type': file.type,
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
                 }
             }).then(response => {
-                if (response) {
+                if (response.data) {
                     this.props.updateReceiptId(response.data);
                 }
                 else {
-                    //TODO: message for user to upload again, because items not read
+                    this.props.imageUploadStarted(false);
+                    this.child.showAlert("Unable to find any items. Please retake the picture", "info");
                 }
                 }).catch(error => {
                     if (error.response.status == 401) {
                         localStorage.removeItem('auth');
                         (this.props as any).history.push("/");
                     }
-                //TODO: message for user that try again later because there is a problem with the server
-                console.log(error);
+                    this.props.imageUploadStarted(false);
+                    this.child.showAlert("Something went wrong, please try again later", "error");
             });
         }
     }
@@ -51,6 +54,7 @@ export class ImageUpload extends React.Component<Props> {
                         accept="image/*"
                         onChange={(e) => this._handleImageChange(e)} />
                 </label>
+                <Alert onRef={ref => (this.child = ref)} />
             </div>
         )
     }

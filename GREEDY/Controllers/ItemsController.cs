@@ -31,6 +31,10 @@ namespace GREEDY.Controllers
                 try
                 {
                     var list = _itemManager.GetItemsOfSingleReceipt(id);
+                    if (list == null || list.Count == 0)
+                    {
+                        return HelperClass.JsonHttpResponse<Object>(null);
+                    }
                     return HelperClass.JsonHttpResponse(list);
                 }
                 catch (NullReferenceException)

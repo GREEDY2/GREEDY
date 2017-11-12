@@ -63,8 +63,8 @@ export class ItemPriceGraph extends React.Component<Props, State> {
                             <h3 className="graphTitles h3">Purchased Items</h3>
                             <LineChart width={450} height={150} data={this.state.graphData}>
                                 {
-                                    this.state.time < 3600 * 12 ?
-                                        <XAxis dataKey="Time" /> :
+                                    /*this.state.time < 3600 * 12 ?
+                                        <XAxis dataKey="Time" /> :*/
                                         <XAxis dataKey="FullDateTimeString" />
                                 }
                                 <Tooltip />

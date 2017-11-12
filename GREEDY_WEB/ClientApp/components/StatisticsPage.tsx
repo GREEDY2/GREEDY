@@ -2,6 +2,7 @@
 import { RouteComponentProps } from 'react-router';
 import { Logo } from './Logo';
 import { ItemPriceGraph } from './ItemPriceGraph';
+import { Alert } from './Alert';
 
 export class StatisticsPage extends React.Component<RouteComponentProps<{}>> {
     constructor() {

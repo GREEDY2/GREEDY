@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Alert.tsx" />
     <None Remove="ClientApp\components\AllUserItems.tsx" />
     <None Remove="ClientApp\components\Authorization.tsx" />
     <None Remove="ClientApp\components\ChangeEmail.tsx" />
@@ -47,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\Alert.tsx" />
     <TypeScriptCompile Include="ClientApp\components\AllUserItems.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ChangeEmail.tsx" />

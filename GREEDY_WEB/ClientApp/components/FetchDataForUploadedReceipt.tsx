@@ -4,6 +4,7 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from './Constants';
 import { EditItem } from './EditItem';
+import { Alert } from './Alert';
 
 interface Props {
     onRef: any
@@ -37,8 +38,13 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
         this.getItemsFromPhoto(this.state.receiptId);
     }
 
-    imageUploadStarted() {
-        this.setState({ imageIsUploading: true });
+    imageUploadStarted(bool) {
+        if (bool) {
+            this.setState({ imageIsUploading: true });
+        }
+        else {
+            this.setState({ imageIsUploading: false });
+        }
     }
 
     getItemsFromPhoto(receiptId) {
@@ -48,15 +54,17 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
                 }
             }).then(res => {
-                if (res) {
+                if (res.data) {
                     const itemList = res.data;
                     this.setState({ itemList, showItems: true, receiptId, imageIsUploading: false });
                 }
                 else {
-                    alert('Could not read items from the receipt. Can you please take another picture?')
+                    this.setState({ imageIsUploading: false, showItems: false });
+                    this.child.showAlert("Unable to find any items. Please retake the picture", "info");
                 }
-            }).catch(e => {
-                console.log(e);
+            }).catch(error => {
+                this.setState({ imageIsUploading: false, showItems: false});
+                this.child.showAlert("Something went wrong, please try again later", "error");
             })
     }
 
@@ -65,7 +73,7 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
             return <img className="img-responsive loading" src={"Rolling.gif"} />;
         }
         if (!this.state.showItems) {
-            return null;
+            return <Alert onRef = { ref => (this.child = ref) } />
         }
         return (
             <div>
