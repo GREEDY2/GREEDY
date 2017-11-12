@@ -30,10 +30,10 @@ namespace GREEDY.DataManagers
                 .FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
             if (userDataModel == null)
             {
-                throw new System.Exception(Properties.Resources.UserNotFound);
+                throw new Exception(Properties.Resources.UserNotFound);
             }
 
-            ReceiptDataModel receiptDataModel = new ReceiptDataModel() { Shop = shopDataModel, User = userDataModel, Total = 0 };
+            ReceiptDataModel receiptDataModel = new ReceiptDataModel() { Date = receipt.Date, Shop = shopDataModel, User = userDataModel, Total = 0 };
             receiptDataModel.Items = new List<ItemDataModel>();
             foreach (Item item in receipt.ItemsList)
             {
