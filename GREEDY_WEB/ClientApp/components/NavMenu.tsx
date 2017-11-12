@@ -3,28 +3,32 @@ import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Constants from './Constants';
+import { GetCredentialsFromCookies, RemoveCredentialsFromCookies } from './HelperClass';
 
-interface IState {
+interface State {
     loggedIn: boolean;
     username: string;
 }
 
-export class NavMenu extends React.Component<{}, {}> {
+export class NavMenu extends React.Component<{}, State> {
     timer: any;
-    state = { loggedIn: false }
+    state = {
+        loggedIn: false,
+        username: ""
+    }
 
     componentDidMount() {
         this.timer = setInterval(() => this.checkIfLoggedIn(), Constants.checkIfUserlogedInTimer);
     }
 
     checkIfLoggedIn = () => {
-        const cookies = new Cookies();
-        let loggedIn = false;
-        let username = cookies.get(Constants.cookieUsername);
-        let sessionId = cookies.get(Constants.cookieSessionId);
-        if (username && sessionId)
-            loggedIn = true;
-        this.setState({ loggedIn, username });
+        let credentials = GetCredentialsFromCookies();
+        if (credentials.Username && credentials.SessionId) {
+            this.setState({ loggedIn: true, username: credentials.Username });
+        }
+        else {
+            this.setState({ loggedIn: false });
+        }
     }
 
     componentWillUnmount() {
@@ -32,9 +36,7 @@ export class NavMenu extends React.Component<{}, {}> {
     }
 
     handleLogout = () => {
-        const cookies = new Cookies();
-        cookies.remove(Constants.cookieUsername, { path: '/' });
-        cookies.remove(Constants.cookieSessionId, { path: '/' });
+        RemoveCredentialsFromCookies();
     }
 
     public render() {
@@ -62,38 +64,29 @@ export class NavMenu extends React.Component<{}, {}> {
                             data-target=".navbar-collapse">
                             <li>
                                 <NavLink to={'/'} exact activeClassName='active'>
-                                    <span className='glyphicon glyphicon-home'></span> 
+                                    <span className='glyphicon glyphicon-home'></span>
                                     Home
                                 </NavLink>
                             </li>
                             {
-                                (this.state as any).loggedIn ?
-                                    <li>
-                                        <NavLink to={'/counter'} activeClassName='active'>
-                                            <span className='glyphicon glyphicon-education'></span>
-                                            Counter
-                                        </NavLink>
-                                    </li> : null
-                            }
-                            {
-                                (this.state as any).loggedIn ?
+                                this.state.loggedIn ?
                                     <li>
                                         <NavLink to={'/fetchdata'} activeClassName='active'>
                                             <span className='glyphicon glyphicon-th-list'></span>
-                                            Fetch data
+                                            All my items
                                         </NavLink>
                                     </li> : null
                             }
                             {
-                                (this.state as any).loggedIn ?
+                                this.state.loggedIn ?
                                     <li className='widenSpace' /> : null
                             }
                             {
-                                (this.state as any).loggedIn ?
+                                this.state.loggedIn ?
                                     <li>
                                         <NavLink to={'/'} activeClassName='inactive'>
                                             <span className='glyphicon glyphicon-user' />
-                                            Hello, {(this.state as any).username}!
+                                            Hello, {this.state.username}!
                                         </NavLink>
                                         <NavLink
                                             to={'/'}
