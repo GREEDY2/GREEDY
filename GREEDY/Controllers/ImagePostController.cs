@@ -41,7 +41,6 @@ namespace GREEDY.Controllers
             
             if (await isAuthenticated)
             {
-                //TODO: Need to get shop
                 var receiptId = _itemManager.AddItems(receipt, username);
                 return HelperClass.JsonHttpResponse(receiptId);
                 //TODO: create an error if something goes wrong
