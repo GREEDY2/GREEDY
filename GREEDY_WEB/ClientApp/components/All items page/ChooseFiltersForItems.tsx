@@ -128,8 +128,8 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
                     Change filters
                 </Button>
                 <Button className="pull-right" color="info" onClick={this.showSortChoice}>
-                    <span className='glyphicon glyphicon-filter'></span>
                     Sort items
+                    <span className='glyphicon glyphicon-sort-by-attributes'></span>
                 </Button>
                 {this.state.showSortChoice &&
                     <ModalContainer onClose={this.hideSortChoice} >

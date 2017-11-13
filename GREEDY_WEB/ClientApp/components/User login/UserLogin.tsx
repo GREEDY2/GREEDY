@@ -9,6 +9,9 @@ import { Logo } from '../Shared/Logo';
 import Constants from '../Shared/Constants';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
+    state = {
+        isLoggingIn: false
+    }
 
     onFormSubmit = (e, next) => {
         e.preventDefault();
@@ -29,6 +32,8 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
             return next(new Error('Password is too long.'));
         }
 
+        this.setState({ isLoggingIn: true });
+
         let credentials = {}
         credentials["username"] = data.username;
         credentials["password"] = data.password;
@@ -39,9 +44,12 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                     localStorage.setItem("auth", res);
                     (this.props as any).history.push("/");
                 }
-                else
+                else {
+                    this.setState({ isLoggingIn: false });
                     return next(new Error('Failed to login. Make sure your username and/or password are correct'));
+                }
             }).catch(error => {
+                this.setState({ isLoggingIn: false });
                 console.log(error);
             });
     }
@@ -101,18 +109,19 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                                 <p className="alert alert-danger" data-spIf="form.error">
                                                     <span data-spBind="form.errorMessage" />
                                                 </p>
-                                                <Button
-                                                    className="col-xs-12 col-sm-12"
-                                                    type="submit"
-                                                    color="btn btn-primary buttonText">
-                                                    Login
+                                                {this.state.isLoggingIn ?
+                                                    <img className="img-responsive loading" src={"Rolling.gif"} /> :
+                                                    <Button
+                                                        className="col-xs-12 col-sm-12"
+                                                        type="submit"
+                                                        color="btn btn-primary buttonText">
+                                                        Login
                                                     </Button>
+                                                }
                                                 <Link to="/registration"
                                                     className="pull-right marginTop loginLinkButton">
                                                     Don't have an account? Register
                                                     </Link>
-                                                {
-                                                }
                                             </div>
                                         </div>
                                         <div className="form-group col-sm-offset-4 col-sm-12 text-center facebook">
