@@ -24,11 +24,6 @@ namespace GREEDY.DataManagers
             var items = context.Set<ItemDataModel>()
                 .Where(x => x.Receipt.User.Username == username).ToList();
 
-            /*int entriesCount = items.Count;
-            if (entriesCount > 100)
-            {
-                items = items.TakeEveryNth(entriesCount / 100);
-            }*/
             var graphDataList = items.Select(x => new GraphData()
             {
                 ItemPrice = x.Price,

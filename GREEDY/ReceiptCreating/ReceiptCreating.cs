@@ -52,9 +52,6 @@ namespace GREEDY.DataManagers
             Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
             if (match.Success)
             {
-                //TODO: FIX THIS ASAP
-                //THIS DOESN't work. The regex finds the correct date, but the parse fails
-                //Can't do anymore work with graphs until this is fixed.
                 return DateTime.Parse(match.Groups[1].Value, Thread.CurrentThread.CurrentCulture);
             }
             else

@@ -100,7 +100,8 @@ namespace GREEDY.Controllers
             var token = Request.Headers.Authorization.Parameter;
             var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
             string jsonContent = await Request.Content.ReadAsStringAsync();
-            var passwordAndEmailObject = JsonConvert.DeserializeAnonymousType(jsonContent, new { password = "", email = ""});
+            var passwordAndEmailObject = JsonConvert.DeserializeAnonymousType(jsonContent, 
+                new { password = "", email = ""});
             string password = passwordAndEmailObject.password;
             string newEmail = passwordAndEmailObject.email;
             if (await isAuthenticated)
@@ -150,7 +151,8 @@ namespace GREEDY.Controllers
             var token = Request.Headers.Authorization.Parameter;
             var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
             string jsonContent = await Request.Content.ReadAsStringAsync();
-            var passwordAndNewPasswordObject = JsonConvert.DeserializeAnonymousType(jsonContent, new { password = "", newpassword = "" });
+            var passwordAndNewPasswordObject = JsonConvert.DeserializeAnonymousType(jsonContent, 
+                new { password = "", newpassword = "" });
             string password = passwordAndNewPasswordObject.password;
             string newPassword = passwordAndNewPasswordObject.newpassword;
             if (await isAuthenticated)

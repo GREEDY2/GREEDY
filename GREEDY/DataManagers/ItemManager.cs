@@ -33,11 +33,25 @@ namespace GREEDY.DataManagers
                 throw new Exception(Properties.Resources.UserNotFound);
             }
 
-            ReceiptDataModel receiptDataModel = new ReceiptDataModel() { Date = receipt.Date, Shop = shopDataModel, User = userDataModel, Total = 0 };
+            ReceiptDataModel receiptDataModel = new ReceiptDataModel()
+            {
+                Date = receipt.Date,
+                Shop = shopDataModel,
+                User = userDataModel,
+                Total = 0
+            };
+
             receiptDataModel.Items = new List<ItemDataModel>();
             foreach (Item item in receipt.ItemsList)
             {
-                receiptDataModel.Items.Add(new ItemDataModel() { Receipt = receiptDataModel, Price = item.Price, Name = item.Name, Category = item.Category });
+                receiptDataModel.Items.Add(new ItemDataModel()
+                {
+                    Receipt = receiptDataModel,
+                    Price = item.Price,
+                    Name = item.Name,
+                    Category = item.Category
+                });
+
                 receiptDataModel.Total += item.Price;
             }
             context.Set<ReceiptDataModel>().Add(receiptDataModel);
