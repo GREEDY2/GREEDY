@@ -2,6 +2,8 @@
 using GREEDY.DataManagers;
 using GREEDY.Models;
 using System.Drawing;
+using System;
+using GREEDY.ReceiptCreating;
 
 namespace GREEDY.Services
 {
@@ -10,6 +12,7 @@ namespace GREEDY.Services
         private readonly IImageFormating _imageFormating;
         private readonly IReceiptCreating _receiptCreating;
         private readonly IDataConverter _dataConverter;
+        private static AutoCorrect autoCorrect => new AutoCorrect();
 
         public ReceiptService()
         {
@@ -32,6 +35,7 @@ namespace GREEDY.Services
                 image = _imageFormating.FormatImage(image);
                 var receipt = _receiptCreating.FullReceiptCreating(image);
                 receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
+                receipt.ItemsList = AutoCorrect(receipt.ItemsList);
                 return receipt;
             }
             else

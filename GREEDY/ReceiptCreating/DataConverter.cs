@@ -19,7 +19,7 @@ namespace GREEDY.DataManagers
             Thread.CurrentThread.CurrentCulture = customCulture;
 
             //working with first item
-            string pattern = @"([A-Za-z]{2}[A-Za-z]+.+)(\d+[\.\,]\d{2})(.[A|E|B|F|N|C]{1}(\b|\.))";
+            string pattern = @"([\p{L}]{2}[\p{L}]+.+)(\d+[\.\,]\d{2})(.[A|E|B|F|N|C]{1}(\b|\.))";
             List<Item> itemList = new List<Item>();
             string previous = String.Empty;
             List<string> sublist = new List<string>();
