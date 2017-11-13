@@ -5,7 +5,7 @@ import DocumentTitle from 'react-document-title';
 import { RegistrationForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 
 interface IState {
     isAccountCreated: any;
@@ -19,43 +19,43 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
         var data = e.data;
 
         if (data.username.length < Constants.minUsernameLength) {
-            return next(new Error('Username must be longer than ' + Constants.minUsernameLength + ' characters.'));
+            return next(new Error('Username must be longer than ' + Constants.minUsernameLength + ' characters'));
         }
 
         if (data.email.length < 1) {
-            return next(new Error('Email must not be empty.'));
+            return next(new Error('Email must not be empty'));
         }
 
         var regex = Constants.emailRegex;
         if (!regex.test(data.email)) {
-            return next(new Error('Wrong email.'));
+            return next(new Error('Incorrect email'));
         }
 
         if (data.givenName.length < 1) {
-            return next(new Error('Fullname must not be empty.'));
+            return next(new Error('Fullname must not be empty'));
         }
 
         if (data.givenName.length > Constants.maxAnyInputLength * 2) {
-            return next(new Error('Fullname is too long.'));
+            return next(new Error('Fullname is too long'));
         }
 
         if (data.username.length > Constants.maxAnyInputLength) {
-            return next(new Error('Username is too long.'));
+            return next(new Error('Username is too long'));
         }
 
         if (data.email.length > Constants.maxAnyInputLength) {
-            return next(new Error('Email is too long.'));
+            return next(new Error('Email is too long'));
         }
 
         if (data.password.length < Constants.minPasswordLength) {
-            return next(new Error('Password must longer than ' + Constants.minPasswordLength + ' characters.'));
+            return next(new Error('Password must longer than ' + Constants.minPasswordLength + ' characters'));
         }
         if (data.password.length > Constants.maxAnyInputLength) {
-            return next(new Error('Password is too long.'));
+            return next(new Error('Password is too long'));
         }
 
-        if (data.password != data.surname) {
-            return next(new Error('Passwords do not match.'));
+        if (data.password !== data.surname) {
+            return next(new Error('Passwords do not match'));
         }
 
         let credentials = {}
@@ -64,7 +64,7 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
         credentials["fullname"] = data.givenName;
         credentials["email"] = data.email;
 
-        axios.put(Constants.httpRequestBasePath + 'api/Registration', credentials)
+        axios.post(Constants.httpRequestBasePath + 'api/Registration', credentials)
             .then(response => {
                 let res = response.data;
                 if (res) {
@@ -73,7 +73,7 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
                 else
                     return next(new Error('Username or email is already in use'));
             }).catch(error => {
-                console.log(error);
+                return next(new Error('Unable to register new users at this time, try again later'))
             });
     }
 
@@ -102,23 +102,9 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
                                         <div className="form-horizontal">
                                             <div className="form-group">
                                                 <label
-                                                    htmlFor="spUsername"
-                                                    className="col-xs-12 col-sm-4 control-label">
-                                                    Username
-                                                    </label>
-                                                <div className="col-xs-12 col-sm-4">
-                                                    <input
-                                                        className="form-control"
-                                                        id="spUsername"
-                                                        placeholder="Username"
-                                                        name="username" />
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label
                                                     htmlFor="spEmail"
                                                     className="col-xs-12 col-sm-4 control-label">
-                                                    Email
+                                                    Email*
                                                     </label>
                                                 <div className="col-xs-12 col-sm-4">
                                                     <input
@@ -132,7 +118,7 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
                                                 <label
                                                     htmlFor="spFullname"
                                                     className="col-xs-12 col-sm-4 control-label">
-                                                    Fullname
+                                                    Fullname*
                                                     </label>
                                                 <div className="col-xs-12 col-sm-4">
                                                     <input
@@ -144,9 +130,23 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
                                             </div>
                                             <div className="form-group">
                                                 <label
+                                                    htmlFor="spUsername"
+                                                    className="col-xs-12 col-sm-4 control-label">
+                                                    Username*
+                                                    </label>
+                                                <div className="col-xs-12 col-sm-4">
+                                                    <input
+                                                        className="form-control"
+                                                        id="spUsername"
+                                                        placeholder="Username"
+                                                        name="username" />
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label
                                                     htmlFor="spPassword"
                                                     className="col-xs-12 col-sm-4 control-label">
-                                                    Password
+                                                    Password*
                                                     </label>
                                                 <div className="col-xs-12 col-sm-4">
                                                     <input
@@ -161,7 +161,7 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
                                                 <label
                                                     htmlFor="spPasswordRepeat"
                                                     className="col-xs-12 col-sm-4 control-label">
-                                                    Repeat password
+                                                    Repeat password*
                                                     </label>
                                                 <div className="col-xs-12 col-sm-4">
                                                     <input
@@ -186,6 +186,9 @@ export class UserRegistration extends React.Component<RouteComponentProps<{}>, I
                                                         Register
                                                         </Button>
                                                 </div>
+                                            </div>
+                                            <div className="col-sm-offset-4 col-sm-4">
+                                                <p>* Required fields </p>
                                             </div>
                                         </div>
                                     </div>

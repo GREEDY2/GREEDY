@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import axios from 'axios';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 
 interface Props {
     onRef: any;
@@ -24,6 +24,7 @@ interface State {
 }
 
 export class EditItem extends React.Component<Props, State> {
+    timer: any;
     state = {
         Categories: [],
         ItemId: 0,
@@ -52,6 +53,7 @@ export class EditItem extends React.Component<Props, State> {
 
     componentWillUnmount() {
         this.props.onRef(undefined);
+        clearInterval(this.timer);
     }
 
     saveItemChanges = (e) => {
@@ -67,8 +69,12 @@ export class EditItem extends React.Component<Props, State> {
             Price: this.state.ItemPrice,
             Category: this.state.ItemCategory
         }
-        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item)
-            .then(response => {
+        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 this.setState({ eSuccess: true, eHappened: true });
                 this.props.updateListAfterChange();
@@ -77,9 +83,18 @@ export class EditItem extends React.Component<Props, State> {
             });
     }
 
+    //TODO: fix disapearence of Item edited message.
+    showEditedMessage = (isSuccess) => {
+        this.setState({ eSuccess: isSuccess, eHappened: true });
+    }
+
     getAllDistinctCategories = () => {
-        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories")
-            .then(response => {
+        axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories",
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
                 let res = response.data;
                 this.setState({ Categories: res });
             }).catch(error => {

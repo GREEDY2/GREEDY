@@ -2,19 +2,19 @@
 import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import Constants from './Constants';
-import { EditItem } from './EditItem';
-import { GetCredentialsFromCookies } from './HelperClass';
+import Constants from '../Shared/Constants';
+import { EditItem } from '../Photograph page/EditItem';
 
 interface Props {
-    username: string
     onRef: any
+    history: any
 }
 
 interface State {
     showItems: boolean
     itemList: any
     filter: any
+    sort: any
 }
 
 export class FetchUserItems extends React.Component<Props, State> {
@@ -22,7 +22,8 @@ export class FetchUserItems extends React.Component<Props, State> {
     state = {
         showItems: false,
         itemList: [],
-        filter: undefined
+        filter: undefined,
+        sort: undefined
     }
 
     componentWillMount() {
@@ -41,14 +42,18 @@ export class FetchUserItems extends React.Component<Props, State> {
         this.setState({ filter });
     }
 
-    updateList = () => {
-        this.getAllUserItems(this.props.username);
+    updateSort(sort) {
+        this.setState({ sort });
     }
 
-    getAllUserItems(username) {
+    updateList = () => {
+        this.getAllUserItems();
+    }
+
+    getAllUserItems() {
         axios.get(Constants.httpRequestBasePath + 'api/GetAllUserItems', {
             headers: {
-                'Authorization': 'Basic ' + this.props.username
+                'Authorization': 'Bearer ' + localStorage.getItem("auth")
             }
         }).then(res => {
             if (res) {
@@ -58,9 +63,29 @@ export class FetchUserItems extends React.Component<Props, State> {
             else {
                 //TODO: display that the user has no items.
             }
-        }).catch(e => {
-            console.log(e);
+            }).catch(error => {
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    (this.props as any).history.push("/");
+                }
+                console.log(error);
         })
+    }
+
+    sort = (a, b) => {
+        switch (this.state.sort.sortType) {
+            case 'Price':
+                if (a.Price * this.state.sort.byPriceAsc > b.Price * this.state.sort.byPriceAsc) return -1;
+                return 1;
+            case 'Name':
+                if (a.Name > b.Name) return 1;
+                return -1;
+            case 'Category':
+                if (a.Category > b.Category) return -1;
+                return 1;
+            default:
+                return 0;
+        }
     }
 
     populateTableWithItems() {
@@ -74,6 +99,9 @@ export class FetchUserItems extends React.Component<Props, State> {
             if (this.state.filter.category !== 'All') {
                 itemList = itemList.filter(x => x.Category === this.state.filter.category);
             }
+        }
+        if (this.state.sort !== undefined) {
+            itemList.sort(this.sort);
         }
         return (
             <tbody>
@@ -110,7 +138,8 @@ export class FetchUserItems extends React.Component<Props, State> {
                         </thead>
                         {this.populateTableWithItems()}
                     </table>
-                </div> : null
+                </div> :
+                    <img className="img-responsive loading" src={"Rolling.gif"} />
                 }
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
