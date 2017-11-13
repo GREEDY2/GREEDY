@@ -1,8 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Logo } from './Logo';
+import { Logo } from '../Shared/Logo';
 import { ItemPriceGraph } from './ItemPriceGraph';
-import { Alert } from './Alert';
+import { Alert } from '../Shared/Alert';
 
 export class StatisticsPage extends React.Component<RouteComponentProps<{}>> {
     constructor() {

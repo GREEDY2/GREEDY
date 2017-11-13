@@ -1,4 +1,5 @@
 ﻿import * as React from 'react';
+import Constants from './Constants'
 
 export class Logo extends React.Component {
     public render() {
@@ -6,7 +7,7 @@ export class Logo extends React.Component {
             <div className="col-xs-12 text-center loginLogo">
                 <img
                     className="img-responsive logo"
-                    src={"Logo.png"}
+                    src={Constants.logoName}
                     height="100%" />
             </div>
         );

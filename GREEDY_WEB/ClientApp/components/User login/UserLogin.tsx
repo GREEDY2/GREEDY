@@ -5,8 +5,8 @@ import DocumentTitle from 'react-document-title';
 import { LoginForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
-import { Logo } from './Logo';
-import Constants from './Constants';
+import { Logo } from '../Shared/Logo';
+import Constants from '../Shared/Constants';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
 

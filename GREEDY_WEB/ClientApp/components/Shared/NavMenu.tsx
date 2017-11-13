@@ -11,7 +11,6 @@ export class NavMenu extends React.Component {
 
     public render() {
         let token = localStorage.getItem("auth");
-        let username = "";
         let loggedIn = false;
         if (token) {
             try {
@@ -19,7 +18,7 @@ export class NavMenu extends React.Component {
                 let base64 = base64Url.replace('-', '+').replace('_', '/');
                 let tokenJson = JSON.parse(window.atob(base64));
                 loggedIn = true;
-                username = tokenJson.unique_name;
+                var username = tokenJson.unique_name;
             }
             catch (e) {
                 this.handleLogout();

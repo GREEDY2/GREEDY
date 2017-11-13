@@ -1,11 +1,11 @@
 ﻿import * as React from 'react';
-import Constants from './Constants';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 import DocumentTitle from 'react-document-title';
 import { RegistrationForm } from 'react-stormpath';
+import Constants from '../Shared/Constants';
 
-export class ChangePassword extends React.Component {
+export class ChangeEmail extends React.Component {
     constructor() {
         super();
     }
@@ -14,27 +14,25 @@ export class ChangePassword extends React.Component {
         e.preventDefault();
         var data = e.data;
 
-        if (data.givenName.length < Constants.minPasswordLength) {
-            return next(new Error('Password must be longer than ' + Constants.minPasswordLength + ' characters'));
+        var regex = Constants.emailRegex;
+
+        if (data.email.length < 1) {
+            return next(new Error('Email can not be empty'));
         }
 
-        if (data.givenName.length > Constants.maxAnyInputLength) {
-            return next(new Error('Password is too long'));
+        if (!regex.test(data.email)) {
+            return next(new Error('Incorrect new email'));
         }
 
-        if (data.givenName !== data.surname) {
-            return next(new Error('Passwords do not match'));
+        if (data.email.length > Constants.maxAnyInputLength) {
+            return next(new Error('Email is too long'));
         }
 
-        if (data.password === data.givenName) {
-            return next(new Error('New password is the same as current password'));
-        }
+        let changeEmail = {}
+        changeEmail["password"] = data.password;
+        changeEmail["email"] = data.email;
 
-        let changePassword = {}
-        changePassword["password"] = data.password;
-        changePassword["newpassword"] = data.givenName;
-
-        axios.put(Constants.httpRequestBasePath + 'api/ChangePassword', changePassword,
+        axios.put(Constants.httpRequestBasePath + 'api/ChangeEmail', changeEmail,
             {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
@@ -45,9 +43,11 @@ export class ChangePassword extends React.Component {
                     this.setState({ isAccountCreated: true });
                 }
                 else
-                    return next(new Error('wrong password'));
+                    return next(new Error('Wrong password'));
             }).catch(error => {
-                return next(new Error('Unable to change password at this time, try again later'));
+                //TODO: add extra logic (and to all catches aswell) 
+                //when authorization in each request with the server is implementated
+                return next(new Error('Unable to change email at this time, try again later'));
             });
     }
 
@@ -55,14 +55,14 @@ export class ChangePassword extends React.Component {
         return (
             <DocumentTitle title={`Register`}>
                 <RegistrationForm onSubmit={this.onFormSubmit.bind(this)}>
-                    <h3 className="text-center">Change password</h3>
+                    <h3 className="text-center">Change email</h3>
                     <div className='sp-login-form regForm'>
                         <div className="row">
                             <div className="col-xs-12">
                                 <div className="form-horizontal">
                                     <div className="form-group">
                                         <label
-                                            htmlFor="spChangePassword"
+                                            htmlFor="spPasswordChangeEmail"
                                             className="col-xs-12 col-sm-4 control-label">
                                             Password
                                 </label>
@@ -70,39 +70,23 @@ export class ChangePassword extends React.Component {
                                             <input
                                                 type="password"
                                                 className="form-control"
-                                                id="spChangePassword"
-                                                placeholder="Old password"
+                                                id="spPasswordChangeEmail"
+                                                placeholder="Password"
                                                 name="password" />
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <label
-                                            htmlFor="spChangePasswordNew"
+                                            htmlFor="spChangeEmail"
                                             className="col-xs-12 col-sm-4 control-label">
-                                            New password
+                                            New email
                                 </label>
                                         <div className="col-xs-12 col-sm-4">
                                             <input
-                                                type="password"
                                                 className="form-control"
-                                                id="spChangePasswordNew"
-                                                placeholder="New password"
-                                                name="givenName" />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label
-                                            htmlFor="spChangePasswordNewRepeat"
-                                            className="col-xs-12 col-sm-4 control-label">
-                                            Repeat new password
-                                </label>
-                                        <div className="col-xs-12 col-sm-4">
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                id="spChangePasswordNewRepeat"
-                                                placeholder="Repeat new password"
-                                                name="surname" />
+                                                id="spChangeEmail"
+                                                placeholder="New email"
+                                                name="email" />
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -116,14 +100,14 @@ export class ChangePassword extends React.Component {
                                                 className="col-xs-12 col-sm-12"
                                                 type="submit"
                                                 color="btn btn-primary buttonText">
-                                                Change password
+                                                Change email
                                     </Button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                 </RegistrationForm >
             </DocumentTitle >
         );

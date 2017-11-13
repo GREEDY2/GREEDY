@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Logo } from './Logo';
+import { Logo } from '../Shared/Logo';
 import { ChangeEmail } from './ChangeEmail';
 import { ChangePassword } from './ChangePassword'
 

@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import AlertContainer from 'react-alert'
+import Constants from './Constants';
 
 interface Props {
     onRef: any
@@ -17,11 +18,11 @@ export class Alert extends React.Component<Props> {
     }
 
     alertOptions = {
-        offset: 15,
-        position: 'bottom right',
-        theme: 'dark',
-        time: 5000,
-        transition: 'fade'
+        offset: Constants.offsetAlertMessage,
+        position: Constants.possitionAlertMessage,
+        theme: Constants.themeAlertMessage,
+        time: Constants.displayAlertMessage,
+        transition: Constants.transitionAlertMessage
     }
 
     showAlert = (message, type) => {

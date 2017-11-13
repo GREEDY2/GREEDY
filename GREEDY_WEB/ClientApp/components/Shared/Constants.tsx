@@ -9,7 +9,12 @@ export const Constants = {
     cookieUsername: 'username',
     cookieSessionId: 'sessionID',
     checkIfUserlogedInTimer: 1000,
-    displayItemChangedMessage: 5000
+    displayAlertMessage: 5000,
+    offsetAlertMessage: 15,
+    themeAlertMessage: 'dark',
+    transitionAlertMessage: 'fade',
+    possitionAlertMessage: 'bottom right',
+    logoName: 'Logo.png'
 }
 
 export default Constants;

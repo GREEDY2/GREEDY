@@ -1,8 +1,8 @@
 ﻿import * as React from 'react';
-import { UserLogin } from './UserLogin';
-import { UserRegistration } from './UserRegistration';
+import { UserLogin } from '../User login/UserLogin';
+import { UserRegistration } from '../User login/UserRegistration';
 import { Switch, Route } from 'react-router-dom';
-import { ForgotPassword } from './ForgotPassword';
+import { ForgotPassword } from '../User login/ForgotPassword';
 import Constants from './Constants';
 
 interface State {

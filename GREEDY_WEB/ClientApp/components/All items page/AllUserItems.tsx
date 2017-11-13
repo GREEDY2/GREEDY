@@ -2,7 +2,7 @@
 import { RouteComponentProps } from 'react-router';
 import { FetchUserItems } from './FetchUserItems';
 import { ChooseFiltersForItems } from './ChooseFiltersForItems';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 
 export class AllUserItems extends React.Component<RouteComponentProps<{}>> {
     child: any;

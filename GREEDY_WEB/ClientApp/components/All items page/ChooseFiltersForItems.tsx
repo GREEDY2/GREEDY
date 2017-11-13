@@ -4,8 +4,8 @@ import 'isomorphic-fetch';
 import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import Constants from './Constants';
-import { EditItem } from './EditItem';
+import Constants from '../Shared/Constants';
+import { EditItem } from '../Photograph page/EditItem';
 
 interface Props {
     refilter: any

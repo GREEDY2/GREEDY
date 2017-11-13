@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { ComposedChart, Area, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Button, ButtonGroup } from 'reactstrap';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 
 interface Props {
     history: any

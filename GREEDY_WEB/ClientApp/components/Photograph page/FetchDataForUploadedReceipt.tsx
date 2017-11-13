@@ -2,9 +2,9 @@ import * as React from 'react';
 import axios from 'axios';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 import { EditItem } from './EditItem';
-import { Alert } from './Alert';
+import { Alert } from '../Shared/Alert';
 
 interface Props {
     onRef: any

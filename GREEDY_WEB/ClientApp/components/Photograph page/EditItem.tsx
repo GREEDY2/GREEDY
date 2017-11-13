@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import axios from 'axios';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 
 interface Props {
     onRef: any;
@@ -83,16 +83,9 @@ export class EditItem extends React.Component<Props, State> {
             });
     }
 
-    //Doesn't work
     //TODO: fix disapearence of Item edited message.
     showEditedMessage = (isSuccess) => {
         this.setState({ eSuccess: isSuccess, eHappened: true });
-        this.timer = setInterval(() => this.hideEditMessage(), Constants.displayItemChangedMessage);
-    }
-
-    hideEditMessage = () => {
-        this.setState({ eHappened: false });
-        clearInterval(this.timer);
     }
 
     getAllDistinctCategories = () => {

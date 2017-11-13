@@ -5,7 +5,7 @@ import DocumentTitle from 'react-document-title';
 import { RegistrationForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
-import Constants from './Constants';
+import Constants from '../Shared/Constants';
 
 interface IState {
     isAccountCreated: any;
