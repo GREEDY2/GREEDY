@@ -2,13 +2,15 @@
 
 using GREEDY.DataManagers;
 using System.Drawing;
+using GREEDY.ImagePreparation;
 using Xunit;
 
 namespace GREEDY.UnitTests.ImagePreparationUnitTest
 {
     public class UnitTest_ImageFormating
     {
-        [Fact]
+        /*No longer available since methods being tested have been removed*/
+        /*[Fact]
         public void ImageFormating_BradleyLocalThreshold_FilteringGivenBitmap()
         {
             //arrange
@@ -28,6 +30,6 @@ namespace GREEDY.UnitTests.ImagePreparationUnitTest
             //act
             //assert
             Assert.Null(imageFormating.BradleyLocalThreshold(null));
-        }
+        }*/
     }
 }

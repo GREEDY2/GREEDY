@@ -162,6 +162,7 @@
     <Compile Include="DataManagers\ICategoryManager.cs" />
     <Compile Include="DataManagers\IGraphManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
+    <Compile Include="ImagePreparation\Deskew.cs" />
     <Compile Include="Migrations\201711061716547_Initial.cs" />
     <Compile Include="Migrations\201711061716547_Initial.designer.cs">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
