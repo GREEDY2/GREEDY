@@ -1,45 +1,32 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Constants from './Constants';
-import { GetCredentialsFromCookies, RemoveCredentialsFromCookies } from './HelperClass';
 
-interface State {
-    loggedIn: boolean;
-    username: string;
-}
-
-export class NavMenu extends React.Component<{}, State> {
-    timer: any;
-    state = {
-        loggedIn: false,
-        username: ""
-    }
-
-    componentDidMount() {
-        this.timer = setInterval(() => this.checkIfLoggedIn(), Constants.checkIfUserlogedInTimer);
-    }
-
-    checkIfLoggedIn = () => {
-        let credentials = GetCredentialsFromCookies();
-        if (credentials.Username && credentials.SessionId) {
-            this.setState({ loggedIn: true, username: credentials.Username });
-        }
-        else {
-            this.setState({ loggedIn: false });
-        }
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
+export class NavMenu extends React.Component {
 
     handleLogout = () => {
-        RemoveCredentialsFromCookies();
+        localStorage.removeItem("auth");
     }
 
     public render() {
+        let token = localStorage.getItem("auth");
+        let loggedIn = false;
+        if (token) {
+            try {
+                let base64Url = token.split('.')[1];
+                let base64 = base64Url.replace('-', '+').replace('_', '/');
+                let tokenJson = JSON.parse(window.atob(base64));
+                loggedIn = true;
+                var username = tokenJson.unique_name;
+            }
+            catch (e) {
+                this.handleLogout();
+            }
+        }
+        else {
+            loggedIn = false;
+        }
         return (
             <div className='main-nav'>
                 <div className='navbar navbar-inverse'>
@@ -63,13 +50,20 @@ export class NavMenu extends React.Component<{}, State> {
                             data-toggle="collapse"
                             data-target=".navbar-collapse">
                             <li>
-                                <NavLink to={'/'} exact activeClassName='active'>
-                                    <span className='glyphicon glyphicon-home'></span>
-                                    Home
-                                </NavLink>
+                                {
+                                    loggedIn ?
+                                        <NavLink to={'/'} exact activeClassName='active'>
+                                            <span className='glyphicon glyphicon-camera'></span>
+                                            Photograph receipt
+                                        </NavLink> :
+                                        <NavLink to={'/'} exact activeClassName='active'>
+                                            <span className='glyphicon glyphicon-log-in'></span>
+                                            Login
+                                        </NavLink>
+                                }
                             </li>
                             {
-                                this.state.loggedIn ?
+                                loggedIn ?
                                     <li>
                                         <NavLink to={'/fetchdata'} activeClassName='active'>
                                             <span className='glyphicon glyphicon-th-list'></span>
@@ -78,15 +72,30 @@ export class NavMenu extends React.Component<{}, State> {
                                     </li> : null
                             }
                             {
-                                this.state.loggedIn ?
+                                loggedIn ?
+                                    <li>
+                                        <NavLink to={'/statistics'} activeClassName='active'>
+                                            <span className='glyphicon glyphicon-stats'></span>
+                                            Statistics
+                                        </NavLink>
+                                    </li> : null
+                            }
+                            {
+                                loggedIn ?
                                     <li className='widenSpace' /> : null
                             }
                             {
-                                this.state.loggedIn ?
+                                loggedIn ?
                                     <li>
                                         <NavLink to={'/'} activeClassName='inactive'>
                                             <span className='glyphicon glyphicon-user' />
-                                            Hello, {this.state.username}!
+                                            Hello, {username}!
+                                        </NavLink>
+                                        <NavLink
+                                            to={'/user'}
+                                            activeClassName='inactive'>
+                                            <span className='glyphicon glyphicon-wrench' />
+                                            My account
                                         </NavLink>
                                         <NavLink
                                             to={'/'}
@@ -95,6 +104,7 @@ export class NavMenu extends React.Component<{}, State> {
                                             <span className='glyphicon glyphicon-log-out' />
                                             Logout
                                         </NavLink>
+                                        
                                     </li> : null
                             }
                         </ul>

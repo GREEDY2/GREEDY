@@ -10,24 +10,25 @@ using System.Threading.Tasks;
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class GetDistinctCategoriesController : ApiController
+    public class GraphDataController : ApiController
     {
-        private ICategoryManager _categoryManager;
         private IAuthenticationService _authenticationService;
-        public GetDistinctCategoriesController(ICategoryManager categoryManager, IAuthenticationService authenticationService)
+        private IGraphManager _graphManager;
+        public GraphDataController(IAuthenticationService authenticationService, IGraphManager graphManager )
         {
-            _categoryManager = categoryManager;
             _authenticationService = authenticationService;
+            _graphManager = graphManager;
         }
-        public async Task<HttpResponseMessage> Get()
+        public async Task<HttpResponseMessage> Put()
         {
-            Request.RegisterForDispose((IDisposable)_categoryManager);
+            Request.RegisterForDispose((IDisposable)_graphManager);
             var token = Request.Headers.Authorization.Parameter;
-            var isAuthenticated = _authenticationService.ValidateToken(token);
+            var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
+            var time = 3600;
             if (await isAuthenticated)
             {
-                var categories = _categoryManager.GetAllDistinctCategories();
-                return HelperClass.JsonHttpResponse(categories);
+                var graphData = _graphManager.GetDataForGraphs(username, time);
+                return HelperClass.JsonHttpResponse(graphData);
             }
             else
             {

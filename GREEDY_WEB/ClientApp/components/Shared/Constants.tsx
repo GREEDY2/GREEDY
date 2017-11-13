@@ -8,7 +8,13 @@ export const Constants = {
     httpRequestBasePath: 'http://localhost:6967/',
     cookieUsername: 'username',
     cookieSessionId: 'sessionID',
-    checkIfUserlogedInTimer: 1000
+    checkIfUserlogedInTimer: 1000,
+    displayAlertMessage: 5000,
+    offsetAlertMessage: 15,
+    themeAlertMessage: 'dark',
+    transitionAlertMessage: 'fade',
+    possitionAlertMessage: 'bottom right',
+    logoName: 'Logo.png'
 }
 
 export default Constants;

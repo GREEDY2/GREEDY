@@ -10,6 +10,16 @@
     color: white;
 }
 
+/* Rolling gif styles */
+.loading.img-responsive {
+    margin: 0 auto;
+}
+
+/* Filter button padding*/
+.filters {
+    padding: 15px 7px 5px;
+}
+
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
     position: fixed;
@@ -31,6 +41,7 @@
     padding-bottom: 20px;
 }
 
+/*make the login button centered*/
 .facebook {
     margin-left: 0px !important;
 }

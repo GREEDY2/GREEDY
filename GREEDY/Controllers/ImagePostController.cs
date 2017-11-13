@@ -12,34 +12,46 @@ using System;
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ImagePostController : ApiController
+    public class ImageUploadController : ApiController
     {
         private IItemManager _itemManager;
         private IReceiptService _receiptService;
-        public ImagePostController(IItemManager itemManager, IReceiptService receiptService)
+        private IAuthenticationService _authenticationService;
+        public ImageUploadController(IItemManager itemManager, IReceiptService receiptService,
+            IAuthenticationService authenticationService)
         {
             _itemManager = itemManager;
             _receiptService = receiptService;
+            _authenticationService = authenticationService;
         }
 
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Post()
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
             var requestStream = await Request.Content.ReadAsStreamAsync();
-            var username = Request.Headers.Authorization.Parameter;
             var memoryStream = new MemoryStream(); //Using a MemoryStream because can't parse directly to image
             requestStream.CopyTo(memoryStream);
             requestStream.Close();
             var receiptImage = new Bitmap(memoryStream);
             memoryStream.Close();
-            var list = _receiptService.ProcessReceiptImage(receiptImage);
+            var receipt = _receiptService.ProcessReceiptImage(receiptImage);
 
-            //TODO: Need to get shop
-
-            var receiptId = _itemManager.AddItems(list, new Models.Shop()
-                { Name = "Not supported yet", Location = "Not supported yet" }, username);
-            return HelperClass.JsonHttpResponse(receiptId);
-            //TODO: create an error if something goes wrong
+            if (receipt.ItemsList.Count == 0)
+            {
+                return HelperClass.JsonHttpResponse<Object>(null);
+            }
+            
+            if (await isAuthenticated)
+            {
+                var receiptId = _itemManager.AddItems(receipt, username);
+                return HelperClass.JsonHttpResponse(receiptId);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
         }
     }
 }

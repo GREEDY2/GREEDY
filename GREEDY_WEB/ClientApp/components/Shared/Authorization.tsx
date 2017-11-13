@@ -1,11 +1,9 @@
 ﻿import * as React from 'react';
-import { UserLogin } from './UserLogin';
-import { UserRegistration } from './UserRegistration';
+import { UserLogin } from '../User login/UserLogin';
+import { UserRegistration } from '../User login/UserRegistration';
 import { Switch, Route } from 'react-router-dom';
-import { ForgotPassword } from './ForgotPassword';
-import { GetCredentialsFromCookies, RemoveCredentialsFromCookies } from './HelperClass';
+import { ForgotPassword } from '../User login/ForgotPassword';
 import Constants from './Constants';
-import axios from 'axios';
 
 interface State {
     isAuthenticated: boolean;
@@ -23,22 +21,9 @@ export class Authorization extends React.Component<Props, State> {
         super(props);
     }
 
-    componentDidMount() {
-        let credentials = GetCredentialsFromCookies();
-        if (credentials.Username && credentials.SessionId) {
-            axios.put(Constants.httpRequestBasePath + "api/Authentication", credentials)
-                .then(response => {
-
-                }).catch(e => {
-                    RemoveCredentialsFromCookies();
-                    this.setState({});
-                })
-        }
-    }
-
     public render() {
-        let credentials = GetCredentialsFromCookies();
-        if (credentials.Username && credentials.SessionId) {
+        let credentials = localStorage.getItem("auth");
+        if (credentials) {
             return (
                 <div>
                     {this.props.children}

@@ -5,11 +5,13 @@ import DocumentTitle from 'react-document-title';
 import { LoginForm } from 'react-stormpath';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
-import Cookies from 'universal-cookie';
-import { Logo } from './Logo';
-import Constants from './Constants';
+import { Logo } from '../Shared/Logo';
+import Constants from '../Shared/Constants';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
+    state = {
+        isLoggingIn: false
+    }
 
     onFormSubmit = (e, next) => {
         e.preventDefault();
@@ -29,22 +31,25 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
         if (data.username.length > 256) {
             return next(new Error('Password is too long.'));
         }
+
+        this.setState({ isLoggingIn: true });
+
         let credentials = {}
-        // Force usernames to be in lowercase.
         credentials["username"] = data.username;
         credentials["password"] = data.password;
         axios.put(Constants.httpRequestBasePath + 'api/Login', credentials)
             .then(response => {
                 let res = response.data;
                 if (res) {
-                    const cookies = new Cookies();
-                    cookies.set(Constants.cookieUsername, res.Username, { path: '/' });
-                    cookies.set(Constants.cookieSessionId, res.SessionID, { path: '/' });
+                    localStorage.setItem("auth", res);
                     (this.props as any).history.push("/");
                 }
-                else
+                else {
+                    this.setState({ isLoggingIn: false });
                     return next(new Error('Failed to login. Make sure your username and/or password are correct'));
+                }
             }).catch(error => {
+                this.setState({ isLoggingIn: false });
                 console.log(error);
             });
     }
@@ -104,18 +109,19 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                                 <p className="alert alert-danger" data-spIf="form.error">
                                                     <span data-spBind="form.errorMessage" />
                                                 </p>
-                                                <Button
-                                                    className="col-xs-12 col-sm-12"
-                                                    type="submit"
-                                                    color="btn btn-primary buttonText">
-                                                    Login
+                                                {this.state.isLoggingIn ?
+                                                    <img className="img-responsive loading" src={"Rolling.gif"} /> :
+                                                    <Button
+                                                        className="col-xs-12 col-sm-12"
+                                                        type="submit"
+                                                        color="btn btn-primary buttonText">
+                                                        Login
                                                     </Button>
+                                                }
                                                 <Link to="/registration"
                                                     className="pull-right marginTop loginLinkButton">
                                                     Don't have an account? Register
                                                     </Link>
-                                                {
-                                                }
                                             </div>
                                         </div>
                                         <div className="form-group col-sm-offset-4 col-sm-12 text-center facebook">

@@ -33,9 +33,9 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
         [Fact]
         public void ItemManager_LoadData_UserNotFound()
         {
-            var shop = new Fixture().Create<Shop>();
+            var receipt = new Fixture().Create<Receipt>();
             ItemManager itemManager=new ItemManager(DatabaseMock.GetDataBaseMock().Object);
-            Assert.Throws<Exception>(() => itemManager.AddItems(new Item[] { }, shop, "User that doesn't exist"));
+            Assert.Throws<Exception>(() => itemManager.AddItems(receipt, "User that doesn't exist"));
         }
     }
 }

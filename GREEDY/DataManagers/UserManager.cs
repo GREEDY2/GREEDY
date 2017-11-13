@@ -67,6 +67,32 @@ namespace GREEDY.DataManagers
                 };
         }
 
+        public bool ChangeUserEmail(string username, string encryptedPassword, string newEmail)
+        {
+            var userToUpdate = context.Set<UserDataModel>()
+                .FirstOrDefault(x => x.Username == username && x.Password == encryptedPassword);
+            if (userToUpdate == null)
+            {
+                return false;
+            }
+            userToUpdate.Email = newEmail;
+            context.SaveChanges();
+            return true;
+        }
+
+        public bool ChangeUserPassword(string username, string encryptedPassword, string newEncryptedPassword)
+        {
+            var userToUpdate = context.Set<UserDataModel>()
+                .FirstOrDefault(x => x.Username == username && x.Password == encryptedPassword);
+            if (userToUpdate == null)
+            {
+                return false;
+            }
+            userToUpdate.Password = newEncryptedPassword;
+            context.SaveChanges();
+            return true;
+        }
+
         public void Dispose()
         {
             context.Dispose();
