@@ -19,6 +19,7 @@ namespace GREEDY.ImagePreparation
         {
             Bitmap edited;
             edited = Binarization(bitmap);
+            edited = RemoveNoise(edited);
             edited = BiggestBlob(edited);
             edited = Rotate(edited);
             edited = Deskew(edited);
@@ -33,6 +34,23 @@ namespace GREEDY.ImagePreparation
             Bitmap rescaledBitmap = new Bitmap(bitmap);
             rescaledBitmap.SetResolution(300, 300); //recomended dpi for OCR
             return rescaledBitmap;
+        }
+
+        /// <summary>
+        /// Removes noise (small dots/smudges from an image)
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <returns></returns>
+        private Bitmap RemoveNoise(Bitmap bitmap)
+        {
+            Image<Gray, byte> image = new Image<Gray, byte>(bitmap);
+
+            //Image<Gray, byte> edited = image.SmoothBlur(10, 10, true);
+            Image<Gray, byte> edited = image.SmoothMedian(7);//(15);
+            //Image<Gray, byte> edited = image.SmoothBilatral(7, 255, 34);
+            //Image<Gray, byte> edited = image.SmoothGaussian(3, 3, 34.3, 45.3);
+
+            return edited.ToBitmap();
         }
 
         /// <summary>
@@ -64,7 +82,7 @@ namespace GREEDY.ImagePreparation
 
          
         /// <summary>
-        /// Finds the biggest blob (biggest area of one color)
+        /// Finds the biggest area of one color
         /// </summary>
         /// <param name="bitmap"></param>
         /// <returns></returns>
