@@ -4,6 +4,32 @@ import axios from 'axios';
 import Constants from './Constants';
 
 export class NavMenu extends React.Component {
+    state = {
+        collapseNav: ''
+    }
+
+    constructor() {
+        super();
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        if (this.state.collapseNav != '' && window.innerWidth > 767) {
+            this.setState({ collapseNav: '' });
+        }
+        else if (this.state.collapseNav != 'navbar-collapse collapse' && window.innerWidth < 768) {
+            this.setState({ collapseNav: 'navbar-collapse collapse' });
+        }
+    }
 
     handleLogout = () => {
         localStorage.removeItem("auth");
@@ -44,7 +70,7 @@ export class NavMenu extends React.Component {
                         <Link className='navbar-brand' to={'/'}>GREEDY</Link>
                     </div>
                     <div className='clearfix'></div>
-                    <div className='navbar-collapse collapse'>
+                    <div className={this.state.collapseNav}>
                         <ul
                             className='nav navbar-nav'
                             data-toggle="collapse"

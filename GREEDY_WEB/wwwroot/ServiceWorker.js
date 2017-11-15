@@ -1,10 +1,11 @@
-﻿var staticCacheName = 'greedy-static-v2';
+﻿var staticCacheName = 'greedy-static-v5';
 
 self.addEventListener('install', event => {
     var urlsToCache = [
-        'dist/vendor.js',
-        'dist/vendor.css',
-        'dist/main.js',
+        '/',
+        'dist/vendor.js?v=PmyzAKb7yqQN3nBqgW_ZHUHtyavBfUQ1B_wirXsG8Gg',
+        'dist/vendor.css?v=vf4TTnOiCp20iU10Tf4anf3dbOl_Mg07hxsMkGL_Rdw',
+        'dist/main.js?v=auMxWP8djqauaRb5ucI8kBZsLneetB2APoz2QBT8v1o',
         'Rolling.gif',
         'Logo.png'
     ];
@@ -24,7 +25,7 @@ self.addEventListener('activate', event => {
                     return cacheName.startsWith('greedy-') &&
                         cacheName !== staticCacheName;
                 }).map(cacheName => {
-                    return cache.delete(cacheName);
+                    return caches.delete(cacheName);
                 })
             );
         })
@@ -32,7 +33,6 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-    if (event.request.url.includes('main.js')) event.request.url = 'dist/main.js';
     event.respondWith(
         caches.match(event.request).then(response => {
             if (response) {
@@ -41,4 +41,10 @@ self.addEventListener('fetch', event => {
             return fetch(event.request);
         })
     );
+});
+
+self.addEventListener('message', event => {
+    if (event.data.action === 'skipWaiting') {
+        self.skipWaiting();
+    }
 });
