@@ -4,13 +4,38 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/genie.css';
 import { Button } from 'reactstrap';
+import idb from 'idb';
+import Constants from './Constants';
 
 export class ServiceWorker extends React.Component<RouteComponentProps<{}>> {
     serviceWorker: any;
     componentDidMount() {
         this.registerServiceWorker();
+        var dbPromise = '';
+        //this.getFromDb(Constants.dbPromise);
+        //this.putInDb(Constants.dbPromise);
     }
 
+    getFromDb(dbPromise) {
+        dbPromise.then(db => {
+            var tx = db.transaction('keyval');
+            var keyValStore = tx.objectStore('keyval');
+            return keyValStore.get('hello');
+        }).then(val => {
+            console.log(val);
+        })
+    }
+
+    putInDb(dbPromise) {
+        dbPromise.then(db => {
+            var tx = db.transaction('keyval', 'readwrite');
+            var keyValStore = tx.objectStore('keyval');
+            keyValStore.put('bar', 'foo');
+            return tx.complete;
+        }).then(() => {
+            console.log('Added foo:bat to keyval');
+        })
+    }
 
     registerServiceWorker = () => {
         if ('serviceWorker' in navigator) {

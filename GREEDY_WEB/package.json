@@ -35,6 +35,7 @@
     "axios": "^0.16.2",
     "create-react-class": "https://registry.npmjs.org/create-react-class/-/create-react-class-15.6.0.tgz",
     "form-data": "^2.3.1",
+    "idb": "^2.0.4",
     "react": "https://registry.npmjs.org/react/-/react-15.6.1.tgz",
     "react-alert": "^2.4.0",
     "react-document-title": "^2.0.3",
