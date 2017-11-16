@@ -2,6 +2,7 @@
 using GREEDY.DataManagers;
 using GREEDY.Services;
 using Moq;
+using GREEDY.ReceiptCreatings;
 using Xunit;
 
 namespace GREEDY.UnitTests.ServicesUnitTests

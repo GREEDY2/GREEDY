@@ -8,6 +8,7 @@ using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
 using System.Reflection;
 using Ninject;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY
 {
