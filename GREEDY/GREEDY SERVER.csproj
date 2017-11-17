@@ -179,6 +179,7 @@
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="ReceiptCreatings\AutoCorrect.cs" />
+    <Compile Include="ReceiptCreatings\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreatings\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />
     <Compile Include="ReceiptCreatings\IReceiptCreating.cs" />
