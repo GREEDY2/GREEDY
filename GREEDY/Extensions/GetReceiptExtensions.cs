@@ -13,7 +13,18 @@ namespace GREEDY.Extensions
 
         public static List<string> GetLinesOfText(this Page source)
         {
-            return source.GetText().Split('\n').ToList();
+            var PercentageMatched = source.GetMeanConfidence();
+            if (PercentageMatched > 0.5)
+            {
+                var linesOfText = source.GetText().Split('\n').ToList();
+                //added PercentageMatched in the end of the list
+                linesOfText.Add(PercentageMatched.ToString());
+                return linesOfText;
+            }
+            else
+            {
+                return new List<string> { PercentageMatched.ToString() };
+            }
         }
     }
 }

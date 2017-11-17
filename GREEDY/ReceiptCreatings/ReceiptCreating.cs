@@ -8,8 +8,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using GREEDY.DataManagers;
 
-namespace GREEDY.DataManagers
+namespace GREEDY.ReceiptCreatings
 {
     public class ReceiptCreating : IReceiptCreating
     {
@@ -33,12 +34,14 @@ namespace GREEDY.DataManagers
             var linesOfText = _ocr.ConvertImage(image);
             var date = GetDateForReceipt(linesOfText);
             var shop = GetShopFromData(linesOfText);
+            //var percentageMatched = float.Parse(linesOfText.Last(), CultureInfo.InvariantCulture.NumberFormat);
 
             return new Receipt
             {
                 Date = date,
                 Shop = shop,
-                LinesOfText = linesOfText
+                LinesOfText = linesOfText,
+                //PercentageMatched = percentageMatched
             };
         }
 

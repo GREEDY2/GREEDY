@@ -1,5 +1,5 @@
-﻿using GREEDY.DataManagers;
-using Xunit;
+﻿using Xunit;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {

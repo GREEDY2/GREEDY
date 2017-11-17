@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using GREEDY.DataManagers;
+﻿using GREEDY.DataManagers;
 using GREEDY.Models;
 using System.Drawing;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.Services
 {
@@ -10,6 +10,7 @@ namespace GREEDY.Services
         private readonly IImageFormating _imageFormating;
         private readonly IReceiptCreating _receiptCreating;
         private readonly IDataConverter _dataConverter;
+        private static AutoCorrect AutoCorrect => new AutoCorrect();
 
         public ReceiptService()
         {
@@ -32,6 +33,7 @@ namespace GREEDY.Services
                 image = _imageFormating.FormatImage(image);
                 var receipt = _receiptCreating.FullReceiptCreating(image);
                 receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
+                //receipt.ItemsList = AutoCorrect.ItemsAutoCorrect(receipt.ItemsList);
                 return receipt;
             }
             else

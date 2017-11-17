@@ -1,4 +1,4 @@
-﻿namespace GREEDY.DataManagers
+﻿namespace GREEDY.ReceiptCreatings
 {
     public interface IItemCategorization
     {

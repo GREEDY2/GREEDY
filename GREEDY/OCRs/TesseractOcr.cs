@@ -18,6 +18,7 @@ namespace GREEDY.OCRs
                 EngineMode.TesseractOnly
             );
             var page = _tesseract.Process(image);
+            
             return page.GetLinesOfText();
         }
     }
