@@ -33,7 +33,7 @@ namespace GREEDY.Services
                 image = _imageFormating.FormatImage(image);
                 var receipt = _receiptCreating.FullReceiptCreating(image);
                 receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
-                //receipt.ItemsList = AutoCorrect.ItemsAutoCorrect(receipt.ItemsList);
+                receipt.ItemsList = AutoCorrect.ItemsAutoCorrect(receipt.ItemsList);
                 return receipt;
             }
             else
