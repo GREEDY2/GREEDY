@@ -1,11 +1,11 @@
-﻿var staticCacheName = 'greedy-static-v5';
+﻿var staticCacheName = 'greedy-static-v1';
 
 self.addEventListener('install', event => {
     var urlsToCache = [
         '/',
         'dist/vendor.js?v=PmyzAKb7yqQN3nBqgW_ZHUHtyavBfUQ1B_wirXsG8Gg',
         'dist/vendor.css?v=vf4TTnOiCp20iU10Tf4anf3dbOl_Mg07hxsMkGL_Rdw',
-        'dist/main.js?v=vyDmAptikmSQLDuXrqexbtM0YDMqVZHm0Nx14Ho8TUg',
+        'dist/main.js?v=bkhWQG4y0HDyG3YzZouHoa2UF_zJlkTU9qjRrYx25b0',
         'Rolling.gif',
         'Logo.png'
     ];
