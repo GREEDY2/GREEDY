@@ -7,11 +7,13 @@ import { Authorization } from './components/Shared/Authorization';
 import { UserSettings } from './components/User settings page/UserSettings';
 import { StatisticsPage } from './components/Statistics page/StatisticsPage';
 import { ServiceWorker } from './components/Shared/ServiceWorker';
+import { DatabaseManager } from './components/Shared/DatabaseManager';
 
 export const routes =
     (<Layout>
         <Authorization>
             <Route path='/' component={ServiceWorker} />
+            <Route path='/' component={DatabaseManager} />
             <Route exact path='/' component={PhotographPage} />
             <Route path='/fetchdata' component={AllUserItems} />
             <Route path='/user' component={UserSettings} />

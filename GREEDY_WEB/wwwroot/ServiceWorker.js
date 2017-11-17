@@ -5,7 +5,7 @@ self.addEventListener('install', event => {
         '/',
         'dist/vendor.js?v=PmyzAKb7yqQN3nBqgW_ZHUHtyavBfUQ1B_wirXsG8Gg',
         'dist/vendor.css?v=vf4TTnOiCp20iU10Tf4anf3dbOl_Mg07hxsMkGL_Rdw',
-        'dist/main.js?v=auMxWP8djqauaRb5ucI8kBZsLneetB2APoz2QBT8v1o',
+        'dist/main.js?v=vyDmAptikmSQLDuXrqexbtM0YDMqVZHm0Nx14Ho8TUg',
         'Rolling.gif',
         'Logo.png'
     ];
@@ -33,6 +33,15 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+    var requestUrl = new URL(event.request.url);
+    if (requestUrl.origin === location.origin) {
+        if (!(requestUrl.pathname.includes('dist') ||
+            requestUrl.pathname.includes('.'))) {
+            event.respondWith(caches.match('/'));
+            return;
+        }
+    }
+
     event.respondWith(
         caches.match(event.request).then(response => {
             if (response) {

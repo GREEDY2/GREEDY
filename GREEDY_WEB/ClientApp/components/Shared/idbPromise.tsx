@@ -4,10 +4,13 @@ import idb from 'idb';
 export const dbPromise = idbOpen();
 
 function idbOpen() {
-    var dbPromise = idb.open('greedy-db', 1, upgradeDb => {
-        var keyValStore = upgradeDb.createObjectStore('keyval');     
+    if (!navigator.serviceWorker) {
+        return undefined;
+    }
+    return idb.open('greedy', 1, upgradeDb => {
+        upgradeDb.createObjectStore('categories', { autoIncrement: true });
+        upgradeDb.createObjectStore('myItems', { keyPath: 'ItemId' });
     });
-    return dbPromise;
 }
 
 export default dbPromise;
