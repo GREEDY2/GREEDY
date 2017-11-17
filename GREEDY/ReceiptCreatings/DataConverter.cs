@@ -19,7 +19,7 @@ namespace GREEDY.ReceiptCreatings
             Thread.CurrentThread.CurrentCulture = customCulture;
 
             //working with first item
-            string pattern = @"([\p{L}]{2}[\p{L}]+.+)(\d+[\.\,]\d{2})(.[A|E|B|F|N|C]{1}(\b|\.))";
+            string pattern = @"([\p{L}]{2}[\p{L}]+.+)([\-, ]\d+[\.\,]\d{2})(.[A|E|B|F|N|C]{1}(\b|\.))";
             string pattern2 = @"([\p{L}])\.([\p{L}])";
             List<Item> itemList = new List<Item>();
             string previous = String.Empty;
@@ -38,7 +38,8 @@ namespace GREEDY.ReceiptCreatings
                         {
                             Name = Regex.Replace(previous + match1.Groups[1].Value, pattern2, "$1" + " " + "$2" ),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(match2.Groups[1].Value + match1.Groups[1].Value)
+                            Category = ItemCategorization.CategorizeSingleItem(
+                                match2.Groups[1].Value + match1.Groups[1].Value)
                         });
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
@@ -70,7 +71,9 @@ namespace GREEDY.ReceiptCreatings
                 previous = Regex.Replace(previous, @"\n", " ");
                 previous = Regex.Replace(previous, "›", ",");
                 previous = Regex.Replace(previous, pattern2, "$1" + " " + "$2");
-                previous = Regex.Replace(previous, @"(\d+[\.\,]\d{2}.[A|E|B|F|N|C]{1}(\b|\.))", "$1" + Environment.NewLine);
+                previous = Regex.Replace(previous, @"([\-]?\d+[\.\,]\d{2}).[A|E|B|F|N|C]{1}(\b|\.)", "$1" + Environment.NewLine);
+            
+                pattern = @"([\p{L}]{2}[\p{L}]+.+)([\-, ]\d+[\.\,]\d{2})\r\n";
 
                 MatchCollection match = Regex.Matches(previous, pattern, RegexOptions.Multiline);
                 if (match.Count != 0)
