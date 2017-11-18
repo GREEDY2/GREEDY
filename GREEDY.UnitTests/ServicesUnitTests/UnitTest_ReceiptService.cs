@@ -3,6 +3,7 @@ using GREEDY.DataManagers;
 using GREEDY.Services;
 using Moq;
 using Xunit;
+using GREEDY.ImagePreparation;
 
 namespace GREEDY.UnitTests.ServicesUnitTests
 {

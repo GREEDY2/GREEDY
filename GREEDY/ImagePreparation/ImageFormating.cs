@@ -4,114 +4,88 @@ using AForge;
 using AForge.Imaging.Filters;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using GREEDY.DataManagers;
 
 namespace GREEDY.ImagePreparation
 {
     public class ImageFormating : IImageFormating
     {
-        /// <summary>
+        private static DeskewImage DeskewImage => new DeskewImage();
+
         /// Applies series of modifications to prepare the image for OCR reading
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
         public Bitmap FormatImage(Bitmap bitmap)
         {
-            Bitmap edited;
-            edited = Binarization(bitmap);
-            edited = RemoveNoise(edited);
-            edited = BiggestBlob(edited);
-            edited = Rotate(edited);
-            edited = Deskew(edited);
-            edited = BiggestBlob(edited);
-            edited = Rescale(edited);
-            return edited;
+            try
+            {
+                Bitmap edited = Binarization(bitmap);
+                edited = RemoveNoise(edited);
+                edited = BiggestBlob(edited);
+                edited = Rotate(edited);
+                edited = DeskewImage.Deskew(edited);
+                edited = BiggestBlob(edited);
+                edited = Rescale(edited);
+                return edited;
+            }
+            catch
+            {
+                return bitmap;
+            }
         }
 
-        //Not really sure what it does but the recomendations suggest it helps the OCR read better
-        private Bitmap Rescale(Bitmap bitmap)
+        // Turns the image to only black and white
+        public Bitmap Binarization(Bitmap bitmap)
         {
-            Bitmap rescaledBitmap = new Bitmap(bitmap);
-            rescaledBitmap.SetResolution(300, 300); //recomended dpi for OCR
-            return rescaledBitmap;
+            Image<Gray, Byte> img = new Image<Gray, byte>(bitmap);
+            img = img.ThresholdBinary(new Gray(145), new Gray(255)); //magic numbers (most optimal values)
+            return img.Bitmap;
         }
 
-        /// <summary>
-        /// Removes noise (small dots/smudges from an image)
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        private Bitmap RemoveNoise(Bitmap bitmap)
+        // Removes noise (small dots/smudges from an image)
+        public Bitmap RemoveNoise(Bitmap bitmap)
         {
             Image<Gray, byte> image = new Image<Gray, byte>(bitmap);
-
-            //Image<Gray, byte> edited = image.SmoothBlur(10, 10, true);
-            Image<Gray, byte> edited = image.SmoothMedian(7);//(15);
-            //Image<Gray, byte> edited = image.SmoothBilatral(7, 255, 34);
-            //Image<Gray, byte> edited = image.SmoothGaussian(3, 3, 34.3, 45.3);
-
+            Image<Gray, byte> edited = image.SmoothMedian(7);
             return edited.ToBitmap();
         }
 
-        /// <summary>
-        /// Deskew finds the text lines and rotates them so they would be horizontal
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        private Bitmap Deskew(Bitmap bitmap)
+        // Finds the biggest area of one color
+        public Bitmap BiggestBlob(Bitmap bitmap)
         {
-            Deskew deskew = new Deskew();
-            Bitmap deskewdImage = deskew.DeskewImage(bitmap);
-            return deskewdImage;
-        }
-
-        /// <summary>
-        /// Rotates the image if its width is more than its height
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        private Bitmap Rotate(Bitmap bitmap)
-        {
-            Bitmap rotatedBitmap = new Bitmap(bitmap);
-            if (bitmap.Height < bitmap.Width)
+            try
             {
-                rotatedBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                ExtractBiggestBlob filter = new ExtractBiggestBlob();
+                Bitmap edited = filter.Apply(bitmap);
+                IntPoint blobPosition = filter.BlobPosition;
+                Rectangle cropArea = new Rectangle(blobPosition.X, blobPosition.Y, edited.Width, edited.Height);
+                edited = CropImage(bitmap, cropArea);
+                return edited;
             }
-            return rotatedBitmap;
+            catch
+            {
+                return bitmap;
+            }
         }
 
-         
-        /// <summary>
-        /// Finds the biggest area of one color
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        private Bitmap BiggestBlob(Bitmap bitmap)
-        {
-            ExtractBiggestBlob filter = new ExtractBiggestBlob();
-            Bitmap edited = filter.Apply(bitmap);
-            IntPoint blobPosition = filter.BlobPosition;
-            Rectangle cropArea = new Rectangle(blobPosition.X, blobPosition.Y, edited.Width, edited.Height);
-            edited = cropImage(bitmap, cropArea);
-            return edited;
-        }
-
-        private Bitmap cropImage(Image img, Rectangle cropArea)
+        public Bitmap CropImage(Image img, Rectangle cropArea)
         {
             Bitmap bmpImage = new Bitmap(img);
             return bmpImage.Clone(cropArea, bmpImage.PixelFormat);
         }
-        
-        /// <summary>
-        /// Turns the image to only black and white
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        private Bitmap Binarization(Bitmap bitmap)
+
+        // Rotates the image if its width is more than its height
+        public Bitmap Rotate(Bitmap bitmap)
         {
-            Image<Gray, Byte> img = new Image<Gray, byte>(bitmap);
-            img = img.ThresholdBinary(new Gray(145), new Gray(255));//magic numbers (most optimal values)
-            return img.Bitmap;
+            if (bitmap.Height < bitmap.Width)
+            {
+                bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            }
+            return bitmap;
+        }
+
+        //Rescale helps the OCR read better
+        public Bitmap Rescale(Bitmap bitmap)
+        {
+            bitmap.SetResolution(300, 300); //recomended DPI for OCR
+            return bitmap;
         }
     }
 }
