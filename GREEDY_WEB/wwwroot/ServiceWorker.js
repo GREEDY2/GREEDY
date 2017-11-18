@@ -5,7 +5,7 @@ self.addEventListener('install', event => {
         '/',
         'dist/vendor.js?v=PmyzAKb7yqQN3nBqgW_ZHUHtyavBfUQ1B_wirXsG8Gg',
         'dist/vendor.css?v=vf4TTnOiCp20iU10Tf4anf3dbOl_Mg07hxsMkGL_Rdw',
-        'dist/main.js?v=bkhWQG4y0HDyG3YzZouHoa2UF_zJlkTU9qjRrYx25b0',
+        'dist/main.js?v=1KEXp2RJyXatk9f32-ZHdmIMuNYM32FvhscOeYXOsUs',
         'Rolling.gif',
         'Logo.png'
     ];
@@ -47,7 +47,7 @@ self.addEventListener('fetch', event => {
             if (response) {
                 return response;
             }
-            return fetch(event.request);
+            return fetch(event.request).catch();
         })
     );
 });

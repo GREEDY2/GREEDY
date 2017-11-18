@@ -5,6 +5,7 @@ import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from '../Shared/Constants';
 import { EditItem } from '../Photograph page/EditItem';
 import idbPromise from '../Shared/idbPromise';
+import * as idb from '../Shared/DatabaseFunctions';
 
 interface Props {
     onRef: any
@@ -72,9 +73,10 @@ export class FetchUserItems extends React.Component<Props, State> {
                 'Authorization': 'Bearer ' + localStorage.getItem("auth")
             }
         }).then(res => {
-            if (res) {
+            if (res.data) {
                 const itemList = res.data;
                 this.setState({ itemList, showItems: true });
+                idb.putArrayToDb('myItems', itemList);
             }
             else {
                 //TODO: display that the user has no items.
@@ -83,7 +85,7 @@ export class FetchUserItems extends React.Component<Props, State> {
             if (error.response)
             if (error.response.status == 401) {
                 localStorage.removeItem('auth');
-                (this.props as any).history.push("/");
+                this.props.history.push("/");
                     }
             else {
                 //TODO: no internet

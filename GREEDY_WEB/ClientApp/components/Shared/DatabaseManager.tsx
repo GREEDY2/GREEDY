@@ -1,28 +1,13 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Constants from './Constants';
-import idbPromise from './idbPromise';
 import axios from 'axios';
+import { putArrayToDb, putDistinctValuesArrayToDb } from './DatabaseFunctions';
 
 export class DatabaseManager extends React.Component<RouteComponentProps<{}>> {
-    dbPromise = idbPromise;
     componentDidMount() {
         this.getAllUserItems();
         this.getAllDistinctCategories();
-    }
-
-    putArrayToDb = (tableName, arrayToPut) => {
-        if (this.dbPromise) {
-            this.dbPromise.then(db => {
-                if (!db) return;
-
-                var tx = db.transaction(tableName, 'readwrite');
-                var store = tx.objectStore(tableName);
-                arrayToPut.map(arrayItem => {
-                    store.put(arrayItem);
-                });
-            })
-        }
     }
 
     getAllDistinctCategories = () => {
@@ -33,16 +18,16 @@ export class DatabaseManager extends React.Component<RouteComponentProps<{}>> {
                 }
             }).then(response => {
                 let res = response.data;
-                this.putArrayToDb('categories', res);
+                putDistinctValuesArrayToDb('categories', res);
             }).catch(error => {
                 if (error.response)
-                if (error.response.status == 401) {
-                    localStorage.removeItem('auth');
-                    (this.props as any).history.push("/");
+                    if (error.response.status == 401) {
+                        localStorage.removeItem('auth');
+                        this.props.history.push("/");
                     }
-                else {
-                    //TODO: no internet
-                }
+                    else {
+                        //TODO: no internet
+                    }
                 console.log(error);
             })
     }
@@ -54,40 +39,19 @@ export class DatabaseManager extends React.Component<RouteComponentProps<{}>> {
             }
         }).then(res => {
             const itemList = res.data;
-            this.putArrayToDb('myItems', itemList);
-            }).catch(error => {
+            putArrayToDb('myItems', itemList);
+        }).catch(error => {
             if (error.response)
-            if (error.response.status == 401) {
-                localStorage.removeItem('auth');
-                (this.props as any).history.push("/");
-            }
-            else {
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    this.props.history.push("/");
+                }
+                else {
                     //TODO: no internet
-                    }
+                }
             console.log(error);
         })
     }
-
-    /*getFromDb(dbPromise) {
-        dbPromise.then(db => {
-            var tx = db.transaction('keyval');
-            var keyValStore = tx.objectStore('keyval');
-            return keyValStore.get('hello');
-        }).then(val => {
-            console.log(val);
-        })
-    }
-
-    putInDb(dbPromise) {
-        dbPromise.then(db => {
-            var tx = db.transaction('keyval', 'readwrite');
-            var keyValStore = tx.objectStore('keyval');
-            keyValStore.put('bar', 'foo');
-            return tx.complete;
-        }).then(() => {
-            console.log('Added foo:bat to keyval');
-        })
-    }*/
 
     public render() {
         return null;

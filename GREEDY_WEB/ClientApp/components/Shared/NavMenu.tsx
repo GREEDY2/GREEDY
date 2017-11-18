@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Constants from './Constants';
+import { clearDb } from './DatabaseFunctions';
 
 export class NavMenu extends React.Component {
     state = {
@@ -33,6 +34,7 @@ export class NavMenu extends React.Component {
 
     handleLogout = () => {
         localStorage.removeItem("auth");
+        clearDb('greedy', ['categories', 'myItems']);
     }
 
     public render() {
