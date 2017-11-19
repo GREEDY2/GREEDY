@@ -9,7 +9,12 @@ namespace GREEDY.ImagePreparation
 {
     public class ImageFormating : IImageFormating
     {
-        private static DeskewImage DeskewImage => new DeskewImage();
+        private readonly DeskewImage _deskewImage;
+
+        public ImageFormating()
+        {
+            _deskewImage = new DeskewImage();
+        }
 
         /// Applies series of modifications to prepare the image for OCR reading
         public Bitmap FormatImage(Bitmap bitmap)
@@ -20,7 +25,7 @@ namespace GREEDY.ImagePreparation
                 edited = RemoveNoise(edited);
                 edited = BiggestBlob(edited);
                 edited = Rotate(edited);
-                edited = DeskewImage.Deskew(edited);
+                edited = _deskewImage.Deskew(edited);
                 edited = BiggestBlob(edited);
                 edited = Rescale(edited);
                 return edited;
