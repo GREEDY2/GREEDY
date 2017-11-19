@@ -6,6 +6,7 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from '../Shared/Constants';
 import { EditItem } from '../Photograph page/EditItem';
+import idbPromise from '../Shared/idbPromise';
 
 interface Props {
     refilter: any
@@ -22,7 +23,7 @@ interface State {
     //s - sort options
     sSortType: string
     sByPriceAsc: string
-    Categories: any
+    Categories: Array<string>
 }
 
 export class ChooseFiltersForItems extends React.Component<Props, State> {
@@ -37,9 +38,26 @@ export class ChooseFiltersForItems extends React.Component<Props, State> {
         sByPriceAsc: 'Highest first'
     }
 
-    constructor() {
-        super();
-        this.getAllDistinctCategories();
+    componentWillMount() {
+        this.getAllDistinctCategoriesFromDb();
+    }
+
+    getAllDistinctCategoriesFromDb = () => {
+        if (idbPromise) {
+            idbPromise.then(db => {
+                if (!db) return;
+
+                var tx = db.transaction('categories');
+                var store = tx.objectStore('categories');
+                return store.getAllKeys().then(categories => {
+                    this.setState({ Categories: categories });
+                })
+            }).then(() => {
+                if (this.state.Categories === []) {
+                    this.getAllDistinctCategories();
+                }
+            })
+        }
     }
 
     getAllDistinctCategories = () => {

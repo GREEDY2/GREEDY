@@ -4,6 +4,8 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import axios from 'axios';
 import Constants from '../Shared/Constants';
+import idbPromise from '../Shared/idbPromise';
+import { Alert } from '../Shared/Alert';
 
 interface Props {
     onRef: any;
@@ -17,14 +19,12 @@ interface State {
     ItemName: string;
     ItemPrice: number;
     ItemCategory: string;
-    eSuccess: boolean;
     showEdit: boolean;
-    eHappened: boolean;
     showCategoryAdd: boolean;
 }
 
 export class EditItem extends React.Component<Props, State> {
-    timer: any;
+    child: any;
     state = {
         Categories: [],
         ItemId: 0,
@@ -32,19 +32,12 @@ export class EditItem extends React.Component<Props, State> {
         ItemName: '',
         ItemPrice: 0,
         ItemCategory: '',
-        eSuccess: false,
         showEdit: false,
-        eHappened: false,
         showCategoryAdd: false
     }
 
     componentWillMount() {
-        this.setState({
-            showEdit: false,
-            showCategoryAdd: false,
-            eHappened: false
-        });
-        this.getAllDistinctCategories();
+        this.getAllDistinctCategoriesFromDb();
     }
 
     componentDidMount() {
@@ -53,14 +46,17 @@ export class EditItem extends React.Component<Props, State> {
 
     componentWillUnmount() {
         this.props.onRef(undefined);
-        clearInterval(this.timer);
     }
 
+    //TODO: save changes directly to client side database
+    //TODO: send changes to backend from database as soon as internet reconnects
+    //Or TODO: don't let the user edit items when he's offline
+    //Or TODO: maybe do nothing (if no interner and user tries to edit, then he gets an error anyway)
+    //Optional TODO: don't make the entire list refetch after edit, just change the item that has been edited
     saveItemChanges = (e) => {
         e.preventDefault();
         this.hideEdit();
         if (this.state.ItemId < 0 || this.state.ItemName === "") {
-            this.setState({ eSuccess: false });
             return;
         }
         const item = {
@@ -76,16 +72,29 @@ export class EditItem extends React.Component<Props, State> {
                 }
             }).then(response => {
                 let res = response.data;
-                this.setState({ eSuccess: true, eHappened: true });
+                this.child.showAlert("Item edited successfully", "success");
                 this.props.updateListAfterChange();
             }).catch(error => {
-                console.log(error);
+                this.child.showAlert("Failed to edit Item. Try again later", "error");
             });
     }
 
-    //TODO: fix disapearence of Item edited message.
-    showEditedMessage = (isSuccess) => {
-        this.setState({ eSuccess: isSuccess, eHappened: true });
+    getAllDistinctCategoriesFromDb = () => {
+        if (idbPromise) {
+            idbPromise.then(db => {
+                if (!db) return;
+
+                var tx = db.transaction('categories');
+                var store = tx.objectStore('categories');
+                return store.getAllKeys().then(categories => {
+                    this.setState({ Categories: categories });
+                })
+            }).then(() => {
+                if (this.state.Categories === []) {
+                    this.getAllDistinctCategories();
+                }
+            })
+        }
     }
 
     getAllDistinctCategories = () => {
@@ -102,6 +111,7 @@ export class EditItem extends React.Component<Props, State> {
             })
     }
 
+    //TODO: decide if we want to let user add categories (i believe not)
     saveCategoryChanges = (e) => {
         e.preventDefault();
         //TODO: add new category to the list (make it selected aswell)
@@ -154,6 +164,7 @@ export class EditItem extends React.Component<Props, State> {
     public render() {
         return (
             <div>
+                <Alert onRef={ref => (this.child = ref)} />
                 {this.state.showEdit &&
                     <ModalContainer onClose={this.hideEdit} >
                         <ModalDialog onClose={this.hideEdit} style={{ width: '80%' }}>
@@ -221,12 +232,6 @@ export class EditItem extends React.Component<Props, State> {
                             </Form>
                         </ModalDialog>
                     </ModalContainer>}
-                {this.state.eHappened ?
-                    this.state.eSuccess ?
-                        <div className="text-center h4">Item Edited Successfully</div>
-                        : <div className="text-center h4">Failed to Edit Item</div>
-                    : null
-                }
             </div>)
     }
 }

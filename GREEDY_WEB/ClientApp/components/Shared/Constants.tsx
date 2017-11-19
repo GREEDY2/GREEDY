@@ -14,7 +14,8 @@ export const Constants = {
     themeAlertMessage: 'dark',
     transitionAlertMessage: 'fade',
     possitionAlertMessage: 'bottom right',
-    logoName: 'Logo.png'
+    logoName: 'Logo.png',
+    dummyValue: true
 }
 
 export default Constants;

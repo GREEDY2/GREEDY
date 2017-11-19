@@ -38,9 +38,13 @@ export class ItemPriceGraph extends React.Component<Props, State> {
                 let graphData = response.data;
                 this.setState({ graphData, showGraphs: true });
             }).catch(error => {
+                if (error.response)
                 if (error.response.status == 401) {
                     localStorage.removeItem('auth');
-                    (this.props as any).history.push("/");
+                    this.props.history.push("/");
+                    }
+                else {
+                    //TODO: no internet
                 }
             })
     }
