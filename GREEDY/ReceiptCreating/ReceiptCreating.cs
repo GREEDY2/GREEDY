@@ -14,8 +14,8 @@ namespace GREEDY.ReceiptCreatings
 {
     public class ReceiptCreating : IReceiptCreating
     {
-        private static IOcr _ocr;
-        private static IShopManager _shops;
+        private readonly IOcr _ocr;
+        private readonly IShopManager _shops;
 
         public ReceiptCreating()
         {
@@ -68,6 +68,7 @@ namespace GREEDY.ReceiptCreatings
 
             foreach (Shop element in shops)
             {
+                //TODO:Find function for UpperCase 
                 if (shopTitle.ToUpper().Contains(element.Name.ToUpper()))
                 {
                     return element;

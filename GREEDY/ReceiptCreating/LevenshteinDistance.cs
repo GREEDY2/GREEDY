@@ -2,7 +2,7 @@
 
 namespace GREEDY.Extensions
 {
-    static class LevenshteinDistance
+    public static class LevenshteinDistance
     {
         // Compute the distance between two strings.
         public static int Compute(string s, string t)
