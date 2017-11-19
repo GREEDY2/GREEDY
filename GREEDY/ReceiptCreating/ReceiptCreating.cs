@@ -1,4 +1,5 @@
 ﻿using GREEDY.Data;
+using GREEDY.DataManagers;
 using GREEDY.Models;
 using GREEDY.OCRs;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace GREEDY.DataManagers
+namespace GREEDY.ReceiptCreatings
 {
     public class ReceiptCreating : IReceiptCreating
     {

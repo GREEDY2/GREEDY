@@ -1,4 +1,4 @@
-﻿using GREEDY.DataManagers;
+﻿using GREEDY.ReceiptCreatings;
 using Xunit;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
