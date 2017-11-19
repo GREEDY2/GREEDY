@@ -7,6 +7,7 @@ using GREEDY.OCRs;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
 using System.Reflection;
+using GREEDY.ImagePreparation;
 using Ninject;
 
 namespace GREEDY

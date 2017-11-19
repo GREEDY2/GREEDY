@@ -2,6 +2,7 @@
 using GREEDY.DataManagers;
 using GREEDY.Models;
 using System.Drawing;
+using GREEDY.ImagePreparation;
 
 namespace GREEDY.Services
 {
