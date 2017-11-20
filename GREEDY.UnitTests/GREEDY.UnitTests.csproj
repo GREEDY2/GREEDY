@@ -40,6 +40,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMoq, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMoq.2.0.0\lib\net45\AutoMoq.dll</HintPath>
     </Reference>
@@ -47,7 +56,7 @@
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\CommonServiceLocator.dll</HintPath>
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -61,8 +70,8 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=4.7.142.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.7.142\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.7.145.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.145\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=2.8.21218.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.8.0\lib\net40\MoreLinq.dll</HintPath>
@@ -78,31 +87,31 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="Unity.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Configuration, Version=5.0.2.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Container, Version=5.1.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.Container.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Interception, Version=5.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Interception.Configuration, Version=5.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.Interception.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RegistrationByConvention, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.RegistrationByConvention.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ServiceLocation, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.1.2\lib\net45\Unity.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=2.2.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.0.6.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.2.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.0.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration, Version=5.0.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.1.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ServiceLocation, Version=2.0.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.1\lib\net45\Unity.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>

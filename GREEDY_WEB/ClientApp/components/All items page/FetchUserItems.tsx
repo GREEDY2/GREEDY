@@ -4,6 +4,8 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from '../Shared/Constants';
 import { EditItem } from '../Photograph page/EditItem';
+import idbPromise from '../Shared/idbPromise';
+import * as idb from '../Shared/DatabaseFunctions';
 
 interface Props {
     onRef: any
@@ -47,7 +49,22 @@ export class FetchUserItems extends React.Component<Props, State> {
     }
 
     updateList = () => {
+        this.getAllUserItemsFromDb()
         this.getAllUserItems();
+    }
+
+    getAllUserItemsFromDb = () => {
+        if (idbPromise) {
+            idbPromise.then(db => {
+                if (!db) return;
+
+                var tx = db.transaction('myItems');
+                var store = tx.objectStore('myItems');
+                return store.getAll().then(items => {
+                    this.setState({ itemList: items, showItems: true });
+                })
+            })
+        }
     }
 
     getAllUserItems() {
@@ -56,19 +73,24 @@ export class FetchUserItems extends React.Component<Props, State> {
                 'Authorization': 'Bearer ' + localStorage.getItem("auth")
             }
         }).then(res => {
-            if (res) {
+            if (res.data) {
                 const itemList = res.data;
                 this.setState({ itemList, showItems: true });
+                idb.putArrayToDb('myItems', itemList);
             }
             else {
                 //TODO: display that the user has no items.
             }
             }).catch(error => {
-                if (error.response.status == 401) {
-                    localStorage.removeItem('auth');
-                    (this.props as any).history.push("/");
-                }
-                console.log(error);
+            if (error.response)
+            if (error.response.status == 401) {
+                localStorage.removeItem('auth');
+                this.props.history.push("/");
+                    }
+            else {
+                //TODO: no internet
+            }
+            console.log(error);
         })
     }
 

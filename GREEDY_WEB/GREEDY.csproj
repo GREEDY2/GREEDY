@@ -32,6 +32,10 @@
     <None Remove="ClientApp\components\ForgotPassword.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
     <None Remove="ClientApp\components\ItemPriceGraph.tsx" />
+    <None Remove="ClientApp\components\Shared\DatabaseFunctions.tsx" />
+    <None Remove="ClientApp\components\Shared\DatabaseManager.tsx" />
+    <None Remove="ClientApp\components\Shared\idbPromise.tsx" />
+    <None Remove="ClientApp\components\Shared\ServiceWorker.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
     <None Remove="ClientApp\components\UserRegistration.tsx" />
     <None Remove="ClientApp\components\UserSettings.tsx" />
@@ -51,6 +55,10 @@
     <TypeScriptCompile Include="ClientApp\components\Shared\Alert.tsx" />
     <TypeScriptCompile Include="ClientApp\components\All items page\AllUserItems.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Authorization.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\DatabaseFunctions.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\DatabaseManager.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\idbPromise.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\ServiceWorker.tsx" />
     <TypeScriptCompile Include="ClientApp\components\User settings page\ChangeEmail.tsx" />
     <TypeScriptCompile Include="ClientApp\components\User settings page\ChangePassword.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Constants.tsx" />

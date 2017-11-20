@@ -5,6 +5,7 @@ import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from '../Shared/Constants';
 import { EditItem } from './EditItem';
 import { Alert } from '../Shared/Alert';
+import * as idb from '../Shared/DatabaseFunctions';
 
 interface Props {
     onRef: any
@@ -57,6 +58,7 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                 if (res.data) {
                     const itemList = res.data;
                     this.setState({ itemList, showItems: true, receiptId, imageIsUploading: false });
+                    idb.putArrayToDb('myItems', itemList);
                 }
                 else {
                     this.setState({ imageIsUploading: false, showItems: false });

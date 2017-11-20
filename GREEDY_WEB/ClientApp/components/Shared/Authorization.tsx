@@ -3,6 +3,7 @@ import { UserLogin } from '../User login/UserLogin';
 import { UserRegistration } from '../User login/UserRegistration';
 import { Switch, Route } from 'react-router-dom';
 import { ForgotPassword } from '../User login/ForgotPassword';
+import { ServiceWorker } from './ServiceWorker';
 import Constants from './Constants';
 
 interface State {
@@ -31,11 +32,14 @@ export class Authorization extends React.Component<Props, State> {
             );
         }
         return (
-            <Switch>
-                <Route exact path='/registration' component={UserRegistration} />
-                <Route exact path='/forgot' component={ForgotPassword} />
-                <Route path='/' component={UserLogin} />
-            </Switch>
+            <div>
+                <Route path='/' component={ServiceWorker} />
+                <Switch>
+                    <Route exact path='/registration' component={UserRegistration} />
+                    <Route exact path='/forgot' component={ForgotPassword} />
+                    <Route path='/' component={UserLogin} />
+                </Switch>
+            </div>
         );
     }
 }

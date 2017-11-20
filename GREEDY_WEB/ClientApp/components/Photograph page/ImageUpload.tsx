@@ -34,11 +34,15 @@ export class ImageUpload extends React.Component<Props> {
                     this.child.showAlert("Unable to find any items. Please retake the picture", "info");
                 }
                 }).catch(error => {
+                    this.props.imageUploadStarted(false);
+                    if (error.response)
                     if (error.response.status == 401) {
                         localStorage.removeItem('auth');
-                        (this.props as any).history.push("/");
+                        this.props.history.push("/");
+                        }
+                    else {
+                        this.child.showAlert("Can't upload receipt with no internet", "error");
                     }
-                    this.props.imageUploadStarted(false);
                     this.child.showAlert("Something went wrong, please try again later", "error");
             });
         }

@@ -42,7 +42,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                 let res = response.data;
                 if (res) {
                     localStorage.setItem("auth", res);
-                    (this.props as any).history.push("/");
+                    this.props.history.push("/");
                 }
                 else {
                     this.setState({ isLoggingIn: false });
@@ -50,7 +50,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                 }
             }).catch(error => {
                 this.setState({ isLoggingIn: false });
-                console.log(error);
+                return next(new Error('Failed to login. Please try again later'));
             });
     }
 
