@@ -15,16 +15,16 @@ namespace GREEDY.ImagePreparation
         }
 
         // The range of angles to search for lines
-        const double ALPHA_START = -20;
-        const double ALPHA_STEP = 0.2;
-        const int STEPS = 40 * 5;
-        const double STEP = 1;
+        private const double ALPHA_START = -20;
+        private const double ALPHA_STEP = 0.2;
+        private const int STEPS = 40 * 5;
+        private const double STEP = 1;
 
-        double[] _sinA;
-        double[] _cosA;
-        double _min;
-        int _count;
-        int[] _hMatrix;
+        private double[] _sinA;
+        private double[] _cosA;
+        private double _min;
+        private int _count;
+        private int[] _hMatrix;
 
         Bitmap _internalBmp;
 
@@ -54,17 +54,14 @@ namespace GREEDY.ImagePreparation
         // Calculate all lines through the point (x,y)
         private void Calc(int x, int y)
         {
-            double d;
-            int index;
-
             for (int alpha = 0; alpha < STEPS; alpha++)
             {
-                d = y * _cosA[alpha] - x * _sinA[alpha];
-                index = Convert.ToInt32(d - _min);
+                double d = y * _cosA[alpha] - x * _sinA[alpha];
+                int index = Convert.ToInt32(d - _min);
                 index = index * STEPS + alpha;
                 try
                 {
-                    _hMatrix[index] += 1;
+                    _hMatrix[index]++;
                 }
                 catch (Exception ex)
                 {
@@ -113,7 +110,7 @@ namespace GREEDY.ImagePreparation
                         HougLine tmp = hl[j];
                         hl[j] = hl[j - 1];
                         hl[j - 1] = tmp;
-                        j -= 1;
+                        j--;
                     }
                 }
             }

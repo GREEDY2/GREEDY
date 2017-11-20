@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using GREEDY.DataManagers;
 using GREEDY.Models;
 using Ploeh.AutoFixture;
 using Xunit;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
