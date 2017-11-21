@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace GREEDY.DataManagers
+﻿namespace GREEDY.ReceiptCreatings
 {
     public interface IItemCategorization
     {
-        //string CategorizeSingleItem(string itemName, decimal price);
-        List<ItemInfo> CategorizeAllItems(List<ItemInfo> NewData);
-        void AddChangeCategories();
+        string CategorizeSingleItem(string itemName, decimal price);
+        void AddChangeCategories(string itemName, string category);
     }
 }

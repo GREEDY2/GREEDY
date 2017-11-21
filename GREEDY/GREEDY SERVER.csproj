@@ -63,6 +63,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.5\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.5\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -78,8 +84,11 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
+    <Reference Include="NHunspell, Version=1.2.5554.16953, Culture=neutral, PublicKeyToken=1ac793ea843b4366, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHunspell.1.2.5554.16953\lib\net\NHunspell.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Extensions.NamedScope, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Extensions.NamedScope.3.3.0\lib\net45\Ninject.Extensions.NamedScope.dll</HintPath>
@@ -103,10 +112,15 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.5\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -142,21 +156,28 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\GraphDataController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataManagers\CategoryManager.cs" />
+    <Compile Include="DataManagers\GraphManager.cs" />
     <Compile Include="DataManagers\ICategoryManager.cs" />
-    <Compile Include="DataManagers\ISessionManager.cs" />
-    <Compile Include="DataManagers\SessionManager.cs" />
+    <Compile Include="DataManagers\IGraphManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
+    <Compile Include="ImagePreparation\DeskewImage.cs" />
     <Compile Include="Migrations\201711061716547_Initial.cs" />
     <Compile Include="Migrations\201711061716547_Initial.designer.cs">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711100145578_RemovedSessions.cs" />
+    <Compile Include="Migrations\201711100145578_RemovedSessions.Designer.cs">
+      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\LoginSession.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
+    <Compile Include="Models\GraphData.cs" />
+    <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />
     <Compile Include="ReceiptCreating\IReceiptCreating.cs" />
@@ -173,7 +194,6 @@
     <Compile Include="Data\CategoryDataModel.cs" />
     <Compile Include="Data\DataBaseModel.cs" />
     <Compile Include="Data\ItemDataModel.cs" />
-    <Compile Include="Data\LoginSessionDataModel.cs" />
     <Compile Include="Data\ReceiptDataModel.cs" />
     <Compile Include="Data\ShopDataModel.cs" />
     <Compile Include="Data\UserDataModel.cs" />
@@ -198,6 +218,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="DataManagers\ShopManager.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />
@@ -206,12 +228,17 @@
     <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711100145578_RemovedSessions.resx">
+      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Categories.json" />
+    <Content Include="Categories.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -224,7 +251,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="tessdata\lit.traineddata" />
+    <Content Include="tessdata\lit.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -259,10 +288,16 @@
     <Content Include="tessdata\eng.traineddata">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="x64\Hunspellx64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="x64\liblept172.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="x64\libtesseract304.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\Hunspellx86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="x86\liblept172.dll">
@@ -273,6 +308,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

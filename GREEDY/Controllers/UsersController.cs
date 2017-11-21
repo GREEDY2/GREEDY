@@ -7,23 +7,24 @@ using GREEDY.Extensions;
 using System;
 using GREEDY.DataManagers;
 using System.Threading.Tasks;
+using System.Linq;
+using GREEDY.Services;
 
 namespace GREEDY.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        private ISessionManager _sessionManager;
         private IUserManager _userManager;
-        public LoginController(ISessionManager sessionManager, IUserManager userManager)
+        private IAuthenticationService _authenticationService;
+        public LoginController(IUserManager userManager, IAuthenticationService authenticationService)
         {
-            _sessionManager = sessionManager;
             _userManager = userManager;
+            _authenticationService = authenticationService;
         }
         public async Task<HttpResponseMessage> Put()
         {
             Request.RegisterForDispose((IDisposable)_userManager);
-            Request.RegisterForDispose((IDisposable)_sessionManager);
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
@@ -43,8 +44,8 @@ namespace GREEDY.Controllers
             }
             if (user.Password.Decrypt() == credentials.Password)
             {
-                var loginSession = _sessionManager.CreateNewSession(user);
-                return HelperClass.JsonHttpResponse(loginSession);
+                var token = _authenticationService.GenerateToken(credentials.Username);
+                return HelperClass.JsonHttpResponse(token);
             }
             return HelperClass.JsonHttpResponse<Object>(null);
         }
@@ -58,7 +59,7 @@ namespace GREEDY.Controllers
         {
             _userManager = userManager;
         }
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Post()
         {
             Request.RegisterForDispose((IDisposable)_userManager);
             HttpContent requestContent = Request.Content;
@@ -84,22 +85,95 @@ namespace GREEDY.Controllers
     }
 
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class AuthenticationController : ApiController
+    public class ChangeEmailController : ApiController
     {
-        private ISessionManager _sessionManager;
-        public AuthenticationController(ISessionManager sessionManager)
+        private IUserManager _userManager;
+        private IAuthenticationService _authenticationService;
+        public ChangeEmailController(IUserManager userManager, IAuthenticationService authenticationService)
         {
-            _sessionManager = sessionManager;
+            _userManager = userManager;
+            _authenticationService = authenticationService;
         }
         public async Task<HttpResponseMessage> Put()
         {
-            Request.RegisterForDispose((IDisposable)_sessionManager);
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
-            LoginSession loginSession = JsonConvert.DeserializeObject<LoginSession>(jsonContent);
-            if (_sessionManager.AuthenticateSession(loginSession))
+            Request.RegisterForDispose((IDisposable)_userManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
+            string jsonContent = await Request.Content.ReadAsStringAsync();
+            var passwordAndEmailObject = JsonConvert.DeserializeAnonymousType(jsonContent, 
+                new { password = "", email = ""});
+            string password = passwordAndEmailObject.password;
+            string newEmail = passwordAndEmailObject.email;
+            if (await isAuthenticated)
             {
-                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                if (!newEmail.IsEmailValid())
+                {
+                    //Email is inccorect
+                    //TODO: need a different message for the user if this happens
+                    return HelperClass.JsonHttpResponse<Object>(null);
+                }
+                if (_userManager.FindByEmail(newEmail) != null)
+                {
+                    //Email is already taken
+                    //TODO: need a different message for the user if this happens
+                    return HelperClass.JsonHttpResponse<Object>(null);
+                }
+                var isUserMatched = _userManager.ChangeUserEmail(username, password.Encrypt(), newEmail);
+                if (isUserMatched)
+                {
+                    return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                }
+                else
+                {
+                    return HelperClass.JsonHttpResponse<Object>(null);
+                }
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
+        }
+    }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class ChangePasswordController : ApiController
+    {
+        private IUserManager _userManager;
+        private IAuthenticationService _authenticationService;
+        public ChangePasswordController(IUserManager userManager, IAuthenticationService authenticationService)
+        {
+            _userManager = userManager;
+            _authenticationService = authenticationService;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            Request.RegisterForDispose((IDisposable)_userManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
+            string jsonContent = await Request.Content.ReadAsStringAsync();
+            var passwordAndNewPasswordObject = JsonConvert.DeserializeAnonymousType(jsonContent, 
+                new { password = "", newpassword = "" });
+            string password = passwordAndNewPasswordObject.password;
+            string newPassword = passwordAndNewPasswordObject.newpassword;
+            if (await isAuthenticated)
+            {
+                if (!newPassword.IsPasswordValid())
+                {
+                    //New password is invalid
+                    //TODO: need a different message for the user if this happens
+                    return HelperClass.JsonHttpResponse<Object>(null);
+                }
+                var isUserMatched = _userManager.ChangeUserPassword(username, password.Encrypt(), newPassword.Encrypt());
+                if (isUserMatched)
+                {
+                    return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                }
+                else
+                {
+                    //Password is invalid
+                    //TODO: need a different message for the user if this happens
+                    return HelperClass.JsonHttpResponse<Object>(null);
+                }
             }
             else
             {

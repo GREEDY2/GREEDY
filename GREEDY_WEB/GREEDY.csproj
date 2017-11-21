@@ -5,6 +5,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,18 +21,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Alert.tsx" />
+    <None Remove="ClientApp\components\AllUserItems.tsx" />
     <None Remove="ClientApp\components\Authorization.tsx" />
+    <None Remove="ClientApp\components\ChangeEmail.tsx" />
+    <None Remove="ClientApp\components\ChangePassword.tsx" />
     <None Remove="ClientApp\components\Constants.tsx" />
     <None Remove="ClientApp\components\EditItem.tsx" />
+    <None Remove="ClientApp\components\FetchUserItems.tsx" />
     <None Remove="ClientApp\components\ForgotPassword.tsx" />
     <None Remove="ClientApp\components\ImageUpload.tsx" />
+    <None Remove="ClientApp\components\ItemPriceGraph.tsx" />
+    <None Remove="ClientApp\components\Shared\DatabaseFunctions.tsx" />
+    <None Remove="ClientApp\components\Shared\DatabaseManager.tsx" />
+    <None Remove="ClientApp\components\Shared\idbPromise.tsx" />
+    <None Remove="ClientApp\components\Shared\ServiceWorker.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
     <None Remove="ClientApp\components\UserRegistration.tsx" />
+    <None Remove="ClientApp\components\UserSettings.tsx" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
     <PackageReference Include="morelinq" Version="2.8.0" />
   </ItemGroup>
 
@@ -40,14 +52,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\Authorization.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Constants.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\EditItem.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Logo.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\ForgotPassword.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\ImageUpload.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\UserLogin.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\UserRegistration.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\Alert.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\All items page\AllUserItems.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\Authorization.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\DatabaseFunctions.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\DatabaseManager.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\idbPromise.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\ServiceWorker.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\User settings page\ChangeEmail.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\User settings page\ChangePassword.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\Constants.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Photograph page\EditItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\All items page\FetchUserItems.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Statistics page\ItemPriceGraph.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Statistics page\StatisticsPage.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\Logo.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\User login\ForgotPassword.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Photograph page\ImageUpload.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\User login\UserLogin.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\User login\UserRegistration.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\User settings page\UserSettings.tsx" />
   </ItemGroup>
 
   <ItemGroup>

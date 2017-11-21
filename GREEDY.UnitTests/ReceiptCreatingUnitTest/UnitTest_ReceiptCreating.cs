@@ -6,6 +6,7 @@ using GREEDY.DataManagers;
 using Xunit;
 using GREEDY.OCRs;
 using Moq;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
@@ -23,7 +24,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
             //act
             //assert
-            Assert.Null(receiptCreating.FullReceiptCreating(image));
+            Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(image));
         }
 
         [Fact]

@@ -5,9 +5,10 @@ namespace GREEDY.DataManagers
 {
     public interface IItemManager
     {
-        int AddItems(IEnumerable<Item> itemList, Shop shop, string Username);
+        int AddItems(Receipt receipt, string username);
         List<Item> GetItemsOfSingleReceipt(int receiptId);
-        List<Item> LoadData(string Username);
+        List<Item> GetAllUserItems(string username);
+        List<Item> LoadData(string username);
         void UpdateItem(Item updatedItem);
     }
 }

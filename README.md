@@ -1,11 +1,17 @@
 # GREEDY
 ============
+Update 2017-11-12
+Valentinas: TestData moved to GOOGLE DRIVE:
+https://drive.google.com/drive/folders/1vJ01rK7XpMIyDPhhu0pDCqWoxjJ8tZk5?usp=sharing
 
-Here will be some information about our project
+============
+Update 2017-11-12
+Aidas: How to drop database:
+1. Delete GREEDY database in SQL Server Object Explorer > Databases > GREEDY
+2. Strat NUGER consol PM>
+3. Write this command: PM> entityframework\update-database
 
-Install files
-https://drive.google.com/drive/folders/0B48eEGmY0xIuOUYxVkpfdUxPNE0?usp=sharing
-
+============
 Update: 2017-10-11
 Marius: most of you will need some files and extensions in order for the project to work on you machine. Here is the guide on how to get them:
 1. Open Visual Studio
@@ -22,4 +28,3 @@ Marius: most of you will need some files and extensions in order for the project
 8. In https://nodejs.org/en/ download the rocomended for most users version.
 9. Install both files.
 10. Hope that the project will work on your machine.
-    

@@ -10,6 +10,16 @@
     color: white;
 }
 
+/* Rolling gif styles */
+.loading.img-responsive {
+    margin: 0 auto;
+}
+
+/* Filter button padding*/
+.filters {
+    padding: 15px 7px 5px;
+}
+
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
     position: fixed;
@@ -31,8 +41,9 @@
     padding-bottom: 20px;
 }
 
+/*make the login button centered*/
 .facebook {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
 }
 
 /*space above registration form (needed when no logo)*/
@@ -80,15 +91,23 @@
     float: right;
     clear: right;
 }
+
+/*nav screen horizontal line*/
+.widenSpace {
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
 /*ON SMALL SCREENS*/
 @media (max-width: 767px) {
+    .page-update {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 14px;
+    }
+
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {
         padding-top: 50px;
-    }
-    /* On small screens, thre is a space beetween navicons and username/logout button*/
-    .widenSpace {
-        height: 25px;
     }
     /*Buttons in the login screen for reg and forg will be smaller*/
     .loginLinkButton {
@@ -104,6 +123,12 @@
 }
 /*ON BIG SCREENS*/
 @media (min-width: 768px) {
+    .page-update {
+        padding-left: 60px;
+        padding-right: 60px;
+        font-size: 19px;
+    }
+
     /*On big screens, margin between login button and Register button*/
     .marginTop {
         margin-top: 10%;
@@ -160,9 +185,5 @@
         width: 40%;
         margin-left: 30%;
         margin-right: 30%
-    }
-    /*On big screens, there is a big space beetwenn navicons and username/logout*/
-    .widenSpace {
-        padding-top: 100%;
     }
 }

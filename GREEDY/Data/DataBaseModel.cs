@@ -12,6 +12,5 @@ namespace GREEDY.Data
         public virtual DbSet<ShopDataModel> Shop { get; set; }
         public virtual DbSet<ItemDataModel> Item { get; set; }
         public virtual DbSet<CategoryDataModel> Category { get; set; }
-        public virtual DbSet<LoginSessionDataModel> LoginSession { get; set; }
     }
 }

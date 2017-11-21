@@ -12,6 +12,7 @@ namespace GREEDY
         string MinUsernameLength { get; }
         string MinPasswordLength { get; }
         string MaxAnyInputLength { get; }
+        string AuthenticationSecret { get; }
     }
 
     public class AppConfig : IAppConfig
@@ -24,5 +25,6 @@ namespace GREEDY
         public string MinUsernameLength => ConfigurationManager.AppSettings["MinUsernameLength"];
         public string MinPasswordLength => ConfigurationManager.AppSettings["MinPasswordLength"];
         public string MaxAnyInputLength => ConfigurationManager.AppSettings["MaxAnyInputLength"];
+        public string AuthenticationSecret => ConfigurationManager.AppSettings["AuthenticationSecret"];
     }
 }

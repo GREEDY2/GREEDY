@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace GREEDY.DataManagers
+namespace GREEDY.ReceiptCreatings
 {
     public class ItemCategorization : IItemCategorization
     {

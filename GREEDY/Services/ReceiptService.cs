@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using GREEDY.DataManagers;
-using GREEDY.Models;
+﻿using GREEDY.Models;
 using System.Drawing;
+using GREEDY.ImagePreparation;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.Services
 {
@@ -25,14 +25,14 @@ namespace GREEDY.Services
             _dataConverter = dataConverter;
         }
 
-        public List<Item> ProcessReceiptImage(Bitmap image)
+        public Receipt ProcessReceiptImage(Bitmap image)
         {
             if (image != null)
             {
                 image = _imageFormating.FormatImage(image);
                 var receipt = _receiptCreating.FullReceiptCreating(image);
-                var itemList = _dataConverter.ReceiptToItemList(receipt);
-                return itemList;
+                receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
+                return receipt;
             }
             else
             {
