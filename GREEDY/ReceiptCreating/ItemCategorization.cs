@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using GREEDY.DataManagers;
 
 namespace GREEDY.ReceiptCreatings
 {

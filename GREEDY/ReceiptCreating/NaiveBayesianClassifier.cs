@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using MoreLinq;
 
-namespace GREEDY.DataManagers
+namespace GREEDY.ReceiptCreating
 {
     public class NaiveBayesianClassifier
     {
