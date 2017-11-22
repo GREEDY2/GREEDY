@@ -1,1 +1,37 @@
-[{"Category":"cipsai","Text":"Traškučiai TAFFEL SAN DIEGU , ","Prob":0.0},{"Category":"vaisiai","Text":"Bananai„ - 0,69 X 1,494 kg ","Prob":0.0},{"Category":"maistas","Text":"Citrinu sorbetas AUGUSTŪ ' ","Prob":0.0},{"Category":"maistas","Text":"Geriamasis vyšnių skonio VILKVŠKIU jugurtas, 22 rieb. ' „ Į ą- ","Prob":0.0},{"Category":"maistas","Text":"ABaItyminis gaminys GOUDA VIOTRUS picäi “ 2,90 X 0,346 kg “ . ","Prob":0.0},{"Category":"pienas","Text":"MatūraIus Rokiškio MAMIMIS.pienaa, 3,52 rieb. ","Prob":0.0}]
+[
+  {
+    "Category": "traškučiai",
+    "Text": "Traškučiai TAFFEL SAN DIEGU",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "Bananai",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "Citrinų šerbetas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "Geriamasis vyšnių skonio VILKYŠKIŲ jogurtas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pienas",
+    "Text": "Natūralus Rokiškio MAMIMIS pienas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "nuolaida",
+    "Text": "Nuolaida",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "VILKYŠK JOG GER ŽEMUOG SK",
+    "Prob": 0.0
+  }
+]
