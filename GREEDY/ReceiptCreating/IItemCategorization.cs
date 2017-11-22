@@ -1,8 +1,11 @@
-﻿namespace GREEDY.ReceiptCreatings
+﻿using GREEDY.Models;
+using System.Collections.Generic;
+
+namespace GREEDY.ReceiptCreatings
 {
     public interface IItemCategorization
     {
-        //string CategorizeSingleItem(string itemName, decimal price);
-        //void AddChangeCategories(string itemName, string category);
+        List<ItemInfo> CategorizeAllItems(List<ItemInfo> NewData);
+        void WriteCategories();
     }
 }

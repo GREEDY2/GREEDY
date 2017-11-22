@@ -14,7 +14,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         {
             //arrange
             var imageFormating = new Mock<IImageFormating>();
-            var receiptCreating = new Mock<IReceiptCreating>();
+            var receiptCreating = new Mock<IReceiptCreatings>();
             var dataConverter = new Mock<IDataConverter>();
             ReceiptService receiptService =
                 new ReceiptService(
@@ -33,7 +33,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             //arrange
             var imageFormating = new Mock<IImageFormating>();
             Bitmap image = new Bitmap(1, 1);
-            var receiptCreating = new Mock<IReceiptCreating>();
+            var receiptCreating = new Mock<IReceiptCreatings>();
             var dataConverter = new Mock<IDataConverter>();
             ReceiptService receiptService =
                 new ReceiptService(

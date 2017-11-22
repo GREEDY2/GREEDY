@@ -4,12 +4,18 @@ using System;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
+using System.Linq;
 
 namespace GREEDY.ReceiptCreatings
 {
     public class DataConverter : IDataConverter
     {
-        private static ItemCategorization ItemCategorization => new ItemCategorization();
+        private readonly ItemCategorization _itemCategorization;
+
+        public DataConverter()
+        {
+            _itemCategorization = new ItemCategorization();
+        }
 
         public List<Item> ReceiptToItemList(Receipt receipt)
         {
@@ -38,8 +44,8 @@ namespace GREEDY.ReceiptCreatings
                         {
                             Name = Regex.Replace(previous + match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(
-                                match2.Groups[1].Value + match1.Groups[1].Value)
+                            Category = String.Empty
+                            //ItemCategorization.CategorizeSingleItem(match2.Groups[1].Value + match1.Groups[1].Value)
                         });
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
@@ -50,7 +56,8 @@ namespace GREEDY.ReceiptCreatings
                         {
                             Name = Regex.Replace(match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
+                            Category = String.Empty
+                            //ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
                         });
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
@@ -85,7 +92,8 @@ namespace GREEDY.ReceiptCreatings
                         {
                             Name = m.Groups[1].Value.Replace("\n", string.Empty),
                             Price = decimal.Parse(m.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                            Category = String.Empty
+                            //ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
                         });
                     }
                 }
@@ -95,6 +103,24 @@ namespace GREEDY.ReceiptCreatings
             {
                 return itemList;
             }
+        }
+
+        public List<Item> CategorizeItems(List<Item> itemList)
+        {
+            List<ItemInfo> newData;
+            newData = itemList.Select(x => new ItemInfo { Category = String.Empty, Text = x.Name, Prob = 0 }).ToList();
+            newData = _itemCategorization.CategorizeAllItems(newData);
+            foreach (Item item in itemList)
+            {
+                foreach (ItemInfo itemInfo in newData)
+                {
+                    if(item.Name == itemInfo.Text)
+                    {
+                        item.Category = itemInfo.Category;
+                    }
+                }
+            }
+            return itemList;
         }
     }
 }

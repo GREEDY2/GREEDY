@@ -177,6 +177,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
+    <Compile Include="Models\ItemInfo.cs" />
     <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />

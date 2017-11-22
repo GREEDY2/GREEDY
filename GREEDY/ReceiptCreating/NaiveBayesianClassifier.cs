@@ -1,100 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.IO;
 using MoreLinq;
+using GREEDY.Models;
 
-namespace GREEDY.ReceiptCreating
+namespace GREEDY.ReceiptCreatings
 {
     public class NaiveBayesianClassifier
     {
+        public static List<ItemInfo> Info { get; set; }
+        private static Classifier _classifier;
+
+        public List<ItemInfo> GetInfo()
+        {
+            return Info;
+        }
+
         public NaiveBayesianClassifier(List<ItemInfo> info)
         {
             Info = info;
-            c = new Classifier(info);
+            _classifier = new Classifier(info);
         }
-        public List<ItemInfo> Info { get; set; }
-        private Classifier c;
-
-        /*public string GetTopCategory(string itemName)
-        {
-            string max = "";
-            double maxProb = 0;
-            foreach (string element in Info.Select(x => x.Category).Distinct())
-            {
-                var res = c.IsInClassProbability(element, itemName);
-                if (res > maxProb)
-                {
-                    max = element;
-                    maxProb = res;
-                }
-            }
-            return max;
-        }*/
-
-        /*public List<string> GetAllCategoriesSorted(string itemName)
-        {
-            List<string> categories = new List<string>();
-            List<CategoryAndProb> cap = new List<CategoryAndProb>();
-            foreach (string element in Info.Select(x => x.Category).Distinct())
-            {
-                var res = c.IsInClassProbability(element, itemName);
-                cap.Add(new CategoryAndProb(element, res));
-            }
-
-            cap = cap.OrderByDescending(x => x.Prob).ToList();
-            foreach (CategoryAndProb element in cap)
-                categories.Add(element.Category);
-            return categories;
-        }*/
 
         public List<ItemInfo> GetAllItemsWithCategories(List<ItemInfo> NewData)
         {
             double maxProb = 0;
             string maxCat = "";
-            double res = 0;
+            double prob = 0;
+
             foreach (ItemInfo item in NewData)
             {
                 foreach (string catg in Info.Select(x => x.Category).Distinct())
                 {
-                    res = c.IsInClassProbability(catg, item.Text);
+                    prob = _classifier.IsInClassProbability(catg, item.Text);
 
-                    if (res > maxProb)
+                    if (prob > maxProb)
                     {
-                        maxProb = res;
+                        maxProb = prob;
                         maxCat = catg;
                     }
                 }
                 item.Category = maxCat;
                 item.Prob = maxProb;
                 maxProb = 0;
-                maxCat = "";
+                maxCat = String.Empty;
             }
+            //Add new data to all data
+            //TODO: change this to one fixed testdata/trainingData fail
             Info = Info.Union(NewData).ToList();
             Info = Info.DistinctBy(o => o.Text).ToList();
             return NewData;
-        } 
-
-    }
-    
-    public class ItemInfo
-    {
-        public ItemInfo(string category, string text, double prob)
-        {
-            Category = category;
-            Text = text;
-        }
-        public string Category { get; set; }
-        public string Text { get; set; }
-        public double Prob { get; set; }
-
-        public string println()
-        {
-            return Category + Text + Prob.ToString();
         }
     }
 
@@ -106,7 +62,8 @@ namespace GREEDY.ReceiptCreating
         }
     }
 
-    class ClassInfo
+    //extract features and prepare for other classification 
+    public class ClassInfo
     {
         public ClassInfo(string name, List<String> trainDocs)
         {
@@ -118,6 +75,7 @@ namespace GREEDY.ReceiptCreating
                 .ToDictionary(x => x.Key, x => x.Count());
             NumberOfDocs = trainDocs.Count;
         }
+
         public string Name { get; set; }
         public int WordsCount { get; set; }
         public Dictionary<string, int> WordCount { get; set; }
@@ -129,11 +87,14 @@ namespace GREEDY.ReceiptCreating
         }
     }
 
-    class Classifier
+    //training part
+    //TODO: add sync/await or create separate class (like .dll or smth)
+    public class Classifier
     {
         List<ClassInfo> _classes;
         int _countOfDocs;
         int _uniqWordsCount;
+
         public Classifier(List<ItemInfo> train)
         {
             _classes = train.GroupBy(x => x.Category).Select(g => new ClassInfo(g.Key, g.Select(x => x.Text).ToList())).ToList();
@@ -150,16 +111,12 @@ namespace GREEDY.ReceiptCreating
                     Result = Math.Pow(Math.E, Calc(x.NumberOfDocs, _countOfDocs, words, x.WordsCount, x, _uniqWordsCount)),
                     ClassName = x.Name
                 });
-
-
             return classResults.Single(x => x.ClassName == className).Result / classResults.Sum(x => x.Result);
         }
 
-        private static double Calc(double dc, double d, List<String> q, double lc, ClassInfo @class, double v)
+        private static double Calc(double dc, double d, List<String> q, double lc, ClassInfo classInfo, double v)
         {
-            return Math.Log(dc / d) + q.Sum(x => Math.Log((@class.NumberOfOccurencesInTrainDocs(x) + 1) / (v + lc)));
+            return Math.Log(dc / d) + q.Sum(x => Math.Log((classInfo.NumberOfOccurencesInTrainDocs(x) + 1) / (v + lc)));
         }
     }
-
-
 }
