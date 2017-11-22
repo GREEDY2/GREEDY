@@ -1,4 +1,6 @@
-﻿using GREEDY.ReceiptCreatings;
+﻿using GREEDY.Models;
+using GREEDY.ReceiptCreatings;
+using System.Collections.Generic;
 using Xunit;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
@@ -10,11 +12,11 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         {
             //arrange
             var itemCategorization = new ItemCategorization();
-           
+            List<ItemInfo> NewData = new List<ItemInfo>();
             //act
 
             //assert
-            //Assert.Equal(string.Empty, itemCategorization.CategorizeSingleItem(string.Empty));
+            Assert.Equal(NewData, itemCategorization.CategorizeAllItems(NewData));
         }
     }
 }
