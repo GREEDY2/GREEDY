@@ -20,8 +20,7 @@ namespace GREEDY.ReceiptCreatings
         
         public List<ItemInfo> CategorizeAllItems(List<ItemInfo> NewData)
         {
-            NewData = _NBClassifier.GetAllItemsWithCategories(NewData);
-            _info = _NBClassifier.GetInfo();
+            (_info, NewData) = _NBClassifier.GetAllItemsWithCategories(NewData);
             _info = _info.DistinctBy(o => o.Text).ToList();
             WriteCategories();
             return NewData;

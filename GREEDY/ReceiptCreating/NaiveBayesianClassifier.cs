@@ -9,13 +9,8 @@ namespace GREEDY.ReceiptCreatings
 {
     public class NaiveBayesianClassifier
     {
-        public static List<ItemInfo> Info { get; set; }
+        private static List<ItemInfo> Info;
         private static Classifier _classifier;
-
-        public List<ItemInfo> GetInfo()
-        {
-            return Info;
-        }
 
         public NaiveBayesianClassifier(List<ItemInfo> info)
         {
@@ -23,11 +18,13 @@ namespace GREEDY.ReceiptCreatings
             _classifier = new Classifier(info);
         }
 
-        public List<ItemInfo> GetAllItemsWithCategories(List<ItemInfo> NewData)
+        public (List<ItemInfo>, List<ItemInfo>) GetAllItemsWithCategories(List<ItemInfo> NewData)
         {
             double maxProb = 0;
             string maxCat = "";
             double prob = 0;
+
+            var (asd1, asd2) = new Tuple<List<ItemInfo>, List<ItemInfo>>(Info, NewData);
 
             foreach (ItemInfo item in NewData)
             {
@@ -50,7 +47,7 @@ namespace GREEDY.ReceiptCreatings
             //TODO: change this to one fixed testdata/trainingData fail
             Info = Info.Union(NewData).ToList();
             Info = Info.DistinctBy(o => o.Text).ToList();
-            return NewData;
+            return (Info, NewData);
         }
     }
 

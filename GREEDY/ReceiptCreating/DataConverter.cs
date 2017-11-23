@@ -107,11 +107,12 @@ namespace GREEDY.ReceiptCreatings
 
         public List<Item> CategorizeItems(List<Item> itemList)
         {
-            List<ItemInfo> newData;
-            newData = itemList.Select(x => new ItemInfo { Category = String.Empty, Text = x.Name, Prob = 0 }).ToList();
+            var newData = itemList.Select(x => new ItemInfo { Category = String.Empty, Text = x.Name, Prob = 0 }).ToList();
             newData = _itemCategorization.CategorizeAllItems(newData);
+
             foreach (Item item in itemList)
             {
+
                 foreach (ItemInfo itemInfo in newData)
                 {
                     if(item.Name == itemInfo.Text)
