@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using GREEDY.DataManagers;
-using GREEDY.Models;
+﻿using GREEDY.Models;
 using System.Drawing;
 using GREEDY.ImagePreparation;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.Services
 {
