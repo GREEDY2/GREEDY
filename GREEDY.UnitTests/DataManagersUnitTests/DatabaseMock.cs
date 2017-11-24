@@ -2,6 +2,7 @@
 using GREEDY.Data;
 using Moq;
 using System.Data.Entity;
+using Geocoding;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests
 {
@@ -18,8 +19,8 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
 
             var Shops = new ShopDataModel[]
             {
-                new ShopDataModel{Name="shop1",Location="location1",ShopId=1,Receipts=new ReceiptDataModel[]{Receipts[0],Receipts[2] } },
-                new ShopDataModel{Name="shop2",Location="location2",ShopId=2,Receipts=new ReceiptDataModel[]{Receipts[1] } }
+                new ShopDataModel{Name="shop1",Location=new Location(0.0 ,0.0),ShopId=1,Receipts=new ReceiptDataModel[]{Receipts[0],Receipts[2] } },
+                new ShopDataModel{Name="shop2",Location=new Location(1.1 ,1.1),ShopId=2,Receipts=new ReceiptDataModel[]{Receipts[1] } }
             };
 
             var Items = new ItemDataModel[]

@@ -9,6 +9,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Geocoding.Google;
+using Geocoding;
+using System.Threading.Tasks;
 
 namespace GREEDY.ReceiptCreatings
 {
@@ -33,7 +36,8 @@ namespace GREEDY.ReceiptCreatings
         {
             var linesOfText = _ocr.ConvertImage(image);
             var date = GetDateForReceipt(linesOfText);
-            var shop = GetShopFromData(linesOfText);
+            var address = GetAddress(linesOfText.Take(4)).Result;
+            var shop = GetShopFromData(linesOfText.Take(4), address);
 
             return new Receipt
             {
@@ -61,24 +65,45 @@ namespace GREEDY.ReceiptCreatings
             }
         }
 
-        public Shop GetShopFromData(List<string> linesOfText)
+        public Shop GetShopFromData(IEnumerable<string> linesOfText, Location address)
         {
-            var shopTitle = String.Join(String.Empty, linesOfText.Take(4));
+            var shopTitle = String.Join(String.Empty, linesOfText);
             var shops = _shops.GetExistingShop();
 
             foreach (Shop element in shops)
             {
-                //TODO:Find function for UpperCase 
-                if (shopTitle.ToUpper().Contains(element.Name.ToUpper()))
+                //if shopTitle is empty = 0
+                if (shopTitle.IndexOf(element.Name, StringComparison.OrdinalIgnoreCase) > 0)
                 {
-                    return element;
+                    return new Shop
+                    {
+                        Name = element.Name,
+                        Location = address,
+                        SubName = element.SubName
+                    };
                 }
-                else if (element.SubName!=null && shopTitle.ToUpper().Contains(element.SubName.ToUpper()) && element.SubName != String.Empty)
+                else if (element.SubName != null && shopTitle.IndexOf(element.SubName, StringComparison.OrdinalIgnoreCase) > 0)
                 {
-                    return element;
+                    return new Shop
+                    {
+                        Name = element.Name,
+                        Location = address,
+                        SubName = element.SubName
+                    };
                 }
             }
-            return new Shop { Name = "Neatpažinta" };
+            return new Shop { Name = "Neatpažinta", Location = address };
+        }
+
+        public async Task<Location> GetAddress(IEnumerable<string> linesOfText)
+        {
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = Environments.AppConfig.GoogleMapsGeocodingAPIKey };
+            IEnumerable<Address> addresses = await geocoder.GeocodeAsync("Ozo g. 16, Vilnius");
+            var coordinates = addresses.First().Coordinates;
+            Console.WriteLine("Formatted: " + addresses.First().FormattedAddress); //Formatted: 1600 Pennsylvania Ave SE, Washington, DC 20003, USA
+            Console.WriteLine("Coordinates: " + coordinates.Latitude + ", " + coordinates.Longitude); //Coordinates: 38.8791981, -76.9818437
+
+            return coordinates;
         }
     }
 }

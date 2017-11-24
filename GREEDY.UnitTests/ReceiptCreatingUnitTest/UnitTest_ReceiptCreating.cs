@@ -7,6 +7,7 @@ using Xunit;
 using GREEDY.OCRs;
 using Moq;
 using GREEDY.ReceiptCreatings;
+using Geocoding;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
@@ -15,8 +16,9 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         Fixture fixture = new Fixture();
         Mock<IOcr> ocr = new Mock<IOcr>();
         Mock<IShopManager> shops = new Mock<IShopManager>();
+        Location location = new Location(54.7076415, 25.2200897);
 
-         [Fact]
+        [Fact]
         public void ReceiptCreating_FullReceiptCreating_EmptyBitmap()
         {
             //arrange
@@ -75,7 +77,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
             //act
             //assert
-            Assert.Equal("Neatpažinta", receiptCreating.GetShopFromData(linesOfText).Name);
+            Assert.Equal("Neatpažinta", receiptCreating.GetShopFromData(linesOfText, location).Name);
         }
 
         //integration test
@@ -96,7 +98,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
             //act
             //assert
-            Assert.Equal(ShopName, receiptCreating.GetShopFromData(linesOfText).Name);
+            Assert.Equal(ShopName, receiptCreating.GetShopFromData(linesOfText, location).Name);
         }
     }
 }
