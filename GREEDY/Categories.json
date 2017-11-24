@@ -7,7 +7,7 @@
   {
     "Category": "traškučiai",
     "Text": "Estrella",
-    "Prob": 0.0
+    "Prob": 0.8
   },
   {
     "Category": "traškučiai",
@@ -17,7 +17,7 @@
   {
     "Category": "traškučiai",
     "Text": "Lays",
-    "Prob": 0.0
+    "Prob": 0.8
   },
   {
     "Category": "traškučiai",
@@ -27,7 +27,7 @@
   {
     "Category": "traškučiai",
     "Text": "Cheetos",
-    "Prob": 0.0
+    "Prob": 0.8
   },
   {
     "Category": "traškučiai",
@@ -181,8 +181,8 @@
   },
   {
     "Category": "maistas",
-    "Text": "Trikampis sumuštinis",
-    "Prob": 0.0
+    "Text": "sumuštinis",
+    "Prob": 0.5
   },
   {
     "Category": "maistas",
@@ -197,7 +197,7 @@
   {
     "Category": "maistas",
     "Text": "rukyta",
-    "Prob": 0.0
+    "Prob": 0.5
   },
   {
     "Category": "maistas",
@@ -207,7 +207,7 @@
   {
     "Category": "maistas",
     "Text": "Nestle",
-    "Prob": 0.0
+    "Prob": 0.3
   },
   {
     "Category": "maistas",
@@ -217,17 +217,17 @@
   {
     "Category": "maistas",
     "Text": "batonėlis",
-    "Prob": 0.0
+    "Prob": 0.5
   },
   {
     "Category": "maistas",
     "Text": "duona",
-    "Prob": 0.0
+    "Prob": 0.5
   },
   {
     "Category": "maistas",
     "Text": "duonelė",
-    "Prob": 0.0
+    "Prob": 0.5
   },
   {
     "Category": "tara",
@@ -312,7 +312,7 @@
   {
     "Category": "pieno produktas",
     "Text": "jogurtas",
-    "Prob": 0.5
+    "Prob": 0.9
   },
   {
     "Category": "pieno produktas",
@@ -332,7 +332,7 @@
   {
     "Category": "pieno produktas",
     "Text": "pienas",
-    "Prob": 0.5
+    "Prob": 0.9
   },
   {
     "Category": "pieno produktas",
@@ -342,6 +342,6 @@
   {
     "Category": "pieno produktas",
     "Text": "VILKYŠK JOG GER ŽEMUOG",
-    "Prob": 0.0
+    "Prob": 0.5
   }
 ]

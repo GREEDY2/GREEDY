@@ -40,10 +40,10 @@ namespace GREEDY.ReceiptCreatings
                         }
                         itemList.Add(new Item
                         {
-                            Name = Regex.Replace(previous + match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
+                            Name = Regex.Replace(Regex.Match(previous, @"[\p{L}]{2}[\p{L}]+.+") 
+                                + match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
                             Category = category
-
                         });
                         category = String.Empty;
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
@@ -71,9 +71,7 @@ namespace GREEDY.ReceiptCreatings
                     previous = receipt.LinesOfText[i];
                 }
             }
-
-            //working with text
-            //check if any iteams was found
+            //working with text check if any iteams was found
             if (sublist.Count != 0)
             {
                 //working with text
@@ -83,9 +81,7 @@ namespace GREEDY.ReceiptCreatings
                 previous = Regex.Replace(previous, "›", ",");
                 previous = Regex.Replace(previous, pattern2, "$1" + " " + "$2");
                 previous = Regex.Replace(previous, @"([\-]?\d+[\.\,]\d{2}).[A|E|B|F|N|C]{1}(\b|\.)", "$1" + Environment.NewLine);
-
                 pattern = @"([\p{L}]{2}[\p{L}]+.+)([\-, ]\d+[\.\,]\d{2})\r\n";
-
                 MatchCollection match = Regex.Matches(previous, pattern, RegexOptions.Multiline);
                 if (match.Count != 0)
                 {
