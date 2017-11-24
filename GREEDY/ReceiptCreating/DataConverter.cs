@@ -24,6 +24,7 @@ namespace GREEDY.ReceiptCreatings
             string previous = String.Empty;
             List<string> sublist = new List<string>();
             Match match1;
+            var category = String.Empty;
 
             for (int i = 0; i < receipt.LinesOfText.Count; i++)
             {
@@ -33,23 +34,34 @@ namespace GREEDY.ReceiptCreatings
                     Match match2 = Regex.Match(previous, @"(?!(.+)?\d{5,}(.+)?)^.+$", RegexOptions.Multiline);
                     if (match2.Success)
                     {
+                        if (decimal.Parse(match1.Groups[2].Value.Replace(".", ",")) < 0)
+                        {
+                            category = "nuolaida";
+                        }
                         itemList.Add(new Item
                         {
                             Name = Regex.Replace(previous + match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = String.Empty
+                            Category = category
+
                         });
+                        category = String.Empty;
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
                     }
                     else
                     {
+                        if (decimal.Parse(match1.Groups[2].Value.Replace(".", ",")) < 0)
+                        {
+                            category = "nuolaida";
+                        }
                         itemList.Add(new Item
                         {
                             Name = Regex.Replace(match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = String.Empty
+                            Category = category
                         });
+                        category = String.Empty;
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
                     }
@@ -79,12 +91,17 @@ namespace GREEDY.ReceiptCreatings
                 {
                     foreach (Match m in match)
                     {
+                        if (decimal.Parse(m.Groups[2].Value.Replace(".", ",")) < 0)
+                        {
+                            category = "nuolaida";
+                        }
                         itemList.Add(new Item
                         {
                             Name = m.Groups[1].Value.Replace("\n", string.Empty),
                             Price = decimal.Parse(m.Groups[2].Value.Replace(".", ",")),
-                            Category = String.Empty
+                            Category = category
                         });
+                    category = String.Empty;
                     }
                 }
                 return itemList;

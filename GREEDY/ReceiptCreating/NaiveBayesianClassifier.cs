@@ -51,20 +51,23 @@ namespace GREEDY.ReceiptCreatings
 
             foreach (ItemInfo item in NewData)
             {
-                foreach (string category in _classes.Select(x => x.Name).Distinct())
+                if (item.Category == String.Empty)
                 {
-                    prob = IsInClassProbability(category, item.Text);
-
-                    if (prob > maxProb)
+                    foreach (string category in _classes.Select(x => x.Name).Distinct())
                     {
-                        maxProb = prob;
-                        maxCat = category;
+                        prob = IsInClassProbability(category, item.Text);
+
+                        if (prob > maxProb)
+                        {
+                            maxProb = prob;
+                            maxCat = category;
+                        }
                     }
+                    item.Category = maxCat;
+                    item.Prob = maxProb;
+                    maxProb = 0;
+                    maxCat = String.Empty;
                 }
-                item.Category = maxCat;
-                item.Prob = maxProb;
-                maxProb = 0;
-                maxCat = String.Empty;
             }
             return NewData;
         }
@@ -98,7 +101,7 @@ namespace GREEDY.ReceiptCreatings
     {
         public static List<String> ExtractFeatures(this String text)
         {
-            return Regex.Replace(text, "\\p{P}+", "").Split(' ').ToList();
+            return Regex.Matches(text, "\\p{L}{4,}").Cast<Match>().Select(match => match.Value).ToList();
         }
     }
 }

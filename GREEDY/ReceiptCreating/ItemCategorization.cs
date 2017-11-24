@@ -22,14 +22,14 @@ namespace GREEDY.ReceiptCreatings
         {
             _classifier = new NaiveBayesianClassifier(_trainingData);
 
-            var NewData = itemList.Select(x => new ItemInfo { Category = String.Empty, Text = x.Name, Prob = 0 }).ToList();
+            var NewData = itemList.Select(x => new ItemInfo { Category = x.Category, Text = x.Name, Prob = 0 }).ToList();
             NewData = _classifier.GetAllItemsWithCategories(NewData);
 
             foreach (Item item in itemList)
             {
                 foreach (ItemInfo itemInfo in NewData)
                 {
-                    if (item.Name == itemInfo.Text)
+                    if (item.Name == itemInfo.Text && item.Category == String.Empty)
                     {
                         item.Category = itemInfo.Category;
                     }
