@@ -5,7 +5,7 @@ namespace GREEDY.ReceiptCreatings
 {
     public interface IItemCategorization
     {
-        List<ItemInfo> CategorizeAllItems(List<ItemInfo> NewData);
-        void WriteCategories();
+        List<Item> CategorizeItems(List<Item> NewData);
+        void AddCategory(string itemName, string category);
     }
 }

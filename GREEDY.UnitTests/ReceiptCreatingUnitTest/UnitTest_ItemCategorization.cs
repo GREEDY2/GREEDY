@@ -8,15 +8,15 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
     public class UnitTest_ItemCategorization
     {
         [Fact]
-        public void ItemCategorization_CategorizeSingleItem_CategorizingEmptyString()
+        public void ItemCategorization_CategorizeItems_CategorizingEmptyString()
         {
             //arrange
             var itemCategorization = new ItemCategorization();
-            List<ItemInfo> NewData = new List<ItemInfo>();
+            List<Item> NewData = new List<Item>();
             //act
 
             //assert
-            Assert.Equal(NewData, itemCategorization.CategorizeAllItems(NewData));
+            Assert.Equal(NewData, itemCategorization.CategorizeItems(NewData));
         }
     }
 }

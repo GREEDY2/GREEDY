@@ -178,6 +178,7 @@
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />
     <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />
@@ -189,7 +190,6 @@
     <Compile Include="ReceiptCreating\IDataConverter.cs" />
     <Compile Include="DataManagers\IItemManager.cs" />
     <Compile Include="DataManagers\IUserManager.cs" />
-    <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />
     <Compile Include="ReceiptCreating\ReceiptCreating.cs" />
     <Compile Include="DataManagers\UserManager.cs" />
     <Compile Include="Data\CategoryDataModel.cs" />
