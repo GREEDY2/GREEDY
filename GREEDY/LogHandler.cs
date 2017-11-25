@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,17 +13,17 @@ namespace GREEDY
     public class LogHandler : DelegatingHandler
     {
         private static object lockObject = new object();
-        private string logEntrySeperator => "---------------------------------------------------";
+        private static readonly string logEntrySeperator = new String('-', 60);
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            HttpResponseMessage response=null;
+            HttpResponseMessage response = null;
             try
             {
                 StringBuilder builder = new StringBuilder();
                 builder.AppendLine(logEntrySeperator);
                 builder.AppendLine("Request");
-                builder.AppendLine(DateTime.Now.ToString("yyyy/mm/dd hh:mm:ss"));
+                builder.AppendLine(DateTime.Now.ToString("g", CultureInfo.CreateSpecificCulture("en-us")));
                 builder.AppendLine(string.Format("Request URI: {0}", request.RequestUri.ToString()));
                 builder.AppendLine(string.Format("Method: {0}", request.Method));
 
@@ -34,10 +35,8 @@ namespace GREEDY
                     if ((int)response.StatusCode >= 400)
                     {
                         string contentString = response.Content.ReadAsStringAsync().Result;
-                        var httpError = response.Content.ReadAsAsync<HttpError>();
-                        var errorValues = httpError.Result.Values.Select(x => x).ToList();
-                        foreach (string s in errorValues)
-                            builder.AppendLine(s);
+                        var httpError = response.Content.ReadAsAsync<HttpError>().Result;
+                        LogException(builder, httpError);
                     }
                     else
                     {
@@ -63,6 +62,18 @@ namespace GREEDY
                 {
                     file.Write(logEntry);
                 }
+            }
+        }
+
+        private void LogException(StringBuilder builder, HttpError httpError)
+        {
+            builder.AppendLine(httpError.ExceptionType);
+            builder.AppendLine(httpError.ExceptionMessage);
+            builder.AppendLine(httpError.StackTrace);
+            if (httpError.InnerException != null)
+            {
+                builder.AppendLine("\nInner Exception");
+                LogException(builder, httpError.InnerException);
             }
         }
     }
