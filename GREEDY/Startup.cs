@@ -25,6 +25,8 @@ namespace GREEDY
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
                 );
+            CONFIG.MessageHandlers.Add(new LogHandler());
+
             appBuilder.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(CONFIG);
         }
 
