@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GREEDY.Extensions
+namespace GREEDY.ReceiptCreatings
 {
     public static class LevenshteinDistance
     {
