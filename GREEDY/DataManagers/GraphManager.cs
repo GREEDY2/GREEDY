@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GREEDY.Data;
-using GREEDY.Extensions;
 using GREEDY.Models;
 
 namespace GREEDY.DataManagers

@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
-using GREEDY.DataManagers;
 using GREEDY.Services;
 using Moq;
 using Xunit;
 using GREEDY.ImagePreparation;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ServicesUnitTests
 {

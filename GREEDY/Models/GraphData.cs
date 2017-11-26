@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GREEDY.Models
 {
@@ -13,6 +9,5 @@ namespace GREEDY.Models
         public string Time { get; set; }
         public DateTime Date { get; set; }
         public string FullDateTimeString { get { return Date.ToString("yyyy-MM-dd HH:mm"); } }
-
     }
 }

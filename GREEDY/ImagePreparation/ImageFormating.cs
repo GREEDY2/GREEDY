@@ -16,7 +16,7 @@ namespace GREEDY.ImagePreparation
             _deskewImage = new DeskewImage();
         }
 
-        /// Applies series of modifications to prepare the image for OCR reading
+        // Applies series of modifications to prepare the image for OCR reading
         public Bitmap FormatImage(Bitmap bitmap)
         {
             try
