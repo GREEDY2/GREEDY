@@ -20,7 +20,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             //act
 
             //assert
-            Assert.Throws<NullReferenceException>(() => itemService.AddChangeCategory(null, null));
+            Assert.Throws<NullReferenceException>(() => itemService.AddCategory(null, null));
         }
     }
 }
