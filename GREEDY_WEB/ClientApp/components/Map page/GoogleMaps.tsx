@@ -50,8 +50,8 @@ export class GoogleMaps extends React.Component<{}, State> {
                 hoverDistance={K_CIRCLE_SIZE / 2}
                 distanceToMouse={this._distanceToMouse}
             >
-                <Marker lat={54.736675} lng={25.267515} text={'A'} zIndex={2} />
-                < AnyReactComponent {...this.state.myPlaceCords } text={'IKI'} />
+                <Marker lat={54.736675} lng={25.267515} text={'Norfa'} zIndex={2} />
+                <Marker lat={54.728862} lng={25.269294} text={'IKI'} zIndex={2} />
             </GoogleMap >
         );
     }
