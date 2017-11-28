@@ -137,7 +137,7 @@
     /* On big screens, convert the nav menu to a vertical sidebar */
     .main-nav {
         height: 100%;
-        width: calc(25% - 20px);
+        width: calc(25%);
     }
 
         .main-nav .navbar {
