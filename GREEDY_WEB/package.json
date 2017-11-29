@@ -39,7 +39,6 @@
     "idb": "^2.0.4",
     "react": "https://registry.npmjs.org/react/-/react-15.6.1.tgz",
     "react-alert": "^2.4.0",
-    "react-controllables": "^0.6.0",
     "react-document-title": "^2.0.3",
     "react-dom": "https://registry.npmjs.org/react-dom/-/react-dom-15.6.1.tgz",
     "react-facebook-login": "^3.6.2",

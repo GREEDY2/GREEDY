@@ -13,6 +13,9 @@
         mapTypeControlOptions: {
             position: maps.ControlPosition.TOP_RIGHT
         },
-        mapTypeControl: true
+        mapTypeControl: true,
+        //Fullscreen isn't working correctly as of now
+        //May be enabled once npm google-map-react is updated
+        fullscreenControl: false
     };
 }

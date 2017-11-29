@@ -7,7 +7,8 @@ export class MapPage extends React.Component<RouteComponentProps<{}>> {
     public render() {
         return (
             <div style={{
-                width: 'auto', height: '400px', marginLeft: '-15px', marginRight: '-15px'
+                /*TODO: do something about the fixed height */
+                width: 'auto', height: '500px', marginLeft: '-15px', marginRight: '-15px'
             }}>
                 <GoogleMaps />
             </div>

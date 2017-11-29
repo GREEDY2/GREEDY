@@ -36,6 +36,7 @@
     <None Remove="ClientApp\components\Map page\MapPage.tsx" />
     <None Remove="ClientApp\components\Map page\Marker.tsx" />
     <None Remove="ClientApp\components\Map page\style.tsx" />
+    <None Remove="ClientApp\components\Map page\UserLocationMarker.tsx" />
     <None Remove="ClientApp\components\Shared\DatabaseFunctions.tsx" />
     <None Remove="ClientApp\components\Shared\DatabaseManager.tsx" />
     <None Remove="ClientApp\components\Shared\idbPromise.tsx" />
@@ -61,6 +62,7 @@
     <TypeScriptCompile Include="ClientApp\components\Map page\MapPage.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Map page\Marker.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Map page\style.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Map page\UserLocationMarker.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Alert.tsx" />
     <TypeScriptCompile Include="ClientApp\components\All items page\AllUserItems.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Authorization.tsx" />

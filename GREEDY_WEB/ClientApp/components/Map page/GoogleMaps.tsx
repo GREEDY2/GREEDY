@@ -3,7 +3,7 @@ import GoogleMap from 'google-map-react';
 import MapOptions from './MapOptions';
 import Marker from './Marker';
 import { K_CIRCLE_SIZE, K_STICK_SIZE } from './style';
-import controllable from 'react-controllables';
+import UserLocationMarker from './UserLocationMarker';
 
 const AnyReactComponent = ({ lat, lng, text }) => <div style={{
     position: 'relative', color: 'red', background: 'green',
@@ -12,16 +12,32 @@ const AnyReactComponent = ({ lat, lng, text }) => <div style={{
 
 interface State {
     center: Array<number>;
-    zoom: number
-    myPlaceCords
+    zoom: number;
+    myLocation: {
+        lat: number,
+        lng: number
+    }
 }
 
 export class GoogleMaps extends React.Component<{}, State> {
     state = {
-        center: [54.731575, 25.261998],
+        center: [54.729000, 25.272000],
         zoom: 14,
-        myPlaceCords: { lat: 54.728862, lng: 25.269294 }
+        shopMarkers: [
+            { name: 'Norfa', lat: 54.736675, lng: 25.267515 },
+            { name: 'IKI', lat: 54.728862, lng: 25.269294 },
+        ],
+        myLocation: undefined
     };
+
+    componentWillMount() {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                center: [position.coords.latitude, position.coords.longitude],
+                myLocation: { lat: position.coords.latitude, lng: position.coords.longitude }
+            });
+        });
+    }
 
     _distanceToMouse = (markerPos, mousePos, markerProps) => {
         const x = markerPos.x;
@@ -40,7 +56,38 @@ export class GoogleMaps extends React.Component<{}, State> {
         return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
     }
 
+    _onBoundsChange = ({ center, zoom, bounds, ...other }) => {
+        console.log(center);
+        console.log(other);
+    }
+
+    _onChildClick = (key, childProps) => {
+        this.setState({
+            center: [childProps.lat, childProps.lng]
+        });
+        console.log(childProps);
+    }
+
+    _onChildMouseEnter = (key /*, childProps */) => {
+        console.log(key);
+    }
+
+    _onChildMouseLeave = (/* key, childProps */) => {
+        console.log('leave');
+    }
+
     render() {
+        const shopMarkers = this.state.shopMarkers.map(place => {
+            const { name, ...coords } = place;
+            return (
+                <Marker
+                    name={name}
+                    {...coords}
+                    hover={(this.props as any).hoverKey === name}
+                />
+            );
+        });
+
         return (
             <GoogleMap
                 bootstrapURLKeys={{ key: "AIzaSyDnbiTeBy0XOXYfuto5VRP272gkzQAX5MQ" }}
@@ -49,9 +96,15 @@ export class GoogleMaps extends React.Component<{}, State> {
                 options={MapOptions}
                 hoverDistance={K_CIRCLE_SIZE / 2}
                 distanceToMouse={this._distanceToMouse}
+                onChange={this._onBoundsChange}
+                onChildClick={this._onChildClick}
+                onChildMouseEnter={this._onChildMouseEnter}
+                onChildMouseLeave={this._onChildMouseLeave}
             >
-                <Marker lat={54.736675} lng={25.267515} text={'Norfa'} zIndex={2} />
-                <Marker lat={54.728862} lng={25.269294} text={'IKI'} zIndex={2} />
+                {shopMarkers}
+                {this.state.myLocation &&
+                    <UserLocationMarker {...this.state.myLocation} />
+                }
             </GoogleMap >
         );
     }
