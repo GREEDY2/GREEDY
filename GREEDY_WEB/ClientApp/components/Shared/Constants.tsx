@@ -5,7 +5,7 @@ export const Constants = {
     minUsernameLength: 5,
     maxAnyInputLength: 256,
     emailRegex: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-    httpRequestBasePath: 'http://192.168.0.103:6967/',
+    httpRequestBasePath: 'http://localhost:6967/',
     cookieUsername: 'username',
     cookieSessionId: 'sessionID',
     checkIfUserlogedInTimer: 1000,

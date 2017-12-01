@@ -2,13 +2,7 @@
 import GoogleMap from 'google-map-react';
 import MapOptions from './MapOptions';
 import Marker from './Marker';
-import { K_CIRCLE_SIZE, K_STICK_SIZE } from './style';
 import UserLocationMarker from './UserLocationMarker';
-
-const AnyReactComponent = ({ lat, lng, text }) => <div style={{
-    position: 'relative', color: 'red', background: 'green',
-    height: 40, width: 60, top: -20, left: -30,
-}}>{text}</div>;
 
 interface State {
     center: Array<number>;
@@ -17,9 +11,11 @@ interface State {
         lat: number,
         lng: number
     }
+    hoverKey: number;
 }
 
 export class GoogleMaps extends React.Component<{}, State> {
+    timer: number;
     state = {
         center: [54.729000, 25.272000],
         zoom: 14,
@@ -27,7 +23,8 @@ export class GoogleMaps extends React.Component<{}, State> {
             { name: 'Norfa', lat: 54.736675, lng: 25.267515 },
             { name: 'IKI', lat: 54.728862, lng: 25.269294 },
         ],
-        myLocation: undefined
+        myLocation: undefined,
+        hoverKey: undefined
     };
 
     componentWillMount() {
@@ -37,23 +34,36 @@ export class GoogleMaps extends React.Component<{}, State> {
                 myLocation: { lat: position.coords.latitude, lng: position.coords.longitude }
             });
         });
+        this.timer = setInterval(() => this.setMyLocation(), 10000);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    setMyLocation = () => {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                myLocation: { lat: position.coords.latitude, lng: position.coords.longitude }
+            });
+        });
+    }
+
+    // because of marker non symmetric,
+    // we transform it central point to measure distance from marker circle center
+    // the distance mesurment can be changed
     _distanceToMouse = (markerPos, mousePos, markerProps) => {
-        const x = markerPos.x;
-        // because of marker non symmetric,
-        // we transform it central point to measure distance from marker circle center
-        // you can change distance function to any other distance measure
-        const y = markerPos.y - K_STICK_SIZE - K_CIRCLE_SIZE / 2;
+        // if hovered over users location then do nothing
+        if (markerProps.hover === undefined) return undefined;
+        // the -6 pushes the clickable location slightly to the left for centration purposes
+        const x = markerPos.x - 6;
+        // the -17 pushes the clickable location to the top 
+        // (because we want not the location to be clickable but the pin)
+        const y = markerPos.y - 17;
 
-        // and i want that hover probability on markers with text === 'A' be greater than others
-        // so i tweak distance function (for example it's more likely to me that user click on 'A' marker)
-        // another way is to decrease distance for 'A' marker
-        // this is really visible on small zoom values or if there are a lot of markers on the map
-        const distanceKoef = markerProps.text !== 'A' ? 1.5 : 1;
-
-        // it's just a simple example, you can tweak distance function as you wish
-        return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
+        // the function makes the clickable location into something like a circle
+        // the divide by 1.3 at the end aplifies the clickable location 1.3 times
+        return Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y)) / 1.3;
     }
 
     _onBoundsChange = ({ center, zoom, bounds, ...other }) => {
@@ -65,25 +75,32 @@ export class GoogleMaps extends React.Component<{}, State> {
         this.setState({
             center: [childProps.lat, childProps.lng]
         });
+        console.log("mouse clicked")
         console.log(childProps);
     }
 
-    _onChildMouseEnter = (key /*, childProps */) => {
+    _onChildMouseEnter = (key/*, childProps*/) => {
+        this.setState({ hoverKey: key });
+        console.log("mouse entered");
         console.log(key);
     }
 
     _onChildMouseLeave = (/* key, childProps */) => {
-        console.log('leave');
+        this.setState({ hoverKey: undefined });
+        console.log('mouse left');
     }
 
     render() {
-        const shopMarkers = this.state.shopMarkers.map(place => {
+        const shopMarkers = this.state.shopMarkers.map((place, index) => {
             const { name, ...coords } = place;
+            let hover = false;
+            if (this.state.hoverKey === index) {
+                hover = true;
+            }
             return (
                 <Marker
-                    name={name}
                     {...coords}
-                    hover={(this.props as any).hoverKey === name}
+                    hover={hover}
                 />
             );
         });
@@ -94,7 +111,7 @@ export class GoogleMaps extends React.Component<{}, State> {
                 center={this.state.center}
                 zoom={this.state.zoom}
                 options={MapOptions}
-                hoverDistance={K_CIRCLE_SIZE / 2}
+                hoverDistance={5}
                 distanceToMouse={this._distanceToMouse}
                 onChange={this._onBoundsChange}
                 onChildClick={this._onChildClick}

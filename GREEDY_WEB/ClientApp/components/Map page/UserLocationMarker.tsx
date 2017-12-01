@@ -12,7 +12,10 @@ export default class UserLocationMarker extends React.Component<Props> {
 
     render() {
         return (
-            <span className="glyphicon glyphicon-asterisk" style={{ fontSize: "20px" }} />
+            <div className="markerUser">
+                <div className="pinUser"></div>
+                <div className="pinUser-effect"></div>
+            </div>
         );
     }
 }
