@@ -62,8 +62,8 @@ export class GoogleMaps extends React.Component<{}, State> {
         const y = markerPos.y - 17;
 
         // the function makes the clickable location into something like a circle
-        // the divide by 1.3 at the end aplifies the clickable location 1.3 times
-        return Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y)) / 1.3;
+        // the divide by 2 at the end aplifies the clickable location 2 times
+        return Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y)) / 2;
     }
 
     _onBoundsChange = ({ center, zoom, bounds, ...other }) => {
@@ -101,6 +101,7 @@ export class GoogleMaps extends React.Component<{}, State> {
                 <Marker
                     {...coords}
                     hover={hover}
+                    shopInfo={name}
                 />
             );
         });
@@ -111,7 +112,7 @@ export class GoogleMaps extends React.Component<{}, State> {
                 center={this.state.center}
                 zoom={this.state.zoom}
                 options={MapOptions}
-                hoverDistance={5}
+                hoverDistance={10}
                 distanceToMouse={this._distanceToMouse}
                 onChange={this._onBoundsChange}
                 onChildClick={this._onChildClick}

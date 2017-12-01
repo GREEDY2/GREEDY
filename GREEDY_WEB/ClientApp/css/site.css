@@ -1,4 +1,11 @@
+.map-hint {
+    height:auto;
+    width: auto;
+    position: absolute;
+    background-color: red;
+}
 
+/* User map marker*/
 .markerUser {
     width: 100px;
     height: 100px;
@@ -32,8 +39,8 @@
     animation: pulsate 2400ms ease-out infinite;
 }
 
+/* Place map marker*/
 .pin {
-    cursor: 'pointer';
     width: 30px;
     height: 30px;
     border-radius: 50% 50% 50% 0;
@@ -120,6 +127,7 @@
         animation-delay: 1.1s;
     }
 
+    /* Pulsating effects (both user and place marker)*/
 @-moz-keyframes pulsate {
     0% {
         -webkit-transform: scale(0.1, 0.1);
