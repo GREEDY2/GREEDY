@@ -21,9 +21,10 @@ namespace GREEDY.ReceiptCreatings
             _shopDetection = new ShopDetection();
         }
 
-        public ReceiptCreating(IOcr ocr)
+        public ReceiptCreating(IOcr ocr, IShopDetection shopDetection)
         {
             _ocr = ocr;
+            _shopDetection = shopDetection;
         }
 
         public Receipt FullReceiptCreating(Bitmap image)

@@ -33,7 +33,8 @@ namespace GREEDY.ReceiptCreatings
             }
             else
             {
-                return GetShopWithLocation(FirstLine, Allshops.Where(x => x.Name == ShopName).ToList());
+                return GetShopWithLocation(FirstLine, Allshops
+                    .Where(x => x.Name == ShopName || x.SubName == ShopName).ToList());
             }
         }
 
