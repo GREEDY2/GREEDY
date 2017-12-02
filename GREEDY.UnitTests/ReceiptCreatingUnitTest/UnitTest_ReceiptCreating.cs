@@ -15,15 +15,13 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
     {
         Fixture fixture = new Fixture();
         Mock<IOcr> ocr = new Mock<IOcr>();
-        Mock<IShopManager> shops = new Mock<IShopManager>();
-        Location location = new Location(54.7076415, 25.2200897);
 
         [Fact]
         public void ReceiptCreating_FullReceiptCreating_EmptyBitmap()
         {
             //arrange
             Bitmap image = new Bitmap(1, 1);
-            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
+            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object);
             //act
             //assert
             Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(image));
@@ -33,7 +31,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         public void ReceiptCreating_FullReceiptCreating_NullBitmap()
         {
             //arrange
-            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
+            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object);
             //act
             //assert
             Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(null));
@@ -49,11 +47,10 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
                 dateTime.ToString()
             };
             linesOfText.AddMany(fixture.Create<string>, 10);
-            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
+            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object);
             //act
             //assert
             Assert.Equal(dateTime.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
-            
         }
 
         [Fact]
@@ -62,43 +59,10 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             //arrange
             List<string> linesOfText = new List<string>();
             linesOfText.AddMany(fixture.Create<string>, 10);
-            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
+            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object);
             //act
             //assert
             Assert.Equal(DateTime.Now.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
-        }
-
-        [Fact]
-        public void ReceiptCreating_GetShopFromData_NotExitingShop()
-        {
-            //arrange
-            List<string> linesOfText = new List<string>();
-            linesOfText.AddMany(fixture.Create<string>, 10);
-            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
-            //act
-            //assert
-            Assert.Equal("Neatpažinta", receiptCreating.GetShopFromData(linesOfText, location).Name);
-        }
-
-        //integration test
-        [Theory]
-        [InlineData("MAXIMA")]
-        [InlineData("RIMI")]
-        [InlineData("LIDL")]
-        [InlineData("PALINK")]
-        [InlineData("IKI")]
-        public void ReceiptCreating_GetShopFromData_ExitingShop(string  ShopName )
-        {
-            //arrange
-            List<string> linesOfText = new List<string>
-            {
-                ShopName
-            };
-            linesOfText.AddMany(fixture.Create<string>, 10);
-            ReceiptCreating receiptCreating = new ReceiptCreating(ocr.Object, shops.Object);
-            //act
-            //assert
-            Assert.Equal(ShopName, receiptCreating.GetShopFromData(linesOfText, location).Name);
         }
     }
 }

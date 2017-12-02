@@ -11,6 +11,7 @@ namespace GREEDY.Data
         [Required]
         public string Name { get; set; }
         public Location Location { get; set; }
+        public string Address { get; set; }
         public string SubName { get; set; }
         public virtual ICollection<ReceiptDataModel> Receipts { get; set; }
     }

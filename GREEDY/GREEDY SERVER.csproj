@@ -93,9 +93,6 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NHunspell, Version=1.2.5554.16953, Culture=neutral, PublicKeyToken=1ac793ea843b4366, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHunspell.1.2.5554.16953\lib\net\NHunspell.dll</HintPath>
-    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
@@ -217,6 +214,7 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Controllers\GraphDataController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -227,17 +225,14 @@
     <Compile Include="DataManagers\IGraphManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="ImagePreparation\DeskewImage.cs" />
-    <Compile Include="Migrations\201711061716547_Initial.cs" />
-    <Compile Include="Migrations\201711061716547_Initial.designer.cs">
-      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711100145578_RemovedSessions.cs" />
-    <Compile Include="Migrations\201711100145578_RemovedSessions.Designer.cs">
-      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
+    <Compile Include="ImagePreparation\IImageFormating.cs" />
+    <Compile Include="Migrations\201712021939059_FirstMigration.cs" />
+    <Compile Include="Migrations\201712021939059_FirstMigration.Designer.cs">
+      <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
+    <Compile Include="ReceiptCreating\IShopDetection.cs" />
     <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />
@@ -278,6 +273,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="DataManagers\ShopManager.cs" />
+    <Compile Include="ReceiptCreating\ShopDetection.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IItemService.cs" />
@@ -285,11 +281,8 @@
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
     <Compile Include="Startup.cs" />
-    <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
-      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711100145578_RemovedSessions.resx">
-      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712021939059_FirstMigration.resx">
+      <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

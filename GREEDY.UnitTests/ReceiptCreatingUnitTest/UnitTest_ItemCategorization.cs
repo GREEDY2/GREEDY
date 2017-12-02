@@ -10,9 +10,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         {
             //arrange
             var itemCategorization = new ItemCategorization();
-           
             //act
-
             //assert
             Assert.Equal(string.Empty, itemCategorization.CategorizeSingleItem(string.Empty));
         }

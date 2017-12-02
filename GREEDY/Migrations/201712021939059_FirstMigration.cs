@@ -3,7 +3,7 @@ namespace GREEDY.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class FirstMigration : DbMigration
     {
         public override void Up()
         {
@@ -52,7 +52,9 @@ namespace GREEDY.Migrations
                     {
                         ShopId = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
-                        Location = c.String(),
+                        Location_Latitude = c.Double(nullable: false),
+                        Location_Longitude = c.Double(nullable: false),
+                        Address = c.String(),
                         SubName = c.String(),
                     })
                 .PrimaryKey(t => t.ShopId);
@@ -69,31 +71,17 @@ namespace GREEDY.Migrations
                 .PrimaryKey(t => t.Username)
                 .Index(t => t.Email, unique: true);
             
-            CreateTable(
-                "dbo.LoginSessionDataModels",
-                c => new
-                    {
-                        SessionID = c.Guid(nullable: false),
-                        User_Username = c.String(nullable: false, maxLength: 255),
-                    })
-                .PrimaryKey(t => t.SessionID)
-                .ForeignKey("dbo.UserDataModels", t => t.User_Username, cascadeDelete: true)
-                .Index(t => t.User_Username);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.LoginSessionDataModels", "User_Username", "dbo.UserDataModels");
             DropForeignKey("dbo.ReceiptDataModels", "User_Username", "dbo.UserDataModels");
             DropForeignKey("dbo.ReceiptDataModels", "Shop_ShopId", "dbo.ShopDataModels");
             DropForeignKey("dbo.ItemDataModels", "Receipt_ReceiptId", "dbo.ReceiptDataModels");
-            DropIndex("dbo.LoginSessionDataModels", new[] { "User_Username" });
             DropIndex("dbo.UserDataModels", new[] { "Email" });
             DropIndex("dbo.ReceiptDataModels", new[] { "User_Username" });
             DropIndex("dbo.ReceiptDataModels", new[] { "Shop_ShopId" });
             DropIndex("dbo.ItemDataModels", new[] { "Receipt_ReceiptId" });
-            DropTable("dbo.LoginSessionDataModels");
             DropTable("dbo.UserDataModels");
             DropTable("dbo.ShopDataModels");
             DropTable("dbo.ReceiptDataModels");

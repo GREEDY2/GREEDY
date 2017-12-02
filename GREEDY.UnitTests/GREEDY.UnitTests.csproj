@@ -201,6 +201,7 @@
     <Compile Include="DataManagersUnitTests\UnitTest_UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiptCreatingUnitTest\UnitTest_ReceiptCreating.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\UnitTest_ShopDetection.cs" />
     <Compile Include="ServicesUnitTests\UnitTest_ItemService.cs" />
     <Compile Include="ServicesUnitTests\UnitTest_ReceiptService.cs" />
     <Compile Include="DataManagersUnitTests\UnitTest_ShopManager.cs" />
