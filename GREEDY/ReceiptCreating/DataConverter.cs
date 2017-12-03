@@ -4,13 +4,12 @@ using System;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
+using System.Linq;
 
 namespace GREEDY.ReceiptCreatings
 {
     public class DataConverter : IDataConverter
     {
-        private static ItemCategorization ItemCategorization => new ItemCategorization();
-
         public List<Item> ReceiptToItemList(Receipt receipt)
         {
             //Set correct number format
@@ -25,6 +24,7 @@ namespace GREEDY.ReceiptCreatings
             string previous = String.Empty;
             List<string> sublist = new List<string>();
             Match match1;
+            var category = String.Empty;
 
             for (int i = 0; i < receipt.LinesOfText.Count; i++)
             {
@@ -34,24 +34,34 @@ namespace GREEDY.ReceiptCreatings
                     Match match2 = Regex.Match(previous, @"(?!(.+)?\d{5,}(.+)?)^.+$", RegexOptions.Multiline);
                     if (match2.Success)
                     {
+                        if (decimal.Parse(match1.Groups[2].Value.Replace(".", ",")) < 0)
+                        {
+                            category = "nuolaida";
+                        }
                         itemList.Add(new Item
                         {
-                            Name = Regex.Replace(previous + match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
+                            Name = Regex.Replace(Regex.Match(previous, @"[\p{L}]{2}[\p{L}]+.+") 
+                                + match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(
-                                match2.Groups[1].Value + match1.Groups[1].Value)
+                            Category = category
                         });
+                        category = String.Empty;
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
                     }
                     else
                     {
+                        if (decimal.Parse(match1.Groups[2].Value.Replace(".", ",")) < 0)
+                        {
+                            category = "nuolaida";
+                        }
                         itemList.Add(new Item
                         {
                             Name = Regex.Replace(match1.Groups[1].Value, pattern2, "$1" + " " + "$2"),
                             Price = decimal.Parse(match1.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(match1.Groups[1].Value)
+                            Category = category
                         });
+                        category = String.Empty;
                         sublist = receipt.LinesOfText.GetRange(i + 1, receipt.LinesOfText.Count - i - 1);
                         break;
                     }
@@ -61,9 +71,7 @@ namespace GREEDY.ReceiptCreatings
                     previous = receipt.LinesOfText[i];
                 }
             }
-
-            //working with text
-            //check if any iteams was found
+            //working with text check if any iteams was found
             if (sublist.Count != 0)
             {
                 //working with text
@@ -73,20 +81,23 @@ namespace GREEDY.ReceiptCreatings
                 previous = Regex.Replace(previous, "›", ",");
                 previous = Regex.Replace(previous, pattern2, "$1" + " " + "$2");
                 previous = Regex.Replace(previous, @"([\-]?\d+[\.\,]\d{2}).[A|E|B|F|N|C]{1}(\b|\.)", "$1" + Environment.NewLine);
-
                 pattern = @"([\p{L}]{2}[\p{L}]+.+)([\-, ]\d+[\.\,]\d{2})\r\n";
-
                 MatchCollection match = Regex.Matches(previous, pattern, RegexOptions.Multiline);
                 if (match.Count != 0)
                 {
                     foreach (Match m in match)
                     {
+                        if (decimal.Parse(m.Groups[2].Value.Replace(".", ",")) < 0)
+                        {
+                            category = "nuolaida";
+                        }
                         itemList.Add(new Item
                         {
                             Name = m.Groups[1].Value.Replace("\n", string.Empty),
                             Price = decimal.Parse(m.Groups[2].Value.Replace(".", ",")),
-                            Category = ItemCategorization.CategorizeSingleItem(m.Groups[1].Value)
+                            Category = category
                         });
+                    category = String.Empty;
                     }
                 }
                 return itemList;

@@ -14,6 +14,7 @@ namespace GREEDY
         string MaxAnyInputLength { get; }
         string AuthenticationSecret { get; }
         string GoogleMapsGeocodingAPIKey { get; }
+        string LogPath { get; }
     }
 
     public class AppConfig : IAppConfig
@@ -28,5 +29,6 @@ namespace GREEDY
         public string MaxAnyInputLength => ConfigurationManager.AppSettings["MaxAnyInputLength"];
         public string AuthenticationSecret => ConfigurationManager.AppSettings["AuthenticationSecret"];
         public string GoogleMapsGeocodingAPIKey => ConfigurationManager.AppSettings["GoogleMapsGeocodingAPIKey"];
+        public string LogPath => ConfigurationManager.AppSettings["LogPath"];
     }
 }

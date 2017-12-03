@@ -1,5 +1,347 @@
-{
-  "vanduo": "gėrimai",
-  "alus": "gėrimai",
-  "\nužstatas - vienkartinė plastiko\npakuotė\n6 vnt x 0,10 eur": "užstatas"
-}
+[
+  {
+    "Category": "traškučiai",
+    "Text": "Bon chance",
+    "Prob": 0.0
+  },
+  {
+    "Category": "traškučiai",
+    "Text": "Estrella",
+    "Prob": 0.8
+  },
+  {
+    "Category": "traškučiai",
+    "Text": "Oho",
+    "Prob": 0.0
+  },
+  {
+    "Category": "traškučiai",
+    "Text": "Lays",
+    "Prob": 0.8
+  },
+  {
+    "Category": "traškučiai",
+    "Text": "Pringles",
+    "Prob": 0.0
+  },
+  {
+    "Category": "traškučiai",
+    "Text": "Cheetos",
+    "Prob": 0.8
+  },
+  {
+    "Category": "traškučiai",
+    "Text": "traškučiai",
+    "Prob": 0.7
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "Bananai",
+    "Prob": 0.3
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "kriaušė",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "ananasas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "apelsinas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "arbūzas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "citrina",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "granatas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "greipfrutas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "kivis",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "mandarinas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "mangas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "persikas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "vaisiai",
+    "Text": "persimonas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "šerbetas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "pistacija",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "migdolas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "kokosas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "figa",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "žemuogė",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "slyva",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "vyšnios",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "trešnės",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "vynuogės",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "pomidoras",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "melionas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "mėlynės",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "riešutai",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "braškės",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "avietė",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "sumuštinis",
+    "Prob": 0.5
+  },
+  {
+    "Category": "maistas",
+    "Text": "kramtomoji",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "javainiai",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "rukyta",
+    "Prob": 0.5
+  },
+  {
+    "Category": "maistas",
+    "Text": "Krekenavos",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "Nestle",
+    "Prob": 0.3
+  },
+  {
+    "Category": "maistas",
+    "Text": "Dribsniai",
+    "Prob": 0.0
+  },
+  {
+    "Category": "maistas",
+    "Text": "batonėlis",
+    "Prob": 0.5
+  },
+  {
+    "Category": "maistas",
+    "Text": "duona",
+    "Prob": 0.5
+  },
+  {
+    "Category": "maistas",
+    "Text": "duonelė",
+    "Prob": 0.5
+  },
+  {
+    "Category": "tara",
+    "Text": "Vienkartinė metalo pak",
+    "Prob": 0.0
+  },
+  {
+    "Category": "tara",
+    "Text": "pakuotė",
+    "Prob": 0.0
+  },
+  {
+    "Category": "tara",
+    "Text": "tara",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "alus",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "gira",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "vanduo",
+    "Prob": 0.3
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "degtinė",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "brendis",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "Volfas Engelman",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "Švyturio",
+    "Prob": 0.5
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "gazuotas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "negazuotas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "spiritinis",
+    "Prob": 0.0
+  },
+  {
+    "Category": "gėrimai",
+    "Text": "balzamas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "glaistytas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "Geriamasis jogurtas",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "jogurtas",
+    "Prob": 0.9
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "varškė",
+    "Prob": 0.5
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "sūris",
+    "Prob": 0.5
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "glaistytas sūrelis",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "pienas",
+    "Prob": 0.9
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "Rokiškio",
+    "Prob": 0.0
+  },
+  {
+    "Category": "pieno produktas",
+    "Text": "VILKYŠK JOG GER ŽEMUOG",
+    "Prob": 0.5
+  }
+]

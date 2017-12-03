@@ -229,10 +229,13 @@
     <Compile Include="Migrations\201712021939059_FirstMigration.cs" />
     <Compile Include="Migrations\201712021939059_FirstMigration.Designer.cs">
       <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
+    <Compile Include="LogHandler.cs" />
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="ReceiptCreating\IShopDetection.cs" />
+    <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />
     <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
     <Compile Include="ImagePreparation\ImageFormating.cs" />

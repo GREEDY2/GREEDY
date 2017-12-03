@@ -263,3 +263,4 @@ __pycache__/
 
 # exclude emgu package and webpack node_install
 !packages/Emgu.CV.3.2.0.2721
+/GREEDY/Log.txt

@@ -18,9 +18,9 @@ namespace GREEDY.Services
             _itemCategorization = itemCategorization;
         }
 
-        public void AddChangeCategory(string itemName, string category)
+        public void AddCategory(string itemName, string category)
         {
-            _itemCategorization.AddChangeCategories(itemName.ToLower(), category.ToLower());
+            _itemCategorization.AddCategory(itemName, category);
         }
     }
 }
