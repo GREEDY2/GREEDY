@@ -14,8 +14,8 @@ namespace GREEDY.Data
         public string Email { get; set; }
         [Required]
         public string FullName {get;set;}
-        [Required]
         public string Password { get; set; }
+        public bool IsFacebookUser { get; set; }
         public virtual ICollection<ReceiptDataModel> Receipts { get; set; }
 
     }
