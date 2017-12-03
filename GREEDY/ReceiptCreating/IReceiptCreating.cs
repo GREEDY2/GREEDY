@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace GREEDY.ReceiptCreatings
 {
-    public interface IReceiptCreatings
+    public interface IReceiptCreating
     {
         Receipt FullReceiptCreating(Bitmap image);
         DateTime GetDateForReceipt(List<string> linesOfText);

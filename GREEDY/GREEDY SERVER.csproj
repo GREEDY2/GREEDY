@@ -229,8 +229,8 @@
     <Compile Include="Migrations\201712021939059_FirstMigration.cs" />
     <Compile Include="Migrations\201712021939059_FirstMigration.Designer.cs">
       <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
-    <Compile Include="LogHandler.cs" />
     </Compile>
+    <Compile Include="LogHandler.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="ReceiptCreating\IShopDetection.cs" />

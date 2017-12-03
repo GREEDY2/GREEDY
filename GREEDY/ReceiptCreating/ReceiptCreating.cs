@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace GREEDY.ReceiptCreatings
 {
-    public class ReceiptCreating : IReceiptCreatings
+    public class ReceiptCreating : IReceiptCreating
     {
         private readonly IOcr _ocr;
         private readonly IShopDetection _shopDetection;

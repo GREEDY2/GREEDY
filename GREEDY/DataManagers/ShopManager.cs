@@ -3,10 +3,11 @@ using GREEDY.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace GREEDY.DataManagers
 {
-    public class ShopManager : IShopManager
+    public class ShopManager : IShopManager, IDisposable
     {
         private DbContext context;
 
@@ -43,6 +44,11 @@ namespace GREEDY.DataManagers
                     Location = x.Location,
                     SubName = x.SubName }).ToList();
             }
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace GREEDY.Controllers
             _shopManager = shopManager;
             _authenticationService = authenticationService;
         }
-        public async Task<HttpResponseMessage> Get(int id)
+        public async Task<HttpResponseMessage> Get()
         {
             Request.RegisterForDispose((IDisposable)_shopManager);
             var token = Request.Headers.Authorization.Parameter;

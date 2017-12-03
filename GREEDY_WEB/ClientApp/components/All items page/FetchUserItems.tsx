@@ -81,15 +81,15 @@ export class FetchUserItems extends React.Component<Props, State> {
             else {
                 //TODO: display that the user has no items.
             }
-            }).catch(error => {
+        }).catch(error => {
             if (error.response)
-            if (error.response.status == 401) {
-                localStorage.removeItem('auth');
-                this.props.history.push("/");
-                    }
-            else {
-                //TODO: no internet
-            }
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    this.props.history.push("/");
+                }
+                else {
+                    //TODO: no internet
+                }
             console.log(error);
         })
     }
@@ -186,9 +186,12 @@ export class FetchUserItems extends React.Component<Props, State> {
     }
 
     public render() {
+        if (!this.state.showItems) {
+            return <img className="img-responsive loading" src={"Rolling.gif"} />;
+        }
         return (
             <div>
-                {this.state.showItems ? <div>
+                <div>
                     <table className="table-hover table itemTable">
                         <thead>
                             <tr>
@@ -201,9 +204,7 @@ export class FetchUserItems extends React.Component<Props, State> {
                         </thead>
                         {this.populateTableWithItems()}
                     </table>
-                </div> :
-                    <img className="img-responsive loading" src={"Rolling.gif"} />
-                }
+                </div>
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
     }

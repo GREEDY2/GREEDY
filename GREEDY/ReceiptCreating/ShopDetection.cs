@@ -77,7 +77,7 @@ namespace GREEDY.ReceiptCreatings
 
         public string GetShopName(string FirstLines, List<Shop> shops)
         {
-            var names = shops.Select(x => x.Name).Distinct().Concat(shops.Select(x => x.SubName).Distinct());
+            var names = shops.Select(x => x.Name).Distinct().Concat(shops.Select(x => x.SubName).Distinct()).ToList();
 
             foreach (string element in names)
             {

@@ -4,6 +4,10 @@ import MapOptions from './MapOptions';
 import Marker from './Marker';
 import UserLocationMarker from './UserLocationMarker';
 
+interface Props {
+    shopList: any;
+}
+
 interface State {
     center: Array<number>;
     zoom: number;
@@ -14,7 +18,7 @@ interface State {
     hoverKey: number;
 }
 
-export class GoogleMaps extends React.Component<{}, State> {
+export class GoogleMaps extends React.Component<Props, State> {
     timer: number;
     state = {
         center: [54.729000, 25.272000],
@@ -91,17 +95,16 @@ export class GoogleMaps extends React.Component<{}, State> {
     }
 
     render() {
-        const shopMarkers = this.state.shopMarkers.map((place, index) => {
-            const { name, ...coords } = place;
+        const shopMarkers = this.props.shopList.map((shop, index) => {
             let hover = false;
             if (this.state.hoverKey === index) {
                 hover = true;
             }
             return (
                 <Marker
-                    {...coords}
+                    {...shop.Location}
                     hover={hover}
-                    shopInfo={name}
+                    shopInfo={shop.Name}
                 />
             );
         });
