@@ -16,22 +16,21 @@ namespace GREEDY.DataManagers
         }
         public int AddItems(Receipt receipt, string username)
         {
-            ShopDataModel shopDataModel = context.Set<ShopDataModel>()
-                .Select(x => x)
-                .Where(x => x.Name == receipt.Shop.Name && x.Location == receipt.Shop.Location)
-                .FirstOrDefault() ?? new ShopDataModel()
-                {
-                    Location = receipt.Shop.Location,
-                    Name = receipt.Shop.Name,
-                    SubName = receipt.Shop.SubName
-                };
-
             UserDataModel userDataModel = context.Set<UserDataModel>()
                 .FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
             if (userDataModel == null)
             {
                 throw new Exception(Properties.Resources.UserNotFound);
             }
+
+            ShopDataModel shopDataModel = context.Set<ShopDataModel>()
+                .Select(x => x)
+                .Where(x => x.Address == receipt.Shop.Address)
+                .FirstOrDefault() ?? new ShopDataModel()
+                {
+                    Name = receipt.Shop.Name,
+                    SubName = receipt.Shop.SubName
+                };
 
             ReceiptDataModel receiptDataModel = new ReceiptDataModel()
             {

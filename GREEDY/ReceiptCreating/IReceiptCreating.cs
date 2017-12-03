@@ -9,6 +9,5 @@ namespace GREEDY.ReceiptCreatings
     {
         Receipt FullReceiptCreating(Bitmap image);
         DateTime GetDateForReceipt(List<string> linesOfText);
-        Shop GetShopFromData(List<string> linesOfText);
     }
 }
