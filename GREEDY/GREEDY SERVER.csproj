@@ -177,8 +177,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
+    <Compile Include="Models\AverageStorePriceGraphData.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="Models\MostBoughtItemsGraphData.cs" />
+    <Compile Include="Models\ShopItemCountGraphData.cs" />
+    <Compile Include="Models\ShopVisitCountGraphData.cs" />
+    <Compile Include="Models\WeekVisitsGraphData.cs" />
     <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />
     <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
     <Compile Include="ReceiptCreating\IItemCategorization.cs" />
