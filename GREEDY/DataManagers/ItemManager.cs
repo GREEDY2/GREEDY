@@ -23,15 +23,20 @@ namespace GREEDY.DataManagers
                 throw new Exception(Properties.Resources.UserNotFound);
             }
 
-            ShopDataModel shopDataModel = context.Set<ShopDataModel>()
-                .Select(x => x)
-                .Where(x => x.Address == receipt.Shop.Address)
-                .FirstOrDefault();
-            if ( shopDataModel == null ) {
+                var shops = context.Set<ShopDataModel>()
+                    .Select(x => x)
+                    .Where(x => x.Name == receipt.Shop.Name);
+
+                ShopDataModel shopDataModel = shops.Select(x => x)
+                    .Where(x => x.Address == receipt.Shop.Address).FirstOrDefault();
+
+            if (shopDataModel == null) { 
                 shopDataModel = new ShopDataModel()
                 {
                     Name = receipt.Shop.Name,
-                    SubName = receipt.Shop.SubName
+                    SubName = receipt.Shop.SubName,
+                    Address = "Neatpažinta",
+                    Location = new Geocoding.Location(0,0)
                 };
             }
 
@@ -65,7 +70,9 @@ namespace GREEDY.DataManagers
         {
             var temp = context.Set<ReceiptDataModel>()
                 .FirstOrDefault(x => x.ReceiptId == receiptId);
-            return temp.Items.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price, ItemId = x.ItemId }).ToList();
+            return temp.Items.Select(x => new Item {
+                Category = x.Category, Name = x.Name,
+                Price = x.Price, ItemId = x.ItemId }).ToList();
         }
 
         public List<Item> GetAllUserItems(string username)
@@ -83,7 +90,9 @@ namespace GREEDY.DataManagers
             var temp = context.Set<ItemDataModel>()
                      .Select(x => x)
                      .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
-            return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
+            return temp.Select(x => new Item {
+                Category = x.Category, Name = x.Name,
+                Price = x.Price }).ToList();
         }
 
         //TODO: for now this only saves the changed item to ItemDataModels table

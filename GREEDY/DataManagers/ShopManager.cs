@@ -20,6 +20,7 @@ namespace GREEDY.DataManagers
         {
             using (context)
             {
+                //get exception if DB have element with location NULL
                 return context.Set<ShopDataModel>()
                     .Select(x => new Shop() {
                         Name = x.Name,

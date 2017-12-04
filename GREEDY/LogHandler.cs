@@ -44,7 +44,7 @@ namespace GREEDY
                     }
                 }
                 builder.AppendLine(logEntrySeperator);
-                await Task.Run(() => WriteLogEntry(builder.ToString()));
+                Task.Run(() => WriteLogEntry(builder.ToString()));
                 return response;
             }
             catch

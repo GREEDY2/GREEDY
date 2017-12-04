@@ -92,6 +92,10 @@ namespace GREEDY.Migrations
                 new ShopDataModel() {
                     Name ="LIDL", Location = new Geocoding.Location(54.737923,25.230966),
                     Address = "S. Neries g. 16"},
+
+                new ShopDataModel() {
+                    Name ="Neatpažinta", Location = new Geocoding.Location(0,0),
+                    Address =  "Neatpažinta"},
             };
 
             foreach (ShopDataModel shop in Shops)
