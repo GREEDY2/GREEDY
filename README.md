@@ -1,5 +1,14 @@
 # GREEDY
 ============
+Update 2017-12-04
+Marius: Facebook login will only work on a specific port and for authorized users only (all of you have been invited for authorization on facebook). You need to change the port of the web on your machine:
+1. In solution explorer right click on GREEDY
+2. Press Properties
+3. Go to Debug
+4. Change App url to: http://localhost:6969/
+5. Save
+
+============
 Update 2017-11-12
 Valentinas: TestData moved to GOOGLE DRIVE:
 https://drive.google.com/drive/folders/1vJ01rK7XpMIyDPhhu0pDCqWoxjJ8tZk5?usp=sharing
