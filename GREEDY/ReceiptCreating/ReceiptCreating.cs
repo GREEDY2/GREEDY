@@ -31,7 +31,7 @@ namespace GREEDY.ReceiptCreatings
         {
             var linesOfText = _ocr.ConvertImage(image);
             var date = GetDateForReceipt(linesOfText);
-            var shop = _shopDetection.GetShopFromData(linesOfText.Take(4));
+            var shop = _shopDetection.GetShopFromData(linesOfText.Take(4).ToList());
 
             return new Receipt
             {

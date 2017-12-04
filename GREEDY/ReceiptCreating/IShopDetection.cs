@@ -5,6 +5,6 @@ namespace GREEDY.ReceiptCreatings
 {
     public interface IShopDetection
     {
-        Shop GetShopFromData(IEnumerable<string> linesOfText);
+        Shop GetShopFromData(List<string> linesOfText);
     }
 }

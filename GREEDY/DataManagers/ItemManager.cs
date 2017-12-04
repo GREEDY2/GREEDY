@@ -26,11 +26,14 @@ namespace GREEDY.DataManagers
             ShopDataModel shopDataModel = context.Set<ShopDataModel>()
                 .Select(x => x)
                 .Where(x => x.Address == receipt.Shop.Address)
-                .FirstOrDefault() ?? new ShopDataModel()
+                .FirstOrDefault();
+            if ( shopDataModel == null ) {
+                shopDataModel = new ShopDataModel()
                 {
                     Name = receipt.Shop.Name,
                     SubName = receipt.Shop.SubName
                 };
+            }
 
             ReceiptDataModel receiptDataModel = new ReceiptDataModel()
             {

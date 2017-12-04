@@ -52,8 +52,8 @@ namespace GREEDY.Migrations
                     {
                         ShopId = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
-                        Location_Latitude = c.Double(nullable: false),
-                        Location_Longitude = c.Double(nullable: false),
+                        Location_Latitude = c.Double(),
+                        Location_Longitude = c.Double(),
                         Address = c.String(),
                         SubName = c.String(),
                     })

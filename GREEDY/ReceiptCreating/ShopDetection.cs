@@ -20,7 +20,7 @@ namespace GREEDY.ReceiptCreatings
             _shops = new ShopManager(new DataBaseModel());
         }
 
-        public Shop GetShopFromData(IEnumerable<string> linesOfText)
+        public Shop GetShopFromData(List<string> linesOfText)
         {
             var FirstLine = String.Join(String.Empty, linesOfText);
             FirstLine = Regex.Replace(FirstLine, @"\r\r\n", " ");
@@ -28,8 +28,8 @@ namespace GREEDY.ReceiptCreatings
             var ShopName = GetShopName(FirstLine, Allshops);
             if (ShopName == "Neatpažinta")
             {
-                (var address, var location) = GetAddressAndLocation(FirstLine.Split(' ')).Result;
-                return new Shop { Name = "Neatpažinta", Location = location, Address = address };
+                //(var address, var location) = GetAddressAndLocation(FirstLine.Split(' ')).Result;
+                return new Shop { Name = "Neatpažinta" };
             }
             else
             {
@@ -54,6 +54,7 @@ namespace GREEDY.ReceiptCreatings
             };
         }
 
+        //need to improve detection with Levenshtein distance
         public async Task<(string, Location)> GetAddressAndLocation(string[] FirstLine)
         {
             IGeocoder geocoder = new GoogleGeocoder() { ApiKey = Environments.AppConfig.GoogleMapsGeocodingAPIKey };
@@ -65,10 +66,6 @@ namespace GREEDY.ReceiptCreatings
                 {
                     string address = addresses.First().FormattedAddress;
                     Location location = addresses.First().Coordinates;
-                    //___________________________________________________________
-                    Console.WriteLine("Formatted: " + address);
-                    Console.WriteLine("Coordinates: " + location.Latitude + ", " + location.Longitude);
-                    //___________________________________________________________
                     return (address, location);
                 }
             }
@@ -77,7 +74,8 @@ namespace GREEDY.ReceiptCreatings
 
         public string GetShopName(string FirstLines, List<Shop> shops)
         {
-            var names = shops.Select(x => x.Name).Distinct().Concat(shops.Select(x => x.SubName).Distinct()).ToList();
+            var names = shops.Select(x => x.Name).OfType<string>().Distinct()
+                .Concat(shops.Select(x => x.SubName).OfType<string>().Distinct()).ToList();
 
             foreach (string element in names)
             {
