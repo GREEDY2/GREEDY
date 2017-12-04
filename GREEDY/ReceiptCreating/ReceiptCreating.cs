@@ -1,4 +1,5 @@
 ﻿using GREEDY.Data;
+using GREEDY.DataManagers;
 using GREEDY.Models;
 using GREEDY.OCRs;
 using System;
@@ -9,12 +10,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace GREEDY.DataManagers
+namespace GREEDY.ReceiptCreatings
 {
-    public class ReceiptCreating : IReceiptCreating
+    public class ReceiptCreating : IReceiptCreatings
     {
-        private static IOcr _ocr;
-        private static IShopManager _shops;
+        private readonly IOcr _ocr;
+        private readonly IShopManager _shops;
 
         public ReceiptCreating()
         {
@@ -67,6 +68,7 @@ namespace GREEDY.DataManagers
 
             foreach (Shop element in shops)
             {
+                //TODO:Find function for UpperCase 
                 if (shopTitle.ToUpper().Contains(element.Name.ToUpper()))
                 {
                     return element;

@@ -6,6 +6,7 @@ using GREEDY.DataManagers;
 using Xunit;
 using GREEDY.OCRs;
 using Moq;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {

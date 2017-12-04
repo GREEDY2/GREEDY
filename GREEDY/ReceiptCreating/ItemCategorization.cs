@@ -1,63 +1,87 @@
-﻿using Newtonsoft.Json;
+﻿using GREEDY.Models;
+using MoreLinq;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System;
 
-namespace GREEDY.DataManagers
+namespace GREEDY.ReceiptCreatings
 {
     public class ItemCategorization : IItemCategorization
     {
-        private static Dictionary<string, string> _categoriesDictionary;
-        static ItemCategorization()
+        private static NaiveBayesianClassifier _classifier;
+        private static List<ItemInfo> _trainingData;
+
+        public ItemCategorization()
         {
-            UpdateCategories();
-        }
-        // TODO: write a more flexible item categorization
-        // decimal price is not needed for now, 
-        // but maybe available implementation for the future to help categorization
-        public string CategorizeSingleItem(string itemName, decimal price = 0)
-        {
-            string itemCategory = string.Empty;
-            foreach (KeyValuePair<string, string> category in _categoriesDictionary)
-            {
-                if (itemName.ToLower().Contains(category.Key))
-                {
-                    itemCategory = category.Value;
-                }
-            }
-            return itemCategory;
+            ReadCategories();
         }
 
-        private static void UpdateCategories()
+        public List<Item> CategorizeItems(List<Item> itemList)
+        {
+            _classifier = new NaiveBayesianClassifier(_trainingData);
+
+            var NewData = itemList.Select(x => new ItemInfo { Category = x.Category, Text = x.Name, Prob = 0 }).ToList();
+            NewData = _classifier.GetAllItemsWithCategories(NewData);
+
+            foreach (Item item in itemList)
+            {
+                foreach (ItemInfo itemInfo in NewData)
+                {
+                    if (item.Name == itemInfo.Text && item.Category == String.Empty)
+                    {
+                        item.Category = itemInfo.Category;
+                    }
+                }
+            }
+            //TODO: add data to training is working perfectry, but I commented this part, because during
+            //testing we chare a lot of trash data. So, we need to think about diferent way to update training data
+
+            //AddNewDataToTrainingData(NewData);
+            return itemList;
+        }
+
+        private void UpdateClassifier() => _classifier = new NaiveBayesianClassifier(_trainingData);
+
+        // reads info from file
+        public static void ReadCategories()
         {
             if (!File.Exists(Environments.AppConfig.CategoriesDataPath))
             {
-                //File.Create(Environments.AppConfig.CategoriesDataPath);
-                // TO DO:Fix problem with file creation, 
-                // line 56 throws an exeption when changing category, if file was created this way
+                try
+                {
+                    File.Create(Environments.AppConfig.CategoriesDataPath);
+                }
+                catch
+                {
+                    //need to think about possible exception if training data is missing
+                }
             }
             else
             {
-                _categoriesDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>
+                _trainingData = JsonConvert.DeserializeObject<List<ItemInfo>>
                     (File.ReadAllText(Environments.AppConfig.CategoriesDataPath));
             }
-            if (_categoriesDictionary == null)
+            if (_trainingData == null)
             {
-                _categoriesDictionary = new Dictionary<string, string>();
+                _trainingData = new List<ItemInfo>();
             }
         }
 
-        public void AddChangeCategories(string itemName, string category)
+        private static async void AddNewDataToTrainingData(List<ItemInfo> NewData)
         {
-            if (!_categoriesDictionary.ContainsKey(itemName))
+            using (StreamWriter writer = File.CreateText(Environments.AppConfig.CategoriesDataPath))
             {
-                _categoriesDictionary.Add(itemName, category);
-                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_categoriesDictionary));
+                _trainingData = _trainingData.Union(NewData).ToList();
+                _trainingData = _trainingData.DistinctBy(o => o.Text).ToList();
+                await writer.WriteLineAsync(JsonConvert.SerializeObject(_trainingData));
             }
-            else if (_categoriesDictionary[itemName] != category)
-            {
-                _categoriesDictionary[itemName] = category;
-                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(_categoriesDictionary));
-            }
+        }
+        public void AddCategory(string itemName, string category)
+        {
+            File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject( 
+                new ItemInfo { Text = itemName, Category = category, Prob = 0}));
         }
     }
 }

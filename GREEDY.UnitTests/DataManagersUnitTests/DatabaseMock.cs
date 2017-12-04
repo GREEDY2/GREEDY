@@ -23,31 +23,29 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             };
 
             var Items = new ItemDataModel[]
-                {
-                    new ItemDataModel{Name="item1",ItemId=1,Price=1.00m,Category="category",Receipt=Receipts[0]},
-                    new ItemDataModel{Name="item2",ItemId=2,Price=1.00m,Category="category",Receipt=Receipts[0]},
-                    new ItemDataModel{Name="item3",ItemId=3,Price=1.00m,Category="category",Receipt=Receipts[1]},
-                    new ItemDataModel{Name="item4",ItemId=4,Price=1.00m,Category="category",Receipt=Receipts[1]},
-                    new ItemDataModel{Name="item5",ItemId=5,Price=1.00m,Category="category",Receipt=Receipts[2]},
-                    new ItemDataModel{Name="item6",ItemId=6,Price=1.00m,Category="category",Receipt=Receipts[2]},
-                    new ItemDataModel{Name="item7",ItemId=7,Price=1.00m,Category="category",Receipt=Receipts[2]},
-                };
+            {
+                new ItemDataModel{Name="item1",ItemId=1,Price=1.00m,Category="category",Receipt=Receipts[0]},
+                new ItemDataModel{Name="item2",ItemId=2,Price=1.00m,Category="category",Receipt=Receipts[0]},
+                new ItemDataModel{Name="item3",ItemId=3,Price=1.00m,Category="category",Receipt=Receipts[1]},
+                new ItemDataModel{Name="item4",ItemId=4,Price=1.00m,Category="category",Receipt=Receipts[1]},
+                new ItemDataModel{Name="item5",ItemId=5,Price=1.00m,Category="category",Receipt=Receipts[2]},
+                new ItemDataModel{Name="item6",ItemId=6,Price=1.00m,Category="category",Receipt=Receipts[2]},
+                new ItemDataModel{Name="item7",ItemId=7,Price=1.00m,Category="category",Receipt=Receipts[2]},
+            };
 
             var Users = new UserDataModel[]
-                {
-                    new UserDataModel(){Username="username1",Password="password1",Email="email1",FullName="FullName1",Receipts=new ReceiptDataModel[]{Receipts[0],Receipts[1]} },
-                    new UserDataModel(){Username="username2",Password="password2",Email="email2",FullName="FullName2",Receipts=new ReceiptDataModel[]{Receipts[2]} },
-                };
+            {
+                new UserDataModel(){Username="username1",Password="password1",Email="email1",FullName="FullName1",Receipts=new ReceiptDataModel[]{Receipts[0],Receipts[1]} },
+                new UserDataModel(){Username="username2",Password="password2",Email="email2",FullName="FullName2",Receipts=new ReceiptDataModel[]{Receipts[2]} },
+            };
 
             Receipts[0].Items = new ItemDataModel[] { Items[0], Items[1] };
             Receipts[0].Shop = Shops[0];
             Receipts[0].User = Users[0];
 
-
             Receipts[1].Items = new ItemDataModel[] { Items[2], Items[3] };
             Receipts[1].Shop = Shops[1];
             Receipts[1].User = Users[0];
-
 
             Receipts[2].Items = new ItemDataModel[] { Items[4], Items[5], Items[6] };
             Receipts[2].Shop = Shops[0];

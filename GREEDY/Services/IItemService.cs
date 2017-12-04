@@ -2,6 +2,6 @@
 {
     public interface IItemService
     {
-        void AddChangeCategory(string itemName, string category);
+        void AddCategory(string itemName, string category);
     }
 }

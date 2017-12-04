@@ -3,6 +3,7 @@ using GREEDY.DataManagers;
 using GREEDY.Services;
 using Moq;
 using Xunit;
+using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ServicesUnitTests
 {
@@ -19,7 +20,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             //act
 
             //assert
-            Assert.Throws<NullReferenceException>(() => itemService.AddChangeCategory(null, null));
+            Assert.Throws<NullReferenceException>(() => itemService.AddCategory(null, null));
         }
     }
 }
