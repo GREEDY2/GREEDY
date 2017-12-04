@@ -8,8 +8,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { Logo } from '../Shared/Logo';
 import Constants from '../Shared/Constants';
 import { FacebookLogin } from 'react-facebook-login-component';
+import { Alert } from '../Shared/Alert';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
+    child: any;
     state = {
         isLoggingIn: false,
         facebook: null
@@ -80,29 +82,32 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     }
 
     responseFacebook = (response) => {
-        console.log(response);
-        this.setState({ facebookLogin: response });
+        if (!response || !response.email || !response.accessToken) return;
+        this.setState({ isLoggingIn: true });
         let credentials = {}
         credentials["accessToken"] = response.accessToken;
         credentials["email"] = response.email;
         credentials["name"] = response.name;
         axios.put(Constants.httpRequestBasePath + 'api/LoginFB', credentials)
             .then(response => {
+                
                 let res = response.data;
                 if (res) {
-                    localStorage.setItem("auth", res);
-                    this.props.history.push("/");
+                    if (res)
+                    {
+                        localStorage.setItem("auth", res);
+                        this.props.history.push("/");
+                    }
+                    else {
+                        this.child.showAlert("Failed to login. Please try again later", "error");
+                    }
+                this.setState({ isLoggingIn: false });
                 }
             }).catch(error => {
                 this.setState({ isLoggingIn: false });
-                return new Error('Failed to login. Please try again later');
+                this.child.showAlert("Failed to login. Please try again later", "error");
             });
     }
-
-    facebookButtonClick = () => {
-
-    }
-
 
     public render() {
         return (
@@ -173,19 +178,23 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                     </LoginForm>
                 </DocumentTitle>
                 <div className="row">
-                    <div className="col-xs-12">
-                        <FacebookLogin socialId="132824064066510"
-                            language="en_US"
-                            scope="public_profile,email"
-                            responseHandler={this.responseFacebook}
-                            xfbml={true}
-                            fields="id,email,name"
-                            version="v2.11"
-                            className="facebook-login"
-                            buttonText="Login With Facebook"
-                        />
+                    <div className="col-sm-offset-4 col-sm-4 text-center">
+                        {this.state.isLoggingIn ?
+                            null :
+                            <FacebookLogin
+                                socialId="132824064066510"
+                                language="en_US"
+                                scope="public_profile,email"
+                                responseHandler={this.responseFacebook}
+                                xfbml={true}
+                                fields="id,email,name"
+                                version="v2.11"
+                                className="facebook-login btn btn-btn btn-primary"
+                                buttonText="Login With Facebook"
+                            />}
                     </div>
                 </div>
+                <Alert onRef={ref => (this.child = ref)} />
             </div>
         );
     }
