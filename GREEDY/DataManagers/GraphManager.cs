@@ -54,10 +54,11 @@ namespace GREEDY.DataManagers
                 .Where(x => x.Receipt.User.Username == username).ToList();
 
             var graphDataList = items
+                .Where(n => !n.Category.Equals("nuolaida"))
                 .GroupBy(n => n.Name)
                 .Select(n => new MostBoughtItemsGraphData()
                     {
-                        ItemName =
+                        ItemName = 
                             (n.Key.Length > 15)
                                 ? n.Key.Substring(0, 15)
                                 : n.Key,
@@ -95,6 +96,7 @@ namespace GREEDY.DataManagers
                 .Where(x => x.Receipt.User.Username == username).ToList();
 
             var graphDataList = items
+                .Where(n => !n.Category.Equals("nuolaida"))
                 .GroupBy(n => n.Receipt.Shop.Name)
                 .Select(n => new ShopItemCountGraphData()
                     {
