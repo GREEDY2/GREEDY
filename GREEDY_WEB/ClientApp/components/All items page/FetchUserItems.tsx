@@ -83,13 +83,13 @@ export class FetchUserItems extends React.Component<Props, State> {
             }
             }).catch(error => {
             if (error.response)
-            if (error.response.status == 401) {
-                localStorage.removeItem('auth');
-                this.props.history.push("/");
-                    }
-            else {
-                //TODO: no internet
-            }
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    this.props.history.push("/");
+                }
+                else {
+                    //TODO: no internet
+                }
             console.log(error);
         })
     }
@@ -97,17 +97,58 @@ export class FetchUserItems extends React.Component<Props, State> {
     sort = (a, b) => {
         switch (this.state.sort.sortType) {
             case 'Price':
-                if (a.Price * this.state.sort.byPriceAsc > b.Price * this.state.sort.byPriceAsc) return -1;
+                if (a.Price * this.state.sort.asc > b.Price * this.state.sort.asc) return -1;
                 return 1;
             case 'Name':
-                if (a.Name > b.Name) return 1;
-                return -1;
+                if (a.Name > b.Name) return 1 * this.state.sort.asc;
+                return -1 * this.state.sort.asc;
             case 'Category':
-                if (a.Category > b.Category) return -1;
-                return 1;
+                if (a.Category > b.Category) return -1 * this.state.sort.asc;
+                return 1 * this.state.sort.asc;
             default:
                 return 0;
         }
+    }
+
+    changeSort = (sortType) => {
+        if (this.state.sort && this.state.sort.sortType === sortType) {
+            if (this.state.sort.asc === -1) {
+                this.setState({
+                    sort: {
+                        sortType: sortType,
+                        asc: 1
+                    }
+                })
+            }
+            else {
+                this.setState({
+                    sort: {
+                        sortType: sortType,
+                        asc: -1
+                    }
+                })
+            }
+        }
+        else {
+            this.setState({
+                sort: {
+                    sortType: sortType,
+                    asc: 1
+                }
+            })
+        }
+    }
+
+    sortByPrice = () => {
+        this.changeSort("Price");
+    }
+
+    sortByName = () => {
+        this.changeSort("Name");
+    }
+
+    sortByCategory = () => {
+        this.changeSort("Category");
     }
 
     populateTableWithItems() {
@@ -145,24 +186,25 @@ export class FetchUserItems extends React.Component<Props, State> {
     }
 
     public render() {
+        if (!this.state.showItems) {
+            return <img className="img-responsive loading" src={"Rolling.gif"} />;
+        }
         return (
             <div>
-                {this.state.showItems ? <div>
+                <div>
                     <table className="table-hover table itemTable">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th className="center">Item</th>
-                                <th>Price</th>
-                                <th>Category</th>
+                                <th className="center" onClick={() => this.sortByName()}>Item</th>
+                                <th onClick={() => this.sortByPrice()}>Price</th>
+                                <th onClick={() => this.sortByCategory()}>Category</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
                         {this.populateTableWithItems()}
                     </table>
-                </div> :
-                    <img className="img-responsive loading" src={"Rolling.gif"} />
-                }
+                </div>
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
     }

@@ -8,6 +8,7 @@ import { UserSettings } from './components/User settings page/UserSettings';
 import { StatisticsPage } from './components/Statistics page/StatisticsPage';
 import { ServiceWorker } from './components/Shared/ServiceWorker';
 import { DatabaseManager } from './components/Shared/DatabaseManager';
+import { MapPage } from './components/Map page/MapPage';
 
 export const routes =
     (<Layout>
@@ -18,5 +19,6 @@ export const routes =
             <Route path='/fetchdata' component={AllUserItems} />
             <Route path='/user' component={UserSettings} />
             <Route path='/statistics' component={StatisticsPage} />
+            <Route path='/map' component={MapPage} />
         </Authorization>
     </Layout>);

@@ -39,7 +39,8 @@ namespace GREEDY
             kernel.Bind<IShopManager>().To<ShopManager>();
             kernel.Bind<IGraphManager>().To<GraphManager>();
             kernel.Bind<IItemService>().To<ItemService>();
-            kernel.Bind<IReceiptCreatings>().To<ReceiptCreating>();
+            kernel.Bind<IReceiptMaking>().To<ReceiptMaking>();
+            kernel.Bind<IShopDetection>().To<ShopDetection>();
             kernel.Bind<ICategoryManager>().To<CategoryManager>();
             kernel.Bind<IReceiptService>().To<ReceiptService>();
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();

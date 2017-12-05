@@ -8,19 +8,19 @@ namespace GREEDY.Services
     public class ReceiptService : IReceiptService
     {
         private readonly IImageFormating _imageFormating;
-        private readonly IReceiptCreatings _receiptCreating;
+        private readonly IReceiptMaking _receiptCreating;
         private readonly IDataConverter _dataConverter;
         private readonly IItemCategorization _itemCategorization;
 
         public ReceiptService()
         {
             _imageFormating = new ImageFormating();
-            _receiptCreating = new ReceiptCreating();
+            _receiptCreating = new ReceiptMaking();
             _dataConverter = new DataConverter();
             _itemCategorization = new ItemCategorization();
         }
 
-        public ReceiptService(IImageFormating imageFormating, IReceiptCreatings receiptCreating, IDataConverter dataConverter, IItemCategorization itemCategorization)
+        public ReceiptService(IImageFormating imageFormating, IReceiptMaking receiptCreating, IDataConverter dataConverter, IItemCategorization itemCategorization)
         {
             _imageFormating = imageFormating;
             _receiptCreating = receiptCreating;

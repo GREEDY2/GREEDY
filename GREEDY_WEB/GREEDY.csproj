@@ -75,6 +75,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\components\Map page\" />
+    <Folder Include="ClientApp\css\" />
     <Folder Include="Models\" />
   </ItemGroup>
 

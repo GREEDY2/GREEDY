@@ -13,6 +13,7 @@ namespace GREEDY
         string MinPasswordLength { get; }
         string MaxAnyInputLength { get; }
         string AuthenticationSecret { get; }
+        string GoogleMapsGeocodingAPIKey { get; }
         string LogPath { get; }
     }
 
@@ -27,6 +28,7 @@ namespace GREEDY
         public string MinPasswordLength => ConfigurationManager.AppSettings["MinPasswordLength"];
         public string MaxAnyInputLength => ConfigurationManager.AppSettings["MaxAnyInputLength"];
         public string AuthenticationSecret => ConfigurationManager.AppSettings["AuthenticationSecret"];
+        public string GoogleMapsGeocodingAPIKey => ConfigurationManager.AppSettings["GoogleMapsGeocodingAPIKey"];
         public string LogPath => ConfigurationManager.AppSettings["LogPath"];
 
     }

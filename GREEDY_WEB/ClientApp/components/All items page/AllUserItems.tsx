@@ -44,11 +44,11 @@ export class AllUserItems extends React.Component<RouteComponentProps<{}>> {
                 byPriceAsc = -1
                 break;
             default:
-                byPriceAsc = undefined;
+                byPriceAsc = 1;
         }
         let sort = {
             sortType,
-            byPriceAsc
+            asc: byPriceAsc
         }
         this.child.updateSort(sort);
     }
