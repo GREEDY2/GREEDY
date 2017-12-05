@@ -14,10 +14,10 @@
 @section scripts {
     <script src="~/dist/main.js" asp-append-version="true"></script>
 
-    <script>
+    @*<script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '291522264669378',
+                appId: '132824064066510',
                 cookie: true,
                 xfbml: true,
                 version: 'v2.00'
@@ -34,16 +34,20 @@
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
 
-    <script>
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                console.log(response);//statusChangeCallback(response);
+            });
+        }
+        //function(response)
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=291522264669378";
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=132824064066510";
             fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+        }(document, 'script', 'facebook-jssdk'));</script>*@
 
    
 }
