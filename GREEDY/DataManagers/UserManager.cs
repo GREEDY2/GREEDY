@@ -32,19 +32,26 @@ namespace GREEDY.DataManagers
         public List<User> GetExistingUsers()
         {
             return context.Set<UserDataModel>()
-                .Select(x => new User() { Email = x.Email, Username = x.Username, Fullname = x.FullName, Password = x.Password })
+                .Select(x => new User() {
+                    Email = x.Email, Username = x.Username,
+                    Fullname = x.FullName, Password = x.Password })
                .ToList();
         }
         public void AddUser(User user)
         {
             context.Set<UserDataModel>()
-                .Add(new UserDataModel() { Username = user.Username, Email = user.Email, Password = user.Password, FullName = user.Fullname,IsFacebookUser=user.IsFacebookUser });
+                .Add(new UserDataModel() {
+                    Username = user.Username, Email = user.Email,
+                    Password = user.Password, FullName = user.Fullname,
+                    IsFacebookUser =user.IsFacebookUser });
             context.SaveChanges();
         }
 
         public User FindByUsername(string username, bool isFacebookUser)
         {
-            UserDataModel userDataModel = context.Set<UserDataModel>().FirstOrDefault(user => user.Username.ToLower() == username.ToLower() && user.IsFacebookUser == isFacebookUser);
+            UserDataModel userDataModel = context.Set<UserDataModel>()
+                .FirstOrDefault(user => user.Username.ToLower() == username.ToLower() 
+                && user.IsFacebookUser == isFacebookUser);
             return userDataModel == null ?
                 null : new User
                 {
@@ -58,7 +65,9 @@ namespace GREEDY.DataManagers
 
         public User FindByEmail(string email, bool isFacebookUser)
         {
-            UserDataModel userDataModel = context.Set<UserDataModel>().FirstOrDefault(user => user.Email.ToLower() == email.ToLower() && user.IsFacebookUser == isFacebookUser);
+            UserDataModel userDataModel = context.Set<UserDataModel>()
+                .FirstOrDefault(user => user.Email.ToLower() == email.ToLower() 
+                && user.IsFacebookUser == isFacebookUser);
             return userDataModel == null ?
                 null : new User
                 {

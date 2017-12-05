@@ -14,7 +14,6 @@ namespace GREEDY.Migrations
         protected override void Seed(GREEDY.Data.DataBaseModel context)
         {
             //  This method will be called after migrating to the latest version.
-            //  This method will be called after migrating to the latest version.
             var Shops = new ShopDataModel[]{
                 new ShopDataModel() {
                     Name ="IKI", Location = new Geocoding.Location(54.678853,25.278207),
@@ -50,7 +49,6 @@ namespace GREEDY.Migrations
                 new ShopDataModel() {
                     Name ="MAXIMA", Location = new Geocoding.Location(54.848567, 25.466849),
                     Address = "Svencioniu g. 44, Nemencine 15174, Lietuva"},
-
 
                 new ShopDataModel() {
                     Name ="RIMI", Location = new Geocoding.Location(54.708354,25.313375),
@@ -94,8 +92,17 @@ namespace GREEDY.Migrations
                     Address = "S. Neries g. 16"},
 
                 new ShopDataModel() {
-                    Name ="Neatpažinta", Location = new Geocoding.Location(0,0),
-                    Address =  "Neatpažinta"},
+                    Name ="Neatpažinta", Location = new Geocoding.Location(0,0)},
+                new ShopDataModel() {
+                    Name ="IKI", SubName ="Palink", Location = new Geocoding.Location(0,0)},
+                new ShopDataModel() {
+                    Name ="MAXIMA", Location = new Geocoding.Location(0,0)},
+                new ShopDataModel() {
+                    Name ="RIMI", Location = new Geocoding.Location(0,0)},
+                new ShopDataModel() {
+                    Name ="LIDL", Location = new Geocoding.Location(0,0)},
+                new ShopDataModel() {
+                    Name ="NORFA", Location = new Geocoding.Location(0,0)},
             };
 
             foreach (ShopDataModel shop in Shops)

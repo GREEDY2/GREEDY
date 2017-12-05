@@ -25,20 +25,17 @@ namespace GREEDY.DataManagers
 
             var shops = context.Set<ShopDataModel>()
                     .Select(x => x)
-                    .Where(x => x.Name == receipt.Shop.Name);
+                    .Where(x => x.Name == receipt.Shop.Name); 
+            ShopDataModel shopDataModel;
 
-            ShopDataModel shopDataModel = shops.Select(x => x)
-                .Where(x => x.Address == receipt.Shop.Address).FirstOrDefault();
-
-            if (shopDataModel == null)
+            if (receipt.Shop.Address == null)
             {
-                shopDataModel = new ShopDataModel()
-                {
-                    Name = receipt.Shop.Name,
-                    SubName = receipt.Shop.SubName,
-                    Address = "Neatpažinta",
-                    Location = new Geocoding.Location(0, 0)
-                };
+                shopDataModel = shops.Where(x => x.Address == null).FirstOrDefault();
+            }
+            else
+            {
+                shopDataModel = shops.Select(x => x)
+                    .Where(x => x.Address == receipt.Shop.Address).FirstOrDefault();
             }
 
             ReceiptDataModel receiptDataModel = new ReceiptDataModel()
@@ -100,11 +97,11 @@ namespace GREEDY.DataManagers
             {
                 var items = context.Set<ItemDataModel>()
                     .Select(x => x).Where(x => x.Receipt.User.Username == username);
-                return items.Select(x => new Item() { Name = x.Name, Category = x.Category, ItemId = x.ItemId, Price = x.Price }).ToList();
+                return items.Select(x => new Item() {
+                    Name = x.Name, Category = x.Category,
+                    ItemId = x.ItemId, Price = x.Price }).ToList();
             }
         }
-
-        
 
         //TODO: for now this only saves the changed item to ItemDataModels table
         //nothing is written for categorizations.

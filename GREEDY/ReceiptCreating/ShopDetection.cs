@@ -26,18 +26,20 @@ namespace GREEDY.ReceiptCreatings
             FirstLine = Regex.Replace(FirstLine, @"\r\r\n", " ");
             var Allshops = _shops.GetExistingShops();
             var ShopName = GetShopName(FirstLine, Allshops);
-            /*if (ShopName == "Neatpažinta")
+            if(ShopName == "Neatpažinta")
             {
-                //(var address, var location) = GetAddressAndLocation(FirstLine.Split(' ')).Result;
-                return new Shop { Name = "Neatpažinta" };
+                return new Shop
+                {
+                    Name = ShopName,
+                    Location = new Location(0, 0)
+                };
             }
             else
             {
                 return GetShopWithLocation(FirstLine, Allshops
                     .Where(x => x.Name == ShopName || x.SubName == ShopName).ToList());
-            }*/
-            return GetShopWithLocation(FirstLine, Allshops
-                    .Where(x => x.Name == ShopName || x.SubName == ShopName).ToList());
+            }
+
         }
 
         public Shop GetShopWithLocation(string FirstLine, List<Shop> shops)
@@ -53,8 +55,7 @@ namespace GREEDY.ReceiptCreatings
             {
                 Name = shops.First().Name,
                 SubName = shops.First().SubName,
-                Location = new Location(0, 0),
-                Address = "Neatpažinta"
+                Location = new Location(0, 0)
             };
         }
 
@@ -73,7 +74,7 @@ namespace GREEDY.ReceiptCreatings
                     return (address, location);
                 }
             }
-            return (null, null);
+            return (null, new Location(0, 0));
         }
 
         public string GetShopName(string FirstLines, List<Shop> shops)

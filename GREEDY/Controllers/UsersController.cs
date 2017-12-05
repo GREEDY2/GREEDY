@@ -122,11 +122,13 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (_userManager.FindByUsername(credentials.Username,false) != null || _userManager.FindByUsername(credentials.Username, true) != null)
+            if (_userManager.FindByUsername(credentials.Username,false) != null 
+                || _userManager.FindByUsername(credentials.Username, true) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (_userManager.FindByEmail(credentials.Email,false) != null || _userManager.FindByEmail(credentials.Email,true) != null)
+            if (_userManager.FindByEmail(credentials.Email,false) != null 
+                || _userManager.FindByEmail(credentials.Email,true) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }

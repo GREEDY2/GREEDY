@@ -22,7 +22,7 @@ namespace GREEDY.DataManagers
             {
                 //get exception if DB have element with location NULL
                 return context.Set<ShopDataModel>()
-                    //                    .Where(x => x.Address != null)
+                    .Where(x => x.Address != null)
                     .Select(x => new Shop()
                     {
                         Name = x.Name,
@@ -39,7 +39,8 @@ namespace GREEDY.DataManagers
             using (context)
             {
                 var shops = context.Set<ReceiptDataModel>()
-                    .Where(x => x.User.Username == username)
+                    .Where(x => x.User.Username == username 
+                    && x.Shop.Address != null)
                     .Select(x => x.Shop).ToList();
                 return shops.Select(x => new Shop()
                 {
