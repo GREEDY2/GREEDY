@@ -90,9 +90,13 @@ namespace GREEDY.DataManagers
             var temp = context.Set<ItemDataModel>()
                      .Select(x => x)
                      .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
+<<<<<<< HEAD
             return temp.Select(x => new Item {
                 Category = x.Category, Name = x.Name,
                 Price = x.Price }).ToList();
+=======
+            return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
+>>>>>>> parent of 9457ca0... Facebook login (#49)
         }
 
         //TODO: for now this only saves the changed item to ItemDataModels table
