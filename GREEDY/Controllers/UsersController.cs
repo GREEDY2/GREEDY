@@ -53,6 +53,11 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginFBController : ApiController
     {
+        private class FbUserModel
+        {
+            public string email;
+            public string id;
+        }
         private IUserManager _userManager;
         private IAuthenticationService _authenticationService;
         public LoginFBController(IUserManager userManager, IAuthenticationService authenticationService)
@@ -65,13 +70,19 @@ namespace GREEDY.Controllers
             Request.RegisterForDispose((IDisposable)_userManager);
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            dynamic fbUser = JsonConvert.DeserializeObject<dynamic>(jsonContent);
+            var fbUser = JsonConvert.DeserializeAnonymousType(jsonContent, 
+                new {
+                    email = "",
+                    accessToken = "",
+                    name = ""
+                }
+            );
             string email = fbUser.email;
             Facebook.FacebookClient fbclient = new Facebook.FacebookClient()
             {
                 AccessToken = (string)fbUser.accessToken
             };
-            dynamic me = fbclient.Get("me?fields=email");
+            var me = fbclient.Get<FbUserModel>("me?fields=email");
             if(email!=me.email)
                 return HelperClass.JsonHttpResponse<Object>(null);
 

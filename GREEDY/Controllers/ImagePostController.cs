@@ -45,8 +45,15 @@ namespace GREEDY.Controllers
             
             if (await isAuthenticated)
             {
-                var receiptId = _itemManager.AddItems(receipt, username);
-                return HelperClass.JsonHttpResponse(receiptId);
+                try
+                {
+                    var receiptId = _itemManager.AddItems(receipt, username);
+                    return HelperClass.JsonHttpResponse(receiptId);
+                }
+                catch (Exception)
+                {
+                    return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+                }
             }
             else
             {

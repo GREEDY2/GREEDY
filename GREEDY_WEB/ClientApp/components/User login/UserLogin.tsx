@@ -13,37 +13,13 @@ import { Alert } from '../Shared/Alert';
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     child: any;
     state = {
-        isLoggingIn: false,
-        facebook: null
+        isLoggingIn: false
     }
 
     onFormSubmit = (e, next) => {
         e.preventDefault();
         var data = e.data;
 
-        if (this.state.facebook)
-        {
-            let response = this.state.facebook;
-            let credentials = {}
-            credentials["accessToken"] = response.accessToken;
-            credentials["email"] = response.email;
-            credentials["name"] = response.name;
-            axios.put(Constants.httpRequestBasePath + 'api/LoginFB', credentials)
-                .then(response => {
-                    let res = response.data;
-                    if (res) {
-                        localStorage.setItem("auth", res);
-                        this.props.history.push("/");
-                    }
-                    else {
-                        this.setState({ isLoggingIn: false });
-                        return new next(Error('Failed to login. Make sure your username and/or password are correct'));
-                    }
-                }).catch(error => {
-                    this.setState({ isLoggingIn: false });
-                    return new next(Error('Failed to login. Please try again later'));
-                });
-        }
         if (data.username.length < 1) {
             return next(new Error('Username/Email must not be empty.'));
         }
