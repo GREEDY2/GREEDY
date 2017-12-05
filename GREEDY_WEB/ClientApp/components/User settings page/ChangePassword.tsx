@@ -44,8 +44,8 @@ export class ChangePassword extends React.Component {
                 if (res) {
                     this.setState({ isAccountCreated: true });
                 }
-                else
-                    return next(new Error('wrong password'));
+                    //TODO: Fix these messages
+                    //return next(new Error('wrong password'));
             }).catch(error => {
                 return next(new Error('Unable to change password at this time, try again later'));
             });

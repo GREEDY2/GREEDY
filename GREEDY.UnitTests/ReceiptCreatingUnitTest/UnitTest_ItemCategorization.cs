@@ -14,7 +14,6 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             var itemCategorization = new ItemCategorization();
             List<Item> NewData = new List<Item>();
             //act
-
             //assert
             Assert.Equal(NewData, itemCategorization.CategorizeItems(NewData));
         }
