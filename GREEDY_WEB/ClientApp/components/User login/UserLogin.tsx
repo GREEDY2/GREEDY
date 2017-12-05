@@ -7,16 +7,43 @@ import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import { Logo } from '../Shared/Logo';
 import Constants from '../Shared/Constants';
+import { FacebookLogin } from 'react-facebook-login-component';
+import { Alert } from '../Shared/Alert';
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
+    child: any;
     state = {
-        isLoggingIn: false
+        isLoggingIn: false,
+        facebook: null
     }
 
     onFormSubmit = (e, next) => {
         e.preventDefault();
         var data = e.data;
 
+        if (this.state.facebook)
+        {
+            let response = this.state.facebook;
+            let credentials = {}
+            credentials["accessToken"] = response.accessToken;
+            credentials["email"] = response.email;
+            credentials["name"] = response.name;
+            axios.put(Constants.httpRequestBasePath + 'api/LoginFB', credentials)
+                .then(response => {
+                    let res = response.data;
+                    if (res) {
+                        localStorage.setItem("auth", res);
+                        this.props.history.push("/");
+                    }
+                    else {
+                        this.setState({ isLoggingIn: false });
+                        return new next(Error('Failed to login. Make sure your username and/or password are correct'));
+                    }
+                }).catch(error => {
+                    this.setState({ isLoggingIn: false });
+                    return new next(Error('Failed to login. Please try again later'));
+                });
+        }
         if (data.username.length < 1) {
             return next(new Error('Username/Email must not be empty.'));
         }
@@ -55,11 +82,31 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     }
 
     responseFacebook = (response) => {
-        console.log(response);
-    }
-
-    facebookButtonClick = () => {
-
+        if (!response || !response.email || !response.accessToken) return;
+        this.setState({ isLoggingIn: true });
+        let credentials = {}
+        credentials["accessToken"] = response.accessToken;
+        credentials["email"] = response.email;
+        credentials["name"] = response.name;
+        axios.put(Constants.httpRequestBasePath + 'api/LoginFB', credentials)
+            .then(response => {
+                
+                let res = response.data;
+                if (res) {
+                    if (res)
+                    {
+                        localStorage.setItem("auth", res);
+                        this.props.history.push("/");
+                    }
+                    else {
+                        this.child.showAlert("Failed to login. Please try again later", "error");
+                    }
+                this.setState({ isLoggingIn: false });
+                }
+            }).catch(error => {
+                this.setState({ isLoggingIn: false });
+                this.child.showAlert("Failed to login. Please try again later", "error");
+            });
     }
 
     public render() {
@@ -124,22 +171,30 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                                                     </Link>
                                             </div>
                                         </div>
-                                        <div className="form-group col-sm-offset-4 col-sm-12 text-center facebook">
-                                            <div
-                                                className="fb-login-button "
-                                                data-max-rows="1" data-size="medium"
-                                                data-button-type="continue_with"
-                                                data-show-faces="false"
-                                                data-auto-logout-link="false"
-                                                data-use-continue-as="false">
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </LoginForm>
                 </DocumentTitle>
+                <div className="row">
+                    <div className="col-sm-offset-4 col-sm-4 text-center">
+                        {this.state.isLoggingIn ?
+                            null :
+                            <FacebookLogin
+                                socialId="132824064066510"
+                                language="en_US"
+                                scope="public_profile,email"
+                                responseHandler={this.responseFacebook}
+                                xfbml={true}
+                                fields="id,email,name"
+                                version="v2.11"
+                                className="facebook-login btn btn-btn btn-primary"
+                                buttonText="Login With Facebook"
+                            />}
+                    </div>
+                </div>
+                <Alert onRef={ref => (this.child = ref)} />
             </div>
         );
     }

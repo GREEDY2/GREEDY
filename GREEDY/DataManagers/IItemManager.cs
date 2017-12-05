@@ -8,7 +8,6 @@ namespace GREEDY.DataManagers
         int AddItems(Receipt receipt, string username);
         List<Item> GetItemsOfSingleReceipt(int receiptId);
         List<Item> GetAllUserItems(string username);
-        List<Item> LoadData(string username);
         void UpdateItem(Item updatedItem);
     }
 }
