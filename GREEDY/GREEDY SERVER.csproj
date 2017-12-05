@@ -233,19 +233,10 @@
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="ImagePreparation\DeskewImage.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
+    <Compile Include="LogHandler.cs" />
     <Compile Include="Migrations\201712021939059_FirstMigration.cs" />
     <Compile Include="Migrations\201712021939059_FirstMigration.Designer.cs">
       <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LogHandler.cs" />
-    <Compile Include="LogHandler.cs" />
-    <Compile Include="Migrations\201711061716547_Initial.cs" />
-    <Compile Include="Migrations\201711061716547_Initial.designer.cs">
-      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711100145578_RemovedSessions.cs" />
-    <Compile Include="Migrations\201711100145578_RemovedSessions.Designer.cs">
-      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201712031225397_FacebookLogin.cs" />
     <Compile Include="Migrations\201712031225397_FacebookLogin.Designer.cs">
@@ -306,11 +297,6 @@
     <Compile Include="Startup.cs" />
     <EmbeddedResource Include="Migrations\201712021939059_FirstMigration.resx">
       <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
-    <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
-      <DependentUpon>201711061716547_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711100145578_RemovedSessions.resx">
-      <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712031225397_FacebookLogin.resx">
       <DependentUpon>201712031225397_FacebookLogin.cs</DependentUpon>
