@@ -69,7 +69,6 @@ namespace GREEDY.DataManagers
         public List<Item> GetItemsOfSingleReceipt(int receiptId)
         {
             var temp = context.Set<ReceiptDataModel>()
-                .Include(x=>x.Items)
                 .FirstOrDefault(x => x.ReceiptId == receiptId);
             return temp.Items.Select(x => new Item {
                 Category = x.Category, Name = x.Name,
@@ -78,7 +77,7 @@ namespace GREEDY.DataManagers
 
         public List<Item> GetAllUserItems(string username)
         {
-            using (context)
+            using (DataBaseModel context = new DataBaseModel())
             {
                 var items = context.Set<ItemDataModel>()
                     .Select(x => x).Where(x => x.Receipt.User.Username == username);

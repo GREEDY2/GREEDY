@@ -32,10 +32,10 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            User user = _userManager.FindByUsername(credentials.Username,false);
+            User user = _userManager.FindByUsername(credentials.Username);
             if (user == null)
             {
-                user = _userManager.FindByEmail(credentials.Username,false);
+                user = _userManager.FindByEmail(credentials.Username);
             }
             if (user == null)
             {
@@ -47,47 +47,6 @@ namespace GREEDY.Controllers
                 return HelperClass.JsonHttpResponse(token);
             }
             return HelperClass.JsonHttpResponse<Object>(null);
-        }
-    }
-
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class LoginFBController : ApiController
-    {
-        private IUserManager _userManager;
-        private IAuthenticationService _authenticationService;
-        public LoginFBController(IUserManager userManager, IAuthenticationService authenticationService)
-        {
-            _userManager = userManager;
-            _authenticationService = authenticationService;
-        }
-        public async Task<HttpResponseMessage> Put()
-        {
-            Request.RegisterForDispose((IDisposable)_userManager);
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
-            dynamic fbUser = JsonConvert.DeserializeObject<dynamic>(jsonContent);
-            string email = fbUser.email;
-            Facebook.FacebookClient fbclient = new Facebook.FacebookClient()
-            {
-                AccessToken = (string)fbUser.accessToken
-            };
-            dynamic me = fbclient.Get("me?fields=email");
-            if(email!=me.email)
-                return HelperClass.JsonHttpResponse<Object>(null);
-
-            User user = _userManager.FindByEmail(email,true);
-            if (user == null)
-            {
-                _userManager.AddUser(user = new User()
-                {
-                    Username = fbUser.name,
-                    Email = fbUser.email,
-                    Fullname = fbUser.name,
-                    IsFacebookUser = true
-                });
-            }
-            var token = _authenticationService.GenerateToken(user.Username);
-            return HelperClass.JsonHttpResponse(token);
         }
     }
 
@@ -111,11 +70,11 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (_userManager.FindByUsername(credentials.Username,false) != null || _userManager.FindByUsername(credentials.Username, true) != null)
+            if (_userManager.FindByUsername(credentials.Username) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            if (_userManager.FindByEmail(credentials.Email,false) != null || _userManager.FindByEmail(credentials.Email,true) != null)
+            if (_userManager.FindByEmail(credentials.Email) != null)
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
@@ -152,7 +111,7 @@ namespace GREEDY.Controllers
                     //TODO: need a different message for the user if this happens
                     return HelperClass.JsonHttpResponse<Object>(null);
                 }
-                if (_userManager.FindByEmail(newEmail,false) != null)
+                if (_userManager.FindByEmail(newEmail) != null)
                 {
                     //Email is already taken
                     //TODO: need a different message for the user if this happens

@@ -19,8 +19,7 @@ namespace GREEDY.DataManagers
         {
             DateTime endTime = DateTime.Now.AddSeconds(-time.Value);
             var items = context.Set<ItemDataModel>()
-                .Where(x => x.Receipt.User.Username == username).Include(x=>x.Receipt)
-                .ToList();
+                .Where(x => x.Receipt.User.Username == username).ToList();
 
             var graphDataList = items.Select(x => new GraphData()
             {
