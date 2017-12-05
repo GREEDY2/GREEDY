@@ -64,12 +64,15 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Reference Include="Geocoding.Core, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Geocoding.Core.4.0.1\lib\netstandard1.3\Geocoding.Core.dll</HintPath>
     </Reference>
     <Reference Include="Geocoding.Google, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Geocoding.Google.4.0.1\lib\netstandard1.3\Geocoding.Google.dll</HintPath>
     </Reference>
+=======
+>>>>>>> parent of 9457ca0... Facebook login (#49)
 =======
 >>>>>>> parent of 9457ca0... Facebook login (#49)
     <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -88,9 +91,12 @@
       <HintPath>..\packages\Microsoft.Owin.Hosting.3.1.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
     </Reference>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
+=======
+>>>>>>> parent of 9457ca0... Facebook login (#49)
 =======
 >>>>>>> parent of 9457ca0... Facebook login (#49)
     <Reference Include="MoreLinq, Version=2.8.21218.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
@@ -139,6 +145,7 @@
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.5\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
       <Private>True</Private>
@@ -156,6 +163,8 @@
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
+=======
+>>>>>>> parent of 9457ca0... Facebook login (#49)
 =======
 >>>>>>> parent of 9457ca0... Facebook login (#49)
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -251,6 +260,9 @@
     <Compile Include="Migrations\201711100145578_RemovedSessions.Designer.cs">
       <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+>>>>>>> parent of 9457ca0... Facebook login (#49)
+=======
 >>>>>>> parent of 9457ca0... Facebook login (#49)
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GraphData.cs" />
@@ -314,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711100145578_RemovedSessions.resx">
       <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
+<<<<<<< HEAD
+>>>>>>> parent of 9457ca0... Facebook login (#49)
+=======
 >>>>>>> parent of 9457ca0... Facebook login (#49)
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

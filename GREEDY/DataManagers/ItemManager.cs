@@ -91,9 +91,13 @@ namespace GREEDY.DataManagers
                      .Select(x => x)
                      .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
 <<<<<<< HEAD
+<<<<<<< HEAD
             return temp.Select(x => new Item {
                 Category = x.Category, Name = x.Name,
                 Price = x.Price }).ToList();
+=======
+            return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
+>>>>>>> parent of 9457ca0... Facebook login (#49)
 =======
             return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
 >>>>>>> parent of 9457ca0... Facebook login (#49)
