@@ -24,7 +24,8 @@ namespace GREEDY.DataManagers
                 Username = credentials.Username.ToLower(),
                 Password = credentials.Password.Encrypt(),
                 Email = credentials.Email.ToLower(),
-                Fullname = credentials.Fullname
+                Fullname = credentials.Fullname,
+                IsFacebookUser = false
             });
         }
 
@@ -37,33 +38,35 @@ namespace GREEDY.DataManagers
         public void AddUser(User user)
         {
             context.Set<UserDataModel>()
-                .Add(new UserDataModel() { Username = user.Username, Email = user.Email, Password = user.Password, FullName = user.Fullname });
+                .Add(new UserDataModel() { Username = user.Username, Email = user.Email, Password = user.Password, FullName = user.Fullname,IsFacebookUser=user.IsFacebookUser });
             context.SaveChanges();
         }
 
-        public User FindByUsername(string username)
+        public User FindByUsername(string username, bool isFacebookUser)
         {
-            UserDataModel userDataModel = context.Set<UserDataModel>().FirstOrDefault(user => user.Username.ToLower() == username.ToLower());
+            UserDataModel userDataModel = context.Set<UserDataModel>().FirstOrDefault(user => user.Username.ToLower() == username.ToLower() && user.IsFacebookUser == isFacebookUser);
             return userDataModel == null ?
                 null : new User
                 {
                     Username = userDataModel.Username,
                     Fullname = userDataModel.FullName,
                     Email = userDataModel.Email,
-                    Password = userDataModel.Password
+                    Password = userDataModel.Password,
+                    IsFacebookUser = userDataModel.IsFacebookUser
                 };
         }
 
-        public User FindByEmail(string email)
+        public User FindByEmail(string email, bool isFacebookUser)
         {
-            UserDataModel userDataModel = context.Set<UserDataModel>().FirstOrDefault(user => user.Email.ToLower() == email.ToLower());
+            UserDataModel userDataModel = context.Set<UserDataModel>().FirstOrDefault(user => user.Email.ToLower() == email.ToLower() && user.IsFacebookUser == isFacebookUser);
             return userDataModel == null ?
                 null : new User
                 {
                     Username = userDataModel.Username,
                     Fullname = userDataModel.FullName,
                     Email = userDataModel.Email,
-                    Password = userDataModel.Password
+                    Password = userDataModel.Password,
+                    IsFacebookUser = userDataModel.IsFacebookUser
                 };
         }
 

@@ -69,6 +69,7 @@ namespace GREEDY.DataManagers
         public List<Item> GetItemsOfSingleReceipt(int receiptId)
         {
             var temp = context.Set<ReceiptDataModel>()
+                .Include(x=>x.Items)
                 .FirstOrDefault(x => x.ReceiptId == receiptId);
             return temp.Items.Select(x => new Item {
                 Category = x.Category, Name = x.Name,
@@ -77,30 +78,21 @@ namespace GREEDY.DataManagers
 
         public List<Item> GetAllUserItems(string username)
         {
-            using (DataBaseModel context = new DataBaseModel())
+            using (context)
             {
                 var items = context.Set<ItemDataModel>()
                     .Select(x => x).Where(x => x.Receipt.User.Username == username);
                 return items.Select(x => new Item() { Name = x.Name, Category = x.Category, ItemId = x.ItemId, Price = x.Price }).ToList();
             }
         }
-
         public List<Item> LoadData(string Username)
         {
             var temp = context.Set<ItemDataModel>()
                      .Select(x => x)
                      .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
-<<<<<<< HEAD
-<<<<<<< HEAD
             return temp.Select(x => new Item {
                 Category = x.Category, Name = x.Name,
                 Price = x.Price }).ToList();
-=======
-            return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
->>>>>>> parent of 9457ca0... Facebook login (#49)
-=======
-            return temp.Select(x => new Item { Category = x.Category, Name = x.Name, Price = x.Price }).ToList();
->>>>>>> parent of 9457ca0... Facebook login (#49)
         }
 
         //TODO: for now this only saves the changed item to ItemDataModels table

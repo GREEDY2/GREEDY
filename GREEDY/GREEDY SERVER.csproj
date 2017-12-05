@@ -63,18 +63,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
-<<<<<<< HEAD
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Geocoding.Core, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Geocoding.Core.4.0.1\lib\netstandard1.3\Geocoding.Core.dll</HintPath>
     </Reference>
     <Reference Include="Geocoding.Google, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Geocoding.Google.4.0.1\lib\netstandard1.3\Geocoding.Google.dll</HintPath>
     </Reference>
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
     <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.5\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
     </Reference>
@@ -90,15 +87,12 @@
     <Reference Include="Microsoft.Owin.Hosting, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Hosting.3.1.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
-<<<<<<< HEAD
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
     <Reference Include="MoreLinq, Version=2.8.21218.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.8.0\lib\net40\MoreLinq.dll</HintPath>
     </Reference>
@@ -144,8 +138,7 @@
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.5\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
-<<<<<<< HEAD
+    <Reference Include="System.Net" />
     <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
       <Private>True</Private>
@@ -163,10 +156,6 @@
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -243,14 +232,12 @@
     <Compile Include="DataManagers\IGraphManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="ImagePreparation\DeskewImage.cs" />
-<<<<<<< HEAD
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Migrations\201712021939059_FirstMigration.cs" />
     <Compile Include="Migrations\201712021939059_FirstMigration.Designer.cs">
       <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="LogHandler.cs" />
-=======
     <Compile Include="LogHandler.cs" />
     <Compile Include="Migrations\201711061716547_Initial.cs" />
     <Compile Include="Migrations\201711061716547_Initial.designer.cs">
@@ -260,10 +247,10 @@
     <Compile Include="Migrations\201711100145578_RemovedSessions.Designer.cs">
       <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
->>>>>>> parent of 9457ca0... Facebook login (#49)
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
+    <Compile Include="Migrations\201712031225397_FacebookLogin.cs" />
+    <Compile Include="Migrations\201712031225397_FacebookLogin.Designer.cs">
+      <DependentUpon>201712031225397_FacebookLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="ReceiptCreating\IShopDetection.cs" />
@@ -317,19 +304,16 @@
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
     <Compile Include="Startup.cs" />
-<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201712021939059_FirstMigration.resx">
       <DependentUpon>201712021939059_FirstMigration.cs</DependentUpon>
-=======
     <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711100145578_RemovedSessions.resx">
       <DependentUpon>201711100145578_RemovedSessions.cs</DependentUpon>
-<<<<<<< HEAD
->>>>>>> parent of 9457ca0... Facebook login (#49)
-=======
->>>>>>> parent of 9457ca0... Facebook login (#49)
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712031225397_FacebookLogin.resx">
+      <DependentUpon>201712031225397_FacebookLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
