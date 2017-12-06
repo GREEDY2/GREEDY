@@ -35,19 +35,19 @@ namespace GREEDY.ReceiptCreatings
 
             return new Receipt
             {
-                Date = date,
+                ReceiptDate = date,
+                UpdateDate = DateTime.Today,
                 Shop = shop,
                 LinesOfText = linesOfText
             };
         }
 
-        public DateTime GetDateForReceipt(List<string> linesOfText)
+        public DateTime? GetDateForReceipt(List<string> linesOfText)
         {
             var receiptLinesToString = String.Join(Environment.NewLine, linesOfText);
             string pattern = @"(\d{4}-\d{2}-\d{2})(\d{2})?";
             receiptLinesToString = Regex.Replace(receiptLinesToString, @"~", "-");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-
             Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
             if (match.Success)
             {
@@ -55,7 +55,7 @@ namespace GREEDY.ReceiptCreatings
             }
             else
             {
-                return DateTime.Now;
+                return null;
             }
         }
     }

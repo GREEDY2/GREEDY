@@ -18,7 +18,6 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             var itemCategorization = new Mock<IItemCategorization>();
             ItemService itemService = new ItemService(dataConverter.Object, dataManager.Object, itemCategorization.Object);
             //act
-
             //assert
             Assert.Throws<NullReferenceException>(() => itemService.AddCategory(null, null));
         }

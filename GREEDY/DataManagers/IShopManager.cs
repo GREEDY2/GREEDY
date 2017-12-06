@@ -6,6 +6,6 @@ namespace GREEDY.DataManagers
     public interface IShopManager
     {
         List<Shop> GetExistingShops();
-        List<Shop> GetAllUserShops(string username);
+        List<ShopData> GetAllUserShops(string username);
     }
 }
