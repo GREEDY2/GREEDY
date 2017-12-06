@@ -1,3 +1,4 @@
+/* Map hint*/
 .map-hint {
     background: #333;
     background: rgba(0,0,0,.8);
@@ -8,7 +9,6 @@
     position: absolute;
     z-index: 98;
     width: 200px;
-    display: inline;
     cursor: default;
 }
 
@@ -27,6 +27,7 @@
 .map-hint-arrow {
     border: solid;
     border-color: #333 transparent;
+    border-color: rgba(0,0,0,.8) transparent;
     border-width: 20px 14px 0 6px;
     bottom: 29px;
     content: "";
@@ -49,7 +50,8 @@
     height: 20px;
     position: relative;
     top: 39.5px;
-    left: 39.5px;
+    left: 39px;
+    background: #057cff;
     background: rgba(5, 124, 255, 1);
     border: 2px solid #FFF;
     border-radius: 50%;
@@ -62,6 +64,7 @@
     position: absolute;
     top: 0;
     display: block;
+    background: #057cff;
     background: rgba(5, 124, 255, 0.6);
     border-radius: 50%;
     opacity: 0;
@@ -73,7 +76,7 @@
     width: 30px;
     height: 30px;
     border-radius: 50% 50% 50% 0;
-    background: #89849b;
+    background: #4c71f6; /*#89849b; for gray*/
     position: absolute;
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
@@ -111,6 +114,7 @@
     }
 
 .pulse {
+    background: #000000;
     background: rgba(0,0,0,0.2);
     border-radius: 50%;
     height: 14px;
@@ -118,7 +122,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    margin: -4px 0px 0px -12px;
+    margin: -4px 0 0 -12px;
     -webkit-transform: rotateX(55deg);
     -moz-transform: rotateX(55deg);
     -o-transform: rotateX(55deg);
@@ -147,8 +151,9 @@
         opacity: 0;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
         filter: alpha(opacity=0);
-        -webkit-box-shadow: 0 0 1px 2px #89849b;
-        box-shadow: 0 0 1px 2px #89849b;
+        -moz-box-shadow: 0 0 1px 2px #4c71f6; /*#89849b; for gray*/
+        -webkit-box-shadow: 0 0 1px 2px #4c71f6;
+        box-shadow: 0 0 1px 2px #4c71f6;
         -webkit-animation-delay: 1.1s;
         -moz-animation-delay: 1.1s;
         -o-animation-delay: 1.1s;
