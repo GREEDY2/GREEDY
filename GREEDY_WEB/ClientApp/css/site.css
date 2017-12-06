@@ -1,10 +1,39 @@
 .map-hint {
-    height:auto;
-    width: auto;
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 48px;
+    color: #fff;
+    padding: 5px 15px;
     position: absolute;
-    background-color: red;
+    z-index: 98;
+    width: 200px;
+    display: inline;
+    cursor: default;
 }
 
+.map-hint-header {
+    padding: 0;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.map-hint-close-btn {
+    text-align: right;
+    cursor: pointer;
+    padding: 0;
+}
+
+.map-hint-arrow {
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 20px 14px 0 6px;
+    bottom: 29px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
 /* User map marker*/
 .markerUser {
     width: 100px;

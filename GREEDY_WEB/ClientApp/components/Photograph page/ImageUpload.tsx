@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 import Constants from '../Shared/Constants';
 import { Alert } from '../Shared/Alert';

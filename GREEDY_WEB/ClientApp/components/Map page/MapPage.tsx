@@ -6,10 +6,17 @@ import Constants from '../Shared/Constants';
 
 export class MapPage extends React.Component<RouteComponentProps<{}>> {
     state = {
-        userShops: undefined
+        userShops: undefined,
+        mapHeight: 500
     }
     componentWillMount() {
         this.getAllUserShops();
+        if (window.innerWidth < 767) {
+            this.setState({ mapHeight: window.innerHeight - 51 })
+        }
+        else {
+            this.setState({ mapHeight: window.innerHeight - 1 })
+        }      
     }
 
     getAllUserShops() {
@@ -41,12 +48,11 @@ export class MapPage extends React.Component<RouteComponentProps<{}>> {
 
     public render() {
         if (this.state.userShops === undefined) {
-            return <img className="img-responsive loading" src={"Rolling.gif"} />;
+            return <img className="img-responsive loading" src={"Rolling.gif"} style={{top: '50%', left: '50%'}} />;
         }
         return (  
             <div style={{
-                /*TODO: do something about the fixed height */
-                width: 'auto', height: '500px', marginLeft: '-15px', marginRight: '-15px'
+                width: 'auto', height: this.state.mapHeight +'px', marginLeft: '-15px', marginRight: '-15px'
             }}>
                 <GoogleMaps shopList={this.state.userShops} />
             </div>

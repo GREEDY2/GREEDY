@@ -1,10 +1,13 @@
 ﻿import * as React from 'react';
+import { MapHint } from './MapHint';
 
 interface Props {
     lat: number;
     lng: number;
     hover: boolean;
+    click: boolean;
     shopInfo: any;
+    unclick: any;
 }
 
 export default class Marker extends React.Component<Props> {
@@ -15,22 +18,9 @@ export default class Marker extends React.Component<Props> {
     render() {
         return (
             <div>
-                {this.props.hover &&
-                    <div className='map-hint'>
-                    {/*TODO: This is total shit and only for what should be done...
-                        I'm not very good at css so it would take me a lot of
-                        time to write this component myself*/}
-                        <div className='map-hint-header'>
-                            {this.props.shopInfo}
-                        </div>
-                        <div className='map-hint-close-btn'>
-                            Close
-                        </div>
-                        <div className='map-hint-content'>
-                            Money spent this month: 30e
-                        </div>
-                        
-                    </div>}
+                <MapHint hover={this.props.hover} click={this.props.click}
+                    header={this.props.shopInfo} content={{moneySpent: 30.14, receiptCount: 5, lastPurchase: "2017-11-10"}}
+                    close={this.props.unclick} />
                 <div className='pin' style={{ cursor: 'pointer'}}></div>
                 <div className='pulse'></div>
                 
