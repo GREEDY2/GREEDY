@@ -112,4 +112,34 @@ namespace GREEDY.Controllers
             }
         }
     }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class DeleteItemController : ApiController
+    {
+        private IItemManager _itemManager;
+        private IAuthenticationService _authenticationService;
+        public DeleteItemController(IItemManager itemManager, IAuthenticationService authenticationService)
+        {
+            _itemManager = itemManager;
+            _authenticationService = authenticationService;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            Request.RegisterForDispose((IDisposable)_itemManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token);
+            HttpContent content = Request.Content;
+            string jsonContent = await content.ReadAsStringAsync();
+            var itemToDeleteId = JsonConvert.DeserializeObject<int>(jsonContent);
+            if (await isAuthenticated)
+            {
+                _itemManager.DeleteItem(itemToDeleteId);
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
+        }
+    }
 }

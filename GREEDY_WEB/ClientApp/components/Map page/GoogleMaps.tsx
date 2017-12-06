@@ -16,19 +16,17 @@ interface State {
         lng: number
     }
     hoverKey: number;
+    clickKey: number;
 }
 
 export class GoogleMaps extends React.Component<Props, State> {
     timer: number;
     state = {
         center: [54.729000, 25.272000],
-        zoom: 14,
-        shopMarkers: [
-            { name: 'Norfa', lat: 54.736675, lng: 25.267515 },
-            { name: 'IKI', lat: 54.728862, lng: 25.269294 },
-        ],
+        zoom: 13,
         myLocation: undefined,
-        hoverKey: undefined
+        hoverKey: undefined,
+        clickKey: undefined
     };
 
     componentWillMount() {
@@ -71,28 +69,31 @@ export class GoogleMaps extends React.Component<Props, State> {
     }
 
     _onBoundsChange = ({ center, zoom, bounds, ...other }) => {
-        console.log(center);
-        console.log(other);
+        this.setState({ center });
     }
 
     _onChildClick = (key, childProps) => {
         this.setState({
-            center: [childProps.lat, childProps.lng]
+            center: [childProps.lat, childProps.lng],
+            clickKey: key
         });
-        console.log("mouse clicked")
-        console.log(childProps);
+    }
+
+    onChildUnclick = () => {
+        this.setState({
+            clickKey: undefined
+        });
     }
 
     _onChildMouseEnter = (key/*, childProps*/) => {
         this.setState({ hoverKey: key });
-        console.log("mouse entered");
-        console.log(key);
     }
 
     _onChildMouseLeave = (/* key, childProps */) => {
         this.setState({ hoverKey: undefined });
-        console.log('mouse left');
     }
+
+    
 
     render() {
         const shopMarkers = this.props.shopList.map((shop, index) => {
@@ -100,10 +101,16 @@ export class GoogleMaps extends React.Component<Props, State> {
             if (this.state.hoverKey === index) {
                 hover = true;
             }
+            let click = false;
+            if (this.state.clickKey === index) {
+                click = true;
+            }
             return (
                 <Marker
                     {...shop.Location}
                     hover={hover}
+                    click={click}
+                    unclick={this.onChildUnclick}
                     shopInfo={shop.Name}
                 />
             );
