@@ -260,6 +260,10 @@
     <Compile Include="Migrations\201712062055550_dateSplitting.Designer.cs">
       <DependentUpon>201712062055550_dateSplitting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712062218596_shopDoNotRequiredForReceipt.cs" />
+    <Compile Include="Migrations\201712062218596_shopDoNotRequiredForReceipt.Designer.cs">
+      <DependentUpon>201712062218596_shopDoNotRequiredForReceipt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
@@ -329,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712062055550_dateSplitting.resx">
       <DependentUpon>201712062055550_dateSplitting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062218596_shopDoNotRequiredForReceipt.resx">
+      <DependentUpon>201712062218596_shopDoNotRequiredForReceipt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

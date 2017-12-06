@@ -10,6 +10,6 @@ namespace GREEDY.Models
         public string Address { get; set; }
         public decimal Total { get; set; }
         public int ReceiptNumber { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }
