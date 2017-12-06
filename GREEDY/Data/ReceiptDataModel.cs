@@ -16,7 +16,6 @@ namespace GREEDY.Data
         public DateTime UpdateDate { get; set; }
         [Required]
         public virtual UserDataModel User { get; set; }
-        [Required]
         public virtual ShopDataModel Shop { get; set; }
         [Required]
         public virtual ICollection<ItemDataModel> Items { get; set; }

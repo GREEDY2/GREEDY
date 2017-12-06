@@ -92,8 +92,6 @@ namespace GREEDY.Migrations
                     Address = "S. Neries g. 16"},
 
                 new ShopDataModel() {
-                    Name ="Neatpažinta", Location = new Geocoding.Location(0,0)},
-                new ShopDataModel() {
                     Name ="IKI", SubName ="Palink", Location = new Geocoding.Location(0,0)},
                 new ShopDataModel() {
                     Name ="MAXIMA", Location = new Geocoding.Location(0,0)},

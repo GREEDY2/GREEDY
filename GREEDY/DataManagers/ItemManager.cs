@@ -23,19 +23,26 @@ namespace GREEDY.DataManagers
                 throw new Exception(Properties.Resources.UserNotFound);
             }
 
-            var shops = context.Set<ShopDataModel>()
-                    .Select(x => x)
-                    .Where(x => x.Name == receipt.Shop.Name); 
             ShopDataModel shopDataModel;
-
-            if (receipt.Shop.Address == null)
+            if (receipt.Shop == null)
             {
-                shopDataModel = shops.Where(x => x.Address == null).FirstOrDefault();
+                shopDataModel = null;
             }
             else
             {
-                shopDataModel = shops.Select(x => x)
-                    .Where(x => x.Address == receipt.Shop.Address).FirstOrDefault();
+                var shops = context.Set<ShopDataModel>()
+                        .Select(x => x)
+                        .Where(x => x.Name == receipt.Shop.Name);
+
+                if (receipt.Shop.Address == null)
+                {
+                    shopDataModel = shops.Where(x => x.Address == null).FirstOrDefault();
+                }
+                else
+                {
+                    shopDataModel = shops.Select(x => x)
+                        .Where(x => x.Address == receipt.Shop.Address).FirstOrDefault();
+                }
             }
 
             ReceiptDataModel receiptDataModel = new ReceiptDataModel()
