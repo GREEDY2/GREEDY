@@ -142,4 +142,37 @@ namespace GREEDY.Controllers
             }
         }
     }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class AddItemController : ApiController
+    {
+        private IItemManager _itemManager;
+        private IAuthenticationService _authenticationService;
+        public AddItemController(IItemManager itemManager, IAuthenticationService authenticationService)
+        {
+            _itemManager = itemManager;
+            _authenticationService = authenticationService;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            Request.RegisterForDispose((IDisposable)_itemManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token);
+            HttpContent content = Request.Content;
+            string jsonContent = await content.ReadAsStringAsync();
+            var parsedJson = JsonConvert.DeserializeAnonymousType(jsonContent,
+                new { Name = "", Price = 0, ReceiptId = 0, Category = "" });
+            var itemToAdd = new Item()
+            { Name = parsedJson.Name, Category = parsedJson.Category, Price = parsedJson.Price };
+            if (await isAuthenticated)
+            {
+                _itemManager.AddItem(itemToAdd, parsedJson.ReceiptId);
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
+        }
+    }
 }

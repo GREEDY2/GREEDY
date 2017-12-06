@@ -120,6 +120,19 @@ namespace GREEDY.DataManagers
             context.SaveChanges();
         }
 
+        public void AddItem(Item newItem, int receiptId)
+        {
+            var receipt = context.Set<ReceiptDataModel>().First(x => x.ReceiptId == receiptId);
+            context.Set<ItemDataModel>().Add(new ItemDataModel
+            {
+                Name = newItem.Name,
+                Category = newItem.Category,
+                Price = newItem.Price,
+                Receipt = receipt
+            });
+            context.SaveChanges();
+        }
+
         public void DeleteItem(int itemId)
         {
             var itemToDelete = context.Set<ItemDataModel>().First(x => x.ItemId == itemId);

@@ -111,7 +111,7 @@ export class GoogleMaps extends React.Component<Props, State> {
                     hover={hover}
                     click={click}
                     unclick={this.onChildUnclick}
-                    shopInfo={shop.Name}
+                    shopInfo={shop}
                 />
             );
         });

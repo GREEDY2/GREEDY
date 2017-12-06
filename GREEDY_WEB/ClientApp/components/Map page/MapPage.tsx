@@ -26,13 +26,6 @@ export class MapPage extends React.Component<RouteComponentProps<{}>> {
             }
         }).then(res => {
             this.setState({ userShops: res.data });
-            if (res.data) {
-                
-            }
-            else {
-                
-                //TODO: the user has no shops
-            }
         }).catch(error => {
             if (error.response)
                 if (error.response.status == 401) {

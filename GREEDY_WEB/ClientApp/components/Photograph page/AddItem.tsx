@@ -56,7 +56,8 @@ export class AddItem extends React.Component<Props, State> {
         const item = {
             Name: this.state.ItemName,
             Price: this.state.ItemPrice,
-            Category: itemCategory
+            Category: itemCategory,
+            ReceiptId: this.state.receiptId
         }
         axios.put(Constants.httpRequestBasePath + "api/AddItem", item,
             {
