@@ -33,6 +33,7 @@
     <None Remove="ClientApp\components\ImageUpload.tsx" />
     <None Remove="ClientApp\components\ItemPriceGraph.tsx" />
     <None Remove="ClientApp\components\Map page\MapHint.tsx" />
+    <None Remove="ClientApp\components\Photograph page\AddItem.tsx" />
     <None Remove="ClientApp\components\Shared\DatabaseFunctions.tsx" />
     <None Remove="ClientApp\components\Shared\DatabaseManager.tsx" />
     <None Remove="ClientApp\components\Shared\idbPromise.tsx" />
@@ -54,6 +55,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\Map page\MapHint.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Photograph page\AddItem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Alert.tsx" />
     <TypeScriptCompile Include="ClientApp\components\All items page\AllUserItems.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Authorization.tsx" />

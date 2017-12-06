@@ -4,6 +4,7 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from '../Shared/Constants';
 import { EditItem } from './EditItem';
+import { AddItem } from './AddItem';
 import { Alert } from '../Shared/Alert';
 import * as idb from '../Shared/DatabaseFunctions';
 
@@ -19,6 +20,7 @@ interface State {
 }
 
 export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
+    child2: any;
     child: any;
     state = {
         receiptId: 0,
@@ -37,6 +39,10 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
 
     updateList = () => {
         this.getItemsFromPhoto(this.state.receiptId);
+    }
+
+    showAdd = () => {
+        this.child2.showAdd(this.state.receiptId);
     }
 
     imageUploadStarted(bool) {
@@ -65,6 +71,7 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                     this.child.showAlert("Unable to find any items. Please retake the picture", "info");
                 }
             }).catch(error => {
+                console.log(error);
                 this.setState({ imageIsUploading: false, showItems: false});
                 this.child.showAlert("Something went wrong, please try again later", "error");
             })
@@ -106,7 +113,12 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                         )}
                     </tbody>
                 </table>
+                <Button color="success" onClick={this.showAdd} style={{ textAlign: "center" }}>
+                    Add a new item
+                            </Button>
+                <AddItem onRef={ref => (this.child2 = ref)} updateListAfterChange={this.updateList} />
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
+                
             </div>);
     }
 }
