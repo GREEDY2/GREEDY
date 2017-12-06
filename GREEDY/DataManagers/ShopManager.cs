@@ -20,7 +20,6 @@ namespace GREEDY.DataManagers
         {
             using (context)
             {
-                //get exception if DB have element with location NULL
                 return context.Set<ShopDataModel>()
                     .Where(x => x.Address != null)
                     .Select(x => new Shop()
@@ -34,20 +33,22 @@ namespace GREEDY.DataManagers
             }
         }
 
-        public List<Shop> GetAllUserShops(string username)
+        public List<ShopData> GetAllUserShops(string username)
         {
             using (context)
             {
-                var shops = context.Set<ReceiptDataModel>()
-                    .Where(x => x.User.Username == username 
-                    && x.Shop.Address != null)
-                    .Select(x => x.Shop).ToList();
-                return shops.Select(x => new Shop()
+                var AllUserReceipts = context.Set<ReceiptDataModel>()
+                    .Where(x => x.User.Username == username
+                    && x.Shop.Address != null).GroupBy(x => x.Shop).ToList();
+
+                return AllUserReceipts.Select(x => new ShopData
                 {
-                    Name = x.Name,
-                    Address = x.Address,
-                    Location = x.Location,
-                    SubName = x.SubName
+                    Name = x.Key.Name,
+                    Location = x.Key.Location,
+                    Address = x.Key.Address,
+                    Total = x.Select(y => y.Total).Sum(),
+                    ReceiptNumber = x.Key.Receipts.Count(),
+                    Date = x.Select(y => y.ReceiptDate).Last() ?? x.Select(y => y.UpdateDate).Last()
                 }).ToList();
             }
         }

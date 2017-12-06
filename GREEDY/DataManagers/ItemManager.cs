@@ -40,7 +40,8 @@ namespace GREEDY.DataManagers
 
             ReceiptDataModel receiptDataModel = new ReceiptDataModel()
             {
-                Date = receipt.Date,
+                ReceiptDate = receipt.ReceiptDate,
+                UpdateDate = receipt.UpdateDate,
                 Shop = shopDataModel,
                 User = userDataModel,
                 Total = 0

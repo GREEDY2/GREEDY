@@ -256,10 +256,15 @@
     <Compile Include="Migrations\201712052157499_Shop.Designer.cs">
       <DependentUpon>201712052157499_Shop.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712062055550_dateSplitting.cs" />
+    <Compile Include="Migrations\201712062055550_dateSplitting.Designer.cs">
+      <DependentUpon>201712062055550_dateSplitting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="Models\ShopData.cs" />
     <Compile Include="ReceiptCreating\IShopDetection.cs" />
     <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />
     <Compile Include="ReceiptCreating\LevenshteinDistance.cs" />
@@ -321,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712052157499_Shop.resx">
       <DependentUpon>201712052157499_Shop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712062055550_dateSplitting.resx">
+      <DependentUpon>201712062055550_dateSplitting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -24,7 +24,6 @@ namespace GREEDY.UnitTests.ServicesUnitTests
                     dataConverter: dataConverter.Object,
                     itemCategorization: itemCategorization.Object);
             //act
-
             //assert
             Assert.Null(receiptService.ProcessReceiptImage(null));
         }
@@ -45,7 +44,6 @@ namespace GREEDY.UnitTests.ServicesUnitTests
                     dataConverter: dataConverter.Object,
                     itemCategorization : itemCategorization.Object);
             //act
-
             //assert
             Assert.Null(receiptService.ProcessReceiptImage(image));
         }

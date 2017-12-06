@@ -8,6 +8,6 @@ namespace GREEDY.ReceiptCreatings
     public interface IReceiptMaking
     {
         Receipt FullReceiptCreating(Bitmap image);
-        DateTime GetDateForReceipt(List<string> linesOfText);
+        DateTime? GetDateForReceipt(List<string> linesOfText);
     }
 }

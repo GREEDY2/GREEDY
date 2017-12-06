@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Ploeh.AutoFixture;
-using GREEDY.DataManagers;
 using Xunit;
 using GREEDY.OCRs;
 using Moq;
 using GREEDY.ReceiptCreatings;
-using Geocoding;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
@@ -15,13 +13,14 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
     {
         Fixture fixture = new Fixture();
         Mock<IOcr> ocr = new Mock<IOcr>();
+        Mock<IShopDetection> shopDetection = new Mock<IShopDetection>();
 
         [Fact]
         public void ReceiptCreating_FullReceiptCreating_EmptyBitmap()
         {
             //arrange
             Bitmap image = new Bitmap(1, 1);
-            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object);
+            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
             Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(image));
@@ -31,7 +30,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         public void ReceiptCreating_FullReceiptCreating_NullBitmap()
         {
             //arrange
-            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object);
+            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
             Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(null));
@@ -47,11 +46,10 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
                 dateTime.ToString()
             };
             linesOfText.AddMany(fixture.Create<string>, 10);
-            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object);
+            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
             Assert.Equal(dateTime.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
-
         }
 
         [Fact]
@@ -60,7 +58,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             //arrange
             List<string> linesOfText = new List<string>();
             linesOfText.AddMany(fixture.Create<string>, 10);
-            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object);
+            ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
             Assert.Equal(DateTime.Now.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
