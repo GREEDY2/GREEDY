@@ -106,16 +106,23 @@ namespace GREEDY.DataManagers
         //TODO: for now this only saves the changed item to ItemDataModels table
         //nothing is written for categorizations.
         //Once categoraziation is sorted out need to add extra logic
-        public void UpdateItem(Item UpdatedItem)
+        public void UpdateItem(Item updatedItem)
         {
             var itemToUpdate = context.Set<ItemDataModel>()
-                .FirstOrDefault(x => x.ItemId == UpdatedItem.ItemId);
+                .FirstOrDefault(x => x.ItemId == updatedItem.ItemId);
             //TODO: I believe this can be written in more SOLID style
             //Using explicit/implicit type conversion operators
             //Didn't have the time to research this
-            itemToUpdate.Name = UpdatedItem.Name;
-            itemToUpdate.Category = UpdatedItem.Category;
-            itemToUpdate.Price = UpdatedItem.Price;
+            itemToUpdate.Name = updatedItem.Name;
+            itemToUpdate.Category = updatedItem.Category;
+            itemToUpdate.Price = updatedItem.Price;
+            context.SaveChanges();
+        }
+
+        public void DeleteItem(int itemId)
+        {
+            var itemToDelete = context.Set<ItemDataModel>().First(x => x.ItemId == itemId);
+            context.Set<ItemDataModel>().Remove(itemToDelete);
             context.SaveChanges();
         }
 
