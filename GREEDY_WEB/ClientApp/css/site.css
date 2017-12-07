@@ -1,3 +1,16 @@
+/* Items table*/
+.receipt-name {
+    font-size: 25px;
+}
+
+.total-price {
+    font-weight: 700;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
 /* Map hint*/
 .map-hint {
     background: #333;
@@ -18,6 +31,7 @@
     font-size: 28px;
     font-weight: 800;
 }
+
 .map-hint-header2 {
     padding: 0;
     padding-bottom: 4px;
@@ -168,7 +182,7 @@
         animation-delay: 1.1s;
     }
 
-    /* Pulsating effects (both user and place marker)*/
+/* Pulsating effects (both user and place marker)*/
 @-moz-keyframes pulsate {
     0% {
         -webkit-transform: scale(0.1, 0.1);

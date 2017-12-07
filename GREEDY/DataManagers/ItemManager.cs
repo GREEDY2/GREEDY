@@ -123,6 +123,7 @@ namespace GREEDY.DataManagers
             //Didn't have the time to research this
             itemToUpdate.Name = updatedItem.Name;
             itemToUpdate.Category = updatedItem.Category;
+            itemToUpdate.Receipt.Total += updatedItem.Price - itemToUpdate.Price;
             itemToUpdate.Price = updatedItem.Price;
             context.SaveChanges();
         }
@@ -130,6 +131,7 @@ namespace GREEDY.DataManagers
         public void AddItem(Item newItem, int receiptId)
         {
             var receipt = context.Set<ReceiptDataModel>().First(x => x.ReceiptId == receiptId);
+            receipt.Total += newItem.Price;
             context.Set<ItemDataModel>().Add(new ItemDataModel
             {
                 Name = newItem.Name,
@@ -137,12 +139,14 @@ namespace GREEDY.DataManagers
                 Price = newItem.Price,
                 Receipt = receipt
             });
+            
             context.SaveChanges();
         }
 
         public void DeleteItem(int itemId)
         {
             var itemToDelete = context.Set<ItemDataModel>().First(x => x.ItemId == itemId);
+            itemToDelete.Receipt.Total -= itemToDelete.Price;
             context.Set<ItemDataModel>().Remove(itemToDelete);
             context.SaveChanges();
         }
