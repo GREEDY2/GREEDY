@@ -158,7 +158,7 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                         {this.state.isLoggingIn ?
                             null :
                             <FacebookLogin
-                                socialId="132824064066510"
+                                socialId={Constants.facebookLoginApiKey}
                                 language="en_US"
                                 scope="public_profile,email"
                                 responseHandler={this.responseFacebook}

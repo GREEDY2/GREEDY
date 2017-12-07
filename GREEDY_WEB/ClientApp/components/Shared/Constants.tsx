@@ -15,7 +15,8 @@ export const Constants = {
     transitionAlertMessage: 'fade',
     possitionAlertMessage: 'bottom right',
     logoName: 'Logo.png',
-    dummyValue: true
+    dummyValue: true, //For adding key without value to database
+    facebookLoginApiKey: "132824064066510"
 }
 
 export default Constants;
