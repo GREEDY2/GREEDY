@@ -471,6 +471,10 @@
     color: white;
 }
 
+.nav .glyphicon {
+    padding-right: 8px;
+}
+
 /* Rolling gif styles */
 .loading.img-responsive {
     margin: 0 auto;
