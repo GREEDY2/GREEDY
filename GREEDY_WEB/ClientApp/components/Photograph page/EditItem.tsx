@@ -57,12 +57,11 @@ export class EditItem extends React.Component<Props, State> {
             return;
         }
         const item = {
-            ItemId: this.state.ItemId,
             Name: this.state.ItemName,
             Price: this.state.ItemPrice,
             Category: this.state.ItemCategory
         }
-        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item,
+        axios.put(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId, item,
             {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
@@ -124,7 +123,7 @@ export class EditItem extends React.Component<Props, State> {
     }*/
 
     deleteItem = () => {
-        axios.put(Constants.httpRequestBasePath + "api/DeleteItem", this.state.ItemId,
+        axios.delete(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId,
             {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")

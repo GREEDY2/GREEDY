@@ -106,7 +106,7 @@ namespace GREEDY.Controllers
             _itemManager = itemManager;
             _authenticationService = authenticationService;
         }
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Put(int id)
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
             var token = Request.Headers.Authorization.Parameter;
@@ -114,6 +114,7 @@ namespace GREEDY.Controllers
             HttpContent content = Request.Content;
             string jsonContent = await content.ReadAsStringAsync();
             var updatedItem = JsonConvert.DeserializeObject<Item>(jsonContent);
+            updatedItem.ItemId = id;
             if (await isAuthenticated)
             {
                 _itemManager.UpdateItem(updatedItem);
@@ -124,29 +125,15 @@ namespace GREEDY.Controllers
                 return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
             }
         }
-    }
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class DeleteItemController : ApiController
-    {
-        private IItemManager _itemManager;
-        private IAuthenticationService _authenticationService;
-        public DeleteItemController(IItemManager itemManager, IAuthenticationService authenticationService)
-        {
-            _itemManager = itemManager;
-            _authenticationService = authenticationService;
-        }
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Delete(int id)
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
             var token = Request.Headers.Authorization.Parameter;
             var isAuthenticated = _authenticationService.ValidateToken(token);
-            HttpContent content = Request.Content;
-            string jsonContent = await content.ReadAsStringAsync();
-            var itemToDeleteId = JsonConvert.DeserializeObject<int>(jsonContent);
             if (await isAuthenticated)
             {
-                _itemManager.DeleteItem(itemToDeleteId);
+                _itemManager.DeleteItem(id);
                 return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             }
             else
