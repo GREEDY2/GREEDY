@@ -48,8 +48,9 @@ namespace GREEDY.DataManagers
                     Address = x.Key.Address,
                     Total = x.Select(y => y.Total).Sum(),
                     ReceiptNumber = x.Key.Receipts.Count(),
-                    Date = x.Select(y => y.ReceiptDate).Last().Value.ToString("d")
-                        ?? x.Select(y => y.UpdateDate).Last().ToString("d")
+                    Date = x.Select(y => y.ReceiptDate).Last().HasValue ?
+                        x.Select(y => y.ReceiptDate).Last().Value.ToString("d")
+                        : x.Select(y => y.UpdateDate).Last().ToString("d")
                 }).ToList();
             }
         }
