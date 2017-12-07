@@ -2,6 +2,7 @@
 import { MapHint } from './MapHint';
 
 interface Props {
+    key: number;
     lat: number;
     lng: number;
     hover: boolean;

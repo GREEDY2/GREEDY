@@ -93,8 +93,6 @@ export class GoogleMaps extends React.Component<Props, State> {
         this.setState({ hoverKey: undefined });
     }
 
-    
-
     render() {
         const shopMarkers = this.props.shopList.map((shop, index) => {
             let hover = false;

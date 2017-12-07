@@ -76,8 +76,8 @@ export class UserLogin extends React.Component<RouteComponentProps<{}>> {
                     }
                     else {
                         this.child.showAlert("Failed to login. Please try again later", "error");
+                        this.setState({ isLoggingIn: false });
                     }
-                this.setState({ isLoggingIn: false });
                 }
             }).catch(error => {
                 this.setState({ isLoggingIn: false });
