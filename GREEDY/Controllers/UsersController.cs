@@ -55,8 +55,10 @@ namespace GREEDY.Controllers
     {
         private class FbUserModel
         {
+#pragma warning disable 0649
             public string email;
             public string id;
+#pragma warning restore 0649
         }
         private IUserManager _userManager;
         private IAuthenticationService _authenticationService;

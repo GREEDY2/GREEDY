@@ -41,7 +41,8 @@ namespace GREEDY.Controllers
                         list,
                         shopName = receiptInfo.Shop != null? receiptInfo.Shop.Name : null,
                         shopAdress = receiptInfo.Shop != null? receiptInfo.Shop.Address : null,
-                        receiptDate = receiptInfo.ReceiptDate,
+                        receiptDate = receiptInfo.ReceiptDate.HasValue ? 
+                        receiptInfo.ReceiptDate.Value.ToString("d") : null,
                         total = receiptInfo.Total
                     };
                     if (list == null || list.Count == 0)

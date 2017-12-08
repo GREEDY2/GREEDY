@@ -36,6 +36,7 @@
     <None Remove="ClientApp\components\Photograph page\AddItem.tsx" />
     <None Remove="ClientApp\components\Shared\DatabaseFunctions.tsx" />
     <None Remove="ClientApp\components\Shared\DatabaseManager.tsx" />
+    <None Remove="ClientApp\components\Shared\HelperFunctions.tsx" />
     <None Remove="ClientApp\components\Shared\idbPromise.tsx" />
     <None Remove="ClientApp\components\Shared\ServiceWorker.tsx" />
     <None Remove="ClientApp\components\UserLogin.tsx" />
@@ -61,6 +62,7 @@
     <TypeScriptCompile Include="ClientApp\components\Shared\Authorization.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\DatabaseFunctions.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\DatabaseManager.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\HelperFunctions.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\idbPromise.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\ServiceWorker.tsx" />
     <TypeScriptCompile Include="ClientApp\components\User settings page\ChangeEmail.tsx" />

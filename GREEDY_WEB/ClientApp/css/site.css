@@ -3,12 +3,24 @@
     font-size: 25px;
 }
 
+.receipt-address {
+    color: #757575;
+}
+
 .total-price {
     font-weight: 700;
 }
 
 .nowrap {
     white-space: nowrap;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.extra-item-info:active {
+    height:auto;
 }
 
 /* Map hint*/

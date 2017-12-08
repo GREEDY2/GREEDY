@@ -160,7 +160,7 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                     </tbody>
                 </table>
                 <div>
-                    <Button className="col-xs-5" color="success" onClick={this.showAdd} style={{ textAlign: "center", marginBottom: "5px" }}>
+                    <Button className="col-xs-5 col-md-3" color="success" onClick={this.showAdd} style={{ textAlign: "center", marginBottom: "5px" }}>
                         Add a new item
                     </Button>
                     {
