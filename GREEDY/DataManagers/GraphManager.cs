@@ -25,8 +25,8 @@ namespace GREEDY.DataManagers
             var graphDataList = items.Select(x => new GraphData()
             {
                 ItemPrice = x.Price,
-                Date = x.Receipt.Date,
-                Time = x.Receipt.Date.ToString("HH:mm")
+                Date = x.Receipt.UpdateDate,
+                Time = x.Receipt.UpdateDate.ToString("HH:mm")
             }).ToList();
             return graphDataList;
         }

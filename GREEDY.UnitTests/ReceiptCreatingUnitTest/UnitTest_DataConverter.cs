@@ -9,7 +9,6 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
     public class UnitTest_DataConverter
     {
         [Fact]
-
         public void DataConverter_ReceiptToItemList_NoItemsToMatchRegex()
         {
             //arrange
@@ -38,7 +37,6 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             Receipt receipt = fixture.Build<Receipt>().With(x => x.LinesOfText, list).Create();
             var dataConverter = new DataConverter();
             //act
-
             //assert
             Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 1);
         }
@@ -61,7 +59,6 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             Receipt receipt = fixture.Build<Receipt>().With(x => x.LinesOfText, list).Create();
             var dataConverter = new DataConverter();
             //act
-
             //assert
             Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 2);
         }

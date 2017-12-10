@@ -6,6 +6,8 @@ import Constants from '../Shared/Constants';
 import { EditItem } from '../Photograph page/EditItem';
 import idbPromise from '../Shared/idbPromise';
 import * as idb from '../Shared/DatabaseFunctions';
+import Pagination from 'react-js-pagination';
+import { smoothScroll } from '../Shared/HelperFunctions';
 
 interface Props {
     onRef: any
@@ -13,19 +15,26 @@ interface Props {
 }
 
 interface State {
-    showItems: boolean
-    itemList: any
-    filter: any
-    sort: any
+    showItems: boolean;
+    itemList: any;
+    filter: any;
+    sort: any;
+    showOnPage: number;
+    activePage: number;
+    showExtraInfo: number;
 }
 
 export class FetchUserItems extends React.Component<Props, State> {
+    info: any;
     child: any;
     state = {
         showItems: false,
         itemList: [],
         filter: undefined,
-        sort: undefined
+        sort: undefined,
+        showOnPage: 10,
+        activePage: 1,
+        showExtraInfo: undefined
     }
 
     componentWillMount() {
@@ -81,15 +90,15 @@ export class FetchUserItems extends React.Component<Props, State> {
             else {
                 //TODO: display that the user has no items.
             }
-            }).catch(error => {
+        }).catch(error => {
             if (error.response)
-            if (error.response.status == 401) {
-                localStorage.removeItem('auth');
-                this.props.history.push("/");
-                    }
-            else {
-                //TODO: no internet
-            }
+                if (error.response.status == 401) {
+                    localStorage.removeItem('auth');
+                    this.props.history.push("/");
+                }
+                else {
+                    //TODO: no internet
+                }
             console.log(error);
         })
     }
@@ -97,38 +106,95 @@ export class FetchUserItems extends React.Component<Props, State> {
     sort = (a, b) => {
         switch (this.state.sort.sortType) {
             case 'Price':
-                if (a.Price * this.state.sort.byPriceAsc > b.Price * this.state.sort.byPriceAsc) return -1;
+                if (a.Price * this.state.sort.asc > b.Price * this.state.sort.asc) return -1;
                 return 1;
             case 'Name':
-                if (a.Name > b.Name) return 1;
-                return -1;
+                if (a.Name > b.Name) return 1 * this.state.sort.asc;
+                return -1 * this.state.sort.asc;
             case 'Category':
-                if (a.Category > b.Category) return -1;
-                return 1;
+                if (a.Category > b.Category) return -1 * this.state.sort.asc;
+                return 1 * this.state.sort.asc;
             default:
                 return 0;
         }
     }
 
+    changeSort = (sortType) => {
+        if (this.state.sort && this.state.sort.sortType === sortType) {
+            if (this.state.sort.asc === -1) {
+                this.setState({
+                    sort: {
+                        sortType: sortType,
+                        asc: 1
+                    }
+                })
+            }
+            else {
+                this.setState({
+                    sort: {
+                        sortType: sortType,
+                        asc: -1
+                    }
+                })
+            }
+        }
+        else {
+            this.setState({
+                sort: {
+                    sortType: sortType,
+                    asc: 1
+                }
+            })
+        }
+    }
+
+    sortByPrice = () => {
+        this.changeSort("Price");
+    }
+
+    sortByName = () => {
+        this.changeSort("Name");
+    }
+
+    sortByCategory = () => {
+        this.changeSort("Category");
+    }
+
+    handlePageChange = (pageNumber) => {
+        this.setState({ activePage: pageNumber });
+        smoothScroll.scrollTo('top');
+    }
+
+    showElement(itemId) {
+        if (this.state.showExtraInfo === itemId) {
+            this.setState({ showExtraInfo: undefined });
+        }
+        else {
+            this.setState({ showExtraInfo: itemId });
+        }
+    }
+
     populateTableWithItems() {
-        let itemList = this.state.itemList;
+        let itemsOnPage = this.state.itemList.slice((this.state.activePage - 1) * this.state.showOnPage,
+            this.state.activePage * this.state.showOnPage)
         //This filters the items, if new filters for data are added need to add logic here.
         if (this.state.filter !== undefined) {
             if (this.state.filter.priceCompare !== 'All') {
-                itemList = itemList.filter(x => x.Price == this.state.filter.price
+                itemsOnPage = itemsOnPage.filter(x => x.Price == this.state.filter.price
                     || x.Price * this.state.filter.priceCompare > this.state.filter.price * this.state.filter.priceCompare);
             }
             if (this.state.filter.category !== 'All') {
-                itemList = itemList.filter(x => x.Category === this.state.filter.category);
+                itemsOnPage = itemsOnPage.filter(x => x.Category === this.state.filter.category);
             }
         }
         if (this.state.sort !== undefined) {
-            itemList.sort(this.sort);
+            itemsOnPage.sort(this.sort);
         }
         return (
-            <tbody>
-                {itemList.map((item, index) =>
-                    <tr key={item.ItemId}>
+            itemsOnPage.map((item, index) =>
+                <tbody>
+
+                    <tr id={item.ItemId} onClick={() => jsFunc(item.ItemId)}>
                         <td>{index + 1}</td>
                         <td>{item.Name}</td>
                         <td>{item.Price.toFixed(2)}&#8364;</td>
@@ -139,31 +205,55 @@ export class FetchUserItems extends React.Component<Props, State> {
                             onClick={() =>
                                 this.child.showEdit(index, item.ItemId, item.Name, item.Price, item.Category)}>
                         </span></td>
+
                     </tr>
-                )}
-            </tbody>);
+                    <td colSpan={5} className="text-center extra-item-info" hidden>
+                        Something Nice
+                        </td>
+                </tbody>
+            )
+        );
     }
 
     public render() {
+        if (!this.state.showItems) {
+            return <img className="img-responsive loading" src={"Rolling.gif"} />;
+        }
         return (
-            <div>
-                {this.state.showItems ? <div>
+            <div id="top">
+                <div>
                     <table className="table-hover table itemTable">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th className="center">Item</th>
-                                <th>Price</th>
-                                <th>Category</th>
+                                <th className="center" onClick={() => this.sortByName()}>Item</th>
+                                <th onClick={() => this.sortByPrice()}>Price</th>
+                                <th onClick={() => this.sortByCategory()}>Category</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
                         {this.populateTableWithItems()}
                     </table>
-                </div> :
-                    <img className="img-responsive loading" src={"Rolling.gif"} />
-                }
+                    <div className="text-center">
+                        <Pagination
+                            activePage={this.state.activePage}
+                            itemsCountPerPage={this.state.showOnPage}
+                            totalItemsCount={this.state.itemList.length}
+                            pageRangeDisplayed={5}
+                            onChange={this.handlePageChange}
+                        />
+                    </div>
+                </div>
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
+    }
+}
+function jsFunc(itemId) {
+    let element = document.getElementById(itemId);
+    if ((element.nextSibling as any).hidden) {
+        (element.nextSibling as any).hidden = false;
+    }
+    else {
+        (element.nextSibling as any).hidden = true;
     }
 }

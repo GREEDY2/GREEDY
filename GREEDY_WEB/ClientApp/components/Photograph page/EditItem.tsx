@@ -5,6 +5,7 @@ import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import axios from 'axios';
 import Constants from '../Shared/Constants';
 import idbPromise from '../Shared/idbPromise';
+import { deleteRowFromDb } from '../Shared/DatabaseFunctions';
 import { Alert } from '../Shared/Alert';
 
 interface Props {
@@ -20,7 +21,7 @@ interface State {
     ItemPrice: number;
     ItemCategory: string;
     showEdit: boolean;
-    showCategoryAdd: boolean;
+    //showCategoryAdd: boolean;
 }
 
 export class EditItem extends React.Component<Props, State> {
@@ -33,7 +34,7 @@ export class EditItem extends React.Component<Props, State> {
         ItemPrice: 0,
         ItemCategory: '',
         showEdit: false,
-        showCategoryAdd: false
+        //showCategoryAdd: false
     }
 
     componentWillMount() {
@@ -48,11 +49,7 @@ export class EditItem extends React.Component<Props, State> {
         this.props.onRef(undefined);
     }
 
-    //TODO: save changes directly to client side database
-    //TODO: send changes to backend from database as soon as internet reconnects
-    //Or TODO: don't let the user edit items when he's offline
-    //Or TODO: maybe do nothing (if no interner and user tries to edit, then he gets an error anyway)
-    //Optional TODO: don't make the entire list refetch after edit, just change the item that has been edited
+    //TODO: don't make the entire list refetch after edit, just change the item that has been edited
     saveItemChanges = (e) => {
         e.preventDefault();
         this.hideEdit();
@@ -60,18 +57,16 @@ export class EditItem extends React.Component<Props, State> {
             return;
         }
         const item = {
-            ItemId: this.state.ItemId,
             Name: this.state.ItemName,
             Price: this.state.ItemPrice,
             Category: this.state.ItemCategory
         }
-        axios.put(Constants.httpRequestBasePath + "api/UpdateItem", item,
+        axios.put(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId, item,
             {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
                 }
             }).then(response => {
-                let res = response.data;
                 this.child.showAlert("Item edited successfully", "success");
                 this.props.updateListAfterChange();
             }).catch(error => {
@@ -111,6 +106,7 @@ export class EditItem extends React.Component<Props, State> {
             })
     }
 
+    /*
     //TODO: decide if we want to let user add categories (i believe not)
     saveCategoryChanges = (e) => {
         e.preventDefault();
@@ -124,6 +120,23 @@ export class EditItem extends React.Component<Props, State> {
             }).catch(error => {
                 console.log(error);
             })
+    }*/
+
+    deleteItem = () => {
+        axios.delete(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                }
+            }).then(response => {
+                let res = response.data;
+                this.child.showAlert("Item deleted successfully", "success");
+                deleteRowFromDb('myItems', this.state.ItemId);
+                this.props.updateListAfterChange();
+                this.setState({ showEdit: false });
+            }).catch(error => {
+                this.child.showAlert("Failed to delete Item. Try again later", "error");
+            });
     }
 
     hideEdit = () => {
@@ -141,13 +154,13 @@ export class EditItem extends React.Component<Props, State> {
         });
     }
 
-    showCategoryAdd = () => {
+    /*showCategoryAdd = () => {
         this.setState({ showCategoryAdd: true });
     }
 
     hideCategoryAdd = () => {
         this.setState({ showCategoryAdd: false });
-    }
+    }*/
 
     eNameChange = (event) => {
         this.setState({ ItemName: event.target.value });
@@ -168,7 +181,13 @@ export class EditItem extends React.Component<Props, State> {
                 {this.state.showEdit &&
                     <ModalContainer onClose={this.hideEdit} >
                         <ModalDialog onClose={this.hideEdit} style={{ width: '80%' }}>
-                            <h3>Edit Item Nr. {this.state.ItemIndex + 1}</h3>
+                            <div className="row">
+                                <h3 className="col-xs-8">Edit Item Nr. {this.state.ItemIndex + 1}</h3>
+                                <Button className="col-xs-4" type="button" color="danger" onClick={this.deleteItem} style={{marginTop: "20px", right: "15px"}}>
+                                    Delete Item
+                                </Button>
+                            </div>
+
                             <Form onSubmit={this.saveItemChanges}>
                                 <FormGroup>
                                     <Label for="eItemName">Item Name</Label>
@@ -201,18 +220,20 @@ export class EditItem extends React.Component<Props, State> {
                                             <option key={category}>{category}</option>
                                         )}
                                     </Input>
+                                    {/* We decided that we don't let the user add a category for now
                                     <Button type="button" color="primary" onClick={this.showCategoryAdd}>
                                         Add Category
-                                </Button>
+                                </Button>*/}
                                 </FormGroup>
                                 <Button color="success" block>
                                     Save
                             </Button>
+
                             </Form>
                         </ModalDialog>
                     </ModalContainer >
                 }
-                {this.state.showCategoryAdd &&
+                {/*{this.state.showCategoryAdd &&
                     <ModalContainer onClose={this.hideCategoryAdd}>
                         <ModalDialog onClose={this.hideCategoryAdd}>
                             <h3>Add a new category</h3>
@@ -231,7 +252,7 @@ export class EditItem extends React.Component<Props, State> {
                             </Button>
                             </Form>
                         </ModalDialog>
-                    </ModalContainer>}
+                    </ModalContainer>}*/}
             </div>)
     }
 }

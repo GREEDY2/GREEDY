@@ -3,9 +3,9 @@
 self.addEventListener('install', event => {
     var urlsToCache = [
         '/',
-        'dist/vendor.js?v=PmyzAKb7yqQN3nBqgW_ZHUHtyavBfUQ1B_wirXsG8Gg',
-        'dist/vendor.css?v=vf4TTnOiCp20iU10Tf4anf3dbOl_Mg07hxsMkGL_Rdw',
-        'dist/main.js?v=1KEXp2RJyXatk9f32-ZHdmIMuNYM32FvhscOeYXOsUs',
+        'dist/vendor.js?v=OjVxDpV6p_Jfz2P38F_R2lc3pjVsUisUejeIABZq7AE',
+        'dist/vendor.css?v=b_M7vdGvPSJOo55_XCEeI_fYCVztjxk08tEeZj5UyoU',
+        'dist/main.js?v=QL_VUut2SibsVZZVnhk7js8hhs0vNluBuA63Vs_97Pc',
         'Rolling.gif',
         'Logo.png'
     ];

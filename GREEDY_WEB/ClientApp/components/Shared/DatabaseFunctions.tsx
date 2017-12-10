@@ -31,6 +31,25 @@ export function putDistinctValuesArrayToDb(tableName, ditinctValueArrayToPut) {
     }
 }
 
+export function deleteRowFromDb(tableName, key) {
+    if (idbPromise) {
+        idbPromise.then(db => {
+            if (!db) return;
+
+            var tx = db.transaction(tableName, 'readwrite');
+            var store = tx.objectStore(tableName);
+            return store.openCursor();
+        }).then(function deleteRow(cursor) {
+            if (!cursor) return;
+            if (cursor.key === key) {
+                cursor.delete();
+                return;
+            }
+            return cursor.continue().then(deleteRow)
+        });
+    }
+}
+
 export function clearDb(dbName, tableNamesArray) {
     if (idbPromise) {
         idbPromise.then(db => {
