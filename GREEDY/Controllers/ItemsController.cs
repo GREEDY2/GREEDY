@@ -16,14 +16,18 @@ namespace GREEDY.Controllers
     {
         private IItemManager _itemManager;
         private IAuthenticationService _authenticationService;
-        public GetItemsFromPostedReceiptController(IItemManager itemManager, IAuthenticationService authenticationService)
+        private IReceiptManager _receiptManager;
+        public GetItemsFromPostedReceiptController(IItemManager itemManager, 
+            IAuthenticationService authenticationService, IReceiptManager receiptManager)
         {
             _itemManager = itemManager;
             _authenticationService = authenticationService;
+            _receiptManager = receiptManager;
         }
         public async Task<HttpResponseMessage> Get(int id)
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
+            Request.RegisterForDispose((IDisposable)_receiptManager);
             var token = Request.Headers.Authorization.Parameter;
             var isAuthenticated = _authenticationService.ValidateToken(token);
             if (await isAuthenticated)
@@ -31,11 +35,21 @@ namespace GREEDY.Controllers
                 try
                 {
                     var list = _itemManager.GetItemsOfSingleReceipt(id);
+                    var receiptInfo = _receiptManager.GetReceipt(id);
+                    var response = new
+                    {
+                        list,
+                        shopName = receiptInfo.Shop != null? receiptInfo.Shop.Name : null,
+                        shopAdress = receiptInfo.Shop != null? receiptInfo.Shop.Address : null,
+                        receiptDate = receiptInfo.ReceiptDate.HasValue ? 
+                        receiptInfo.ReceiptDate.Value.ToString("d") : null,
+                        total = receiptInfo.Total
+                    };
                     if (list == null || list.Count == 0)
                     {
                         return HelperClass.JsonHttpResponse<Object>(null);
                     }
-                    return HelperClass.JsonHttpResponse(list);
+                    return HelperClass.JsonHttpResponse(response);
                 }
                 catch (NullReferenceException)
                 {
@@ -93,7 +107,7 @@ namespace GREEDY.Controllers
             _itemManager = itemManager;
             _authenticationService = authenticationService;
         }
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Put(int id)
         {
             Request.RegisterForDispose((IDisposable)_itemManager);
             var token = Request.Headers.Authorization.Parameter;
@@ -101,9 +115,59 @@ namespace GREEDY.Controllers
             HttpContent content = Request.Content;
             string jsonContent = await content.ReadAsStringAsync();
             var updatedItem = JsonConvert.DeserializeObject<Item>(jsonContent);
+            updatedItem.ItemId = id;
             if (await isAuthenticated)
             {
                 _itemManager.UpdateItem(updatedItem);
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
+        }
+
+        public async Task<HttpResponseMessage> Delete(int id)
+        {
+            Request.RegisterForDispose((IDisposable)_itemManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token);
+            if (await isAuthenticated)
+            {
+                _itemManager.DeleteItem(id);
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+            }
+        }
+    }
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class AddItemController : ApiController
+    {
+        private IItemManager _itemManager;
+        private IAuthenticationService _authenticationService;
+        public AddItemController(IItemManager itemManager, IAuthenticationService authenticationService)
+        {
+            _itemManager = itemManager;
+            _authenticationService = authenticationService;
+        }
+        public async Task<HttpResponseMessage> Put()
+        {
+            Request.RegisterForDispose((IDisposable)_itemManager);
+            var token = Request.Headers.Authorization.Parameter;
+            var isAuthenticated = _authenticationService.ValidateToken(token);
+            HttpContent content = Request.Content;
+            string jsonContent = await content.ReadAsStringAsync();
+            var parsedJson = JsonConvert.DeserializeAnonymousType(jsonContent,
+                new { Name = "", Price = 0, ReceiptId = 0, Category = "" });
+            var itemToAdd = new Item()
+            { Name = parsedJson.Name, Category = parsedJson.Category, Price = parsedJson.Price };
+            if (await isAuthenticated)
+            {
+                _itemManager.AddItem(itemToAdd, parsedJson.ReceiptId);
                 return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             }
             else

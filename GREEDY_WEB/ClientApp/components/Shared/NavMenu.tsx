@@ -110,6 +110,15 @@ export class NavMenu extends React.Component {
                             }
                             {
                                 loggedIn ?
+                                    <li>
+                                        <NavLink to={'/map'} activeClassName='active'>
+                                            <span className='glyphicon glyphicon-map-marker'></span>
+                                            Shopping map
+                                        </NavLink>
+                                    </li> : null
+                            }
+                            {
+                                loggedIn ?
                                     <li className='widenSpace' /> : null
                             }
                             {

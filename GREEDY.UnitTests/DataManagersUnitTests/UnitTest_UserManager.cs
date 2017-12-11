@@ -5,18 +5,23 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
 {
     public class UnitTest_UserManager
     {
-        [Fact]
-        public void UserManager_FindByUsername_CaseDoesNotMatch()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void UserManager_FindByUsername_CaseDoesNotMatch(bool logToFb)
         {
             var userManager=new UserManager(DatabaseMock.GetDataBaseMock().Object);
-            var user = userManager.FindByUsername("UsErNaMe1");
+            var user = userManager.FindByUsername("UsErNaMe1", logToFb);
             Assert.NotNull(user);
         }
-        [Fact]
-        public void UserManager_FindByEmail_CaseDoesNotMatch()
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void UserManager_FindByEmail_CaseDoesNotMatch(bool logToFb)
         {
             var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
-            var user = userManager.FindByEmail("EmAil1");
+            var user = userManager.FindByEmail("EmAil1", logToFb);
             Assert.NotNull(user);
         }
 
@@ -28,19 +33,23 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             Assert.Equal(2, users.Count);
         }
 
-        [Fact]
-        public void UserManager_FindByEmail_UserDoesNotExist()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void UserManager_FindByEmail_UserDoesNotExist(bool logToFb)
         {
             var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
-            var user = userManager.FindByEmail("Email that doesn't exist");
+            var user = userManager.FindByEmail("Email that doesn't exist", logToFb);
             Assert.Null(user);
         }
 
-        [Fact]
-        public void UserManager_FindByUsername_UserDoesNotExist()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void UserManager_FindByUsername_UserDoesNotExist(bool logToFb)
         {
             var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
-            var user = userManager.FindByUsername("Username that doesn't exist");
+            var user = userManager.FindByUsername("Username that doesn't exist", logToFb);
             Assert.Null(user);
         }
     }

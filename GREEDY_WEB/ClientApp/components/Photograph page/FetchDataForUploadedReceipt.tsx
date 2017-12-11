@@ -4,6 +4,7 @@ import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGrou
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import Constants from '../Shared/Constants';
 import { EditItem } from './EditItem';
+import { AddItem } from './AddItem';
 import { Alert } from '../Shared/Alert';
 import * as idb from '../Shared/DatabaseFunctions';
 
@@ -14,16 +15,32 @@ interface Props {
 interface State {
     receiptId: number
     showItems: boolean
-    itemList: any
+    itemList: Array<{
+        ItemId: number,
+        Name: string,
+        Price: number,
+        Category: string
+    }>,
+    shopInfo: {
+        name: string,
+        address: string
+    },
+    receiptInfo: {
+        total: number,
+        date: string
+    },
     imageIsUploading: boolean;
 }
 
 export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
+    child2: any;
     child: any;
     state = {
-        receiptId: 0,
+        receiptId: undefined,
         showItems: false,
-        itemList: [],
+        itemList: undefined,
+        shopInfo: undefined,
+        receiptInfo: undefined,
         imageIsUploading: false
     }
 
@@ -37,6 +54,10 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
 
     updateList = () => {
         this.getItemsFromPhoto(this.state.receiptId);
+    }
+
+    showAdd = () => {
+        this.child2.showAdd(this.state.receiptId);
     }
 
     imageUploadStarted(bool) {
@@ -56,8 +77,20 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                 }
             }).then(res => {
                 if (res.data) {
-                    const itemList = res.data;
-                    this.setState({ itemList, showItems: true, receiptId, imageIsUploading: false });
+                    const itemList = res.data.list;
+                    const shopInfo = {
+                        name: res.data.shopName,
+                        address: res.data.shopAdress,
+                    }
+                    const receiptInfo = {
+                        date: res.data.receiptDate,
+                        total: res.data.total
+                    }
+                    this.setState({
+                        itemList, showItems: true,
+                        receiptId, imageIsUploading: false,
+                        shopInfo, receiptInfo
+                    });
                     idb.putArrayToDb('myItems', itemList);
                 }
                 else {
@@ -65,7 +98,8 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                     this.child.showAlert("Unable to find any items. Please retake the picture", "info");
                 }
             }).catch(error => {
-                this.setState({ imageIsUploading: false, showItems: false});
+                console.log(error);
+                this.setState({ imageIsUploading: false, showItems: false });
                 this.child.showAlert("Something went wrong, please try again later", "error");
             })
     }
@@ -75,10 +109,24 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
             return <img className="img-responsive loading" src={"Rolling.gif"} />;
         }
         if (!this.state.showItems) {
-            return <Alert onRef = { ref => (this.child = ref) } />
+            return <Alert onRef={ref => (this.child = ref)} />
         }
         return (
             <div>
+                {
+                    this.state.shopInfo.name &&
+                    <div>
+                        <div className="text-center receipt-name">
+                            {this.state.shopInfo.name}
+                        </div>
+                        {
+                            this.state.shopInfo.address &&
+                            <div className="text-center receipt-address">
+                                {this.state.shopInfo.address}
+                            </div>
+                        }
+                    </div>
+                }
                 <table className="table-hover table itemTable">
                     <thead>
                         <tr>
@@ -104,8 +152,25 @@ export class FetchDataForUploadedReceipt extends React.Component<Props, State> {
                                 </span></td>
                             </tr>
                         )}
+                        <tr className="total-price">
+                            <td></td>
+                            <td>Total Price:</td>
+                            <td>{this.state.receiptInfo.total}&#8364;</td>
+                        </tr>
                     </tbody>
                 </table>
+                <div>
+                    <Button className="col-xs-5 col-md-3" color="success" onClick={this.showAdd} style={{ textAlign: "center", marginBottom: "5px" }}>
+                        Add a new item
+                    </Button>
+                    {
+                        this.state.receiptInfo.date &&
+                        <div className="nowrap text-right">
+                            Date of purchase: {this.state.receiptInfo.date}
+                        </div>
+                    }
+                </div>
+                <AddItem onRef={ref => (this.child2 = ref)} updateListAfterChange={this.updateList} />
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
     }

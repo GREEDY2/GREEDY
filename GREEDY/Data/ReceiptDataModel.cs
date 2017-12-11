@@ -10,11 +10,12 @@ namespace GREEDY.Data
         [Key]
         public int ReceiptId { get; set; }
         public decimal Total { get; set; }
-        [Column(TypeName ="Date")]
-        public DateTime Date { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime? ReceiptDate { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime UpdateDate { get; set; }
         [Required]
         public virtual UserDataModel User { get; set; }
-        [Required]
         public virtual ShopDataModel Shop { get; set; }
         [Required]
         public virtual ICollection<ItemDataModel> Items { get; set; }

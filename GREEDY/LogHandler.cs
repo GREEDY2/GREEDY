@@ -14,6 +14,7 @@ namespace GREEDY
         private static object lockObject = new object();
         private static readonly string logEntrySeperator = new String('-', 60);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             HttpResponseMessage response = null;

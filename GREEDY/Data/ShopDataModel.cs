@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Geocoding;
 
 namespace GREEDY.Data
 {
@@ -9,7 +10,8 @@ namespace GREEDY.Data
         public int ShopId { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Location { get; set; }
+        public Location Location { get; set; }
+        public string Address { get; set; }
         public string SubName { get; set; }
         public virtual ICollection<ReceiptDataModel> Receipts { get; set; }
     }

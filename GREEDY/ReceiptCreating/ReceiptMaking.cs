@@ -1,6 +1,4 @@
-﻿using GREEDY.Data;
-using GREEDY.DataManagers;
-using GREEDY.Models;
+﻿using GREEDY.Models;
 using GREEDY.OCRs;
 using System;
 using System.Collections.Generic;
@@ -12,44 +10,44 @@ using System.Threading;
 
 namespace GREEDY.ReceiptCreatings
 {
-    public class ReceiptCreating : IReceiptCreatings
+    public class ReceiptMaking : IReceiptMaking
     {
         private readonly IOcr _ocr;
-        private readonly IShopManager _shops;
+        private readonly IShopDetection _shopDetection;
 
-        public ReceiptCreating()
+        public ReceiptMaking()
         {
             _ocr = new EmguOcr();
-            _shops = new ShopManager(new DataBaseModel());
+            _shopDetection = new ShopDetection();
         }
 
-        public ReceiptCreating(IOcr ocr, IShopManager shops)
+        public ReceiptMaking(IOcr ocr, IShopDetection shopDetection)
         {
             _ocr = ocr;
-            _shops = shops;
+            _shopDetection = shopDetection;
         }
 
         public Receipt FullReceiptCreating(Bitmap image)
         {
             var linesOfText = _ocr.ConvertImage(image);
             var date = GetDateForReceipt(linesOfText);
-            var shop = GetShopFromData(linesOfText);
+            var shop = _shopDetection.GetShopFromData(linesOfText.Take(4).ToList());
 
             return new Receipt
             {
-                Date = date,
+                ReceiptDate = date,
+                UpdateDate = DateTime.Today,
                 Shop = shop,
                 LinesOfText = linesOfText
             };
         }
 
-        public DateTime GetDateForReceipt(List<string> linesOfText)
+        public DateTime? GetDateForReceipt(List<string> linesOfText)
         {
             var receiptLinesToString = String.Join(Environment.NewLine, linesOfText);
             string pattern = @"(\d{4}-\d{2}-\d{2})(\d{2})?";
             receiptLinesToString = Regex.Replace(receiptLinesToString, @"~", "-");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-
             Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);
             if (match.Success)
             {
@@ -57,28 +55,8 @@ namespace GREEDY.ReceiptCreatings
             }
             else
             {
-                return DateTime.Now;
+                return null;
             }
-        }
-
-        public Shop GetShopFromData(List<string> linesOfText)
-        {
-            var shopTitle = String.Join(String.Empty, linesOfText.Take(4));
-            var shops = _shops.GetExistingShop();
-
-            foreach (Shop element in shops)
-            {
-                //TODO:Find function for UpperCase 
-                if (shopTitle.ToUpper().Contains(element.Name.ToUpper()))
-                {
-                    return element;
-                }
-                else if (element.SubName!=null && shopTitle.ToUpper().Contains(element.SubName.ToUpper()) && element.SubName != String.Empty)
-                {
-                    return element;
-                }
-            }
-            return new Shop { Name = "Neatpažinta" };
         }
     }
 }
