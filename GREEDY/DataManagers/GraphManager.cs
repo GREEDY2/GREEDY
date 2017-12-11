@@ -17,20 +17,40 @@ namespace GREEDY.DataManagers
             this.context = context;
         }
 
-        public List<GraphData> GetDataForGraphs(string username, int? time)
+        public FullGraphData GetDataForGraphs(string username, int time)
         {
-            DateTime endTime = DateTime.Now.AddSeconds(-time.Value);
-            var items = context.Set<ItemDataModel>()
-                .Where(x => x.Receipt.User.Username == username).Include(x => x.Receipt)
+            var graphData = new FullGraphData();
+            DateTime endTime = DateTime.Now.AddHours(-time);
+
+            var receipts = context.Set<ReceiptDataModel>().Include(x => x.Shop).Include(x => x.Items)
+                .Where(x => x.User.Username == username && 
+                x.ReceiptDate.HasValue? x.ReceiptDate.Value > endTime : x.UpdateDate > endTime)
                 .ToList();
 
-            var graphDataList = items.Select(x => new GraphData()
-            {
-                ItemPrice = x.Price,
-                Date = x.Receipt.UpdateDate,
-                Time = x.Receipt.UpdateDate.ToString("HH:mm")
-            }).ToList();
+            var items = receipts.SelectMany(x => x.Items).ToList();
+
+            graphData.CategoriesData = items.Where(x => !x.Category.Equals("nuolaida"))
+                .GroupBy(x => x.Category)
+                .Select(x => new GraphData<int>() { label = x.Key, value = x.Count() }).ToList();
+
+            return graphData;
+
+
+                /*.Where(x => !x.Category.Equals("nuolaida"))
+                .GroupBy(x => x.Category)
+                .Select(x => new MostBoughtItemsGraphData()
+                {
+                    ItemName =
+                            (n.Key.Length > 15)
+                                ? n.Key.Substring(0, 15)
+                                : n.Key,
+                    Count = n.Count()
+                }
+                )
+                .OrderBy(n => n.Count).Reverse().Take(3).ToList();
+
             return graphDataList;
+            return graphDataList;*/
         }
 
         public List<AverageStorePriceGraphData> GetDataForAverageStorePriceGraph(string username, int? time)

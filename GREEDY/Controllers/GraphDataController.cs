@@ -21,12 +21,12 @@ namespace GREEDY.Controllers
             _graphManager = graphManager;
         }
 
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Get(int id)
         {
             Request.RegisterForDispose((IDisposable) _graphManager);
             var token = Request.Headers.Authorization.Parameter;
             var isAuthenticated = _authenticationService.ValidateToken(token, out string username);
-            var time = 3600;
+            var time = id;
             if (await isAuthenticated)
             {
                 var graphData = _graphManager.GetDataForGraphs(username, time);

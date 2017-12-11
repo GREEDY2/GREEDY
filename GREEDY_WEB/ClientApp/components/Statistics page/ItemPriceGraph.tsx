@@ -4,6 +4,13 @@ import { ComposedChart, Area, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid,
 import { Button, ButtonGroup } from 'reactstrap';
 import Constants from '../Shared/Constants';
 
+// Load the charts module
+import * as charts from 'fusioncharts/fusioncharts.charts';
+import ReactFC from 'react-fusioncharts';
+import * as FusionCharts from "FusionCharts";
+
+charts(FusionCharts);
+
 interface Props {
     history: any
 }
@@ -14,12 +21,33 @@ interface State {
     time: number;
 }
 
-export class ItemPriceGraph extends React.Component<Props, State> {
+export class ItemPriceGraph extends React.Component<Props> {
     state = {
-        graphData: [],
-        showGraphs: false,
-        time: 3600
-    }
+        name: 'React is cool',
+        id: 'pie_chart',
+        type: 'pie3d',
+        width: '100%',
+        height: 400,
+        dataFormat: 'JSON',
+        dataSource: {
+            chart: {
+                caption: 'Item Price',
+                subcaption: 'item price pie chart',
+                startingangle: '120',
+                showlabels: '0',
+                showlegend: '1',
+                enablemultislicing: '0',
+                slicingdistance: '15',
+                showpercentvalues: '1',
+                showpercentintooltip: '1',
+                plottooltext: 'Item price: $label is $datavalue',
+                theme: 'ocean'
+            },
+            data: [{ label: 'kazkastai', value: 78 }, { label: 'kazkastaikito', value: 45 }, { label: 'kazkastaitrecio', value: 20 }]
+        }
+    };
+
+
     constructor(props) {
         super(props);
     }
@@ -29,7 +57,7 @@ export class ItemPriceGraph extends React.Component<Props, State> {
     }
 
     readGraphData(/*time*/) {
-        axios.put(Constants.httpRequestBasePath + 'api/GraphData', this.state.time,
+        axios.put(Constants.httpRequestBasePath + 'api/GraphData', 3600,
             {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("auth")
@@ -39,13 +67,13 @@ export class ItemPriceGraph extends React.Component<Props, State> {
                 this.setState({ graphData, showGraphs: true });
             }).catch(error => {
                 if (error.response)
-                if (error.response.status == 401) {
-                    localStorage.removeItem('auth');
-                    this.props.history.push("/");
+                    if (error.response.status == 401) {
+                        localStorage.removeItem('auth');
+                        this.props.history.push("/");
                     }
-                else {
-                    //TODO: no internet
-                }
+                    else {
+                        //TODO: no internet
+                    }
             })
     }
 
@@ -53,33 +81,35 @@ export class ItemPriceGraph extends React.Component<Props, State> {
     /*onTimeButtonClick(seconds) {
         if (seconds < 1)
             seconds = 600;
-
+    
         this.state.time = seconds;
         this.readGraphData(this.state.time);
     }*/
 
     render() {
+
+        var myDataSource = {
+            chart: {
+                bgColor: '#FFFFFF',
+                caption: "Harry's SuperMart",
+                subCaption: "Top 5 stores in last month by revenue",
+                numberPrefix: "$"
+            }, data: [{ label: "Bakersfield Central", value: "880000" },
+            { label: "Garden Groove harbour", value: "730000" }, { label: "Los Angeles Topanga", value: "590000" }, { label: "Compton-Rancho Dom", value: "520000" }, { label: "Daly City Serramonte", value: "330000" }]
+        };
+        var revenueChartConfigs = {
+            id: "revenue-chart",
+            type: "column3d",
+            width: "100%",
+            height: 400,
+            dataFormat: "json",
+            dataSource: myDataSource
+        }
+
         return (
             <div>
-                {this.state.showGraphs ?
-                    <div className="row">
-                        <div className="col-md-6 dataGraph">
-                            <h3 className="graphTitles h3">Purchased Items</h3>
-                            <LineChart width={450} height={150} data={this.state.graphData}>
-                                {
-                                    /*this.state.time < 3600 * 12 ?
-                                        <XAxis dataKey="Time" /> :*/
-                                        <XAxis dataKey="FullDateTimeString" />
-                                }
-                                <Tooltip />
-                                <YAxis />
-                                <Legend />
-                                <Line name="Purchased items price" type='monotone' dot={false} dataKey='ItemPrice' stroke='#8884d8' strokeWidth={2} />
-                            </LineChart>
-                        </div>
-                    </div> :
-                    <img className="img-responsive loading" src={"Rolling.gif"} />
-                }
+                <ReactFC {...this.state} />
+                <ReactFC {...revenueChartConfigs} />
             </div>)
     }
 }

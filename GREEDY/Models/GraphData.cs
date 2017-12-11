@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GREEDY.Models
 {
-    public class GraphData
+    public struct GraphData<T> //where T : int, decimal, long...
     {
-        public decimal ReceiptPrice { get; set; }
-        public decimal ItemPrice { get; set; }
-        public string Time { get; set; }
-        public DateTime Date { get; set; }
-        public string FullDateTimeString { get { return Date.ToString("yyyy-MM-dd HH:mm"); } }
+        public string label;
+        public T value;
+    }
+
+    public class FullGraphData
+    {
+        public List<GraphData<int>> CategoriesData { get; set; }
     }
 }

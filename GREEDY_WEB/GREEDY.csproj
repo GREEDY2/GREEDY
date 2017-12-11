@@ -40,6 +40,7 @@
     <None Remove="ClientApp\components\Shared\idbPromise.tsx" />
     <None Remove="ClientApp\components\Shared\ServiceWorker.tsx" />
     <None Remove="ClientApp\components\Statistics page\AverageStorePriceGraph.tsx" />
+    <None Remove="ClientApp\components\Statistics page\ItemCategoryPieChart.tsx" />
     <None Remove="ClientApp\components\Statistics page\MostBoughtItemsGraph.tsx" />
     <None Remove="ClientApp\components\Statistics page\ShopItemCountGraph.tsx" />
     <None Remove="ClientApp\components\Statistics page\ShopVisitCountGraph.tsx" />
@@ -71,6 +72,7 @@
     <TypeScriptCompile Include="ClientApp\components\Shared\idbPromise.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\ServiceWorker.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Statistics page\AverageStorePriceGraph.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Statistics page\ItemCategoryPieChart.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Statistics page\MostBoughtItemsGraph.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Statistics page\ShopItemCountGraph.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Statistics page\ShopVisitCountGraph.tsx" />
