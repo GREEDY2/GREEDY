@@ -54,6 +54,8 @@ namespace GREEDY.DataManagers
                 Total = 0
             };
 
+            var categories = context.Set<CategoryDataModel>().Select(x => x).ToList();
+
             receiptDataModel.Items = new List<ItemDataModel>();
             foreach (Item item in receipt.ItemsList)
             {
@@ -62,8 +64,9 @@ namespace GREEDY.DataManagers
                     Receipt = receiptDataModel,
                     Price = item.Price,
                     Name = item.Name,
-                    Category = item.Category
-                });
+                    Category = categories.Where(x => x.CategoryName == item.Category)
+                        .FirstOrDefault()
+            });
 
                 receiptDataModel.Total += item.Price;
             }
@@ -77,9 +80,27 @@ namespace GREEDY.DataManagers
             var temp = context.Set<ReceiptDataModel>()
                 .Include(x => x.Items)
                 .FirstOrDefault(x => x.ReceiptId == receiptId);
+
+            var categories = context.Set<CategoryDataModel>()
+                .Select(x => x);
+
             return temp.Items.Select(x => new Item
             {
-                Category = x.Category,
+                Category = x.Category.CategoryName,
+                Name = x.Name,
+                Price = x.Price,
+                ItemId = x.ItemId
+            }).ToList();
+        }
+
+        public List<Item> GetItemsOfSingleCategory(string category)
+        {
+            var temp = context.Set<CategoryDataModel>()
+                .Include(x => x.Items)
+                .FirstOrDefault(x => x.CategoryName == category);
+
+            return temp.Items.Select(x => new Item
+            {
                 Name = x.Name,
                 Price = x.Price,
                 ItemId = x.ItemId
@@ -93,7 +114,7 @@ namespace GREEDY.DataManagers
                      .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
             return temp.Select(x => new Item
             {
-                Category = x.Category,
+                Category = x.Category.CategoryName,
                 Name = x.Name,
                 Price = x.Price
             }).ToList();
@@ -106,23 +127,20 @@ namespace GREEDY.DataManagers
                 var items = context.Set<ItemDataModel>()
                     .Select(x => x).Where(x => x.Receipt.User.Username == username);
                 return items.Select(x => new Item() {
-                    Name = x.Name, Category = x.Category,
+                    Name = x.Name, Category = x.Category.CategoryName,
                     ItemId = x.ItemId, Price = x.Price }).ToList();
             }
         }
 
-        //TODO: for now this only saves the changed item to ItemDataModels table
-        //nothing is written for categorizations.
-        //Once categoraziation is sorted out need to add extra logic
         public void UpdateItem(Item updatedItem)
         {
+            var categories = context.Set<CategoryDataModel>().Select(x => x);
             var itemToUpdate = context.Set<ItemDataModel>()
                 .FirstOrDefault(x => x.ItemId == updatedItem.ItemId);
             //TODO: I believe this can be written in more SOLID style
             //Using explicit/implicit type conversion operators
-            //Didn't have the time to research this
             itemToUpdate.Name = updatedItem.Name;
-            itemToUpdate.Category = updatedItem.Category;
+            itemToUpdate.Category = categories.Where(x => x.CategoryName == updatedItem.Category).FirstOrDefault();
             itemToUpdate.Receipt.Total += updatedItem.Price - itemToUpdate.Price;
             itemToUpdate.Price = updatedItem.Price;
             context.SaveChanges();
@@ -131,15 +149,15 @@ namespace GREEDY.DataManagers
         public void AddItem(Item newItem, int receiptId)
         {
             var receipt = context.Set<ReceiptDataModel>().First(x => x.ReceiptId == receiptId);
+            var categories = context.Set<CategoryDataModel>().Select(x => x);
             receipt.Total += newItem.Price;
             context.Set<ItemDataModel>().Add(new ItemDataModel
             {
                 Name = newItem.Name,
-                Category = newItem.Category,
+                Category = categories.Where(x => x.CategoryName == newItem.Category).FirstOrDefault(),
                 Price = newItem.Price,
                 Receipt = receipt
             });
-            
             context.SaveChanges();
         }
 

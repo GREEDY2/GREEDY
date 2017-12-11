@@ -22,9 +22,7 @@ namespace GREEDY.DataManagers
         public List<string> GetAllDistinctCategories()
         {
             {
-                var distinctCategories = context.Set<CategoryDataModel>()
-                    .Select(x => x.Category).Distinct();
-                return distinctCategories.ToList();
+                return context.Set<CategoryDataModel>().Select(x => x.CategoryName).ToList();
             }
         }
 

@@ -39,8 +39,8 @@ namespace GREEDY.Controllers
                     var response = new
                     {
                         list,
-                        shopName = receiptInfo.Shop != null? receiptInfo.Shop.Name : null,
-                        shopAdress = receiptInfo.Shop != null? receiptInfo.Shop.Address : null,
+                        shopName = receiptInfo.Shop?.Name,
+                        shopAdress = receiptInfo.Shop?.Address,
                         receiptDate = receiptInfo.ReceiptDate.HasValue ? 
                         receiptInfo.ReceiptDate.Value.ToString("d") : null,
                         total = receiptInfo.Total
