@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using GREEDY.Data;
 using GREEDY.Models;
+using GREEDY.Extensions;
 
 namespace GREEDY.DataManagers
 {
@@ -20,7 +21,7 @@ namespace GREEDY.DataManagers
         {
             DateTime endTime = DateTime.Now.AddSeconds(-time.Value);
             var items = context.Set<ItemDataModel>()
-                .Where(x => x.Receipt.User.Username == username).Include(x=>x.Receipt)
+                .Where(x => x.Receipt.User.Username == username).Include(x => x.Receipt)
                 .ToList();
 
             var graphDataList = items.Select(x => new GraphData()
@@ -39,11 +40,12 @@ namespace GREEDY.DataManagers
                 .Where(x => x.Receipt.User.Username == username).ToList();
 
             var graphDataList = items
-                .GroupBy(x => x.Receipt.Shop.Name)
-                .Select(g => new AverageStorePriceGraphData(){
+                .GroupBy(x => x.Receipt.Shop.HasValue() ? x.Receipt.Shop.Name : null)
+                .Select(g => new AverageStorePriceGraphData()
+                {
                     ShopName = g.Key,
                     AveragePrice = decimal.Round(g.Average(x => x.Price), 2, MidpointRounding.AwayFromZero)
-        }).OrderBy(n => n.ShopName).ToList();
+                }).OrderBy(n => n.ShopName).ToList();
 
             return graphDataList;
         }
@@ -58,13 +60,13 @@ namespace GREEDY.DataManagers
                 .Where(n => !n.Category.Equals("nuolaida"))
                 .GroupBy(n => n.Name)
                 .Select(n => new MostBoughtItemsGraphData()
-                    {
-                        ItemName = 
+                {
+                    ItemName =
                             (n.Key.Length > 15)
                                 ? n.Key.Substring(0, 15)
                                 : n.Key,
-                        Count = n.Count()
-                    }
+                    Count = n.Count()
+                }
                 )
                 .OrderBy(n => n.Count).Reverse().Take(3).ToList();
 
@@ -78,12 +80,12 @@ namespace GREEDY.DataManagers
                 .Where(x => x.User.Username == username).ToList();
 
             var graphDataList = items
-                .GroupBy(n => n.Shop.Name)
+                .GroupBy(n => n.Shop.HasValue() ? n.Shop.Name : null)
                 .Select(n => new ShopVisitCountGraphData()
-                    {
-                        ShopName = n.Key,
-                        Visits = n.Count()
-                    }
+                {
+                    ShopName = n.Key,
+                    Visits = n.Count()
+                }
                 )
                 .OrderBy(n => n.ShopName).ToList();
 
@@ -98,12 +100,12 @@ namespace GREEDY.DataManagers
 
             var graphDataList = items
                 .Where(n => !n.Category.Equals("nuolaida"))
-                .GroupBy(n => n.Receipt.Shop.Name)
+                .GroupBy(n => n.Receipt.Shop.HasValue() ? n.Receipt.Shop.Name : null)
                 .Select(n => new ShopItemCountGraphData()
-                    {
-                        ShopName = n.Key,
-                        ItemsCount = n.Count()
-                    }
+                {
+                    ShopName = n.Key,
+                    ItemsCount = n.Count()
+                }
                 )
                 .OrderBy(n => n.ShopName).ToList();
 
@@ -115,14 +117,15 @@ namespace GREEDY.DataManagers
             DateTime endTime = DateTime.Now.AddSeconds(-time.Value);
             var items = context.Set<ReceiptDataModel>()
                 .Where(x => x.User.Username == username).ToList();
-            
+
             var graphDataList = items
-                .GroupBy(n => n.Date.DayOfWeek)
+                .GroupBy(n => n.ReceiptDate.HasValue ? n.ReceiptDate.Value.DayOfWeek
+                    : n.UpdateDate.DayOfWeek)
                 .Select(n => new WeekVisitsGraphData()
-                    {
-                        WeekDay = n.Key,
-                        WeekDayString = n.Key.ToString(),
-                        VisitsCount = n.Count()
+                {
+                    WeekDay = n.Key,
+                    WeekDayString = n.Key.ToString(),
+                    VisitsCount = n.Count()
                 }
                 )
                 .OrderBy(n => n.WeekDay).ToList();

@@ -240,6 +240,7 @@
     <Compile Include="DataManagers\IReceiptManager.cs" />
     <Compile Include="DataManagers\ReceiptManager.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
+    <Compile Include="Extensions\DataModelsExtensions.cs" />
     <Compile Include="ImagePreparation\DeskewImage.cs" />
     <Compile Include="LogHandler.cs" />
     <Compile Include="Migrations\201711061716547_Initial.cs" />
