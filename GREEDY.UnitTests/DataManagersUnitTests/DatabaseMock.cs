@@ -33,15 +33,21 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
                     Receipts = new ReceiptDataModel[]{Receipts[1] } }
             };
 
+            var Categories = new CategoryDataModel[]
+            {
+                new CategoryDataModel{CategoryName="category1"},
+                new CategoryDataModel{CategoryName="category2"},
+                new CategoryDataModel{CategoryName="category3"}
+            };
             var Items = new ItemDataModel[]
             {
-                new ItemDataModel{Name="item1",ItemId=1,Price=1.00m,Category="category",Receipt=Receipts[0]},
-                new ItemDataModel{Name="item2",ItemId=2,Price=1.00m,Category="category",Receipt=Receipts[0]},
-                new ItemDataModel{Name="item3",ItemId=3,Price=1.00m,Category="category",Receipt=Receipts[1]},
-                new ItemDataModel{Name="item4",ItemId=4,Price=1.00m,Category="category",Receipt=Receipts[1]},
-                new ItemDataModel{Name="item5",ItemId=5,Price=1.00m,Category="category",Receipt=Receipts[2]},
-                new ItemDataModel{Name="item6",ItemId=6,Price=1.00m,Category="category",Receipt=Receipts[2]},
-                new ItemDataModel{Name="item7",ItemId=7,Price=1.00m,Category="category",Receipt=Receipts[2]},
+                new ItemDataModel{Name="item1",ItemId=1,Price=1.00m,Category=Categories[0],Receipt=Receipts[0]},
+                new ItemDataModel{Name="item2",ItemId=2,Price=1.00m,Category=Categories[1],Receipt=Receipts[0]},
+                new ItemDataModel{Name="item3",ItemId=3,Price=1.00m,Category=Categories[0],Receipt=Receipts[1]},
+                new ItemDataModel{Name="item4",ItemId=4,Price=1.00m,Category=Categories[2],Receipt=Receipts[1]},
+                new ItemDataModel{Name="item5",ItemId=5,Price=1.00m,Category=Categories[1],Receipt=Receipts[2]},
+                new ItemDataModel{Name="item6",ItemId=6,Price=1.00m,Category=Categories[2],Receipt=Receipts[2]},
+                new ItemDataModel{Name="item7",ItemId=7,Price=1.00m,Category=Categories[2],Receipt=Receipts[2]},
             };
 
             var Users = new UserDataModel[]
@@ -66,11 +72,13 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             var mockItems = MockDbSet<ItemDataModel>(Items);
             var mockUsers = MockDbSet<UserDataModel>(Users);
             var mockShops = MockDbSet<ShopDataModel>(Shops);
+            var mockCategories = MockDbSet<CategoryDataModel>(Categories);
             var mockContext = new Mock<DataBaseModel>();
             mockContext.Setup(x => x.Set<ReceiptDataModel>()).Returns(mockReceipts.Object);
             mockContext.Setup(x => x.Set<ShopDataModel>()).Returns(mockShops.Object);
             mockContext.Setup(x => x.Set<ItemDataModel>()).Returns(mockItems.Object);
             mockContext.Setup(x => x.Set<UserDataModel>()).Returns(mockUsers.Object);
+            mockContext.Setup(x => x.Set<CategoryDataModel>()).Returns(mockCategories.Object);
             mockContext.Setup(x => x.Receipt).Returns(mockReceipts.Object);
             mockContext.Setup(x => x.Shop).Returns(mockShops.Object);
             mockContext.Setup(x => x.Item).Returns(mockItems.Object);

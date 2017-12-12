@@ -55,7 +55,7 @@ namespace GREEDY.ReceiptCreatings
                 }
                 catch
                 {
-                    //need to think about possible exception if training data is missing
+                    //TODO: need to think about possible exception if training data is missing
                 }
             }
             else

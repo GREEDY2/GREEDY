@@ -300,47 +300,47 @@
     "Prob": 0.0
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "glaistytas",
     "Prob": 0.0
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "Geriamasis jogurtas",
     "Prob": 0.0
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "jogurtas",
     "Prob": 0.9
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "varškė",
     "Prob": 0.5
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "sūris",
     "Prob": 0.5
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "glaistytas sūrelis",
     "Prob": 0.0
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "pienas",
     "Prob": 0.9
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "Rokiškio",
     "Prob": 0.0
   },
   {
-    "Category": "pieno produktas",
+    "Category": "pieno produktai",
     "Text": "VILKYŠK JOG GER ŽEMUOG",
     "Prob": 0.5
   }

@@ -1,4 +1,4 @@
-namespace GREEDY.Migrations
+﻿namespace GREEDY.Migrations
 {
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -55,7 +55,7 @@ namespace GREEDY.Migrations
                     Address = "Antakalnio g. 55, Vilnius"},
                 new ShopDataModel() {
                     Name ="RIMI", Location = new Geocoding.Location(54.678257,25.287651),
-                    Address = "Did�ioji g. 28, Vilnius"},
+                    Address = "Didžioji g. 28, Vilnius"},
                 new ShopDataModel() {
                     Name ="RIMI", Location = new Geocoding.Location(54.673904,25.213369),
                     Address = "Architektu g. 19, Vilnius"},
@@ -103,9 +103,29 @@ namespace GREEDY.Migrations
                     Name ="NORFA", Location = new Geocoding.Location(0,0)},
             };
 
+            var Categories = new CategoryDataModel[]{
+                new CategoryDataModel() {
+                CategoryName = "traškučiai"},
+                new CategoryDataModel() {
+                CategoryName = "vaisiai"},
+                new CategoryDataModel() {
+                CategoryName = "maistas"},
+                new CategoryDataModel() {
+                CategoryName = "tara"},
+                new CategoryDataModel() {
+                CategoryName = "gėrimai"},
+                new CategoryDataModel() {
+                CategoryName = "pieno produktai"}
+            };
+
             foreach (ShopDataModel shop in Shops)
                 if (context.Set<ShopDataModel>().FirstOrDefault(x => x.Name == shop.Name) == null)
                     context.Set<ShopDataModel>().Add(shop);
+
+            foreach (CategoryDataModel categ in Categories)
+                if (context.Set<CategoryDataModel>().FirstOrDefault(x => x.CategoryName == categ.CategoryName) == null)
+                    context.Set<CategoryDataModel>().Add(categ);
+
             context.SaveChanges();
         }
     }
