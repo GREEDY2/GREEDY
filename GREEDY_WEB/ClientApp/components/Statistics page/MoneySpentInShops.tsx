@@ -17,27 +17,27 @@ interface Props {
     };
 }
 
-export class ItemCategoryPieChart extends React.Component<Props> {
+export class MoneySpentInShopsBarChart extends React.Component<Props> {
     constructor(props) {
         super(props);
     }
 
     state = {
-        name: 'Category pie chart',
-        id: 'category_pie_chart',
-        type: 'pie3d',
+        name: 'Money spent in shops bar chart',
+        id: 'money_spent_in_shops_bar_chart',
+        type: 'column3d',
         width: this.props.size.windowWidth,
         height: 400,
         dataFormat: 'JSON',
         dataSource: {
             chart: {
-                caption: 'Categories',
-                subcaption: 'Purchased items by categories',
-                showlabels: '0',
-                toolTipBgAlpha: "80",
-                showlegend: '1',
-                showpercentvalues: '1',
-                plottooltext: '$datavalue items of category $label'
+                bgColor: '#FFFFFF',
+                numberSuffix: '\u20AC',
+                xaxisname: "Shop name",
+                yaxisname: "Amount (In EUR)",
+                caption: 'Money spent in shops',
+                subcaption: 'Top shops by money spent',
+                plottooltext: '$datavalue spent in $label'
             },
             data: this.props.data
         }

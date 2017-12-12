@@ -6,11 +6,11 @@ namespace GREEDY.Extensions
     public static class CredentialsCheckIfValidExtension
     {
         static Lazy<int> MaxAnyInputLength = new Lazy<int>(
-            () => int.Parse(Environments.AppConfig.MaxAnyInputLength));
+            () => Environments.AppConfig.MaxAnyInputLength);
         static Lazy<int> MinPasswordLength = new Lazy<int>(
-            () => int.Parse(Environments.AppConfig.MinPasswordLength));
+            () => Environments.AppConfig.MinPasswordLength);
         static Lazy<int> MinUsernameLength = new Lazy<int>(
-            () => int.Parse(Environments.AppConfig.MinUsernameLength));
+            () => Environments.AppConfig.MinUsernameLength);
 
         public static bool IsEmailValid(this string email)
         {

@@ -9,12 +9,13 @@ namespace GREEDY
         string CategoriesDataPath { get; }
         string ServerAdressAndPort { get; }
         string EncryptionKey { get; }
-        string MinUsernameLength { get; }
-        string MinPasswordLength { get; }
-        string MaxAnyInputLength { get; }
+        int MinUsernameLength { get; }
+        int MinPasswordLength { get; }
+        int MaxAnyInputLength { get; }
         string AuthenticationSecret { get; }
         string GoogleMapsGeocodingAPIKey { get; }
         string LogPath { get; }
+        int ShowItemsInGraphs { get; }
     }
 
     public class AppConfig : IAppConfig
@@ -24,12 +25,13 @@ namespace GREEDY
         public string CategoriesDataPath => ConfigurationManager.AppSettings["CategoriesDataPath"];
         public string ServerAdressAndPort => ConfigurationManager.AppSettings["ServerAdressAndPort"];
         public string EncryptionKey => ConfigurationManager.AppSettings["EncryptionKey"];
-        public string MinUsernameLength => ConfigurationManager.AppSettings["MinUsernameLength"];
-        public string MinPasswordLength => ConfigurationManager.AppSettings["MinPasswordLength"];
-        public string MaxAnyInputLength => ConfigurationManager.AppSettings["MaxAnyInputLength"];
+        public int MinUsernameLength => int.Parse(ConfigurationManager.AppSettings["MinUsernameLength"]);
+        public int MinPasswordLength => int.Parse(ConfigurationManager.AppSettings["MinPasswordLength"]);
+        public int MaxAnyInputLength => int.Parse(ConfigurationManager.AppSettings["MaxAnyInputLength"]);
         public string AuthenticationSecret => ConfigurationManager.AppSettings["AuthenticationSecret"];
         public string GoogleMapsGeocodingAPIKey => ConfigurationManager.AppSettings["GoogleMapsGeocodingAPIKey"];
         public string LogPath => ConfigurationManager.AppSettings["LogPath"];
+        public int ShowItemsInGraphs => int.Parse(ConfigurationManager.AppSettings["ShowItemsInGraphs"]);
 
     }
 }

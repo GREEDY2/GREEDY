@@ -165,18 +165,19 @@ export class FetchUserItems extends React.Component<Props, State> {
         smoothScroll.scrollTo('top');
     }
 
-    showElement(itemId) {
-        if (this.state.showExtraInfo === itemId) {
-            this.setState({ showExtraInfo: undefined });
+    //TODO: rewrite in react and not plain javascript way
+    showHidden(itemId) {
+        let element = document.getElementById(itemId);
+        if ((element.nextSibling as any).hidden) {
+            (element.nextSibling as any).hidden = false;
         }
         else {
-            this.setState({ showExtraInfo: itemId });
+            (element.nextSibling as any).hidden = true;
         }
     }
 
     populateTableWithItems() {
-        let itemsOnPage = this.state.itemList.slice((this.state.activePage - 1) * this.state.showOnPage,
-            this.state.activePage * this.state.showOnPage)
+        let itemsOnPage = this.state.itemList;
         //This filters the items, if new filters for data are added need to add logic here.
         if (this.state.filter !== undefined) {
             if (this.state.filter.priceCompare !== 'All') {
@@ -190,11 +191,13 @@ export class FetchUserItems extends React.Component<Props, State> {
         if (this.state.sort !== undefined) {
             itemsOnPage.sort(this.sort);
         }
+        itemsOnPage = itemsOnPage.slice((this.state.activePage - 1) * this.state.showOnPage,
+            this.state.activePage * this.state.showOnPage)
         return (
             itemsOnPage.map((item, index) =>
                 <tbody>
 
-                    <tr id={item.ItemId} onClick={() => jsFunc(item.ItemId)}>
+                    <tr id={item.ItemId} onClick={() => this.showHidden(item.ItemId)}>
                         <td>{index + 1}</td>
                         <td>{item.Name}</td>
                         <td>{item.Price.toFixed(2)}&#8364;</td>
@@ -246,14 +249,5 @@ export class FetchUserItems extends React.Component<Props, State> {
                 </div>
                 <EditItem onRef={ref => (this.child = ref)} updateListAfterChange={this.updateList} />
             </div>);
-    }
-}
-function jsFunc(itemId) {
-    let element = document.getElementById(itemId);
-    if ((element.nextSibling as any).hidden) {
-        (element.nextSibling as any).hidden = false;
-    }
-    else {
-        (element.nextSibling as any).hidden = true;
     }
 }
