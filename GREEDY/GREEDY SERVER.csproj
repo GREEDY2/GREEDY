@@ -272,6 +272,10 @@
     <Compile Include="Migrations\201712112025573_CategoriesAdded.Designer.cs">
       <DependentUpon>201712112025573_CategoriesAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712121548437_RequiredForCategory.cs" />
+    <Compile Include="Migrations\201712121548437_RequiredForCategory.Designer.cs">
+      <DependentUpon>201712121548437_RequiredForCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
@@ -347,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712112025573_CategoriesAdded.resx">
       <DependentUpon>201712112025573_CategoriesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121548437_RequiredForCategory.resx">
+      <DependentUpon>201712121548437_RequiredForCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

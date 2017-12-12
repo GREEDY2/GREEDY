@@ -10,6 +10,7 @@ namespace GREEDY.Data
         public decimal Price { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
         public virtual CategoryDataModel Category { get; set; }
         public virtual ReceiptDataModel Receipt { get; set; }
     }
