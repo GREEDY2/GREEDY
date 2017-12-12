@@ -11,7 +11,7 @@ namespace GREEDY.ReceiptCreatings
     public class ItemCategorization : IItemCategorization
     {
         private static NaiveBayesianClassifier _classifier;
-        private static List<ItemInfo> _trainingData;
+        private static List<ItemClassificationModels> _trainingData;
 
         public ItemCategorization()
         {
@@ -22,12 +22,12 @@ namespace GREEDY.ReceiptCreatings
         {
             _classifier = new NaiveBayesianClassifier(_trainingData);
 
-            var NewData = itemList.Select(x => new ItemInfo { Category = x.Category, Text = x.Name, Prob = 0 }).ToList();
+            var NewData = itemList.Select(x => new ItemClassificationModels { Category = x.Category, Text = x.Name, Prob = 0 }).ToList();
             NewData = _classifier.GetAllItemsWithCategories(NewData);
 
             foreach (Item item in itemList)
             {
-                foreach (ItemInfo itemInfo in NewData)
+                foreach (ItemClassificationModels itemInfo in NewData)
                 {
                     if (item.Name == itemInfo.Text && item.Category == String.Empty)
                     {
@@ -60,16 +60,16 @@ namespace GREEDY.ReceiptCreatings
             }
             else
             {
-                _trainingData = JsonConvert.DeserializeObject<List<ItemInfo>>
+                _trainingData = JsonConvert.DeserializeObject<List<ItemClassificationModels>>
                     (File.ReadAllText(Environments.AppConfig.CategoriesDataPath));
             }
             if (_trainingData == null)
             {
-                _trainingData = new List<ItemInfo>();
+                _trainingData = new List<ItemClassificationModels>();
             }
         }
 
-        private static async void AddNewDataToTrainingData(List<ItemInfo> NewData)
+        private static async void AddNewDataToTrainingData(List<ItemClassificationModels> NewData)
         {
             using (StreamWriter writer = File.CreateText(Environments.AppConfig.CategoriesDataPath))
             {
@@ -81,7 +81,7 @@ namespace GREEDY.ReceiptCreatings
         public void AddCategory(string itemName, string category)
         {
             File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject( 
-                new ItemInfo { Text = itemName, Category = category, Prob = 0}));
+                new ItemClassificationModels { Text = itemName, Category = category, Prob = 0}));
         }
     }
 }

@@ -275,7 +275,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\GraphData.cs" />
-    <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="Models\ItemClassificationModels.cs" />
     <Compile Include="Models\ShopData.cs" />
     <Compile Include="ReceiptCreating\IShopDetection.cs" />
     <Compile Include="ReceiptCreating\NaiveBayesianClassifier.cs" />

@@ -37,8 +37,8 @@ namespace GREEDY.DataManagers
 
             var items = receipts.SelectMany(x => x.Items).ToList();
 
-            fullGraphData.CategoriesData = items.Where(x => !x.Category.Equals("nuolaida"))
-                .GroupBy(x => x.Category)
+            fullGraphData.CategoriesData = items.Where(x => !x.Category.CategoryName.Equals("nuolaida"))
+                .GroupBy(x => x.Category.CategoryName)
                 .Select(x => new GraphData(x.Key.ToString(), x.Count())).ToList()
                 .OverflowHandler(Environments.AppConfig.ShowItemsInGraphs);
 

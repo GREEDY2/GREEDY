@@ -38,18 +38,18 @@ namespace GREEDY.ReceiptCreatings
         int _countOfDocs;
         int _uniqWordsCount;
 
-        public NaiveBayesianClassifier(List<ItemInfo> _trainingData)
+        public NaiveBayesianClassifier(List<ItemClassificationModels> _trainingData)
         {
             ClassifierTraining(_trainingData);
         }
 
-        public List<ItemInfo> GetAllItemsWithCategories(List<ItemInfo> NewData)
+        public List<ItemClassificationModels> GetAllItemsWithCategories(List<ItemClassificationModels> NewData)
         {
             double maxProb = 0;
             string maxCat = "";
             double prob = 0;
 
-            foreach (ItemInfo item in NewData)
+            foreach (ItemClassificationModels item in NewData)
             {
                 if (item.Category == String.Empty)
                 {
@@ -89,7 +89,7 @@ namespace GREEDY.ReceiptCreatings
             return Math.Log(dc / d) + q.Sum(x => Math.Log((classInfo.NumberOfOccurencesInTrainDocs(x) + 1) / (v + lc)));
         }
 
-        private void ClassifierTraining(List<ItemInfo> train)
+        private void ClassifierTraining(List<ItemClassificationModels> train)
         {
             _classes = train.GroupBy(x => x.Category).Select(g => new ClassInfo(g.Key, g.Select(x => x.Text).ToList())).ToList();
             _countOfDocs = train.Count;
