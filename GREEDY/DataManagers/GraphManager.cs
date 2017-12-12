@@ -46,20 +46,37 @@ namespace GREEDY.DataManagers
             fullGraphData.MoneySpentInShops = receipts.GroupBy(x => x.Shop != null ? x.Shop.Name : null).Select(x =>
                 new GraphData(x.Key, x.Sum(y => y.Total))).ToList();
 
-            //TODO: figure out why this doesn't work
             var undefinedShop = fullGraphData.MoneySpentInShops.FirstOrDefault(x => x.label == null);
             if (undefinedShop.value != 0)
             {
-                undefinedShop.label = "Other";
+                fullGraphData.MoneySpentInShops[fullGraphData.MoneySpentInShops.IndexOf(undefinedShop)] = new GraphData {
+                    label = "Other",
+                    value = fullGraphData.MoneySpentInShops[fullGraphData.MoneySpentInShops.IndexOf(undefinedShop)].value };
             }
 
-            //TODO: fix this to return empty values for non-existing week days
-            //TODO: should make this an average, not the total count
-            var receiptGroupedByDayOfWeek = receipts.GroupBy(x => x.ReceiptDate.HasValue ? x.ReceiptDate.Value.DayOfWeek
+        var receiptGroupedByDayOfWeek = receipts.GroupBy(x => x.ReceiptDate.HasValue ? x.ReceiptDate.Value.DayOfWeek
                     : x.UpdateDate.DayOfWeek).OrderBy(x => x.Key);
-            fullGraphData.WeekShoppingCount = receiptGroupedByDayOfWeek.Select(x => new GraphData(x.Key.ToString(), x.Count())).ToList();
-            //TODO: should make this an average, not the total count
-            fullGraphData.WeekShoppingPrice = receiptGroupedByDayOfWeek.Select(x => new GraphData(x.Key.ToString(), x.Sum(y => y.Total))).ToList();
+
+            var WeekShopping = new List<GraphData>
+            {
+                new GraphData { label = DayOfWeek.Monday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Saturday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Sunday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Thursday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Tuesday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Wednesday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Friday.ToString(), value = 0},
+            };
+
+            var Count = receiptGroupedByDayOfWeek.Select(x => new GraphData(x.Key.ToString(), x.Count())).ToList();
+            var Price = receiptGroupedByDayOfWeek.Select(x => new GraphData(x.Key.ToString(), x.Sum(y => y.Total))).ToList();
+
+            //It is slow in general, but it could be enaught fast for 7^2 items
+            var products = WeekShopping.Where(p => !Count.Any(y => p.label == y.label)).ToList();
+            fullGraphData.WeekShoppingCount = Count.Concat(products).OrderBy(x => x.label).ToList();
+
+            products = WeekShopping.Where(p => !Price.Any(y => p.label == y.label)).ToList();
+            fullGraphData.WeekShoppingPrice = Count.Concat(products).OrderBy(x => x.label).ToList();
 
             return fullGraphData;
         }
