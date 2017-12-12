@@ -198,10 +198,10 @@ export class FetchUserItems extends React.Component<Props, State> {
                 <tbody>
 
                     <tr id={item.ItemId} onClick={() => this.showHidden(item.ItemId)}>
-                        <td>{index + 1}</td>
+                        <td>{index + 1 + this.state.showOnPage * (this.state.activePage - 1)}</td>
                         <td>{item.Name}</td>
                         <td>{item.Price.toFixed(2)}&#8364;</td>
-                        <td>{item.Category}</td>
+                            <td>{item.Category}</td>
                         <td><span
                             className="glyphicon glyphicon-pencil readGlyphs"
                             color="primary"
@@ -229,9 +229,9 @@ export class FetchUserItems extends React.Component<Props, State> {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th className="center" onClick={() => this.sortByName()}>Item</th>
-                                <th onClick={() => this.sortByPrice()}>Price</th>
-                                <th onClick={() => this.sortByCategory()}>Category</th>
+                                <th className="center" onClick={() => this.sortByName()}>Item<span className="glyphicon glyphicon-sort" style={{ paddingLeft: "1px" }} /></th>
+                                <th onClick={() => this.sortByPrice()}>Price<span className="glyphicon glyphicon-sort" style={{ paddingLeft: "1px" }} /></th>
+                                <th onClick={() => this.sortByCategory()}>Category<span className="glyphicon glyphicon-sort" style={{ paddingLeft: "1px" }} /></th>
                                 <th>Edit</th>
                             </tr>
                         </thead>

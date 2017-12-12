@@ -20,6 +20,7 @@ interface State {
     ItemPrice: number;
     ItemCategory: string;
     showAdd: boolean;
+    modalWidth: string;
 }
 
 export class AddItem extends React.Component<Props, State> {
@@ -31,10 +32,12 @@ export class AddItem extends React.Component<Props, State> {
         ItemPrice: undefined,
         ItemCategory: undefined,
         showAdd: false,
+        modalWidth: "80%"
     }
 
     componentWillMount() {
         this.getAllDistinctCategoriesFromDb();
+        this.updateModelWidth();
     }
 
     componentDidMount() {
@@ -43,6 +46,15 @@ export class AddItem extends React.Component<Props, State> {
 
     componentWillUnmount() {
         this.props.onRef(undefined);
+    }
+
+    updateModelWidth = () => {
+        if (this.state.modalWidth !== "80%" && window.innerWidth < 768) {
+            this.setState({ modalWidth: "80%" });
+        }
+        else if (this.state.modalWidth !== "40%" && window.innerWidth >= 768) {
+            this.setState({ modalWidth: "40%" });
+        }
     }
 
     //TODO: don't make the entire list refetch after edit, just change the item that has been added
@@ -130,7 +142,7 @@ export class AddItem extends React.Component<Props, State> {
                 <Alert onRef={ref => (this.child = ref)} />
                 {this.state.showAdd &&
                     <ModalContainer onClose={this.hideAdd} >
-                        <ModalDialog onClose={this.hideAdd} style={{ width: '80%' }}>
+                        <ModalDialog onClose={this.hideAdd} style={{ width: this.state.modalWidth }}>
                                 <h3>Add new Item</h3>
                             <Form onSubmit={this.saveItemAdd}>
                                 <FormGroup>

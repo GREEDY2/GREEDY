@@ -49,13 +49,15 @@ namespace GREEDY.DataManagers
             var undefinedShop = fullGraphData.MoneySpentInShops.FirstOrDefault(x => x.label == null);
             if (undefinedShop.value != 0)
             {
-                fullGraphData.MoneySpentInShops[fullGraphData.MoneySpentInShops.IndexOf(undefinedShop)] = new GraphData {
+                fullGraphData.MoneySpentInShops[fullGraphData.MoneySpentInShops.IndexOf(undefinedShop)] = new GraphData
+                {
                     label = "Other",
-                    value = fullGraphData.MoneySpentInShops[fullGraphData.MoneySpentInShops.IndexOf(undefinedShop)].value };
+                    value = fullGraphData.MoneySpentInShops[fullGraphData.MoneySpentInShops.IndexOf(undefinedShop)].value
+                };
             }
 
-        var receiptGroupedByDayOfWeek = receipts.GroupBy(x => x.ReceiptDate.HasValue ? x.ReceiptDate.Value.DayOfWeek
-                    : x.UpdateDate.DayOfWeek).OrderBy(x => x.Key);
+            var receiptGroupedByDayOfWeek = receipts.GroupBy(x => x.ReceiptDate.HasValue ? x.ReceiptDate.Value.DayOfWeek
+                        : x.UpdateDate.DayOfWeek).OrderBy(x => x.Key);
 
             var WeekShopping = new List<GraphData>
             {
@@ -76,7 +78,7 @@ namespace GREEDY.DataManagers
             fullGraphData.WeekShoppingCount = Count.Concat(products).OrderBy(x => x.label).ToList();
 
             products = WeekShopping.Where(p => !Price.Any(y => p.label == y.label)).ToList();
-            fullGraphData.WeekShoppingPrice = Count.Concat(products).OrderBy(x => x.label).ToList();
+            fullGraphData.WeekShoppingPrice = Price.Concat(products).OrderBy(x => x.label).ToList();
 
             return fullGraphData;
         }

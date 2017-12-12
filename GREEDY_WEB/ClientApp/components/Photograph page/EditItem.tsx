@@ -21,7 +21,7 @@ interface State {
     ItemPrice: number;
     ItemCategory: string;
     showEdit: boolean;
-    //showCategoryAdd: boolean;
+    modalWidth: string;
 }
 
 export class EditItem extends React.Component<Props, State> {
@@ -34,11 +34,12 @@ export class EditItem extends React.Component<Props, State> {
         ItemPrice: 0,
         ItemCategory: '',
         showEdit: false,
-        //showCategoryAdd: false
+        modalWidth: "80%"
     }
 
     componentWillMount() {
         this.getAllDistinctCategoriesFromDb();
+        this.updateModelWidth();
     }
 
     componentDidMount() {
@@ -47,6 +48,15 @@ export class EditItem extends React.Component<Props, State> {
 
     componentWillUnmount() {
         this.props.onRef(undefined);
+    }
+
+    updateModelWidth = () => {
+        if (this.state.modalWidth !== "80%" && window.innerWidth < 768) {
+            this.setState({ modalWidth: "80%" });
+        }
+        else if (this.state.modalWidth !== "40%" && window.innerWidth >= 768) {
+            this.setState({ modalWidth: "40%" });
+        }
     }
 
     //TODO: don't make the entire list refetch after edit, just change the item that has been edited
@@ -180,7 +190,7 @@ export class EditItem extends React.Component<Props, State> {
                 <Alert onRef={ref => (this.child = ref)} />
                 {this.state.showEdit &&
                     <ModalContainer onClose={this.hideEdit} >
-                        <ModalDialog onClose={this.hideEdit} style={{ width: '80%' }}>
+                        <ModalDialog onClose={this.hideEdit} style={{ width: this.state.modalWidth }}>
                             <div className="row">
                                 <h3 className="col-xs-8">Edit Item Nr. {this.state.ItemIndex + 1}</h3>
                                 <Button className="col-xs-4" type="button" color="danger" onClick={this.deleteItem} style={{marginTop: "20px", right: "15px"}}>
