@@ -39,7 +39,7 @@ namespace GREEDY.DataManagers
 
             fullGraphData.CategoriesData = items.Where(x => !x.Category.Equals("nuolaida"))
                 .GroupBy(x => x.Category)
-                .Select(x => new GraphData(x.Key, x.Count())).ToList()
+                .Select(x => new GraphData(x.Key.ToString(), x.Count())).ToList()
                 .OverflowHandler(Environments.AppConfig.ShowItemsInGraphs);
 
 
