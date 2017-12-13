@@ -105,19 +105,29 @@
 
             var Categories = new CategoryDataModel[]{
                 new CategoryDataModel() {
-                CategoryName = "traškučiai"},
+                CategoryName = "dairy"},
                 new CategoryDataModel() {
-                CategoryName = "vaisiai"},
+                CategoryName = "alcoholic drinks"},
                 new CategoryDataModel() {
-                CategoryName = "maistas"},
+                CategoryName = "fruits"},
                 new CategoryDataModel() {
-                CategoryName = "tara"},
+                CategoryName = "vegetables"},
                 new CategoryDataModel() {
-                CategoryName = "gėrimai"},
+                CategoryName = "flour products"},
                 new CategoryDataModel() {
-                CategoryName = "pieno produktai"},
+                CategoryName = "non-alcoholic drinks"},
                 new CategoryDataModel() {
-                CategoryName = "nuolaida"}
+                CategoryName = "sweets"},
+                new CategoryDataModel() {
+                CategoryName = "meat products"},
+                new CategoryDataModel() {
+                CategoryName = "snacks"},
+                new CategoryDataModel() {
+                CategoryName = "deposit"},
+                new CategoryDataModel() {
+                CategoryName = "other"},
+                new CategoryDataModel() {
+                CategoryName = "discount"}
             };
 
             foreach (ShopDataModel shop in Shops)

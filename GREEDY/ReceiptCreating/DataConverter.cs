@@ -4,7 +4,6 @@ using System;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
-using System.Linq;
 
 namespace GREEDY.ReceiptCreatings
 {
@@ -36,7 +35,7 @@ namespace GREEDY.ReceiptCreatings
                     {
                         if (decimal.Parse(match1.Groups[2].Value.Replace(".", ",")) < 0)
                         {
-                            category = "nuolaida";
+                            category = "discount";
                         }
                         itemList.Add(new Item
                         {
@@ -53,7 +52,7 @@ namespace GREEDY.ReceiptCreatings
                     {
                         if (decimal.Parse(match1.Groups[2].Value.Replace(".", ",")) < 0)
                         {
-                            category = "nuolaida";
+                            category = "discount";
                         }
                         itemList.Add(new Item
                         {
@@ -89,7 +88,7 @@ namespace GREEDY.ReceiptCreatings
                     {
                         if (decimal.Parse(m.Groups[2].Value.Replace(".", ",")) < 0)
                         {
-                            category = "nuolaida";
+                            category = "discount";
                         }
                         itemList.Add(new Item
                         {

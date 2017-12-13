@@ -37,14 +37,14 @@ namespace GREEDY.DataManagers
 
             var items = receipts.SelectMany(x => x.Items).ToList();
 
-            fullGraphData.CategoriesData = items.Where(x => !x.Category.CategoryName.Equals("nuolaida"))
+            fullGraphData.CategoriesData = items.Where(x => !x.Category.CategoryName.Equals("discount"))
                 .GroupBy(x => x.Category.CategoryName)
                 .Select(x => new GraphData(x.Key.ToString(), x.Count())).ToList()
                 .OverflowHandler(Environments.AppConfig.ShowItemsInGraphs);
 
 
-            fullGraphData.MoneySpentInShops = receipts.GroupBy(x => x.Shop != null ? x.Shop.Name : null).Select(x =>
-                new GraphData(x.Key, x.Sum(y => y.Total))).ToList();
+            fullGraphData.MoneySpentInShops = receipts.GroupBy(x => x.Shop?.Name)
+                .Select(x => new GraphData(x.Key, x.Sum(y => y.Total))).ToList();
 
             var undefinedShop = fullGraphData.MoneySpentInShops.FirstOrDefault(x => x.label == null);
             if (undefinedShop.value != 0)
