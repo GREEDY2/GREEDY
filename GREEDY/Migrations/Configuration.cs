@@ -127,7 +127,9 @@
                 new CategoryDataModel() {
                 CategoryName = "other"},
                 new CategoryDataModel() {
-                CategoryName = "discount"}
+                CategoryName = "discount"},
+                new CategoryDataModel() {
+                CategoryName = "food"}
             };
 
             foreach (ShopDataModel shop in Shops)

@@ -63,8 +63,16 @@ namespace GREEDY.ReceiptCreatings
                             maxCat = category;
                         }
                     }
-                    item.Category = maxCat;
-                    item.Prob = maxProb;
+                    if(maxProb < 1.2)
+                    {
+                        item.Category = "food";
+                        item.Prob = 1;
+                    }
+                    else
+                    {
+                        item.Category = maxCat;
+                        item.Prob = maxProb;
+                    }
                     maxProb = 0;
                     maxCat = String.Empty;
                 }
