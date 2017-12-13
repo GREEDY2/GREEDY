@@ -26,7 +26,7 @@ namespace GREEDY.DataManagers
             }
             else
             {
-                endTime = DateTime.Now.AddHours(-time);
+                endTime = DateTime.Now.AddMinutes(-time);
             }
             var fullGraphData = new FullGraphData();
 
@@ -62,23 +62,41 @@ namespace GREEDY.DataManagers
             var WeekShopping = new List<GraphData>
             {
                 new GraphData { label = DayOfWeek.Monday.ToString(), value = 0},
-                new GraphData { label = DayOfWeek.Saturday.ToString(), value = 0},
-                new GraphData { label = DayOfWeek.Sunday.ToString(), value = 0},
-                new GraphData { label = DayOfWeek.Thursday.ToString(), value = 0},
                 new GraphData { label = DayOfWeek.Tuesday.ToString(), value = 0},
                 new GraphData { label = DayOfWeek.Wednesday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Thursday.ToString(), value = 0},
                 new GraphData { label = DayOfWeek.Friday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Saturday.ToString(), value = 0},
+                new GraphData { label = DayOfWeek.Sunday.ToString(), value = 0},
             };
 
             var Count = receiptGroupedByDayOfWeek.Select(x => new GraphData(x.Key.ToString(), x.Count())).ToList();
             var Price = receiptGroupedByDayOfWeek.Select(x => new GraphData(x.Key.ToString(), x.Sum(y => y.Total))).ToList();
 
+            //TODO: temporary fix for weekdays to be full and sorted, fix this when able
+            var CountWeekShopping = new List<GraphData>();
+            var PriceWeekShopping = new List<GraphData>();
             //It is slow in general, but it could be enaught fast for 7^2 items
-            var products = WeekShopping.Where(p => !Count.Any(y => p.label == y.label)).ToList();
+            for (int i = 0; i < WeekShopping.Count; i++)
+            {
+                CountWeekShopping.Add(WeekShopping[i]);
+                PriceWeekShopping.Add(WeekShopping[i]);
+                if (Count.FirstOrDefault(x => x.label == WeekShopping[i].label).label != null)
+                {
+                    CountWeekShopping[i] = new GraphData(CountWeekShopping[i].label , Count.Find(x => x.label == WeekShopping[i].label).value);
+                }
+                if (Price.FirstOrDefault(x => x.label == WeekShopping[i].label).label != null)
+                {
+                    PriceWeekShopping[i] = new GraphData(CountWeekShopping[i].label, Price.Find(x => x.label == WeekShopping[i].label).value);
+                }
+            }
+            fullGraphData.WeekShoppingCount = CountWeekShopping;
+            fullGraphData.WeekShoppingPrice = PriceWeekShopping;
+            /*var products = WeekShopping.Where(p => !Count.Any(y => p.label == y.label)).ToList();
             fullGraphData.WeekShoppingCount = Count.Concat(products).OrderBy(x => x.label).ToList();
 
             products = WeekShopping.Where(p => !Price.Any(y => p.label == y.label)).ToList();
-            fullGraphData.WeekShoppingPrice = Price.Concat(products).OrderBy(x => x.label).ToList();
+            fullGraphData.WeekShoppingPrice = Price.Concat(products).OrderBy(x => x.label).ToList();*/
 
             return fullGraphData;
         }
