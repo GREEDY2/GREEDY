@@ -1,53 +1,13 @@
 [
   {
-    "Category": "other",
-    "Text": "Bon chance",
-    "Prob": 0.0
+    "Category": "dairy",
+    "Text": "sūris",
+    "Prob": 0
   },
   {
-    "Category": "other",
-    "Text": "Estrella",
-    "Prob": 0.8
-  },
-  {
-    "Category": "other",
-    "Text": "Oho",
-    "Prob": 0.0
-  },
-  {
-    "Category": "other",
-    "Text": "Lays",
-    "Prob": 0.8
-  },
-  {
-    "Category": "other",
-    "Text": "Vatos",
-    "Prob": 0.8
-  },
-  {
-    "Category": "other",
-    "Text": "BELLA",
-    "Prob": 0.8
-  },
-  {
-    "Category": "other",
-    "Text": "vilniaus e bilietas",
-    "Prob": 0.9
-  },
-  {
-    "Category": "other",
-    "Text": "Pringles",
-    "Prob": 0.0
-  },
-  {
-    "Category": "other",
-    "Text": "Cheetos",
-    "Prob": 0.8
-  },
-  {
-    "Category": "other",
-    "Text": "traškučiai",
-    "Prob": 0.7
+    "Category": "alcoholic drinks",
+    "Text": "alus",
+    "Prob": 0
   },
   {
     "Category": "fruits",
@@ -55,368 +15,743 @@
     "Prob": 0.9
   },
   {
-    "Category": "fruits",
-    "Text": "kriaušė",
+    "Category": "vegetables",
+    "Text": "pomidorai",
     "Prob": 0.9
-  },
-  {
-    "Category": "fruits",
-    "Text": "ananasas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "apelsinas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "arbūzas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "citrina",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "granatas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "greipfrutas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "kivis",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "mandarinas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "mangas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "persikas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "fruits",
-    "Text": "persimonas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "šerbetas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "Kramtomieji saldainiai MAOAM",
-    "Prob": 0.2
-  },
-  {
-    "Category": "sweets",
-    "Text": "Kramtomieji",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "saldainiai",
-    "Prob": 0.5
-  },
-  {
-    "Category": "snacks",
-    "Text": "pistacija",
-    "Prob": 0.0
-  },
-  {
-    "Category": "snacks",
-    "Text": "migdolas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "kokosas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "snacks",
-    "Text": "figa",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "žemuogė",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "slyva",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "vyšnios",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "trešnės",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "vynuogės",
-    "Prob": 0.0
-  },
-  {
-    "Category": "vegetables",
-    "Text": "pomidoras",
-    "Prob": 0.0
-  },
-  {
-    "Category": "lietuviški pomidorai",
-    "Text": "pomidoras",
-    "Prob": 0.0
-  },
-  {
-    "Category": "vegetables",
-    "Text": "bulvės",
-    "Prob": 0.0
-  },
-  {
-    "Category": "vegetables",
-    "Text": "melionas",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "mėlynės",
-    "Prob": 0.0
-  },
-  {
-    "Category": "snacks",
-    "Text": "riešutai",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "braškės",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "avietė",
-    "Prob": 0.0
-  },
-  {
-    "Category": "snacks",
-    "Text": "sumuštinis",
-    "Prob": 0.5
-  },
-  {
-    "Category": "sweets",
-    "Text": "kramtomoji",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "javainiai",
-    "Prob": 0.0
-  },
-  {
-    "Category": "meat products",
-    "Text": "rukyta",
-    "Prob": 0.5
-  },
-  {
-    "Category": "meat products",
-    "Text": "šaltai rukyta",
-    "Prob": 0.5
-  },
-  {
-    "Category": "meat products",
-    "Text": "Krekenavos",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "Nestle",
-    "Prob": 0.3
-  },
-  {
-    "Category": "sweets",
-    "Text": "Dribsniai",
-    "Prob": 0.0
-  },
-  {
-    "Category": "sweets",
-    "Text": "batonėlis",
-    "Prob": 0.5
   },
   {
     "Category": "flour products",
     "Text": "duona",
-    "Prob": 0.5
+    "Prob": 0
   },
   {
-    "Category": "flour products",
-    "Text": "batonas",
-    "Prob": 0.5
+    "Category": "vegetables",
+    "Text": "lietuviški pomidorai",
+    "Prob": 0
   },
   {
-    "Category": "flour products",
-    "Text": "sumuštinių batonas",
-    "Prob": 0.5
+    "Category": "non-alcoholic drinks",
+    "Text": "sultys",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "batonėlis",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "Krekenavos",
+    "Prob": 0
   },
   {
     "Category": "snacks",
-    "Text": "duonelė",
-    "Prob": 0.5
+    "Text": "Dribsniai",
+    "Prob": 0
   },
   {
-    "Category": "deposit",
-    "Text": "Vienkartinė metalo pak",
-    "Prob": 0.0
+    "Category": "other",
+    "Text": "muilas",
+    "Prob": 0
   },
   {
-    "Category": "deposit",
-    "Text": "pakuotė",
-    "Prob": 0.3
-  },
-  {
-    "Category": "deposit",
-    "Text": "tara",
-    "Prob": 0.9
-  },
-  {
-    "Category": "deposit",
-    "Text": "skardinė",
-    "Prob": 0.8
-  },
-  {
-    "Category": "alcoholic drinks",
-    "Text": "alus",
-    "Prob": 0.9
-  },
-  {
-    "Category": "non-alcoholic drinks",
-    "Text": "gira",
-    "Prob": 0.5
-  },
-  {
-    "Category": "non-alcoholic drinks",
-    "Text": "vanduo",
-    "Prob": 0.9
-  },
-  {
-    "Category": "alcoholic drinks",
-    "Text": "degtinė",
-    "Prob": 0.5
-  },
-  {
-    "Category": "alcoholic drinks",
-    "Text": "brendis",
-    "Prob": 0.5
-  },
-  {
-    "Category": "alcoholic drinks",
-    "Text": "Volfas Engelman",
-    "Prob": 0.5
-  },
-  {
-    "Category": "alcoholic drinks",
-    "Text": "Švyturio",
-    "Prob": 0.5
-  },
-  {
-    "Category": "non-alcoholic drinks",
-    "Text": "gazuotas",
-    "Prob": 0.8
-  },
-  {
-    "Category": "non-alcoholic drinks",
-    "Text": "negazuotas",
-    "Prob": 0.8
+    "Category": "dairy",
+    "Text": "maskarpone",
+    "Prob": 0
   },
   {
     "Category": "alcoholic drinks",
     "Text": "spiritinis",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "kriaušė",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "BANANAI",
     "Prob": 0.9
+  },
+  {
+    "Category": "vegetables",
+    "Text": "melionas",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "duonos",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "sprite",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "kramtomoji",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "rukyta",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "pistacija",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "druska",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "parmezano",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "brendis",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "ananasas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "pomidorai",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "miltinis",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "gazuotas",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "javainiai",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "mėsa",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "lazdyno",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "drabužis",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "kefyras",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "Švyturio",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "apelsinas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "bulvės",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "miltai",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "negazuotas",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "Nestle",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "dešra",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "migdolai",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "palaidinė",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "sviestas",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "Kalnapilio",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "arbūzas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "morkos",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "batonas",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "vanduo",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "šerbetas",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "kumpis",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "figos",
+    "Prob": 0
+  },
+  {
+    "Category": "deposit",
+    "Text": "Vienkartinė metalo pak",
+    "Prob": 0
+  },
+  {
+    "Category": "deposit",
+    "Text": "pakuotė",
+    "Prob": 0
+  },
+  {
+    "Category": "deposit",
+    "Text": "tara",
+    "Prob": 0
+  },
+  {
+    "Category": "deposit",
+    "Text": "plastiko",
+    "Prob": 0
+  },
+  {
+    "Category": "deposit",
+    "Text": "skardinė",
+    "Prob": 0
+  },
+  {
+    "Category": "deposit",
+    "Text": "vienkartinė",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "prieskoniai",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "skystas jogurtas",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "alaus",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "citrina",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "ridikai",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "duonelė",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "gira",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "ledai",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "šaltai rukyta",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "sumuštinis",
+    "Prob": 0.8
+  },
+  {
+    "Category": "snacks",
+    "Text": "trikampis",
+    "Prob": 0.8
+  },
+  {
+    "Category": "meat products",
+    "Text": "ŠALTAI RŪKYTA „KREKENAVO",
+    "Prob": 0.8
+  },
+  {
+    "Category": "other",
+    "Text": "batai",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "pelėsinis sūris",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "degtinė",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "granatas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "kopūstai",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "kepinys",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "ne alkoholinis",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "guminukai",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "daktariška dešra",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "trapučiai",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "knyga",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "tepamasis sūrelis",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "Volfas Engelman",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "greipfrutas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "sveriamos",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "sostinės batonas",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "vaisvandeniai",
+    "Prob": 0
+  },
+  {
+    "Category": "sweets",
+    "Text": "saldainiai",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "servilatas",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "riešutai",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "vata",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "tepamasis",
+    "Prob": 0
   },
   {
     "Category": "alcoholic drinks",
     "Text": "balzamas",
-    "Prob": 0.9
+    "Prob": 0
   },
   {
-    "Category": "alcoholic drinks",
-    "Text": "RADLER",
-    "Prob": 0.8
+    "Category": "fruits",
+    "Text": "kivis",
+    "Prob": 0
   },
   {
-    "Category": "alcoholic drinks",
-    "Text": "UTENOS alaus",
-    "Prob": 0.5
+    "Category": "vegetables",
+    "Text": "svogūnas",
+    "Prob": 0
   },
   {
-    "Category": "alcoholic drinks",
-    "Text": "kokteilis",
-    "Prob": 0.5
+    "Category": "flour products",
+    "Text": "kuldūnai",
+    "Prob": 0
   },
   {
-    "Category": "dairy",
-    "Text": "glaistytas",
-    "Prob": 0.0
+    "Category": "non-alcoholic drinks",
+    "Text": "zero",
+    "Prob": 0
   },
   {
-    "Category": "dairy",
-    "Text": "Geriamasis jogurtas",
-    "Prob": 0.7
+    "Category": "meat products",
+    "Text": "vištiena",
+    "Prob": 0
   },
   {
-    "Category": "dairy",
-    "Text": "jogurtas",
-    "Prob": 0.9
+    "Category": "snacks",
+    "Text": "Pringles",
+    "Prob": 0
   },
   {
-    "Category": "dairy",
-    "Text": "varškė",
-    "Prob": 0.5
-  },
-  {
-    "Category": "dairy",
-    "Text": "sūris",
-    "Prob": 0.5
-  },
-  {
-    "Category": "dairy",
-    "Text": "glaistytas sūrelis",
-    "Prob": 0.5
-  },
-  {
-    "Category": "dairy",
-    "Text": "pienas",
-    "Prob": 0.9
+    "Category": "other",
+    "Text": "grybai",
+    "Prob": 0
   },
   {
     "Category": "dairy",
     "Text": "Rokiškio",
-    "Prob": 0.0
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "švyturio",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "mandarinas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "paprika",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "tešla",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "Coca-cola",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "kiauliena",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "Bon chance",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "baravykų",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "pienas",
+    "Prob": 0
+  },
+  {
+    "Category": "alcoholic drinks",
+    "Text": "alus",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "mangas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "rauginti kopūstai",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "makaronai",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "energetinis",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "jautiena",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "Cheetos",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "sriuba",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "glaistytas sūrelis",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "persikas",
+    "Prob": 0
+  },
+  {
+    "Category": "vegetables",
+    "Text": "česnakai",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "maggi",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "gėrimas",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "broilerių",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "traškučiai",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "cigaretės",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "sūris",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "persimonas",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "rollton",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "arbata",
+    "Prob": 0
+  },
+  {
+    "Category": "meat products",
+    "Text": "šlaunelės",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "Lays",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "maišeliai",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "varškė",
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "sveriamos",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "pasta",
+    "Prob": 0
+  },
+  {
+    "Category": "non-alcoholic drinks",
+    "Text": "šaltoji arbata",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "Estrella",
+    "Prob": 0
   },
   {
     "Category": "dairy",
     "Text": "VILKYŠK JOG GER ŽEMUOG",
-    "Prob": 0.9
+    "Prob": 0
+  },
+  {
+    "Category": "fruits",
+    "Text": "persimonai",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "vilkyškių",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "pica su kumpiu",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "raikytas",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "raikyta",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "knorr",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "spagečiai",
+    "Prob": 0
+  },
+  {
+    "Category": "snacks",
+    "Text": "Oho",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "jogurtas",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "Geriamasis jogurtas",
+    "Prob": 0
+  },
+  {
+    "Category": "other",
+    "Text": "maišelis",
+    "Prob": 0
+  },
+  {
+    "Category": "dairy",
+    "Text": "glaistytas",
+    "Prob": 0
+  },
+  {
+    "Category": "flour products",
+    "Text": "pica",
+    "Prob": 0
   }
 ]
