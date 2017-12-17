@@ -4,6 +4,8 @@ using AForge;
 using AForge.Imaging.Filters;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using GREEDY.OCRs;
+using System.Collections.Generic;
 
 namespace GREEDY.ImagePreparation
 {
@@ -15,20 +17,19 @@ namespace GREEDY.ImagePreparation
         {
             _deskewImage = new DeskewImage();
         }
-
         // Applies series of modifications to prepare the image for OCR reading
         public Bitmap FormatImage(Bitmap bitmap)
         {
             try
             {
-                Bitmap edited = Binarization(bitmap);
-                edited = RemoveNoise(edited);
-                edited = BiggestBlob(edited);
-                edited = Rotate(edited);
-                edited = _deskewImage.Deskew(edited);
-                edited = BiggestBlob(edited);
-                edited = Rescale(edited);
-                return edited;
+                Bitmap edited = new Bitmap(Binarization(new Bitmap(bitmap)));
+                //edited = RemoveNoise(edited);
+                edited = BiggestBlob(new Bitmap(edited));
+                edited = Rotate(new Bitmap(bitmap));
+                edited = _deskewImage.Deskew(new Bitmap(edited));
+                //edited = BiggestBlob(edited);
+                edited = Rescale(new Bitmap(edited));
+                return new Bitmap(bitmap);
             }
             catch
             {
@@ -45,10 +46,11 @@ namespace GREEDY.ImagePreparation
         }
 
         // Removes noise (small dots/smudges from an image)
+        //fail for all image
         public Bitmap RemoveNoise(Bitmap bitmap)
         {
-            Image<Gray, byte> image = new Image<Gray, byte>(bitmap);
-            Image<Gray, byte> edited = image.SmoothMedian(7);
+            Image<Bgr, byte> image = new Image<Bgr, byte>(bitmap);
+            Image<Bgr, byte> edited = image.SmoothMedian(7);
             return edited.ToBitmap();
         }
 

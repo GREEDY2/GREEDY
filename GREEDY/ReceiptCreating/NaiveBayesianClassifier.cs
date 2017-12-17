@@ -63,7 +63,7 @@ namespace GREEDY.ReceiptCreatings
                             maxCat = category;
                         }
                     }
-                    if(maxProb < 1.2)
+                    if(maxProb < 1.5)
                     {
                         item.Category = "food";
                         item.Prob = 1;
@@ -99,7 +99,7 @@ namespace GREEDY.ReceiptCreatings
 
         private void ClassifierTraining(List<ItemClassificationModels> train)
         {
-            _classes = train.GroupBy(x => x.Category).Select(g => new ClassInfo(g.Key, g.Select(x => x.Text).ToList())).ToList();
+            _classes = train.GroupBy(x => x.Category).Select(g => new ClassInfo(g.Key.ToLower(), g.Select(x => x.Text.ToLower()).ToList())).ToList();
             _countOfDocs = train.Count;
             _uniqWordsCount = train.SelectMany(x => x.Text.Split(' ')).GroupBy(x => x).Count();
         }
@@ -109,7 +109,7 @@ namespace GREEDY.ReceiptCreatings
     {
         public static List<String> ExtractFeatures(this String text)
         {
-            return Regex.Matches(text, "\\p{L}{4,}").Cast<Match>().Select(match => match.Value).ToList();
+            return Regex.Matches(text, "\\p{L}{4,}").Cast<Match>().Select(match => match.Value.ToLower()).ToList();
         }
     }
 }

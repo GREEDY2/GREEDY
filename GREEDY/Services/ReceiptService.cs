@@ -2,6 +2,7 @@
 using System.Drawing;
 using GREEDY.ImagePreparation;
 using GREEDY.ReceiptCreatings;
+using System.Collections.Generic;
 
 namespace GREEDY.Services
 {
@@ -32,8 +33,8 @@ namespace GREEDY.Services
         {
             if (image != null)
             {
-                image = _imageFormating.FormatImage(image);
-                var receipt = _receiptCreating.FullReceiptCreating(image);
+                Bitmap newimage = new Bitmap(_imageFormating.FormatImage(image));
+                var receipt = _receiptCreating.FullReceiptCreating(newimage);
                 receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
                 receipt.ItemsList = _itemCategorization.CategorizeItems(receipt.ItemsList);
                 return receipt;

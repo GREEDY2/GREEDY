@@ -78,6 +78,7 @@ namespace GREEDY.ReceiptCreatings
                 previous = Regex.Replace(previous, @"\r", "");
                 previous = Regex.Replace(previous, @"\n", " ");
                 previous = Regex.Replace(previous, "›", ",");
+                previous = Regex.Replace(previous, "»", "-");
                 previous = Regex.Replace(previous, pattern2, "$1" + " " + "$2");
                 previous = Regex.Replace(previous, @"([\-]?\d+[\.\,]\d{2}).[A|E|B|F|N|C]{1}(\b|\.)", "$1" + Environment.NewLine);
                 pattern = @"([\p{L}]{2}[\p{L}]+.+)([\-, ]\d+[\.\,]\d{2})\r\n";
