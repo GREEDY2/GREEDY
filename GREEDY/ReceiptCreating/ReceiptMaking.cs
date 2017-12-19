@@ -29,7 +29,7 @@ namespace GREEDY.ReceiptCreatings
 
         public Receipt FullReceiptCreating(Bitmap image)
         {
-            var linesOfText = _ocr.ConvertImage(new Bitmap(image));
+            var linesOfText = _ocr.ConvertImage(image);
             var date = GetDateForReceipt(linesOfText);
             var shop = _shopDetection.GetShopFromData(linesOfText.Take(4).ToList());
 
