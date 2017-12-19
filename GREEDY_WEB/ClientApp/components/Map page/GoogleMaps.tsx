@@ -22,7 +22,7 @@ interface State {
 export class GoogleMaps extends React.Component<Props, State> {
     timer: number;
     state = {
-        center: [54.729000, 25.272000],
+        center: [54.699450, 25.262644],
         zoom: 13,
         myLocation: undefined,
         hoverKey: undefined,
