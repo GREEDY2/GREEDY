@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using GREEDY.Models;
-using Ploeh.AutoFixture;
+using AutoFixture;
 using Xunit;
 using GREEDY.ReceiptCreatings;
 

@@ -1,4 +1,4 @@
-﻿using Ploeh.AutoFixture;
+﻿using AutoFixture;
 using System.Collections.Generic;
 using Xunit;
 using Geocoding;
@@ -35,7 +35,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             //arrange
             List<string> linesOfText = new List<string>
             {
-                ShopName
+                ShopName + " "
             };
             linesOfText.AddMany(fixture.Create<string>, 10);
             //act

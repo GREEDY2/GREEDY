@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Ploeh.AutoFixture;
+using AutoFixture;
 using Xunit;
 using GREEDY.OCRs;
 using Moq;

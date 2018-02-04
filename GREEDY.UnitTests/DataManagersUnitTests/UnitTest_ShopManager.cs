@@ -1,5 +1,5 @@
-﻿using GREEDY.DataManagers;
-using Ploeh.AutoFixture;
+﻿using AutoFixture;
+using GREEDY.DataManagers;
 using Xunit;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests
