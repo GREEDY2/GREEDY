@@ -77,6 +77,7 @@ namespace GREEDY.DataManagers
 
         public List<Item> GetItemsOfSingleReceipt(int receiptId)
         {
+            //get exception during unitTesting. Need time ti verify issue
             var temp = context.Set<ReceiptDataModel>()
                 .Include(x => x.Items)
                 .FirstOrDefault(x => x.ReceiptId == receiptId);

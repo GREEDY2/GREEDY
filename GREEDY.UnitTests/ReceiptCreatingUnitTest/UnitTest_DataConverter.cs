@@ -15,7 +15,10 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             var fixture = new Fixture();
             var list = new List<string>();
             fixture.AddManyTo(list);
-            Receipt receipt = fixture.Build<Receipt>().With(x => x.LinesOfText, list).Create();
+            Receipt receipt = new Receipt
+            {
+                LinesOfText = list
+            };
             var dataConverter = new DataConverter();
             //act
             //assert
@@ -32,9 +35,11 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
                 "MAXIMA LI, UAB\r\r\nPVM mokėtojo kodas LT230335113\r\r\nKvitas 184/54 A00010400 .\r\r\n",
                 "Bananai \r\r\n\r\r\n0,69 X 1,494 kg 1,03 A\r\r\nPVM Be PVM Su PVM |\r\r\n"
             };
-
             fixture.AddManyTo(list);
-            Receipt receipt = fixture.Build<Receipt>().With(x => x.LinesOfText, list).Create();
+            Receipt receipt = new Receipt
+            {
+                LinesOfText = list
+            };
             var dataConverter = new DataConverter();
             //act
             //assert
@@ -56,7 +61,10 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             };
 
             fixture.AddManyTo(list);
-            Receipt receipt = fixture.Build<Receipt>().With(x => x.LinesOfText, list).Create();
+            Receipt receipt = new Receipt
+            {
+                LinesOfText = list
+            };
             var dataConverter = new DataConverter();
             //act
             //assert

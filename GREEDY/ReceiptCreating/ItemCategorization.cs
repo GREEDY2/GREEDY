@@ -80,8 +80,15 @@ namespace GREEDY.ReceiptCreatings
         }
         public void AddCategory(string itemName, string category)
         {
-            File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject( 
-                new ItemClassificationModels { Text = itemName, Category = category, Prob = 0}));
+            if (itemName != null && category != null)
+            {
+                File.WriteAllText(Environments.AppConfig.CategoriesDataPath, JsonConvert.SerializeObject(
+                new ItemClassificationModels { Text = itemName, Category = category, Prob = 0 }));
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
         }
     }
 }
