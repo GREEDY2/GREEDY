@@ -1,4 +1,7 @@
 # GREEDY
+Update 2018-02-06
+Valentinas: Sometimes some npm install is missing (if you start from the new project). Need to add it manually like {npm i react-modal-dialog, npm install --save react-alert}
+
 ============
 Update 2017-12-04
 Marius: Facebook login will only work on a specific port and for authorized users only (all of you have been invited for authorization on facebook). You need to change the port of the web on your machine:

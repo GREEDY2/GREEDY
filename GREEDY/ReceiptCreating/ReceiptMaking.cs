@@ -30,22 +30,26 @@ namespace GREEDY.ReceiptCreatings
         public Receipt FullReceiptCreating(Bitmap image)
         {
             var linesOfText = _ocr.ConvertImage(image);
-            var date = GetDateForReceipt(linesOfText);
-            var shop = _shopDetection.GetShopFromData(linesOfText.Take(4).ToList());
-
-            return new Receipt
+            if(linesOfText != null)
             {
-                ReceiptDate = date,
-                UpdateDate = DateTime.Today,
-                Shop = shop,
-                LinesOfText = linesOfText
-            };
+                var date = GetDateForReceipt(linesOfText);
+                var shop = _shopDetection.GetShopFromData(linesOfText.Take(4).ToList());
+
+                return new Receipt
+                {
+                    ReceiptDate = date,
+                    UpdateDate = DateTime.Today,
+                    Shop = shop,
+                    LinesOfText = linesOfText
+                };
+            }
+            return null;
         }
 
         public DateTime? GetDateForReceipt(List<string> linesOfText)
         {
             var receiptLinesToString = String.Join(Environment.NewLine, linesOfText);
-            string pattern = @"(\d{4}-\d{2}-\d{2})(\d{2})?";
+            string pattern = @"(\d{2}(\d{2})?[-,\\]\d{2}[-,\\]\d{2}(\d{2})?)";
             receiptLinesToString = Regex.Replace(receiptLinesToString, @"~", "-");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             Match match = Regex.Match(receiptLinesToString, pattern, RegexOptions.Singleline);

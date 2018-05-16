@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Ploeh.AutoFixture;
+using AutoFixture;
 using Xunit;
 using GREEDY.OCRs;
 using Moq;
 using GREEDY.ReceiptCreatings;
+using System.Threading;
+using System.Globalization;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
@@ -14,7 +16,9 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         Fixture fixture = new Fixture();
         Mock<IOcr> ocr = new Mock<IOcr>();
         Mock<IShopDetection> shopDetection = new Mock<IShopDetection>();
-
+        CultureInfo en = new CultureInfo("en-US");
+        CultureInfo lt = new CultureInfo("lt-LT");
+        
         [Fact]
         public void ReceiptCreating_FullReceiptCreating_EmptyBitmap()
         {
@@ -23,7 +27,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
-            Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(image));
+            Assert.Null(receiptCreating.FullReceiptCreating(image));
         }
 
         [Fact]
@@ -33,27 +37,27 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
-            Assert.Throws<ArgumentNullException>(() => receiptCreating.FullReceiptCreating(null));
+            Assert.Null(receiptCreating.FullReceiptCreating(null));
         }
 
         [Fact]
-        public void ReceiptCreating_GetDateForReceipt_RandomDate()
+        public void ReceiptCreating_GetDateForReceipt_RandomDate_LTFormat()
         {
             //arrange
             var dateTime = fixture.Create<DateTime>();
             List<string> linesOfText = new List<string>
             {
-                dateTime.ToString()
+                dateTime.ToString("d", lt)
             };
             linesOfText.AddMany(fixture.Create<string>, 10);
             ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
-            Assert.Equal(dateTime.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
+            Assert.Equal(dateTime.ToString("d", en), receiptCreating.GetDateForReceipt(linesOfText).Value.ToString("d"));
         }
 
         [Fact]
-        public void ReceiptCreating_GetDateForReceipt_TodayDate()
+        public void ReceiptCreating_GetDateForReceipt_DateNotFound()
         {
             //arrange
             List<string> linesOfText = new List<string>();
@@ -61,7 +65,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
-            Assert.Equal(DateTime.Now.ToString("d"), receiptCreating.GetDateForReceipt(linesOfText).ToString());
+            Assert.Equal(null, receiptCreating.GetDateForReceipt(linesOfText));
         }
     }
 }

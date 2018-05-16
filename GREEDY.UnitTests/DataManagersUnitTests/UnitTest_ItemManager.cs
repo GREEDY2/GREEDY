@@ -3,7 +3,7 @@ using System.Linq;
 using GREEDY.Models;
 using GREEDY.DataManagers;
 using Xunit;
-using Ploeh.AutoFixture;
+using AutoFixture;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests
 {

@@ -1,5 +1,6 @@
 ﻿using GREEDY.DataManagers;
 using GREEDY.ReceiptCreatings;
+using System;
 
 namespace GREEDY.Services
 {
@@ -20,7 +21,14 @@ namespace GREEDY.Services
 
         public void AddCategory(string itemName, string category)
         {
-            _itemCategorization.AddCategory(itemName, category);
+            if (itemName != null && category != null)
+            {
+                _itemCategorization.AddCategory(itemName, category);
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
         }
     }
 }

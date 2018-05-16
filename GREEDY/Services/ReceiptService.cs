@@ -35,8 +35,11 @@ namespace GREEDY.Services
             {
                 image = _imageFormating.FormatImage(image);
                 var receipt = _receiptCreating.FullReceiptCreating(image);
-                receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
-                receipt.ItemsList = _itemCategorization.CategorizeItems(receipt.ItemsList);
+                if(receipt != null)
+                {
+                    receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
+                    receipt.ItemsList = _itemCategorization.CategorizeItems(receipt.ItemsList);
+                }
                 return receipt;
             }
             else
