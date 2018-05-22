@@ -14,36 +14,26 @@ namespace GREEDY.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        private IUserManager _userManager;
+        private IUserService _userService;
         private IAuthenticationService _authenticationService;
-        public LoginController(IUserManager userManager, IAuthenticationService authenticationService)
+        public LoginController(IUserService userService, IAuthenticationService authenticationService)
         {
-            _userManager = userManager;
+            _userService = userService;
             _authenticationService = authenticationService;
         }
         public async Task<HttpResponseMessage> Put()
         {
-            Request.RegisterForDispose((IDisposable)_userManager);
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
             LoginCredentials credentials = JsonConvert.DeserializeObject<LoginCredentials>(jsonContent);
-            if (!credentials.Username.IsUsernameValid()
-                || !credentials.Password.IsPasswordValid())
+            if (!credentials.Verify())
             {
                 return HelperClass.JsonHttpResponse<Object>(null);
             }
-            User user = _userManager.FindByUsername(credentials.Username,false);
-            if (user == null)
+            var user = _userService.LoginByUsernameOrEmail(credentials);
+            if (user != null)
             {
-                user = _userManager.FindByEmail(credentials.Username,false);
-            }
-            if (user == null)
-            {
-                return HelperClass.JsonHttpResponse<Object>(null);
-            }
-            if (user.Password.Decrypt() == credentials.Password)
-            {
-                var token = _authenticationService.GenerateToken(credentials.Username);
+                var token = _authenticationService.GenerateToken(user.Username);
                 return HelperClass.JsonHttpResponse(token);
             }
             return HelperClass.JsonHttpResponse<Object>(null);

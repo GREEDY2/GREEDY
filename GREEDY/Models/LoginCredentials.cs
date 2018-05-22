@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GREEDY.Extensions;
 
 namespace GREEDY.Models
 {
@@ -10,5 +6,10 @@ namespace GREEDY.Models
     {
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public bool Verify()
+        {
+            return Username.IsUsernameValid() && Password.IsPasswordValid();
+        }
     }
 }

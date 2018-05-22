@@ -227,18 +227,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\GraphDataController.cs" />
     <Compile Include="Controllers\ImagePostController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataManagers\CartManager.cs" />
     <Compile Include="DataManagers\CategoryManager.cs" />
     <Compile Include="DataManagers\GraphManager.cs" />
+    <Compile Include="DataManagers\ICartManager.cs" />
     <Compile Include="DataManagers\ICategoryManager.cs" />
     <Compile Include="DataManagers\IGraphManager.cs" />
     <Compile Include="DataManagers\IReceiptManager.cs" />
     <Compile Include="DataManagers\ReceiptManager.cs" />
+    <Compile Include="Data\CartDataModel.cs" />
     <Compile Include="Extensions\CredentialsCheckIfValidExtension.cs" />
     <Compile Include="Extensions\DataModelsExtensions.cs" />
     <Compile Include="ImagePreparation\DeskewImage.cs" />
@@ -270,6 +274,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ImagePreparation\IImageFormating.cs" />
     <Compile Include="Models\AverageStorePriceGraphData.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\GraphData.cs" />
     <Compile Include="Models\ItemInfo.cs" />
     <Compile Include="Models\ShopData.cs" />
@@ -321,11 +326,15 @@
     <Compile Include="DataManagers\ShopManager.cs" />
     <Compile Include="ReceiptCreating\ShopDetection.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\ICartService.cs" />
     <Compile Include="Services\IItemService.cs" />
     <Compile Include="Services\IReceiptService.cs" />
     <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <EmbeddedResource Include="Migrations\201711061716547_Initial.resx">
       <DependentUpon>201711061716547_Initial.cs</DependentUpon>
