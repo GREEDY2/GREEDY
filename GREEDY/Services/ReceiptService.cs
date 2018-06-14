@@ -1,8 +1,7 @@
 ﻿using GREEDY.Models;
-using System.Drawing;
 using GREEDY.ImagePreparation;
 using GREEDY.ReceiptCreatings;
-using System.Collections.Generic;
+using OpenCvSharp;
 
 namespace GREEDY.Services
 {
@@ -29,13 +28,13 @@ namespace GREEDY.Services
             _itemCategorization = itemCategorization;
         }
 
-        public Receipt ProcessReceiptImage(Bitmap image)
+        public Receipt ProcessReceiptImage(Mat image)
         {
             if (image != null)
             {
-                image = _imageFormating.FormatImage(image);
-                var receipt = _receiptCreating.FullReceiptCreating(image);
-                if(receipt != null)
+                var bitmapImage = _imageFormating.FormatImage(image);
+                var receipt = _receiptCreating.FullReceiptCreating(bitmapImage);
+                if (receipt != null)
                 {
                     receipt.ItemsList = _dataConverter.ReceiptToItemList(receipt);
                     receipt.ItemsList = _itemCategorization.CategorizeItems(receipt.ItemsList);
