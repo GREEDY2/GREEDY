@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/github/GREEDY2/GREEDY?svg=true)](https://ci.appveyor.com/project/valentk777/greedy)
+
 # GREEDY
 Update 2018-02-06
 Valentinas: Sometimes some npm install is missing (if you start from the new project). Need to add it manually like {npm i react-modal-dialog, npm install --save react-alert}
