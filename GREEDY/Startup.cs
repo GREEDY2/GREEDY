@@ -47,7 +47,7 @@ namespace GREEDY
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
             kernel.Bind<IImageFormating>().To<ImageFormating>();
             kernel.Bind<IItemCategorization>().To<ItemCategorization>();
-            kernel.Bind<IOcr>().To<TesseractOcr>();
+            kernel.Bind<IOcr>().To<EmguOcr>();
             kernel.Bind<IDataConverter>().To<DataConverter>();
             kernel.Bind<System.Data.Entity.DbContext>().To<Data.DataBaseModel>();
             return kernel;
