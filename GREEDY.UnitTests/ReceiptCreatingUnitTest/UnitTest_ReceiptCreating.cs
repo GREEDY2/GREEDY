@@ -16,9 +16,9 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         Fixture fixture = new Fixture();
         Mock<IOcr> ocr = new Mock<IOcr>();
         Mock<IShopDetection> shopDetection = new Mock<IShopDetection>();
-        CultureInfo en = new CultureInfo("en-US");
-        CultureInfo lt = new CultureInfo("lt-LT");
-        
+        readonly CultureInfo en = new CultureInfo("en-US");
+        readonly CultureInfo lt = new CultureInfo("lt-LT");
+
         [Fact]
         public void ReceiptCreating_FullReceiptCreating_EmptyBitmap()
         {
@@ -65,7 +65,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             ReceiptMaking receiptCreating = new ReceiptMaking(ocr.Object, shopDetection.Object);
             //act
             //assert
-            Assert.Equal(null, receiptCreating.GetDateForReceipt(linesOfText));
+            Assert.Null(receiptCreating.GetDateForReceipt(linesOfText));
         }
     }
 }

@@ -32,7 +32,7 @@ namespace GREEDY.Services
         {
             if (image != null)
             {
-                var bitmapImage = _imageFormating.FormatImage(image);
+                var bitmapImage = _imageFormating.FormatImageForOCR(image);
                 var receipt = _receiptCreating.FullReceiptCreating(bitmapImage);
                 if (receipt != null)
                 {

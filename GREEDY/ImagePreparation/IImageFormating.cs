@@ -5,6 +5,6 @@ namespace GREEDY.ImagePreparation
 {
     public interface IImageFormating
     {
-        Bitmap FormatImage(Mat bitmap);
+        Bitmap FormatImageForOCR(Mat bitmap);
     }
 }

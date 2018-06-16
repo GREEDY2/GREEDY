@@ -10,7 +10,7 @@ namespace GREEDY
 {
     public class LogHandler : DelegatingHandler
     {
-        private static object lockObject = new object();
+        private static readonly object lockObject = new object();
         private static readonly string logEntrySeperator = new String('-', 60);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
