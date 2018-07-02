@@ -3,6 +3,7 @@ import Constants from "../Shared/Constants";
 import { Button } from "reactstrap";
 import axios from "axios";
 import DocumentTitle from "react-document-title";
+import { RegistrationForm } from "react-stormpath";
 
 export class ChangePassword extends React.Component {
     constructor() {

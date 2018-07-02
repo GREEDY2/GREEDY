@@ -55,8 +55,6 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<object>(null);
             }
-
-            return new HttpResponseMessage(HttpStatusCode.Unauthorized);
         }
     }
 
@@ -87,8 +85,6 @@ namespace GREEDY.Controllers
             {
                 return HelperClass.JsonHttpResponse<object>(null);
             }
-
-            return new HttpResponseMessage(HttpStatusCode.Unauthorized);
         }
     }
 
@@ -155,8 +151,8 @@ namespace GREEDY.Controllers
             var itemToAdd = new Item {Name = parsedJson.Name, Category = parsedJson.Category, Price = parsedJson.Price};
             if (!await isAuthenticated) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             _itemManager.AddItem(itemToAdd, parsedJson.ReceiptId);
-            return new HttpResponseMessage(HttpStatusCode.OK);
 
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

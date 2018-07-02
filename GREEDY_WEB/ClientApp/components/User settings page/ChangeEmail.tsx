@@ -3,6 +3,7 @@ import { Button } from "reactstrap";
 import axios from "axios";
 import DocumentTitle from "react-document-title";
 import Constants from "../Shared/Constants";
+import { RegistrationForm } from "react-stormpath";
 
 export class ChangeEmail extends React.Component {
     constructor() {

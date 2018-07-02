@@ -84,8 +84,6 @@ namespace GREEDY.Controllers
             {
                 return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
-
-            return new HttpResponseMessage(HttpStatusCode.Unauthorized);
         }
     }
 }

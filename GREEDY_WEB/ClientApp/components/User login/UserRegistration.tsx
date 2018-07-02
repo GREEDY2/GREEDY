@@ -5,6 +5,7 @@ import DocumentTitle from "react-document-title";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Constants from "../Shared/Constants";
+import { RegistrationForm } from "react-stormpath";
 
 interface IState {
     isAccountCreated: any;

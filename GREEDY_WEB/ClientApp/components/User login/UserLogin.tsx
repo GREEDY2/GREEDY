@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { Logo } from "../Shared/Logo";
 import Constants from "../Shared/Constants";
 import { Alert } from "../Shared/Alert";
+import { LoginForm } from "react-stormpath";
+import { FacebookLogin } from "react-facebook-login-component";
 
 export class UserLogin extends React.Component<RouteComponentProps<{}>> {
     child: any;

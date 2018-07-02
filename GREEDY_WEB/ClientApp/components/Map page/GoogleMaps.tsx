@@ -2,6 +2,7 @@
 import MapOptions from "./MapOptions";
 import Marker from "./Marker";
 import UserLocationMarker from "./UserLocationMarker";
+import GoogleMap from "google-map-react";
 
 interface Props {
     shopList: any;

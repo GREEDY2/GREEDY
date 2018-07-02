@@ -87,7 +87,7 @@ namespace GREEDY.ReceiptCreating
                     ClassName = x.Name
                 });
             var classResultList = classResults.ToList();
-            return classResultList.Single(x => x.ClassName == category).Result / enumerable.Sum(x => x.Result);
+            return classResultList.Single(x => x.ClassName == category).Result / classResultList.Sum(x => x.Result);
         }
 
         private static double Calc(double dc, double d, List<string> q, double lc, ClassInfo classInfo, double v)
