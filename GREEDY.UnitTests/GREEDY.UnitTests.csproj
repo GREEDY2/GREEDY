@@ -213,17 +213,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManagersUnitTests\DatabaseMock.cs" />
-    <Compile Include="ImagePreparationUnitTest\UnitTest_ImageFormating.cs" />
-    <Compile Include="ReceiptCreatingUnitTest\UnitTest_DataConverter.cs" />
-    <Compile Include="ReceiptCreatingUnitTest\UnitTest_ItemCategorization.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTest_ItemManager.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTest_UserManager.cs" />
+    <Compile Include="ImagePreparationUnitTest\ImageFormatingTest.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\DataConverterTest.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\ItemCategorizationTest.cs" />
+    <Compile Include="DataManagersUnitTests\ItemManagerTest.cs" />
+    <Compile Include="DataManagersUnitTests\UserManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReceiptCreatingUnitTest\UnitTest_ReceiptCreating.cs" />
-    <Compile Include="ReceiptCreatingUnitTest\UnitTest_ShopDetection.cs" />
-    <Compile Include="ServicesUnitTests\UnitTest_ItemService.cs" />
-    <Compile Include="ServicesUnitTests\UnitTest_ReceiptService.cs" />
-    <Compile Include="DataManagersUnitTests\UnitTest_ShopManager.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\ReceiptCreatingTest.cs" />
+    <Compile Include="ReceiptCreatingUnitTest\ShopDetectionTest.cs" />
+    <Compile Include="ServicesUnitTests\ItemServiceTest.cs" />
+    <Compile Include="ServicesUnitTests\ReceiptServiceTest.cs" />
+    <Compile Include="DataManagersUnitTests\ShopManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

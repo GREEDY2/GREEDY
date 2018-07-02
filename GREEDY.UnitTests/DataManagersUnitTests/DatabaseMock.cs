@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using Geocoding;
 using GREEDY.Data;
 using Moq;
-using System.Data.Entity;
-using Geocoding;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests
 {
@@ -10,69 +11,136 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
     {
         public static Mock<DataBaseModel> GetDataBaseMock()
         {
-            var Receipts = new ReceiptDataModel[]
+            var receipts = new[]
             {
-                new ReceiptDataModel{ReceiptId=1},
-                new ReceiptDataModel{ReceiptId=2},
-                new ReceiptDataModel{ReceiptId=3}
+                new ReceiptDataModel {ReceiptId = 1},
+                new ReceiptDataModel {ReceiptId = 2},
+                new ReceiptDataModel {ReceiptId = 3}
             };
 
-            var Shops = new ShopDataModel[]
+            var shops = new[]
             {
-                new ShopDataModel{
-                    Name ="shop1",
-                    Location = new Location(0.0 ,0.0),
+                new ShopDataModel
+                {
+                    Name = "shop1",
+                    Location = new Location(0.0, 0.0),
                     Address = "1600 Pennsylvania Ave SE, Washington, DC 20003, USA",
-                    ShopId =1,
-                    Receipts = new ReceiptDataModel[]{Receipts[0],Receipts[2] } },
-                new ShopDataModel{
-                    Name ="shop2",
-                    Location = new Location(54.6760394,25.2738736),
+                    ShopId = 1,
+                    Receipts = new[] {receipts[0], receipts[2]}
+                },
+                new ShopDataModel
+                {
+                    Name = "shop2",
+                    Location = new Location(54.6760394, 25.2738736),
                     Address = "Naugarduko g. 24, Vilnius 03225, Lithuania",
-                    ShopId =2,
-                    Receipts = new ReceiptDataModel[]{Receipts[1] } }
+                    ShopId = 2,
+                    Receipts = new[] {receipts[1]}
+                }
             };
 
-            var Categories = new CategoryDataModel[]
+            var categories = new[]
             {
-                new CategoryDataModel{CategoryName="category1"},
-                new CategoryDataModel{CategoryName="category2"},
-                new CategoryDataModel{CategoryName="category3"}
+                new CategoryDataModel {CategoryName = "category1"},
+                new CategoryDataModel {CategoryName = "category2"},
+                new CategoryDataModel {CategoryName = "category3"}
             };
-            var Items = new ItemDataModel[]
+            var items = new[]
             {
-                new ItemDataModel{Name="item1",ItemId=1,Price=1.00m,Category=Categories[0],Receipt=Receipts[0]},
-                new ItemDataModel{Name="item2",ItemId=2,Price=1.00m,Category=Categories[1],Receipt=Receipts[0]},
-                new ItemDataModel{Name="item3",ItemId=3,Price=1.00m,Category=Categories[0],Receipt=Receipts[1]},
-                new ItemDataModel{Name="item4",ItemId=4,Price=1.00m,Category=Categories[2],Receipt=Receipts[1]},
-                new ItemDataModel{Name="item5",ItemId=5,Price=1.00m,Category=Categories[1],Receipt=Receipts[2]},
-                new ItemDataModel{Name="item6",ItemId=6,Price=1.00m,Category=Categories[2],Receipt=Receipts[2]},
-                new ItemDataModel{Name="item7",ItemId=7,Price=1.00m,Category=Categories[2],Receipt=Receipts[2]},
+                new ItemDataModel
+                {
+                    Name = "item1",
+                    ItemId = 1,
+                    Price = 1.00m,
+                    Category = categories[0],
+                    Receipt = receipts[0]
+                },
+                new ItemDataModel
+                {
+                    Name = "item2",
+                    ItemId = 2,
+                    Price = 1.00m,
+                    Category = categories[1],
+                    Receipt = receipts[0]
+                },
+                new ItemDataModel
+                {
+                    Name = "item3",
+                    ItemId = 3,
+                    Price = 1.00m,
+                    Category = categories[0],
+                    Receipt = receipts[1]
+                },
+                new ItemDataModel
+                {
+                    Name = "item4",
+                    ItemId = 4,
+                    Price = 1.00m,
+                    Category = categories[2],
+                    Receipt = receipts[1]
+                },
+                new ItemDataModel
+                {
+                    Name = "item5",
+                    ItemId = 5,
+                    Price = 1.00m,
+                    Category = categories[1],
+                    Receipt = receipts[2]
+                },
+                new ItemDataModel
+                {
+                    Name = "item6",
+                    ItemId = 6,
+                    Price = 1.00m,
+                    Category = categories[2],
+                    Receipt = receipts[2]
+                },
+                new ItemDataModel
+                {
+                    Name = "item7",
+                    ItemId = 7,
+                    Price = 1.00m,
+                    Category = categories[2],
+                    Receipt = receipts[2]
+                }
             };
 
-            var Users = new UserDataModel[]
+            var users = new[]
             {
-                new UserDataModel(){Username="username1",Password="password1",Email="email1",FullName="FullName1",Receipts=new ReceiptDataModel[]{Receipts[0],Receipts[1]} },
-                new UserDataModel(){Username="username2",Password="password2",Email="email2",FullName="FullName2",Receipts=new ReceiptDataModel[]{Receipts[2]} },
+                new UserDataModel
+                {
+                    Username = "username1",
+                    Password = "password1",
+                    Email = "email1",
+                    FullName = "FullName1",
+                    Receipts = new[] {receipts[0], receipts[1]}
+                },
+                new UserDataModel
+                {
+                    Username = "username2",
+                    Password = "password2",
+                    Email = "email2",
+                    FullName = "FullName2",
+                    Receipts = new[] {receipts[2]}
+                }
             };
 
-            Receipts[0].Items = new ItemDataModel[] { Items[0], Items[1] };
-            Receipts[0].Shop = Shops[0];
-            Receipts[0].User = Users[0];
+            receipts[0].Items = new[] {items[0], items[1]};
+            receipts[0].Shop = shops[0];
+            receipts[0].User = users[0];
 
-            Receipts[1].Items = new ItemDataModel[] { Items[2], Items[3] };
-            Receipts[1].Shop = Shops[1];
-            Receipts[1].User = Users[0];
+            receipts[1].Items = new[] {items[2], items[3]};
+            receipts[1].Shop = shops[1];
+            receipts[1].User = users[0];
 
-            Receipts[2].Items = new ItemDataModel[] { Items[4], Items[5], Items[6] };
-            Receipts[2].Shop = Shops[0];
-            Receipts[2].User = Users[1];
+            receipts[2].Items = new[] {items[4], items[5], items[6]};
+            receipts[2].Shop = shops[0];
+            receipts[2].User = users[1];
 
-            var mockReceipts = MockDbSet<ReceiptDataModel>(Receipts);
-            var mockItems = MockDbSet<ItemDataModel>(Items);
-            var mockUsers = MockDbSet<UserDataModel>(Users);
-            var mockShops = MockDbSet<ShopDataModel>(Shops);
-            var mockCategories = MockDbSet<CategoryDataModel>(Categories);
+            var mockReceipts = MockDbSet(receipts);
+            var mockItems = MockDbSet(items);
+            var mockUsers = MockDbSet(users);
+            var mockShops = MockDbSet(shops);
+            var mockCategories = MockDbSet(categories);
             var mockContext = new Mock<DataBaseModel>();
             mockContext.Setup(x => x.Set<ReceiptDataModel>()).Returns(mockReceipts.Object);
             mockContext.Setup(x => x.Set<ShopDataModel>()).Returns(mockShops.Object);
@@ -87,7 +155,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             return mockContext;
         }
 
-        private static Mock<DbSet<T>> MockDbSet<T>(T[] data) where T : class
+        private static Mock<DbSet<T>> MockDbSet<T>(IEnumerable<T> data) where T : class
         {
             var mockSet = new Mock<DbSet<T>>();
             var qdata = data.AsQueryable();

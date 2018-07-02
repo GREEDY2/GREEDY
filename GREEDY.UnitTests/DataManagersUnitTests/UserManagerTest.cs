@@ -3,14 +3,14 @@ using Xunit;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests
 {
-    public class UnitTest_UserManager
+    public class UserManagerTest
     {
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void UserManager_FindByUsername_CaseDoesNotMatch(bool logToFb)
         {
-            var userManager=new UserManager(DatabaseMock.GetDataBaseMock().Object);
+            var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
             var user = userManager.FindByUsername("UsErNaMe1", logToFb);
             Assert.NotNull(user);
         }
@@ -23,14 +23,6 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
             var user = userManager.FindByEmail("EmAil1", logToFb);
             Assert.NotNull(user);
-        }
-
-        [Fact]
-        public void UserManager_GetExistingUsers()
-        {
-            var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
-            var users = userManager.GetExistingUsers();
-            Assert.Equal(2, users.Count);
         }
 
         [Theory]
@@ -51,6 +43,14 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
             var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
             var user = userManager.FindByUsername("Username that doesn't exist", logToFb);
             Assert.Null(user);
+        }
+
+        [Fact]
+        public void UserManager_GetExistingUsers()
+        {
+            var userManager = new UserManager(DatabaseMock.GetDataBaseMock().Object);
+            var users = userManager.GetExistingUsers();
+            Assert.Equal(2, users.Count);
         }
     }
 }

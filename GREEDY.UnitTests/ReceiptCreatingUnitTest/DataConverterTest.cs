@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using GREEDY.Models;
 using AutoFixture;
+using GREEDY.Models;
 using GREEDY.ReceiptCreating;
 using Xunit;
 
@@ -9,11 +9,19 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
     public class UnitTestDataConverter
     {
         [Fact]
-        public void DataConverter_ReceiptToItemList_NoItemsToMatchRegex()
+        public void DataConverter_ReceiptToItemList_IKI_ItemToMatchRegex()
         {
             //arrange
             var fixture = new Fixture();
-            var list = new List<string>();
+            var list = new List<string>
+            {
+                "PALINK\r\r\n" +
+                "LT101937219\r\r\n",
+                "VILKYŠKIU 1,14 A\r\r\n",
+                "BANANAI 0›60 A\r\r\n",
+                "Prekiautojo 10 15057003 \r\r\n"
+            };
+
             fixture.AddManyTo(list);
             var receipt = new Receipt
             {
@@ -22,7 +30,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             var dataConverter = new DataConverter();
             //act
             //assert
-            Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 0);
+            Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 2);
         }
 
         [Fact]
@@ -47,28 +55,20 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
         }
 
         [Fact]
-        public void DataConverter_ReceiptToItemList_IKI_ItemToMatchRegex()
+        public void DataConverter_ReceiptToItemList_NoItemsToMatchRegex()
         {
             //arrange
             var fixture = new Fixture();
-            var list = new List<string>
-            {
-                "PALINK\r\r\n" +
-                "LT101937219\r\r\n",
-                "VILKYŠKIU 1,14 A\r\r\n",
-                "BANANAI 0›60 A\r\r\n",
-                "Prekiautojo 10 15057003 \r\r\n"
-            };
-
+            var list = new List<string>();
             fixture.AddManyTo(list);
-            Receipt receipt = new Receipt
+            var receipt = new Receipt
             {
                 LinesOfText = list
             };
             var dataConverter = new DataConverter();
             //act
             //assert
-            Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 2);
+            Assert.True(dataConverter.ReceiptToItemList(receipt).Count == 0);
         }
     }
 }
