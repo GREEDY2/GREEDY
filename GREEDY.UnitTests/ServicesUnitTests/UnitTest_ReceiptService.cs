@@ -4,6 +4,7 @@ using Moq;
 using Xunit;
 using GREEDY.ImagePreparation;
 using GREEDY.ReceiptCreatings;
+using OpenCvSharp;
 
 namespace GREEDY.UnitTests.ServicesUnitTests
 {
@@ -33,7 +34,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
         {
             //arrange
             var imageFormating = new Mock<IImageFormating>();
-            Bitmap image = new Bitmap(1, 1);
+            Mat image = new Mat();
             var receiptCreating = new Mock<IReceiptMaking>();
             var dataConverter = new Mock<IDataConverter>();
             var itemCategorization = new Mock<IItemCategorization>();

@@ -44,9 +44,8 @@ namespace GREEDY.Services
             try
             {
                 var simplePrinciple = GetPrincipal(token);
-                var identity = simplePrinciple.Identity as ClaimsIdentity;
 
-                if (identity == null)
+                if (!(simplePrinciple.Identity is ClaimsIdentity identity))
                 {
                     return Task.FromResult<bool>(false);
                 }
@@ -68,7 +67,7 @@ namespace GREEDY.Services
             {
                 return Task.FromResult<bool>(false);
             }
-            
+
             return Task.FromResult<bool>(true);
         }
 
@@ -77,9 +76,8 @@ namespace GREEDY.Services
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
-                if (jwtToken == null)
+                if (!(tokenHandler.ReadToken(token) is JwtSecurityToken jwtToken))
                 {
                     return null;
                 }

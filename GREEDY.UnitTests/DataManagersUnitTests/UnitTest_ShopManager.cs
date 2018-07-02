@@ -6,7 +6,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
 {
     public class UnitTest_ShopManager
     {
-        Fixture fixture = new Fixture();
+        readonly Fixture fixture = new Fixture();
         ShopManager shopManager = new ShopManager(DatabaseMock.GetDataBaseMock().Object);
 
         [Fact]
@@ -21,7 +21,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
         {
             var userName = string.Empty;
             var shops = shopManager.GetAllUserShops(userName);
-            Assert.Equal(0, shops.Count);
+            Assert.Empty(shops);
         }
 
         [Fact]

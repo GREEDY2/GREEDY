@@ -9,7 +9,7 @@ namespace GREEDY.OCRs
     {
         private TesseractEngine _tesseract;
 
-        public List<string> ConvertImage(Bitmap image)
+        TesseractOcr()
         {
             _tesseract = new TesseractEngine
             (
@@ -17,6 +17,10 @@ namespace GREEDY.OCRs
                 Environments.AppConfig.OcrLanguage,
                 EngineMode.TesseractOnly
             );
+        }
+
+        public List<string> ConvertImage(Bitmap image)
+        {
             var page = _tesseract.Process(image);
             return page.GetLinesOfText();
         }

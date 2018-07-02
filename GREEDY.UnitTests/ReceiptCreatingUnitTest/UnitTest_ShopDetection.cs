@@ -9,7 +9,7 @@ namespace GREEDY.UnitTests.DataManagersUnitTests
     public class UnitTest_ShopDetection
     {
         Fixture fixture = new Fixture();
-        Location location = new Location(54.7076415, 25.2200897);
+        readonly Location location = new Location(54.7076415, 25.2200897);
         ShopDetection shopDetection = new ShopDetection();
 
         [Fact]

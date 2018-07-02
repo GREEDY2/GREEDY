@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using OpenCvSharp;
+using System.Drawing;
 
 namespace GREEDY.ImagePreparation
 {
     public interface IImageFormating
     {
-        Bitmap FormatImage(Bitmap bitmap);
+        Bitmap FormatImageForOCR(Mat bitmap);
     }
 }
