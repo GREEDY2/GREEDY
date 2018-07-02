@@ -1,6 +1,6 @@
 ﻿using GREEDY.Models;
-using GREEDY.ReceiptCreatings;
 using System.Collections.Generic;
+using GREEDY.ReceiptCreating;
 using Xunit;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest

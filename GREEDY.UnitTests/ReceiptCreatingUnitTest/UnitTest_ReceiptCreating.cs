@@ -5,9 +5,9 @@ using AutoFixture;
 using Xunit;
 using GREEDY.OCRs;
 using Moq;
-using GREEDY.ReceiptCreatings;
 using System.Threading;
 using System.Globalization;
+using GREEDY.ReceiptCreating;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {

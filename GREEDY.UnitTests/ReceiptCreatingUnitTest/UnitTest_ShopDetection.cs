@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using Geocoding;
-using GREEDY.ReceiptCreatings;
+using GREEDY.ReceiptCreating;
 
 namespace GREEDY.UnitTests.DataManagersUnitTests
 {

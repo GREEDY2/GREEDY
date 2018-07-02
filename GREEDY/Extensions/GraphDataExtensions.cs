@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GREEDY.Models;
 
 namespace GREEDY.Extensions
@@ -20,16 +17,12 @@ namespace GREEDY.Extensions
 
             return list;
         }*/
-        public static List<GraphData> OverflowHandler (this List<GraphData> list, int itemsToShow)
+        public static List<GraphData> OverflowHandler(this List<GraphData> list, int itemsToShow)
         {
-            if (list.Count <= itemsToShow)
-            {
-                return list;
-            }
-            var orderedList = list.OrderBy(x => x.value);
-            var overflowSum = orderedList.Skip(itemsToShow).Sum(x => x.value);
+            if (list.Count <= itemsToShow) return list;
+            var orderedList = list.OrderBy(x => x.value).ToList();
             var newList = orderedList.Take(itemsToShow).ToList();
-            
+
             return newList;
         }
     }

@@ -1,15 +1,17 @@
-﻿using Owin;
+﻿using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Web.Http;
+using GREEDY.Data;
 using GREEDY.DataManagers;
-using GREEDY.Services;
+using GREEDY.ImagePreparation;
 using GREEDY.OCRs;
+using GREEDY.ReceiptCreating;
+using GREEDY.Services;
+using Ninject;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
-using System.Reflection;
-using GREEDY.ImagePreparation;
-using Ninject;
-using GREEDY.ReceiptCreatings;
+using Owin;
 
 namespace GREEDY
 {
@@ -17,17 +19,17 @@ namespace GREEDY
     {
         public void Configuration(IAppBuilder appBuilder)
         {
-            HttpConfiguration CONFIG = new HttpConfiguration();
-            CONFIG.EnableCors();
-            CONFIG.Formatters.Select(x => x == CONFIG.Formatters.JsonFormatter);
-            CONFIG.Routes.MapHttpRoute(
-                name: "createUserApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-                );
-            CONFIG.MessageHandlers.Add(new LogHandler());
+            var config = new HttpConfiguration();
+            config.EnableCors();
+            config.Formatters.Select(x => x == config.Formatters.JsonFormatter);
+            config.Routes.MapHttpRoute(
+                "createUserApi",
+                "api/{controller}/{id}",
+                new {id = RouteParameter.Optional}
+            );
+            config.MessageHandlers.Add(new LogHandler());
 
-            appBuilder.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(CONFIG);
+            appBuilder.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(config);
         }
 
         private static StandardKernel CreateKernel()
@@ -49,7 +51,7 @@ namespace GREEDY
             kernel.Bind<IItemCategorization>().To<ItemCategorization>();
             kernel.Bind<IOcr>().To<EmguOcr>();
             kernel.Bind<IDataConverter>().To<DataConverter>();
-            kernel.Bind<System.Data.Entity.DbContext>().To<Data.DataBaseModel>();
+            kernel.Bind<DbContext>().To<DataBaseModel>();
             return kernel;
         }
     }

@@ -1,15 +1,15 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using GREEDY.Extensions;
 using Tesseract;
-using System.Collections.Generic;
 
 namespace GREEDY.OCRs
 {
     public class TesseractOcr : IOcr
     {
-        private TesseractEngine _tesseract;
+        private readonly TesseractEngine _tesseract;
 
-        TesseractOcr()
+        private TesseractOcr()
         {
             _tesseract = new TesseractEngine
             (

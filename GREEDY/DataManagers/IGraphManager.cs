@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GREEDY.Models;
+﻿using GREEDY.Models;
 
 namespace GREEDY.DataManagers
 {

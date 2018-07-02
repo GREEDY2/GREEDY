@@ -7,21 +7,21 @@ namespace GREEDY.DataManagers
 {
     public class ReceiptManager : IReceiptManager, IDisposable
     {
-        private DbContext context;
+        private readonly DbContext _context;
 
         public ReceiptManager(DbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            _context.Dispose();
         }
 
         public ReceiptDataModel GetReceipt(int receiptId)
         {
-            var receipt = context.Set<ReceiptDataModel>()
+            var receipt = _context.Set<ReceiptDataModel>()
                 .Include(x => x.Shop)
                 .First(x => x.ReceiptId == receiptId);
             return receipt;

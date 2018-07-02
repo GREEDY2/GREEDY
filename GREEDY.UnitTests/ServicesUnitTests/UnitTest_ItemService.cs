@@ -1,13 +1,13 @@
 ﻿using System;
 using GREEDY.DataManagers;
+using GREEDY.ReceiptCreating;
 using GREEDY.Services;
 using Moq;
 using Xunit;
-using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ServicesUnitTests
 {
-    public class UnitTest_ItemService
+    public class UnitTestItemService
     {
         [Fact]
         public void ItemService_NullStrings_NullException()
@@ -16,7 +16,7 @@ namespace GREEDY.UnitTests.ServicesUnitTests
             var dataConverter = new Mock<IDataConverter>();
             var dataManager = new Mock<IItemManager>();
             var itemCategorization = new Mock<IItemCategorization>();
-            ItemService itemService = new ItemService(dataConverter.Object, dataManager.Object, itemCategorization.Object);
+            ItemService itemService = new ItemService(itemCategorization.Object);
             //act
             //assert
             Assert.Throws<NullReferenceException>(() => itemService.AddCategory(null, null));

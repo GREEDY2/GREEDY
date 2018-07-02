@@ -6,14 +6,7 @@ namespace GREEDY.Extensions
     {
         public static bool HasValue(this ShopDataModel shop)
         {
-            if (shop != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return shop != null;
         }
     }
 }

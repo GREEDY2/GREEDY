@@ -1,15 +1,15 @@
-﻿using Geocoding;
-using Geocoding.Google;
-using GREEDY.Data;
-using GREEDY.DataManagers;
-using GREEDY.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Geocoding;
+using Geocoding.Google;
+using GREEDY.Data;
+using GREEDY.DataManagers;
+using GREEDY.Models;
 
-namespace GREEDY.ReceiptCreatings
+namespace GREEDY.ReceiptCreating
 {
     public class ShopDetection : IShopDetection
     {
@@ -22,30 +22,21 @@ namespace GREEDY.ReceiptCreatings
 
         public Shop GetShopFromData(List<string> linesOfText)
         {
-            var FirstLine = String.Join(String.Empty, linesOfText);
-            FirstLine = Regex.Replace(FirstLine, @"\r\r\n", " ");
-            var Allshops = _shops.GetExistingShops();
-            var ShopName = GetShopName(FirstLine, Allshops);
-            if(ShopName == null)
-            {
+            var firstLine = string.Join(string.Empty, linesOfText);
+            firstLine = Regex.Replace(firstLine, @"\r\r\n", " ");
+            var allshops = _shops.GetExistingShops();
+            var shopName = GetShopName(firstLine, allshops);
+            if (shopName == null)
                 return null;
-            }
-            else
-            {
-                return GetShopWithLocation(FirstLine, Allshops
-                    .Where(x => x.Name == ShopName || x.SubName == ShopName).ToList());
-            }
+            return GetShopWithLocation(firstLine, allshops
+                .Where(x => x.Name == shopName || x.SubName == shopName).ToList());
         }
 
-        public Shop GetShopWithLocation(string FirstLine, List<Shop> shops)
+        public Shop GetShopWithLocation(string firstLine, List<Shop> shops)
         {
-            foreach (Shop element in shops)
-            {
-                if (FirstLine.ToUpper().Contains(element.Address.ToString().ToUpper()))
-                {
+            foreach (var element in shops)
+                if (firstLine.ToUpper().Contains(element.Address.ToUpper()))
                     return element;
-                }
-            }
             return new Shop
             {
                 Name = shops.First().Name,
@@ -55,35 +46,32 @@ namespace GREEDY.ReceiptCreatings
         }
 
         //need to improve detection with Levenshtein distance
-        public async Task<(string, Location)> GetAddressAndLocation(string[] FirstLine)
+        public async Task<(string, Location)> GetAddressAndLocation(string[] firstLine)
         {
-            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = Environments.AppConfig.GoogleMapsGeocodingAPIKey };
-            for (int i = 1; i < FirstLine.Count() - 2; i++)
+            IGeocoder geocoder = new GoogleGeocoder {ApiKey = Environments.AppConfig.GoogleMapsGeocodingAPIKey};
+            for (var i = 1; i < firstLine.Count() - 2; i++)
             {
-                var text = FirstLine[i - 1] + FirstLine[i] + FirstLine[i + 1] + FirstLine[i + 2];
-                IEnumerable<Address> addresses = await geocoder.GeocodeAsync(text);
-                if (addresses.Count() != 0)
-                {
-                    string address = addresses.First().FormattedAddress;
-                    Location location = addresses.First().Coordinates;
-                    return (address, location);
-                }
+                var text = firstLine[i - 1] + firstLine[i] + firstLine[i + 1] + firstLine[i + 2];
+                var addresses = await geocoder.GeocodeAsync(text);
+                var addressesList = addresses.ToList();
+                if (!addressesList.Any()) continue;
+                var address = addressesList.First().FormattedAddress;
+                var location = addressesList.First().Coordinates;
+                return (address, location);
             }
+
             return (null, new Location(0, 0));
         }
 
-        public string GetShopName(string FirstLines, List<Shop> shops)
+        public string GetShopName(string firstLines, List<Shop> shops)
         {
-            var names = shops.Select(x => x.Name).OfType<string>().Distinct()
-                .Concat(shops.Select(x => x.SubName).OfType<string>().Distinct()).ToList();
+            var names = shops?.Select(x => x.Name).Distinct()
+                .Concat(shops.Select(x => x.SubName).Distinct()).ToList();
 
-            foreach (string element in names)
-            {
-                if (FirstLines.IndexOf(element, StringComparison.OrdinalIgnoreCase) > 0)
-                {
+            if (names == null) return null;
+            foreach (var element in names)
+                if (firstLines.IndexOf(element, StringComparison.OrdinalIgnoreCase) > 0)
                     return element;
-                }
-            }
             return null;
         }
     }

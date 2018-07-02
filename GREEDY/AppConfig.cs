@@ -32,6 +32,5 @@ namespace GREEDY
         public string GoogleMapsGeocodingAPIKey => ConfigurationManager.AppSettings["GoogleMapsGeocodingAPIKey"];
         public string LogPath => ConfigurationManager.AppSettings["LogPath"];
         public int ShowItemsInGraphs => int.Parse(ConfigurationManager.AppSettings["ShowItemsInGraphs"]);
-
     }
 }

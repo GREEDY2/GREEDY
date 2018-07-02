@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using GREEDY.Models;
 using AutoFixture;
+using GREEDY.ReceiptCreating;
 using Xunit;
-using GREEDY.ReceiptCreatings;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
-    public class UnitTest_DataConverter
+    public class UnitTestDataConverter
     {
         [Fact]
         public void DataConverter_ReceiptToItemList_NoItemsToMatchRegex()
@@ -15,7 +15,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
             var fixture = new Fixture();
             var list = new List<string>();
             fixture.AddManyTo(list);
-            Receipt receipt = new Receipt
+            var receipt = new Receipt
             {
                 LinesOfText = list
             };
@@ -36,7 +36,7 @@ namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
                 "Bananai \r\r\n\r\r\n0,69 X 1,494 kg 1,03 A\r\r\nPVM Be PVM Su PVM |\r\r\n"
             };
             fixture.AddManyTo(list);
-            Receipt receipt = new Receipt
+            var receipt = new Receipt
             {
                 LinesOfText = list
             };

@@ -1,7 +1,7 @@
-﻿using System.IO;
-using System.Text;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
-using System;
+using System.Text;
 
 namespace GREEDY.Extensions
 {
@@ -9,48 +9,55 @@ namespace GREEDY.Extensions
     {
         public static string Encrypt(this string clearText)
         {
-            string EncryptionKey = Environments.AppConfig.EncryptionKey;
-            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
-            using (Aes encryptor = Aes.Create())
+            var encryptionKey = Environments.AppConfig.EncryptionKey;
+            var clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (var encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] 
-                    { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                var pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[]
+                    {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+                if (encryptor == null) return clearText;
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), 
+                    using (var cs = new CryptoStream(ms, encryptor.CreateEncryptor(),
                         CryptoStreamMode.Write))
                     {
                         cs.Write(clearBytes, 0, clearBytes.Length);
                     }
+
                     clearText = Convert.ToBase64String(ms.ToArray());
                 }
             }
+
             return clearText;
         }
 
         public static string Decrypt(this string cipherText)
         {
-            string EncryptionKey = Environments.AppConfig.EncryptionKey;
+            var encryptionKey = Environments.AppConfig.EncryptionKey;
             cipherText = cipherText.Replace(" ", "+");
             try
             {
-                byte[] cipherBytes = Convert.FromBase64String(cipherText);
-                using (Aes encryptor = Aes.Create())
+                var cipherBytes = Convert.FromBase64String(cipherText);
+                using (var encryptor = Aes.Create())
                 {
-                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] 
-                        { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                    encryptor.Key = pdb.GetBytes(32);
-                    encryptor.IV = pdb.GetBytes(16);
-                    using (MemoryStream ms = new MemoryStream())
+                    var pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[]
+                        {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+                    if (encryptor != null)
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), 
-                            CryptoStreamMode.Write))
+                        encryptor.Key = pdb.GetBytes(32);
+                        encryptor.IV = pdb.GetBytes(16);
+                        using (var ms = new MemoryStream())
                         {
-                            cs.Write(cipherBytes, 0, cipherBytes.Length);
+                            using (var cs = new CryptoStream(ms, encryptor.CreateDecryptor(),
+                                CryptoStreamMode.Write))
+                            {
+                                cs.Write(cipherBytes, 0, cipherBytes.Length);
+                            }
+
+                            cipherText = Encoding.Unicode.GetString(ms.ToArray());
                         }
-                        cipherText = Encoding.Unicode.GetString(ms.ToArray());
                     }
                 }
             }
@@ -59,6 +66,7 @@ namespace GREEDY.Extensions
                 Console.WriteLine($"Invalid format of cipher text.\r\n{ex}");
                 return cipherText;
             }
+
             return cipherText;
         }
     }
