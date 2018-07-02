@@ -1,8 +1,7 @@
-﻿import * as React from 'react';
-import GoogleMap from 'google-map-react';
-import MapOptions from './MapOptions';
-import Marker from './Marker';
-import UserLocationMarker from './UserLocationMarker';
+﻿import * as React from "react";
+import MapOptions from "./MapOptions";
+import Marker from "./Marker";
+import UserLocationMarker from "./UserLocationMarker";
 
 interface Props {
     shopList: any;
@@ -13,8 +12,8 @@ interface State {
     zoom: number;
     myLocation: {
         lat: number,
-        lng: number
-    }
+        lng: number;
+    };
     hoverKey: number;
     clickKey: number;
 }
@@ -49,7 +48,7 @@ export class GoogleMaps extends React.Component<Props, State> {
                 myLocation: { lat: position.coords.latitude, lng: position.coords.longitude }
             });
         });
-    }
+    };
 
     // because of marker non symmetric,
     // we transform it central point to measure distance from marker circle center
@@ -66,32 +65,32 @@ export class GoogleMaps extends React.Component<Props, State> {
         // the function makes the clickable location into something like a circle
         // the divide by 2 at the end aplifies the clickable location 2 times
         return Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y)) / 2;
-    }
+    };
 
     _onBoundsChange = ({ center, zoom, bounds, ...other }) => {
         this.setState({ center });
-    }
+    };
 
     _onChildClick = (key, childProps) => {
         this.setState({
             center: [childProps.lat, childProps.lng],
             clickKey: key
         });
-    }
+    };
 
     onChildUnclick = () => {
         this.setState({
             clickKey: undefined
         });
-    }
+    };
 
-    _onChildMouseEnter = (key/*, childProps*/) => {
+    _onChildMouseEnter = (key /*, childProps*/) => {
         this.setState({ hoverKey: key });
-    }
+    };
 
     _onChildMouseLeave = (/* key, childProps */) => {
         this.setState({ hoverKey: undefined });
-    }
+    };
 
     render() {
         const shopMarkers = this.props.shopList.map((shop, index) => {
@@ -109,8 +108,7 @@ export class GoogleMaps extends React.Component<Props, State> {
                     hover={hover}
                     click={click}
                     unclick={this.onChildUnclick}
-                    shopInfo={shop}
-                />
+                    shopInfo={shop}/>
             );
         });
 
@@ -125,11 +123,10 @@ export class GoogleMaps extends React.Component<Props, State> {
                 onChange={this._onBoundsChange}
                 onChildClick={this._onChildClick}
                 onChildMouseEnter={this._onChildMouseEnter}
-                onChildMouseLeave={this._onChildMouseLeave}
-            >
+                onChildMouseLeave={this._onChildMouseLeave}>
                 {shopMarkers}
                 {this.state.myLocation &&
-                    <UserLocationMarker {...this.state.myLocation} />
+                    <UserLocationMarker {...this.state.myLocation}/>
                 }
             </GoogleMap >
         );

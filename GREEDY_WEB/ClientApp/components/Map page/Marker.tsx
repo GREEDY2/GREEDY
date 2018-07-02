@@ -1,5 +1,5 @@
-﻿import * as React from 'react';
-import { MapHint } from './MapHint';
+﻿import * as React from "react";
+import { MapHint } from "./MapHint";
 
 interface Props {
     key: number;
@@ -20,10 +20,10 @@ export default class Marker extends React.Component<Props> {
         return (
             <div>
                 <MapHint hover={this.props.hover} click={this.props.click}
-                    content={this.props.shopInfo} close={this.props.unclick} />
-                <div className='pin' style={{ cursor: 'pointer'}}></div>
-                <div className='pulse'></div>
-                
+                         content={this.props.shopInfo} close={this.props.unclick}/>
+                <div className="pin" style={{ cursor: "pointer" }}></div>
+                <div className="pulse"></div>
+
             </div>
         );
     }
