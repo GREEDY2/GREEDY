@@ -82,10 +82,6 @@ namespace GREEDY.ImagePreparation
 
                 contourIndex = hierarchyIndexes[contourIndex].Next;
             }
-
-            // for testing:
-            //Cv2.DrawContours(original, contours, -1, new Scalar(0, 255, 0), 10);
-
             //Crop the image
             imageOut = new Mat(imageOut, biggestContourRect);
         }

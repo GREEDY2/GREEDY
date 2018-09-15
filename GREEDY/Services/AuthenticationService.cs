@@ -33,10 +33,7 @@ namespace GREEDY.Services
             return token;
         }
 
-        public Task<bool> ValidateToken(string token)
-        {
-            return ValidateToken(token, out var username);
-        }
+        public Task<bool> ValidateToken(string token) => ValidateToken(token, out var username);
 
         public Task<bool> ValidateToken(string token, out string username)
         {

@@ -15,12 +15,7 @@ namespace GREEDY.DataManagers
             _context = context;
         }
 
-        public List<string> GetAllDistinctCategories()
-        {
-            {
-                return _context.Set<CategoryDataModel>().Select(x => x.CategoryName).ToList();
-            }
-        }
+        public List<string> GetAllDistinctCategories () => _context.Set<CategoryDataModel> ().Select (x => x.CategoryName).ToList ();
 
         public void Dispose()
         {

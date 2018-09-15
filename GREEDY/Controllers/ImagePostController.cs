@@ -40,38 +40,10 @@ namespace GREEDY.Controllers
                 {
                     requestStream.CopyTo(memoryStream);
                     Mat.FromStream(memoryStream, ImreadModes.Unchanged).CopyTo(receiptImage);
-                    using (new Window("FirstPicture", WindowMode.Normal, receiptImage))
-                    {
-                    }
                 }
             }
 
             var receipt = _receiptService.ProcessReceiptImage(receiptImage);
-
-
-            //////need to test
-            ////var receiptImage = new Mat();
-            ////using (var requestStream = await Request.Content.ReadAsStreamAsync())
-            ////{
-            ////    Mat.FromStream(requestStream, ImreadModes.Unchanged).CopyTo(receiptImage);
-            ////}
-
-
-            //var requestStream = await Request.Content.ReadAsStreamAsync();
-            // ImreadModes.GrayScale or  ImreadModes.Unchanged
-
-            //Mat.FromStream(requestStream, ImreadModes.Unchanged).CopyTo(receiptImage);
-            //requestStream.Close();
-
-            ////////______________________________ testing ______________________________
-            //////using (new Window("FirstPicture", WindowMode.Normal, receiptImage))
-            //////{
-            //////}
-            ////////_____________________________________________________________________
-
-            //////var receipt = _receiptService.ProcessReceiptImage(receiptImage);
-
-
             if (receipt.ItemsList.Count == 0) return HelperClass.JsonHttpResponse<object>(null);
 
             if (!await isAuthenticated) return new HttpResponseMessage(HttpStatusCode.Unauthorized);

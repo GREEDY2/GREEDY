@@ -32,7 +32,6 @@ namespace GREEDY.ReceiptCreating
                     item.Category = itemInfo.Category;
             //TODO: add data to training is working perfectry, but I commented this part, because during
             //testing we chare a lot of trash data. So, we need to think about diferent way to update training data
-
             //AddNewDataToTrainingData(NewData);
             return itemList;
         }
@@ -46,15 +45,13 @@ namespace GREEDY.ReceiptCreating
                 throw new NullReferenceException();
         }
 
-        private void UpdateClassifier()
-        {
-            _classifier = new NaiveBayesianClassifier(_trainingData);
-        }
+        private void UpdateClassifier() => _classifier = new NaiveBayesianClassifier(_trainingData);
 
         // reads info from file
         public static void ReadCategories()
         {
             if (!File.Exists(Environments.AppConfig.CategoriesDataPath))
+            {
                 try
                 {
                     File.Create(Environments.AppConfig.CategoriesDataPath);
@@ -63,9 +60,12 @@ namespace GREEDY.ReceiptCreating
                 {
                     //TODO: need to think about possible exception if training data is missing
                 }
+            }
             else
+            {
                 _trainingData = JsonConvert.DeserializeObject<List<ItemClassificationModels>>
-                    (File.ReadAllText(Environments.AppConfig.CategoriesDataPath));
+                      (File.ReadAllText(Environments.AppConfig.CategoriesDataPath));
+            }
 
             if (_trainingData == null) _trainingData = new List<ItemClassificationModels>();
         }
