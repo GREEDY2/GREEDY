@@ -55,7 +55,7 @@
             if (percentage > 1) {
                 clearTimeout(this.timer);
             } else {
-                let yScroll: number | string | Object;
+                let yScroll: number;
                 yScroll = settings.easing.outQuint(0, elapsed, offset, targetY, settings.duration);
                 window.scrollTo(0, yScroll);
                 this.timer = setTimeout(step, 10);
