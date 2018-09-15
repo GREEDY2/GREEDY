@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using GREEDY.Models;
 
-namespace GREEDY.ReceiptCreatings
+namespace GREEDY.ReceiptCreating
 {
     public interface IDataConverter
     {

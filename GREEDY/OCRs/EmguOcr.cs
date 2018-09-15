@@ -1,9 +1,9 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using Emgu.CV;
 using Emgu.CV.OCR;
 using Emgu.CV.Structure;
 using GREEDY.Extensions;
-using System.Collections.Generic;
 
 namespace GREEDY.OCRs
 {
@@ -17,7 +17,8 @@ namespace GREEDY.OCRs
             (
                 Environments.AppConfig.TesseractDataPath,
                 Environments.AppConfig.OcrLanguage,
-                OcrEngineMode.Default);
+                OcrEngineMode.Default
+			);
         }
 
         public List<string> ConvertImage(Bitmap image)

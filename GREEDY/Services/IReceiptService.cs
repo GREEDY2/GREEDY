@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using GREEDY.Models;
-using System.Drawing;
+﻿using GREEDY.Models;
+using OpenCvSharp;
 
 namespace GREEDY.Services
 {
     public interface IReceiptService
     {
-        Receipt ProcessReceiptImage(Bitmap image);
+        Receipt ProcessReceiptImage(Mat image);
     }
 }

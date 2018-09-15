@@ -1,19 +1,18 @@
-﻿import * as React from 'react';
-import Constants from './Constants';
-import idbPromise from './idbPromise';
-import idb from 'idb';
+﻿import * as React from "react";
+import Constants from "./Constants";
+import idbPromise from "./idbPromise";
 
 export function putArrayToDb(tableName, arrayToPut) {
     if (idbPromise) {
         idbPromise.then(db => {
             if (!db) return;
 
-            var tx = db.transaction(tableName, 'readwrite');
+            var tx = db.transaction(tableName, "readwrite");
             var store = tx.objectStore(tableName);
             arrayToPut.map(arrayItem => {
                 store.put(arrayItem);
             });
-        })
+        });
     }
 }
 
@@ -22,12 +21,12 @@ export function putDistinctValuesArrayToDb(tableName, ditinctValueArrayToPut) {
         idbPromise.then(db => {
             if (!db) return;
 
-            var tx = db.transaction(tableName, 'readwrite');
+            var tx = db.transaction(tableName, "readwrite");
             var store = tx.objectStore(tableName);
             ditinctValueArrayToPut.map(arrayItem => {
                 store.put(Constants.dummyValue, arrayItem);
             });
-        })
+        });
     }
 }
 
@@ -36,7 +35,7 @@ export function deleteRowFromDb(tableName, key) {
         idbPromise.then(db => {
             if (!db) return;
 
-            var tx = db.transaction(tableName, 'readwrite');
+            var tx = db.transaction(tableName, "readwrite");
             var store = tx.objectStore(tableName);
             return store.openCursor();
         }).then(function deleteRow(cursor) {
@@ -45,7 +44,7 @@ export function deleteRowFromDb(tableName, key) {
                 cursor.delete();
                 return;
             }
-            return cursor.continue().then(deleteRow)
+            return cursor.continue().then(deleteRow);
         });
     }
 }
@@ -55,8 +54,8 @@ export function clearDb(dbName, tableNamesArray) {
         idbPromise.then(db => {
             if (!db) return;
             tableNamesArray.map(tableName => {
-                db.transaction(tableName, 'readwrite').objectStore(tableName).clear();
-            })
-        })
+                db.transaction(tableName, "readwrite").objectStore(tableName).clear();
+            });
+        });
     }
 }

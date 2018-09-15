@@ -1,4 +1,4 @@
-namespace GREEDY.Migrations
+﻿namespace GREEDY.Migrations
 {
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -55,7 +55,7 @@ namespace GREEDY.Migrations
                     Address = "Antakalnio g. 55, Vilnius"},
                 new ShopDataModel() {
                     Name ="RIMI", Location = new Geocoding.Location(54.678257,25.287651),
-                    Address = "Did�ioji g. 28, Vilnius"},
+                    Address = "Didžioji g. 28, Vilnius"},
                 new ShopDataModel() {
                     Name ="RIMI", Location = new Geocoding.Location(54.673904,25.213369),
                     Address = "Architektu g. 19, Vilnius"},
@@ -103,9 +103,43 @@ namespace GREEDY.Migrations
                     Name ="NORFA", Location = new Geocoding.Location(0,0)},
             };
 
+            var Categories = new CategoryDataModel[]{
+                new CategoryDataModel() {
+                CategoryName = "dairy"},
+                new CategoryDataModel() {
+                CategoryName = "alcoholic drinks"},
+                new CategoryDataModel() {
+                CategoryName = "fruits"},
+                new CategoryDataModel() {
+                CategoryName = "vegetables"},
+                new CategoryDataModel() {
+                CategoryName = "flour products"},
+                new CategoryDataModel() {
+                CategoryName = "non-alcoholic drinks"},
+                new CategoryDataModel() {
+                CategoryName = "sweets"},
+                new CategoryDataModel() {
+                CategoryName = "meat products"},
+                new CategoryDataModel() {
+                CategoryName = "snacks"},
+                new CategoryDataModel() {
+                CategoryName = "deposit"},
+                new CategoryDataModel() {
+                CategoryName = "other"},
+                new CategoryDataModel() {
+                CategoryName = "discount"},
+                new CategoryDataModel() {
+                CategoryName = "food"}
+            };
+
             foreach (ShopDataModel shop in Shops)
                 if (context.Set<ShopDataModel>().FirstOrDefault(x => x.Name == shop.Name) == null)
                     context.Set<ShopDataModel>().Add(shop);
+
+            foreach (CategoryDataModel categ in Categories)
+                if (context.Set<CategoryDataModel>().FirstOrDefault(x => x.CategoryName == categ.CategoryName) == null)
+                    context.Set<CategoryDataModel>().Add(categ);
+
             context.SaveChanges();
         }
     }

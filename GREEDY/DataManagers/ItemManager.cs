@@ -1,27 +1,32 @@
-﻿using System.Collections.Generic;
-using GREEDY.Models;
-using GREEDY.Data;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System;
+using System.Linq;
+using GREEDY.Data;
+using GREEDY.Models;
+using GREEDY.Properties;
 
 namespace GREEDY.DataManagers
 {
     public class ItemManager : IItemManager, IDisposable
     {
-        private DbContext context;
+        private readonly DbContext _context;
+
         public ItemManager(DbContext context)
         {
-            this.context = context;
+            _context = context;
         }
+
+        void IDisposable.Dispose()
+        {
+            _context.Dispose();
+        }
+
         public int AddItems(Receipt receipt, string username)
         {
-            UserDataModel userDataModel = context.Set<UserDataModel>()
-                .FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
-            if (userDataModel == null)
-            {
-                throw new Exception(Properties.Resources.UserNotFound);
-            }
+            var userDataModel = _context.Set<UserDataModel>()
+                .FirstOrDefault(x => string.Equals(x.Username, username, StringComparison.CurrentCultureIgnoreCase));
+            if (userDataModel == null) throw new Exception(Resources.UserNotFound);
 
             ShopDataModel shopDataModel;
             if (receipt.Shop == null)
@@ -30,22 +35,16 @@ namespace GREEDY.DataManagers
             }
             else
             {
-                var shops = context.Set<ShopDataModel>()
-                        .Select(x => x)
-                        .Where(x => x.Name == receipt.Shop.Name);
+                var shops = _context.Set<ShopDataModel>()
+                    .Select(x => x)
+                    .Where(x => x.Name == receipt.Shop.Name);
 
-                if (receipt.Shop.Address == null)
-                {
-                    shopDataModel = shops.Where(x => x.Address == null).FirstOrDefault();
-                }
-                else
-                {
-                    shopDataModel = shops.Select(x => x)
-                        .Where(x => x.Address == receipt.Shop.Address).FirstOrDefault();
-                }
+                shopDataModel = receipt.Shop.Address == null
+                    ? shops.FirstOrDefault(x => x.Address == null)
+                    : shops.Select(x => x).FirstOrDefault(x => x.Address == receipt.Shop.Address);
             }
 
-            ReceiptDataModel receiptDataModel = new ReceiptDataModel()
+            var receiptDataModel = new ReceiptDataModel
             {
                 ReceiptDate = receipt.ReceiptDate,
                 UpdateDate = receipt.UpdateDate,
@@ -54,106 +53,129 @@ namespace GREEDY.DataManagers
                 Total = 0
             };
 
+            var categories = _context.Set<CategoryDataModel>().Select(x => x).ToList();
+
             receiptDataModel.Items = new List<ItemDataModel>();
-            foreach (Item item in receipt.ItemsList)
+            foreach (var item in receipt.ItemsList)
             {
-                receiptDataModel.Items.Add(new ItemDataModel()
+                receiptDataModel.Items.Add(new ItemDataModel
                 {
                     Receipt = receiptDataModel,
                     Price = item.Price,
                     Name = item.Name,
-                    Category = item.Category
+                    Category = categories
+                        .FirstOrDefault(x => x.CategoryName == item.Category)
                 });
 
                 receiptDataModel.Total += item.Price;
             }
-            context.Set<ReceiptDataModel>().Add(receiptDataModel);
-            context.SaveChanges();
+
+            _context.Set<ReceiptDataModel>().Add(receiptDataModel);
+            _context.SaveChanges();
             return receiptDataModel.ReceiptId;
         }
 
         public List<Item> GetItemsOfSingleReceipt(int receiptId)
         {
-            var temp = context.Set<ReceiptDataModel>()
+            //get exception during unitTesting. Need time ti verify issue
+            var temp = _context.Set<ReceiptDataModel>()
                 .Include(x => x.Items)
                 .FirstOrDefault(x => x.ReceiptId == receiptId);
-            return temp.Items.Select(x => new Item
+
+            var categories = _context.Set<CategoryDataModel>()
+                .Select(x => x);
+
+            return temp?.Items.Select(x => new Item
             {
-                Category = x.Category,
+                Category = x.Category.CategoryName,
                 Name = x.Name,
                 Price = x.Price,
                 ItemId = x.ItemId
             }).ToList();
         }
 
-        public List<Item> LoadData(string Username)
-        {
-            var temp = context.Set<ItemDataModel>()
-                     .Select(x => x)
-                     .Where(x => x.Receipt.User.Username.ToLower() == Username.ToLower());
-            return temp.Select(x => new Item
-            {
-                Category = x.Category,
-                Name = x.Name,
-                Price = x.Price
-            }).ToList();
-        }
-
         public List<Item> GetAllUserItems(string username)
         {
-            using (context)
+            using (_context)
             {
-                var items = context.Set<ItemDataModel>()
+                var items = _context.Set<ItemDataModel>()
                     .Select(x => x).Where(x => x.Receipt.User.Username == username);
-                return items.Select(x => new Item() {
-                    Name = x.Name, Category = x.Category,
-                    ItemId = x.ItemId, Price = x.Price }).ToList();
+                return items.Select(x => new Item
+                {
+                    Name = x.Name,
+                    Category = x.Category.CategoryName,
+                    ItemId = x.ItemId,
+                    Price = x.Price
+                }).ToList();
             }
         }
 
-        //TODO: for now this only saves the changed item to ItemDataModels table
-        //nothing is written for categorizations.
-        //Once categoraziation is sorted out need to add extra logic
         public void UpdateItem(Item updatedItem)
         {
-            var itemToUpdate = context.Set<ItemDataModel>()
+            var categories = _context.Set<CategoryDataModel>().Select(x => x);
+            var itemToUpdate = _context.Set<ItemDataModel>()
                 .FirstOrDefault(x => x.ItemId == updatedItem.ItemId);
             //TODO: I believe this can be written in more SOLID style
             //Using explicit/implicit type conversion operators
-            //Didn't have the time to research this
-            itemToUpdate.Name = updatedItem.Name;
-            itemToUpdate.Category = updatedItem.Category;
-            itemToUpdate.Receipt.Total += updatedItem.Price - itemToUpdate.Price;
-            itemToUpdate.Price = updatedItem.Price;
-            context.SaveChanges();
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Name = updatedItem.Name;
+                itemToUpdate.Category = categories.FirstOrDefault(x => x.CategoryName == updatedItem.Category);
+                itemToUpdate.Receipt.Total += updatedItem.Price - itemToUpdate.Price;
+                itemToUpdate.Price = updatedItem.Price;
+            }
+
+            _context.SaveChanges();
         }
 
         public void AddItem(Item newItem, int receiptId)
         {
-            var receipt = context.Set<ReceiptDataModel>().First(x => x.ReceiptId == receiptId);
+            var receipt = _context.Set<ReceiptDataModel>().First(x => x.ReceiptId == receiptId);
+            var categories = _context.Set<CategoryDataModel>().Select(x => x);
             receipt.Total += newItem.Price;
-            context.Set<ItemDataModel>().Add(new ItemDataModel
+            _context.Set<ItemDataModel>().Add(new ItemDataModel
             {
                 Name = newItem.Name,
-                Category = newItem.Category,
+                Category = categories.FirstOrDefault(x => x.CategoryName == newItem.Category),
                 Price = newItem.Price,
                 Receipt = receipt
             });
-            
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void DeleteItem(int itemId)
         {
-            var itemToDelete = context.Set<ItemDataModel>().First(x => x.ItemId == itemId);
+            var itemToDelete = _context.Set<ItemDataModel>().First(x => x.ItemId == itemId);
             itemToDelete.Receipt.Total -= itemToDelete.Price;
-            context.Set<ItemDataModel>().Remove(itemToDelete);
-            context.SaveChanges();
+            _context.Set<ItemDataModel>().Remove(itemToDelete);
+            _context.SaveChanges();
         }
 
-        void IDisposable.Dispose()
+        public List<Item> GetItemsOfSingleCategory(string category)
         {
-            context.Dispose();
+            var temp = _context.Set<CategoryDataModel>()
+                .Include(x => x.Items)
+                .FirstOrDefault(x => x.CategoryName == category);
+
+            return temp?.Items.Select(x => new Item
+            {
+                Name = x.Name,
+                Price = x.Price,
+                ItemId = x.ItemId
+            }).ToList();
+        }
+
+        public List<Item> LoadData(string username)
+        {
+            var temp = _context.Set<ItemDataModel>()
+                .Select(x => x)
+                .Where(x => x.Receipt.User.Username.ToLower() == username.ToLower());
+            return temp.Select(x => new Item
+            {
+                Category = x.Category.CategoryName,
+                Name = x.Name,
+                Price = x.Price
+            }).ToList();
         }
     }
 }

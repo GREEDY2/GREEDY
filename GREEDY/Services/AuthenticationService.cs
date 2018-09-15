@@ -18,12 +18,13 @@ namespace GREEDY.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
-                        {
-                        new Claim(ClaimTypes.Name, username)
-                    }),
+                {
+                    new Claim(ClaimTypes.Name, username)
+                }),
                 Expires = now.AddHours(Convert.ToInt32(expireHours)),
 
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
 
             var stoken = tokenHandler.CreateToken(tokenDescriptor);
@@ -32,10 +33,7 @@ namespace GREEDY.Services
             return token;
         }
 
-        public Task<bool> ValidateToken(string token)
-        {
-            return ValidateToken(token, out string username);
-        }
+        public Task<bool> ValidateToken(string token) => ValidateToken(token, out var username);
 
         public Task<bool> ValidateToken(string token, out string username)
         {
@@ -44,32 +42,22 @@ namespace GREEDY.Services
             try
             {
                 var simplePrinciple = GetPrincipal(token);
-                var identity = simplePrinciple.Identity as ClaimsIdentity;
 
-                if (identity == null)
-                {
-                    return Task.FromResult<bool>(false);
-                }
+                if (!(simplePrinciple.Identity is ClaimsIdentity identity)) return Task.FromResult(false);
 
-                if (!identity.IsAuthenticated)
-                {
-                    return Task.FromResult<bool>(false);
-                }
+                if (!identity.IsAuthenticated) return Task.FromResult(false);
 
                 var usernameClaim = identity.FindFirst(ClaimTypes.Name);
                 username = usernameClaim?.Value;
 
-                if (string.IsNullOrEmpty(username))
-                {
-                    return Task.FromResult<bool>(false);
-                }
+                if (string.IsNullOrEmpty(username)) return Task.FromResult(false);
             }
             catch (SecurityTokenValidationException)
             {
-                return Task.FromResult<bool>(false);
+                return Task.FromResult(false);
             }
-            
-            return Task.FromResult<bool>(true);
+
+            return Task.FromResult(true);
         }
 
         private ClaimsPrincipal GetPrincipal(string token)
@@ -77,16 +65,12 @@ namespace GREEDY.Services
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
-                if (jwtToken == null)
-                {
-                    return null;
-                }
+                if (!(tokenHandler.ReadToken(token) is JwtSecurityToken jwtToken)) return null;
 
                 var symmetricKey = Convert.FromBase64String(Secret);
 
-                var validationParameters = new TokenValidationParameters()
+                var validationParameters = new TokenValidationParameters
                 {
                     RequireExpirationTime = true,
                     ValidateIssuer = false,
@@ -94,7 +78,7 @@ namespace GREEDY.Services
                     IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
                 };
 
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out var securityToken);
 
                 return principal;
             }

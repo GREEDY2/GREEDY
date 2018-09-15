@@ -1,6 +1,6 @@
-﻿import * as React from 'react';
-import AlertContainer from 'react-alert'
-import Constants from './Constants';
+﻿import * as React from "react";
+import AlertContainer from "react-alert"
+import Constants from "./Constants";
 
 interface Props {
     onRef: any
@@ -23,17 +23,18 @@ export class Alert extends React.Component<Props> {
         theme: Constants.themeAlertMessage,
         time: Constants.displayAlertMessage,
         transition: Constants.transitionAlertMessage
-    }
+    };
 
     showAlert = (message, type) => {
-        this.msg.show(message, {
-            type
-        })
-    }
+        this.msg.show(message,
+            {
+                type
+            });
+    };
 
     render() {
         return (
-            <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-        )
+            <AlertContainer ref={a => this.msg = a} {...this.alertOptions}/>
+        );
     }
 }

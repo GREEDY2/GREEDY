@@ -1,9 +1,9 @@
-﻿import * as React from 'react';
-import { Button } from 'reactstrap';
-import axios from 'axios';
-import DocumentTitle from 'react-document-title';
-import { RegistrationForm } from 'react-stormpath';
-import Constants from '../Shared/Constants';
+﻿import * as React from "react";
+import { Button } from "reactstrap";
+import axios from "axios";
+import DocumentTitle from "react-document-title";
+import Constants from "../Shared/Constants";
+import { RegistrationForm } from "react-stormpath";
 
 export class ChangeEmail extends React.Component {
     constructor() {
@@ -17,46 +17,46 @@ export class ChangeEmail extends React.Component {
         var regex = Constants.emailRegex;
 
         if (data.email.length < 1) {
-            return next(new Error('Email can not be empty'));
+            return next(new Error("Email can not be empty"));
         }
 
         if (!regex.test(data.email)) {
-            return next(new Error('Incorrect new email'));
+            return next(new Error("Incorrect new email"));
         }
 
         if (data.email.length > Constants.maxAnyInputLength) {
-            return next(new Error('Email is too long'));
+            return next(new Error("Email is too long"));
         }
 
-        let changeEmail = {}
+        const changeEmail = {};
         changeEmail["password"] = data.password;
         changeEmail["email"] = data.email;
 
-        axios.put(Constants.httpRequestBasePath + 'api/ChangeEmail', changeEmail,
+        axios.put(Constants.httpRequestBasePath + "api/ChangeEmail",
+            changeEmail,
             {
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                    'Authorization': `Bearer ${localStorage.getItem("auth")}`
                 }
             }).then(response => {
-                let res = response.data;
-                if (res) {
-                    this.setState({ isAccountCreated: true });
-                }
-                else
-                    return next(new Error('Wrong password'));
-            }).catch(error => {
-                //TODO: add extra logic (and to all catches aswell) 
-                //when authorization in each request with the server is implementated
-                return next(new Error('Unable to change email at this time, try again later'));
-            });
-    }
+            const res = response.data;
+            if (res) {
+                this.setState({ isAccountCreated: true });
+            } else
+                return next(new Error("Wrong password"));
+        }).catch(error => {
+            //TODO: add extra logic (and to all catches aswell) 
+            //when authorization in each request with the server is implementated
+            return next(new Error("Unable to change email at this time, try again later"));
+        });
+    };
 
-    public render() {
+    render() {
         return (
             <DocumentTitle title={`Register`}>
                 <RegistrationForm onSubmit={this.onFormSubmit.bind(this)}>
                     <h3 className="text-center">Change email</h3>
-                    <div className='sp-login-form regForm'>
+                    <div className="sp-login-form regForm">
                         <div className="row">
                             <div className="col-xs-12">
                                 <div className="form-horizontal">
@@ -65,14 +65,14 @@ export class ChangeEmail extends React.Component {
                                             htmlFor="spPasswordChangeEmail"
                                             className="col-xs-12 col-sm-4 control-label">
                                             Password
-                                </label>
+                                        </label>
                                         <div className="col-xs-12 col-sm-4">
                                             <input
                                                 type="password"
                                                 className="form-control"
                                                 id="spPasswordChangeEmail"
                                                 placeholder="Password"
-                                                name="password" />
+                                                name="password"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -80,13 +80,13 @@ export class ChangeEmail extends React.Component {
                                             htmlFor="spChangeEmail"
                                             className="col-xs-12 col-sm-4 control-label">
                                             New email
-                                </label>
+                                        </label>
                                         <div className="col-xs-12 col-sm-4">
                                             <input
                                                 className="form-control"
                                                 id="spChangeEmail"
                                                 placeholder="New email"
-                                                name="email" />
+                                                name="email"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -94,14 +94,14 @@ export class ChangeEmail extends React.Component {
                                             <p
                                                 className="alert alert-danger"
                                                 data-spIf="form.error">
-                                                <span data-spBind="form.errorMessage" />
+                                                <span data-spBind="form.errorMessage"/>
                                             </p>
                                             <Button
                                                 className="col-xs-12 col-sm-12"
                                                 type="submit"
                                                 color="btn btn-primary buttonText">
                                                 Change email
-                                    </Button>
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>

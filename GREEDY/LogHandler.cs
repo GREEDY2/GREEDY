@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -11,41 +12,45 @@ namespace GREEDY
 {
     public class LogHandler : DelegatingHandler
     {
-        private static object lockObject = new object();
-        private static readonly string logEntrySeperator = new String('-', 60);
+        private static readonly object LockObject = new object();
+        private static readonly string LogEntrySeperator = new string('-', 60);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        [SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             HttpResponseMessage response = null;
             try
             {
-                StringBuilder builder = new StringBuilder();
-                builder.AppendLine(logEntrySeperator);
+                var builder = new StringBuilder();
+                builder.AppendLine(LogEntrySeperator);
                 builder.AppendLine("Request");
                 builder.AppendLine(DateTime.Now.ToString("g", CultureInfo.CreateSpecificCulture("en-us")));
-                builder.AppendLine(string.Format("Request URI: {0}", request.RequestUri.ToString()));
-                builder.AppendLine(string.Format("Method: {0}", request.Method));
+                builder.AppendLine($"Request URI: {request.RequestUri}");
+                builder.AppendLine($"Method: {request.Method}");
 
                 response = await base.SendAsync(request, cancellationToken);
                 builder.AppendLine("\nResponse");
-                builder.AppendLine(string.Format("StatusCode: {0}", response.StatusCode.ToString()));
+                builder.AppendLine($"StatusCode: {response.StatusCode.ToString()}");
                 if (response.Content != null)
                 {
-                    if ((int)response.StatusCode >= 400)
+                    if ((int) response.StatusCode >= 400)
                     {
-                        string contentString = response.Content.ReadAsStringAsync().Result;
-                        var httpError = response.Content.ReadAsAsync<HttpError>().Result;
+                        var contentString = response.Content.ReadAsStringAsync().Result;
+                        var httpError = response.Content.ReadAsAsync<HttpError>(cancellationToken).Result;
                         LogException(builder, httpError);
                     }
                     else
                     {
-                        builder.AppendLine(string.Format("Content: {0}", response.Content.ReadAsStringAsync().Result));
-                        builder.AppendLine(string.Format("MediaType:{0}", response.Content.Headers.ContentType.MediaType));
+                        builder.AppendLine($"Content: {response.Content.ReadAsStringAsync().Result}");
+                        builder.AppendLine($"MediaType:{response.Content.Headers.ContentType.MediaType}");
                     }
                 }
-                builder.AppendLine(logEntrySeperator);
-                Task.Run(() => WriteLogEntry(builder.ToString()));
+
+                builder.AppendLine(LogEntrySeperator);
+#pragma warning disable 4014
+                Task.Run(() => WriteLogEntry(builder.ToString()), cancellationToken);
+#pragma warning restore 4014
                 return response;
             }
             catch
@@ -54,26 +59,27 @@ namespace GREEDY
             }
         }
 
-        private void WriteLogEntry(string logEntry)
+        private static void WriteLogEntry(string logEntry)
         {
-            lock (lockObject)
+            lock (LockObject)
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(Environments.AppConfig.LogPath, true))
+                using (var file = new StreamWriter(Environments.AppConfig.LogPath, true))
                 {
                     file.Write(logEntry);
                 }
             }
         }
 
-        private void LogException(StringBuilder builder, HttpError httpError)
+        private static void LogException(StringBuilder builder, HttpError httpError)
         {
-            builder.AppendLine(httpError.ExceptionType);
-            builder.AppendLine(httpError.ExceptionMessage);
-            builder.AppendLine(httpError.StackTrace);
-            if (httpError.InnerException != null)
+            while (true)
             {
+                builder.AppendLine(httpError.ExceptionType);
+                builder.AppendLine(httpError.ExceptionMessage);
+                builder.AppendLine(httpError.StackTrace);
+                if (httpError.InnerException == null) return;
                 builder.AppendLine("\nInner Exception");
-                LogException(builder, httpError.InnerException);
+                httpError = httpError.InnerException;
             }
         }
     }

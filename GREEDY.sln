@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1C82427-C471-4DE5-A9DE-D13F8C319503}"
-	ProjectSection(SolutionItems) = preProject
-		GREEDY\GREEDY.csproj = GREEDY\GREEDY.csproj
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GREEDY.UnitTests", "GREEDY.UnitTests\GREEDY.UnitTests.csproj", "{31DB6705-50BE-4A4F-AA46-2F0E5581F607}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GREEDY", "GREEDY_WEB\GREEDY.csproj", "{52044526-7676-43B0-A0C6-DC0040163C1B}"

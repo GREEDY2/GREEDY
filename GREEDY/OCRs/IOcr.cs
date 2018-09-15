@@ -1,10 +1,10 @@
-﻿using System.Drawing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace GREEDY.OCRs
 {
     public interface IOcr
     {
-        List<string> ConvertImage (Bitmap image);
+        List<string> ConvertImage(Bitmap image);
     }
 }

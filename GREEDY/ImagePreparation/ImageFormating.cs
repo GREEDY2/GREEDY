@@ -1,96 +1,89 @@
-﻿using System;
-using System.Drawing;
-using AForge;
-using AForge.Imaging.Filters;
-using Emgu.CV;
-using Emgu.CV.Structure;
+﻿using System.Drawing;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using Size = OpenCvSharp.Size;
 
 namespace GREEDY.ImagePreparation
 {
     public class ImageFormating : IImageFormating
     {
-        private readonly DeskewImage _deskewImage;
-
-        public ImageFormating()
-        {
-            _deskewImage = new DeskewImage();
-        }
+        private static readonly Mat ReceiptImage = new Mat();
+        private static readonly Mat TempImage = new Mat();
 
         // Applies series of modifications to prepare the image for OCR reading
-        public Bitmap FormatImage(Bitmap bitmap)
+        public Bitmap FormatImageForOcr(Mat matImage)
         {
-            try
-            {
-                Bitmap edited = Binarization(bitmap);
-                edited = RemoveNoise(edited);
-                edited = BiggestBlob(edited);
-                edited = Rotate(edited);
-                edited = _deskewImage.Deskew(edited);
-                edited = BiggestBlob(edited);
-                edited = Rescale(edited);
-                return edited;
-            }
-            catch
-            {
-                return bitmap;
-            }
+            ColorConversionToGray(matImage, ReceiptImage);
+            ReceiptImage.CopyTo(TempImage);
+            BlurAndThreshold(TempImage, 100); // parameter 100 - best selection after testing
+            //ApplyErodeAndDilate(tempImage, 6); // optional; parameter 6 - best selection after testing
+            CropReceiptArea(TempImage, ReceiptImage);
+            return new Bitmap(ReceiptImage.ToBitmap());
         }
 
-        // Turns the image to only black and white
-        public Bitmap Binarization(Bitmap bitmap)
+        private static void ColorConversionToGray(Mat fromImage, Mat toImage)
         {
-            Image<Gray, Byte> img = new Image<Gray, byte>(bitmap);
-            img = img.ThresholdBinary(new Gray(145), new Gray(255)); //magic numbers (most optimal values)
-            return img.Bitmap;
-        }
-
-        // Removes noise (small dots/smudges from an image)
-        public Bitmap RemoveNoise(Bitmap bitmap)
-        {
-            Image<Gray, byte> image = new Image<Gray, byte>(bitmap);
-            Image<Gray, byte> edited = image.SmoothMedian(7);
-            return edited.ToBitmap();
-        }
-
-        // Finds the biggest area of one color
-        public Bitmap BiggestBlob(Bitmap bitmap)
-        {
-            try
+            using (var gray = new Mat())
             {
-                ExtractBiggestBlob filter = new ExtractBiggestBlob();
-                Bitmap edited = filter.Apply(bitmap);
-                IntPoint blobPosition = filter.BlobPosition;
-                Rectangle cropArea = new Rectangle(blobPosition.X, blobPosition.Y, edited.Width, edited.Height);
-                edited = CropImage(bitmap, cropArea);
-                return edited;
-            }
-            catch
-            {
-                return bitmap;
+                //check colors of photo
+                var channels = fromImage.Channels();
+                if (channels > 1)
+                    Cv2.CvtColor(fromImage, gray, ColorConversionCodes.BGRA2GRAY);
+                else
+                    fromImage.CopyTo(gray);
+                gray.CopyTo(toImage);
             }
         }
 
-        public Bitmap CropImage(Image img, Rectangle cropArea)
+        private static void BlurAndThreshold(Mat image, int thr)
         {
-            Bitmap bmpImage = new Bitmap(img);
-            return bmpImage.Clone(cropArea, bmpImage.PixelFormat);
-        }
-
-        // Rotates the image if its width is more than its height
-        public Bitmap Rotate(Bitmap bitmap)
-        {
-            if (bitmap.Height < bitmap.Width)
+            if (thr < 255)
             {
-                bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                var threshImage = new Mat();
+                Cv2.Blur(image, threshImage, new Size(9, 9));
+                Cv2.Threshold(threshImage, threshImage, thr, 255, ThresholdTypes.Binary);
+                // construct a closing kernel and apply it to the thresholded image
+                var kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(21, 7));
+                //var closed = new Mat();
+                Cv2.MorphologyEx(image, image, MorphTypes.Close, kernel);
             }
-            return bitmap;
         }
 
-        //Rescale helps the OCR read better
-        public Bitmap Rescale(Bitmap bitmap)
+        private void ApplyErosionAndDilation(Mat image, int iter)
         {
-            bitmap.SetResolution(300, 300); //recomended DPI for OCR
-            return bitmap;
+            // perform a series of erosions and dilations
+            Cv2.Erode(image, image, null, iterations: iter);
+            Cv2.Dilate(image, image, null, iterations: iter);
+        }
+
+        private static void CropReceiptArea(Mat imageIn, Mat imageOut)
+        {
+            //find the contours in the thresholded image, then sort the contours by their area, keeping only the largest one
+            Cv2.FindContours(imageIn, out var contours, out var hierarchyIndexes,
+                RetrievalModes.CComp, ContourApproximationModes.ApproxSimple);
+
+            if (contours.Length == 0) return;
+            //finding biggest rectangle
+            var contourIndex = 0;
+            var previousArea = 0;
+            var biggestContourRect = Cv2.BoundingRect(contours[0]);
+            while (contourIndex >= 0)
+            {
+                var contour = contours[contourIndex];
+
+                //Find bounding rectangle for each contour
+                var boundingRect = Cv2.BoundingRect(contour);
+                var boundingRectArea = boundingRect.Width * boundingRect.Height;
+                if (boundingRectArea > previousArea)
+                {
+                    biggestContourRect = boundingRect;
+                    previousArea = boundingRectArea;
+                }
+
+                contourIndex = hierarchyIndexes[contourIndex].Next;
+            }
+            //Crop the image
+            imageOut = new Mat(imageOut, biggestContourRect);
         }
     }
 }

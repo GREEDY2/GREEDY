@@ -1,15 +1,15 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using GREEDY.Extensions;
 using Tesseract;
-using System.Collections.Generic;
 
 namespace GREEDY.OCRs
 {
     public class TesseractOcr : IOcr
     {
-        private TesseractEngine _tesseract;
+        private readonly TesseractEngine _tesseract;
 
-        public List<string> ConvertImage(Bitmap image)
+        private TesseractOcr()
         {
             _tesseract = new TesseractEngine
             (
@@ -17,6 +17,10 @@ namespace GREEDY.OCRs
                 Environments.AppConfig.OcrLanguage,
                 EngineMode.TesseractOnly
             );
+        }
+
+        public List<string> ConvertImage(Bitmap image)
+        {
             var page = _tesseract.Process(image);
             return page.GetLinesOfText();
         }

@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.Owin.Hosting;
 
 namespace GREEDY
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
-            string domainAddress = Environments.AppConfig.ServerAdressAndPort;
-            using (WebApp.Start<Startup>(url: domainAddress))
+            var domainAddress = Environments.AppConfig.ServerAdressAndPort;
+            using (WebApp.Start<Startup>(domainAddress))
             {
                 Console.WriteLine("Service Hosted " + domainAddress);
-                System.Threading.Thread.Sleep(-1);
+                Thread.Sleep(-1);
             }
         }
     }

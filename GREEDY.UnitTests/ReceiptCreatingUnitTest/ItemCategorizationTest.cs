@@ -1,21 +1,21 @@
-﻿using GREEDY.Models;
-using GREEDY.ReceiptCreatings;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GREEDY.Models;
+using GREEDY.ReceiptCreating;
 using Xunit;
 
 namespace GREEDY.UnitTests.ReceiptCreatingUnitTest
 {
-    public class UnitTest_ItemCategorization
+    public class ItemCategorizationTest
     {
         [Fact]
         public void ItemCategorization_CategorizeItems_CategorizingEmptyString()
         {
             //arrange
             var itemCategorization = new ItemCategorization();
-            List<Item> NewData = new List<Item>();
+            var newData = new List<Item>();
             //act
             //assert
-            Assert.Equal(NewData, itemCategorization.CategorizeItems(NewData));
+            Assert.Equal(newData, itemCategorization.CategorizeItems(newData));
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Button, ButtonGroup, InputGroup, InputGroupAddon, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
-import axios from 'axios';
-import Constants from '../Shared/Constants';
-import idbPromise from '../Shared/idbPromise';
-import { deleteRowFromDb } from '../Shared/DatabaseFunctions';
-import { Alert } from '../Shared/Alert';
+﻿import * as React from "react";
+import { Button, Input, Form, FormGroup, Label } from "reactstrap";
+import { ModalContainer, ModalDialog } from "react-modal-dialog";
+import axios from "axios";
+import Constants from "../Shared/Constants";
+import idbPromise from "../Shared/idbPromise";
+import { deleteRowFromDb } from "../Shared/DatabaseFunctions";
+import { Alert } from "../Shared/Alert";
 
 interface Props {
     onRef: any;
@@ -21,7 +20,7 @@ interface State {
     ItemPrice: number;
     ItemCategory: string;
     showEdit: boolean;
-    //showCategoryAdd: boolean;
+    modalWidth: string;
 }
 
 export class EditItem extends React.Component<Props, State> {
@@ -30,15 +29,16 @@ export class EditItem extends React.Component<Props, State> {
         Categories: [],
         ItemId: 0,
         ItemIndex: 0,
-        ItemName: '',
+        ItemName: "",
         ItemPrice: 0,
-        ItemCategory: '',
+        ItemCategory: "",
         showEdit: false,
-        //showCategoryAdd: false
-    }
+        modalWidth: "80%"
+    };
 
     componentWillMount() {
         this.getAllDistinctCategoriesFromDb();
+        this.updateModelWidth();
     }
 
     componentDidMount() {
@@ -48,6 +48,14 @@ export class EditItem extends React.Component<Props, State> {
     componentWillUnmount() {
         this.props.onRef(undefined);
     }
+
+    updateModelWidth = () => {
+        if (this.state.modalWidth !== "80%" && window.innerWidth < 768) {
+            this.setState({ modalWidth: "80%" });
+        } else if (this.state.modalWidth !== "40%" && window.innerWidth >= 768) {
+            this.setState({ modalWidth: "40%" });
+        }
+    };
 
     //TODO: don't make the entire list refetch after edit, just change the item that has been edited
     saveItemChanges = (e) => {
@@ -60,51 +68,52 @@ export class EditItem extends React.Component<Props, State> {
             Name: this.state.ItemName,
             Price: this.state.ItemPrice,
             Category: this.state.ItemCategory
-        }
-        axios.put(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId, item,
+        };
+        axios.put(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId,
+            item,
             {
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                    'Authorization': `Bearer ${localStorage.getItem("auth")}`
                 }
             }).then(response => {
-                this.child.showAlert("Item edited successfully", "success");
-                this.props.updateListAfterChange();
-            }).catch(error => {
-                this.child.showAlert("Failed to edit Item. Try again later", "error");
-            });
-    }
+            this.child.showAlert("Item edited successfully", "success");
+            this.props.updateListAfterChange();
+        }).catch(error => {
+            this.child.showAlert("Failed to edit Item. Try again later", "error");
+        });
+    };
 
     getAllDistinctCategoriesFromDb = () => {
         if (idbPromise) {
             idbPromise.then(db => {
                 if (!db) return;
 
-                var tx = db.transaction('categories');
-                var store = tx.objectStore('categories');
+                var tx = db.transaction("categories");
+                var store = tx.objectStore("categories");
                 return store.getAllKeys().then(categories => {
                     this.setState({ Categories: categories });
-                })
+                });
             }).then(() => {
                 if (this.state.Categories === []) {
                     this.getAllDistinctCategories();
                 }
-            })
+            });
         }
-    }
+    };
 
     getAllDistinctCategories = () => {
         axios.get(Constants.httpRequestBasePath + "api/GetDistinctCategories",
             {
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                    'Authorization': `Bearer ${localStorage.getItem("auth")}`
                 }
             }).then(response => {
-                let res = response.data;
-                this.setState({ Categories: res });
-            }).catch(error => {
-                console.log(error);
-            })
-    }
+            const res = response.data;
+            this.setState({ Categories: res });
+        }).catch(error => {
+            console.log(error);
+        });
+    };
 
     /*
     //TODO: decide if we want to let user add categories (i believe not)
@@ -126,22 +135,22 @@ export class EditItem extends React.Component<Props, State> {
         axios.delete(Constants.httpRequestBasePath + "api/UpdateItem/" + this.state.ItemId,
             {
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("auth")
+                    'Authorization': `Bearer ${localStorage.getItem("auth")}`
                 }
             }).then(response => {
-                let res = response.data;
-                this.child.showAlert("Item deleted successfully", "success");
-                deleteRowFromDb('myItems', this.state.ItemId);
-                this.props.updateListAfterChange();
-                this.setState({ showEdit: false });
-            }).catch(error => {
-                this.child.showAlert("Failed to delete Item. Try again later", "error");
-            });
-    }
+            const res = response.data;
+            this.child.showAlert("Item deleted successfully", "success");
+            deleteRowFromDb("myItems", this.state.ItemId);
+            this.props.updateListAfterChange();
+            this.setState({ showEdit: false });
+        }).catch(error => {
+            this.child.showAlert("Failed to delete Item. Try again later", "error");
+        });
+    };
 
     hideEdit = () => {
         this.setState({ showEdit: false });
-    }
+    };
 
     showEdit = (index, itemId, name, price, category) => {
         this.setState({
@@ -152,7 +161,7 @@ export class EditItem extends React.Component<Props, State> {
             ItemCategory: category,
             showEdit: true
         });
-    }
+    };
 
     /*showCategoryAdd = () => {
         this.setState({ showCategoryAdd: true });
@@ -164,26 +173,27 @@ export class EditItem extends React.Component<Props, State> {
 
     eNameChange = (event) => {
         this.setState({ ItemName: event.target.value });
-    }
+    };
 
     ePriceChange = (event) => {
         this.setState({ ItemPrice: event.target.value });
-    }
+    };
 
     eCategoryChange = (event) => {
         this.setState({ ItemCategory: event.target.value });
-    }
+    };
 
-    public render() {
+    render() {
         return (
             <div>
-                <Alert onRef={ref => (this.child = ref)} />
+                <Alert onRef={ref => (this.child = ref)}/>
                 {this.state.showEdit &&
-                    <ModalContainer onClose={this.hideEdit} >
-                        <ModalDialog onClose={this.hideEdit} style={{ width: '80%' }}>
+                    <ModalContainer onClose={this.hideEdit}>
+                        <ModalDialog onClose={this.hideEdit} style={{ width: this.state.modalWidth }}>
                             <div className="row">
                                 <h3 className="col-xs-8">Edit Item Nr. {this.state.ItemIndex + 1}</h3>
-                                <Button className="col-xs-4" type="button" color="danger" onClick={this.deleteItem} style={{marginTop: "20px", right: "15px"}}>
+                                <Button className="col-xs-4" type="button" color="danger" onClick={this.deleteItem
+} style={{ marginTop: "20px", right: "15px" }}>
                                     Delete Item
                                 </Button>
                             </div>
@@ -198,7 +208,7 @@ export class EditItem extends React.Component<Props, State> {
                                         required id="eItemName"
                                         defaultValue={this.state.ItemName}
                                         onChange={this.eNameChange}
-                                        placeholder="Item Name" />
+                                        placeholder="Item Name"/>
                                     <Label for="eItemPrice">Price</Label>
                                     <Input
                                         type="number"
@@ -207,7 +217,7 @@ export class EditItem extends React.Component<Props, State> {
                                         required id="eItemPrice"
                                         defaultValue={this.state.ItemPrice}
                                         onChange={this.ePriceChange}
-                                        placeholder="Item Price" />
+                                        placeholder="Item Price"/>
                                     <Label for="eItemCategory">Category</Label>
                                     <Input
                                         type="select"
@@ -216,24 +226,23 @@ export class EditItem extends React.Component<Props, State> {
                                         defaultValue={this.state.ItemCategory}
                                         onChange={this.eCategoryChange}>
                                         <option></option>
-                                        {this.state.Categories.map(category =>
-                                            <option key={category}>{category}</option>
-                                        )}
+                                        {this.state.Categories.map(
+                                            category => <option key={category}>{category}</option>)}
                                     </Input>
-                                    {/* We decided that we don't let the user add a category for now
+                                    { /* We decided that we don't let the user add a category for now
                                     <Button type="button" color="primary" onClick={this.showCategoryAdd}>
                                         Add Category
-                                </Button>*/}
+                                </Button>*/
+                                    }
                                 </FormGroup>
                                 <Button color="success" block>
                                     Save
-                            </Button>
+                                </Button>
 
                             </Form>
                         </ModalDialog>
-                    </ModalContainer >
-                }
-                {/*{this.state.showCategoryAdd &&
+                    </ModalContainer > }
+                { /*{this.state.showCategoryAdd &&
                     <ModalContainer onClose={this.hideCategoryAdd}>
                         <ModalDialog onClose={this.hideCategoryAdd}>
                             <h3>Add a new category</h3>
@@ -252,7 +261,8 @@ export class EditItem extends React.Component<Props, State> {
                             </Button>
                             </Form>
                         </ModalDialog>
-                    </ModalContainer>}*/}
-            </div>)
+                    </ModalContainer>}*/
+                }
+            </div>);
     }
 }

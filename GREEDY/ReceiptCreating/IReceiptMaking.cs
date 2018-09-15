@@ -1,9 +1,9 @@
-﻿using GREEDY.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using GREEDY.Models;
 
-namespace GREEDY.ReceiptCreatings
+namespace GREEDY.ReceiptCreating
 {
     public interface IReceiptMaking
     {

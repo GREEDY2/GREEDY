@@ -1,40 +1,40 @@
 ﻿export const smoothScroll = {
     timer: null,
 
-    stop: function () {
+    stop: function() {
         clearTimeout(this.timer);
     },
 
-    scrollTo: function (id) {
+    scrollTo: function(id) {
         var settings = {
             duration: 1000,
             easing: {
-                outQuint: function (x, t, b, c, d) {
+                outQuint: function(x, t, b, c, d) {
                     return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
                 }
             }
         };
-        var percentage;
-        var startTime;
-        var node = document.getElementById(id);
-        var nodeTop = node.offsetTop;
-        var nodeHeight = node.offsetHeight;
-        var body = document.body;
-        var html = document.documentElement;
-        var height = Math.max(
+        var percentage: number;
+        var startTime: number;
+        const node = document.getElementById(id);
+        const nodeTop = node.offsetTop;
+        const nodeHeight = node.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const height = Math.max(
             body.scrollHeight,
             body.offsetHeight,
             html.clientHeight,
             html.scrollHeight,
             html.offsetHeight
         );
-        var windowHeight = window.innerHeight
+        const windowHeight = window.innerHeight;
         var offset = window.pageYOffset;
-        var delta = nodeTop - offset;
-        var bottomScrollableY = height - windowHeight;
-        var targetY = (bottomScrollableY < delta) ?
-            bottomScrollableY - (height - nodeTop - nodeHeight + offset) :
-            delta;
+        const delta = nodeTop - offset;
+        const bottomScrollableY = height - windowHeight;
+        var targetY = (bottomScrollableY < delta)
+            ? bottomScrollableY - (height - nodeTop - nodeHeight + offset)
+            : delta;
 
         startTime = Date.now();
         percentage = 0;
@@ -44,8 +44,7 @@
         }
 
         function step() {
-            var yScroll;
-            var elapsed = Date.now() - startTime;
+            const elapsed = Date.now() - startTime;
 
             if (elapsed > settings.duration) {
                 clearTimeout(this.timer);
@@ -56,11 +55,13 @@
             if (percentage > 1) {
                 clearTimeout(this.timer);
             } else {
+                let yScroll: number;
                 yScroll = settings.easing.outQuint(0, elapsed, offset, targetY, settings.duration);
                 window.scrollTo(0, yScroll);
                 this.timer = setTimeout(step, 10);
             }
         }
+
         this.timer = setTimeout(step, 10);
     }
 };
