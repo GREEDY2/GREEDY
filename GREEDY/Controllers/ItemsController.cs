@@ -48,8 +48,9 @@ namespace GREEDY.Controllers
                         : null,
                     total = receiptInfo.Total
                 };
-                if (list == null || list.Count == 0) return HelperClass.JsonHttpResponse<object>(null);
-                return HelperClass.JsonHttpResponse(response);
+                    return (list == null || list.Count == 0)
+                        ? HelperClass.JsonHttpResponse<object> (null) 
+                        : HelperClass.JsonHttpResponse (response);
             }
             catch (NullReferenceException)
             {

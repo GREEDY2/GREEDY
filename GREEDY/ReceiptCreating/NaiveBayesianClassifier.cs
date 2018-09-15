@@ -24,10 +24,7 @@ namespace GREEDY.ReceiptCreating
         public Dictionary<string, int> WordCount { get; set; }
         public int NumberOfDocs { get; set; }
 
-        public int NumberOfOccurencesInTrainDocs(string word)
-        {
-            return WordCount.Keys.Contains(word) ? WordCount[word] : 0;
-        }
+        public int NumberOfOccurencesInTrainDocs(string word) => WordCount.Keys.Contains(word) ? WordCount[word] : 0;
     }
 
     public class NaiveBayesianClassifier
@@ -90,10 +87,8 @@ namespace GREEDY.ReceiptCreating
             return classResultList.Single(x => x.ClassName == category).Result / classResultList.Sum(x => x.Result);
         }
 
-        private static double Calc(double dc, double d, List<string> q, double lc, ClassInfo classInfo, double v)
-        {
-            return Math.Log(dc / d) + q.Sum(x => Math.Log((classInfo.NumberOfOccurencesInTrainDocs(x) + 1) / (v + lc)));
-        }
+        private static double Calc(double dc, double d, List<string> q, double lc, ClassInfo classInfo, double v) => 
+            Math.Log(dc / d) + q.Sum(x => Math.Log((classInfo.NumberOfOccurencesInTrainDocs(x) + 1) / (v + lc)));
 
         private void ClassifierTraining(ICollection<ItemClassificationModels> train)
         {
@@ -106,9 +101,7 @@ namespace GREEDY.ReceiptCreating
 
     public static class Helpers
     {
-        public static List<string> ExtractFeatures(this string text)
-        {
-            return Regex.Matches(text, "\\p{L}{4,}").Cast<Match>().Select(match => match.Value.ToLower()).ToList();
-        }
+        public static List<string> ExtractFeatures(this string text) => 
+            Regex.Matches(text, "\\p{L}{4,}").Cast<Match>().Select(match => match.Value.ToLower()).ToList();
     }
 }

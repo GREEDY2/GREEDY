@@ -158,8 +158,12 @@ namespace GREEDY.Controllers
             var newEmail = passwordAndEmailObject.email;
             if (await isAuthenticated)
             {
+                    //Email is inccorect
+                    //TODO: need a different message for the user if this happens
                 if (!newEmail.IsEmailValid()) return HelperClass.JsonHttpResponse<object>(null);
                 if (_userManager.FindByEmail(newEmail, false) != null)
+                    //Email is already taken
+                    //TODO: need a different message for the user if this happens
                     return HelperClass.JsonHttpResponse<object>(null);
                 var isUserMatched = _userManager.ChangeUserEmail(username, password.Encrypt(), newEmail);
                 if (isUserMatched)
@@ -194,9 +198,13 @@ namespace GREEDY.Controllers
             var password = passwordAndNewPasswordObject.password;
             var newPassword = passwordAndNewPasswordObject.newpassword;
             if (!await isAuthenticated) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            //New password is invalid
+            //TODO: need a different message for the user if this happens
             if (!newPassword.IsPasswordValid()) return HelperClass.JsonHttpResponse<object>(null);
             var isUserMatched =
                 _userManager.ChangeUserPassword(username, password.Encrypt(), newPassword.Encrypt());
+            //Password is invalid
+            //TODO: need a different message for the user if this happens
             return isUserMatched ? new HttpResponseMessage(HttpStatusCode.OK) : HelperClass.JsonHttpResponse<object>(null);
         }
     }

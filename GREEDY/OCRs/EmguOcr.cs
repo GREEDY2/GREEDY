@@ -17,7 +17,8 @@ namespace GREEDY.OCRs
             (
                 Environments.AppConfig.TesseractDataPath,
                 Environments.AppConfig.OcrLanguage,
-                OcrEngineMode.Default);
+                OcrEngineMode.Default
+			);
         }
 
         public List<string> ConvertImage(Bitmap image)

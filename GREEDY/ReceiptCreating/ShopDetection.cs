@@ -26,10 +26,9 @@ namespace GREEDY.ReceiptCreating
             firstLine = Regex.Replace(firstLine, @"\r\r\n", " ");
             var allshops = _shops.GetExistingShops();
             var shopName = GetShopName(firstLine, allshops);
-            if (shopName == null)
-                return null;
-            return GetShopWithLocation(firstLine, allshops
-                .Where(x => x.Name == shopName || x.SubName == shopName).ToList());
+            return shopName == null
+                ? null
+                : GetShopWithLocation(firstLine, allshops.Where(x => x.Name == shopName || x.SubName == shopName).ToList());
         }
 
         public Shop GetShopWithLocation(string firstLine, List<Shop> shops)

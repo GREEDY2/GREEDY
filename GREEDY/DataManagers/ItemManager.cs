@@ -39,11 +39,9 @@ namespace GREEDY.DataManagers
                     .Select(x => x)
                     .Where(x => x.Name == receipt.Shop.Name);
 
-                if (receipt.Shop.Address == null)
-                    shopDataModel = shops.FirstOrDefault(x => x.Address == null);
-                else
-                    shopDataModel = shops
-                        .Select(x => x).FirstOrDefault(x => x.Address == receipt.Shop.Address);
+                shopDataModel = receipt.Shop.Address == null
+                    ? shops.FirstOrDefault(x => x.Address == null)
+                    : shops.Select(x => x).FirstOrDefault(x => x.Address == receipt.Shop.Address);
             }
 
             var receiptDataModel = new ReceiptDataModel

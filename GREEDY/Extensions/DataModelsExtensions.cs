@@ -4,9 +4,6 @@ namespace GREEDY.Extensions
 {
     public static class DataModelsExtensions
     {
-        public static bool HasValue(this ShopDataModel shop)
-        {
-            return shop != null;
-        }
+        public static bool HasValue(this ShopDataModel shop) => shop != null;
     }
 }

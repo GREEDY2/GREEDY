@@ -28,14 +28,10 @@ namespace GREEDY.Extensions
             }
         }
 
-        public static bool IsUsernameValid(this string username)
-        {
-            return username.Length <= MaxAnyInputLength.Value && username.Length >= MinUsernameLength.Value;
-        }
+        public static bool IsUsernameValid(this string username) 
+            => username.Length <= MaxAnyInputLength.Value && username.Length >= MinUsernameLength.Value;
 
-        public static bool IsPasswordValid(this string password)
-        {
-            return password.Length <= MaxAnyInputLength.Value && password.Length >= MinPasswordLength.Value;
-        }
+        public static bool IsPasswordValid(this string password) 
+            => password.Length <= MaxAnyInputLength.Value && password.Length >= MinPasswordLength.Value;
     }
 }
